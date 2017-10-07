@@ -17,13 +17,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DisplayMessageActivity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
             android:name=".MemberListActivity"
             android:label="Member List"
             android:parentActivityName=".MainActivity">
@@ -54,6 +47,22 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".EventListActivity" />
+        </activity>
+        <activity
+            android:name=".DonateToEventActivity"
+            android:label="Donate to Event"
+            android:parentActivityName=".ViewEventActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ViewEventActivity" />
+        </activity>
+        <activity
+            android:name=".DonateToMemberActivity"
+            android:label="Donate to Member"
+            android:parentActivityName=".MemberListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MemberListActivity" />
         </activity>
     </application>
 

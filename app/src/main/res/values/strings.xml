@@ -9,4 +9,8 @@
     <string name="current_funds">Current Funds:</string>
     <string name="associated_member">Associated Member:</string>
     <string name="event_date">Event Date:</string>
+    <string name="button_donate">Donate</string>
+    <string name="donate_to_event">Donate to Event</string>
+    <string name="donate_to_member">Donate to Member</string>
+    <string name="donation_amount">Donation Amount</string>
 </resources>
