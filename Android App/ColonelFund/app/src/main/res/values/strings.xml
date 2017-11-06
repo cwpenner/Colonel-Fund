@@ -13,4 +13,6 @@
     <string name="donate_to_event">Donate to Event</string>
     <string name="donate_to_member">Donate to Member</string>
     <string name="donation_amount">Donation Amount</string>
+    <string name="email">Email Address:</string>
+    <string name="phone">Phone Number:</string>
 </resources>

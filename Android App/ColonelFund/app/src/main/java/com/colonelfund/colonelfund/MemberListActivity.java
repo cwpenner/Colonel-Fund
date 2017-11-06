@@ -50,7 +50,7 @@ public class MemberListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                Intent intent = new Intent(MemberListActivity.this, DonateToMemberActivity.class);
+                Intent intent = new Intent(MemberListActivity.this, ViewMemberActivity.class);
                 startActivity(intent);
             }
         });

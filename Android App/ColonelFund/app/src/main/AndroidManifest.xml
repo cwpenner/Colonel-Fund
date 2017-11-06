@@ -64,6 +64,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MemberListActivity" />
         </activity>
+        <activity android:name=".ViewMemberActivity"></activity>
     </application>
 
 </manifest>
