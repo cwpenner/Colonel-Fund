@@ -7,8 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F0713A91FAFD23C00AA623A /* MemberListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */; };
+		5F0713AB1FAFD2F200AA623A /* MemberListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0713AA1FAFD2F200AA623A /* MemberListTableViewCell.swift */; };
+		5F5779D91FAFE6CB000667FC /* DonateToMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779D81FAFE6CB000667FC /* DonateToMemberViewController.swift */; };
+		5F5779DF1FB00F17000667FC /* ViewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779DE1FB00F17000667FC /* ViewEventViewController.swift */; };
+		5F5779E31FB017A2000667FC /* EventListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779E21FB017A2000667FC /* EventListTableViewController.swift */; };
+		5F5779E51FB017D3000667FC /* EventListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779E41FB017D3000667FC /* EventListTableViewCell.swift */; };
+		5F5779E71FB01805000667FC /* ViewMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779E61FB01805000667FC /* ViewMemberViewController.swift */; };
+		5F5779E91FB01BDD000667FC /* DonateToEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779E81FB01BDD000667FC /* DonateToEventViewController.swift */; };
+		5F5779EB1FB02AC7000667FC /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779EA1FB02AC7000667FC /* CreateEventViewController.swift */; };
 		5F995DD31F9286D700F8E459 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F995DD21F9286D700F8E459 /* AppDelegate.swift */; };
-		5F995DD51F9286D700F8E459 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F995DD41F9286D700F8E459 /* ViewController.swift */; };
+		5F995DD51F9286D700F8E459 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F995DD41F9286D700F8E459 /* MainViewController.swift */; };
 		5F995DD81F9286D700F8E459 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F995DD61F9286D700F8E459 /* Main.storyboard */; };
 		5F995DDB1F9286D700F8E459 /* ColonelFund.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F995DD91F9286D700F8E459 /* ColonelFund.xcdatamodeld */; };
 		5F995DDD1F9286D700F8E459 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F995DDC1F9286D700F8E459 /* Assets.xcassets */; };
@@ -35,9 +44,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListTableViewController.swift; sourceTree = "<group>"; };
+		5F0713AA1FAFD2F200AA623A /* MemberListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListTableViewCell.swift; sourceTree = "<group>"; };
+		5F5779D81FAFE6CB000667FC /* DonateToMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateToMemberViewController.swift; sourceTree = "<group>"; };
+		5F5779DE1FB00F17000667FC /* ViewEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventViewController.swift; sourceTree = "<group>"; };
+		5F5779E21FB017A2000667FC /* EventListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListTableViewController.swift; sourceTree = "<group>"; };
+		5F5779E41FB017D3000667FC /* EventListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListTableViewCell.swift; sourceTree = "<group>"; };
+		5F5779E61FB01805000667FC /* ViewMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMemberViewController.swift; sourceTree = "<group>"; };
+		5F5779E81FB01BDD000667FC /* DonateToEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateToEventViewController.swift; sourceTree = "<group>"; };
+		5F5779EA1FB02AC7000667FC /* CreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
 		5F995DCF1F9286D700F8E459 /* ColonelFund.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColonelFund.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F995DD21F9286D700F8E459 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5F995DD41F9286D700F8E459 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5F995DD41F9286D700F8E459 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5F995DD71F9286D700F8E459 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F995DDA1F9286D700F8E459 /* ColonelFund.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ColonelFund.xcdatamodel; sourceTree = "<group>"; };
 		5F995DDC1F9286D700F8E459 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,9 +117,18 @@
 		5F995DD11F9286D700F8E459 /* ColonelFund */ = {
 			isa = PBXGroup;
 			children = (
+				5F5779E41FB017D3000667FC /* EventListTableViewCell.swift */,
+				5F5779E21FB017A2000667FC /* EventListTableViewController.swift */,
 				5F995DD21F9286D700F8E459 /* AppDelegate.swift */,
-				5F995DD41F9286D700F8E459 /* ViewController.swift */,
+				5F995DD41F9286D700F8E459 /* MainViewController.swift */,
+				5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */,
 				5F995DD61F9286D700F8E459 /* Main.storyboard */,
+				5F5779EA1FB02AC7000667FC /* CreateEventViewController.swift */,
+				5F5779E81FB01BDD000667FC /* DonateToEventViewController.swift */,
+				5F5779DE1FB00F17000667FC /* ViewEventViewController.swift */,
+				5F5779E61FB01805000667FC /* ViewMemberViewController.swift */,
+				5F5779D81FAFE6CB000667FC /* DonateToMemberViewController.swift */,
+				5F0713AA1FAFD2F200AA623A /* MemberListTableViewCell.swift */,
 				5F995DDC1F9286D700F8E459 /* Assets.xcassets */,
 				5F995DDE1F9286D700F8E459 /* LaunchScreen.storyboard */,
 				5F995DE11F9286D700F8E459 /* Info.plist */,
@@ -262,9 +289,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F995DD51F9286D700F8E459 /* ViewController.swift in Sources */,
+				5F995DD51F9286D700F8E459 /* MainViewController.swift in Sources */,
+				5F5779E71FB01805000667FC /* ViewMemberViewController.swift in Sources */,
+				5F0713A91FAFD23C00AA623A /* MemberListTableViewController.swift in Sources */,
+				5F5779D91FAFE6CB000667FC /* DonateToMemberViewController.swift in Sources */,
+				5F5779E51FB017D3000667FC /* EventListTableViewCell.swift in Sources */,
+				5F5779E91FB01BDD000667FC /* DonateToEventViewController.swift in Sources */,
 				5F995DD31F9286D700F8E459 /* AppDelegate.swift in Sources */,
+				5F5779E31FB017A2000667FC /* EventListTableViewController.swift in Sources */,
+				5F0713AB1FAFD2F200AA623A /* MemberListTableViewCell.swift in Sources */,
+				5F5779DF1FB00F17000667FC /* ViewEventViewController.swift in Sources */,
 				5F995DDB1F9286D700F8E459 /* ColonelFund.xcdatamodeld in Sources */,
+				5F5779EB1FB02AC7000667FC /* CreateEventViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,10 +467,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F29UMC73E8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ColonelFund/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pennertech.ColonelFund;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ColonelFund.ColonelFund;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -446,10 +482,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F29UMC73E8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ColonelFund/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pennertech.ColonelFund;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ColonelFund.ColonelFund;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
