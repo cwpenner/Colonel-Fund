@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -18,6 +19,7 @@ import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -30,6 +32,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.internal.Utility;
+import com.facebook.login.LoginManager;
+import com.facebook.login.Login;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,17 +81,28 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
+
+        AppEventsLogger.activateApp(this);
+        callbackManager = CallbackManager.Factory.create();
+        //logger.logPurchase(BigDecimal.valueOf(4.32), Currency.getInstance("USD"));
+
         // Set up the login form.
         mUserName = (EditText) findViewById(R.id.txtUserName);
         mPasswordView = (EditText) findViewById(R.id.txtPassword);
 
-
         Button btnLogin = (Button) findViewById(R.id.btnLogin);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        //Button fbLogin = (Button) findViewById(R.id.login_button);
+
+
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,8 +120,56 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+                AccessToken accessToken = loginResult.getAccessToken();
+                GraphRequest req = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try{
+                            Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
+                            startActivity(MainIntent);
+                            Toast.makeText(LoginActivity.this, object.getString("name") + "Signed in successfully",Toast.LENGTH_LONG).show();
+
+                        }catch(JSONException ex) {
+                            ex.printStackTrace();
+                        }
+
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender, birthday");
+                req.setParameters(parameters);
+                req.executeAsync();
+                //Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
+                //startActivity(MainIntent);
+                //Log.d("login", accessToken. );
+
+                //Toast.makeText(LoginActivity.this, accessToken.getUserId() + "Signed in successfully",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancel() {
+                 Toast.makeText(LoginActivity.this, "Cancelled",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Toast.makeText(LoginActivity.this, "Wrong username or password",Toast.LENGTH_LONG).show();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mProgressView =      findViewById(R.id.login_progress);
+
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+      }
 }
 

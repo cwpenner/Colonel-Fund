@@ -18,6 +18,8 @@
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
+    <string name="facebook_app_id">861301034038497</string>
+    <string name="fb_login_protocol_scheme">fb861301034038497</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_username">UserName</string>
     <string name="prompt_password">Password</string>
