@@ -64,6 +64,14 @@
                 android:value=".EventListActivity" />
         </activity>
         <activity
+            android:name=".ViewMemberActivity"
+            android:label="View Member"
+            android:parentActivityName=".MemberListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MemberListActivity" />
+        </activity>
+        <activity
             android:name=".DonateToEventActivity"
             android:label="Donate to Event"
             android:parentActivityName=".ViewEventActivity">
@@ -79,7 +87,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MemberListActivity" />
         </activity>
-        <activity android:name=".ViewMemberActivity" />
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
@@ -97,7 +104,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
     </application>
 
 
