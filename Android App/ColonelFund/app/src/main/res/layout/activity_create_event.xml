@@ -114,6 +114,8 @@
         android:text="2018-07-04"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
         app:layout_constraintLeft_toRightOf="@+id/textView10"
+        android:clickable="true"
+        android:focusable="false"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp" />
 
@@ -136,4 +138,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         android:layout_marginBottom="16dp" />
+
 </android.support.constraint.ConstraintLayout>
