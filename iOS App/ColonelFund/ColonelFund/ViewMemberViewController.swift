@@ -15,10 +15,21 @@ class ViewMemberViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     
+    
     var tempNameText: String = ""
+
+    //dummy array
+    var eventList = [String]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        eventList.append("Independence Day BBQ")
+        eventList.append("John Smith Chemo Fund")
+        eventList.append("Let's Beat Alzheimer's!")
+        eventList.append("Paul's MS Donations")
+        eventList.append("Mrs. Cobain Widow Help")
 
         nameLabel.text = tempNameText
     }
@@ -28,6 +39,30 @@ class ViewMemberViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Table view data source
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return eventList.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cellIdentifier = "AssociatedEventsTableViewCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? AssociatedEventsTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of EventListTableViewCell.")
+        }
+        
+        let event = eventList[indexPath.row]
+        cell.nameLabel.text = event
+        
+        return cell
+    }
 
     
     // MARK: - Navigation
