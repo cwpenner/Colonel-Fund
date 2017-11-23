@@ -65,7 +65,6 @@
 		5F5779E61FB01805000667FC /* ViewMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMemberViewController.swift; sourceTree = "<group>"; };
 		5F5779E81FB01BDD000667FC /* DonateToEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateToEventViewController.swift; sourceTree = "<group>"; };
 		5F5779EA1FB02AC7000667FC /* CreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
-		5F7B28A21FC693A7000F9CA9 /* ColonelFund.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColonelFund.entitlements; sourceTree = "<group>"; };
 		5F8717FB1FC547C60091B13A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedEventsTableViewCell.swift; sourceTree = "<group>"; };
 		5F8718071FC5F9FD0091B13A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -178,7 +177,6 @@
 		5F995DD11F9286D700F8E459 /* ColonelFund */ = {
 			isa = PBXGroup;
 			children = (
-				5F7B28A21FC693A7000F9CA9 /* ColonelFund.entitlements */,
 				5F5779E41FB017D3000667FC /* EventListTableViewCell.swift */,
 				5F5779E21FB017A2000667FC /* EventListTableViewController.swift */,
 				5F995DD21F9286D700F8E459 /* AppDelegate.swift */,
@@ -709,7 +707,6 @@
 			baseConfigurationReference = 77A564E0EE15CBDF1E1B18F8 /* Pods-ColonelFund.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ColonelFund/ColonelFund.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -730,7 +727,6 @@
 			baseConfigurationReference = AEB4BE9924040FBFE0A6C09C /* Pods-ColonelFund.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = ColonelFund/ColonelFund.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (

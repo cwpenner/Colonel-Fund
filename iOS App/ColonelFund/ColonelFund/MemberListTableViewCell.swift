@@ -12,6 +12,8 @@ class MemberListTableViewCell: UITableViewCell {
     
     //MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var profilePicImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

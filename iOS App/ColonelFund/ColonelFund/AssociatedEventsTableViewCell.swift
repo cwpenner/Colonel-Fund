@@ -11,7 +11,9 @@ import UIKit
 class AssociatedEventsTableViewCell: UITableViewCell {
     
     //MARK: Properties
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var eventNameLabel: UILabel!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

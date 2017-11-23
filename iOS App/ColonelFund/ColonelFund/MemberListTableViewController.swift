@@ -67,6 +67,9 @@ class MemberListTableViewController: UITableViewController {
         
         let member = memberList[indexPath.row]
         cell.nameLabel.text = member
+        cell.usernameLabel.text = "johnwsmith"
+        
+        cell.layoutIfNeeded()
 
         return cell
     }
