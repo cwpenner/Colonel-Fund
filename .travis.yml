@@ -1,0 +1,5 @@
+env:
+  - TEST_SUITE=android
+  - TEST_SUITE=ios
+  
+script: "bundle exec rake test:$TEST_SUITE"
