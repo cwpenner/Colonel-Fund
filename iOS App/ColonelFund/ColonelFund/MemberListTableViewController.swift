@@ -67,11 +67,34 @@ class MemberListTableViewController: UITableViewController {
         
         let member = memberList[indexPath.row]
         cell.nameLabel.text = member
-        cell.usernameLabel.text = "johnwsmith"
+        cell.usernameLabel.text = "johnwsmith" //replace with username
+        //TODO: - if no profile pic, use placeholder
+        placeholderProfilePic(nameObj: cell.nameLabel.text!, imageObj: cell.profilePicImageView)
+        
         
         cell.layoutIfNeeded()
 
         return cell
+    }
+    
+    func placeholderProfilePic(nameObj: String, imageObj: UIImageView) {
+        let placeholder = UILabel()
+        placeholder.frame.size = CGSize(width: 50.0, height: 50.0)
+        placeholder.textColor = UIColor.white
+        placeholder.font = UIFont.boldSystemFont(ofSize: 26)
+        let name = nameObj.characters.split(separator: " ", maxSplits: 1).map(String.init)
+        var firstName = name[0]
+        var lastName = name[1]
+        placeholder.text = String(describing: firstName.characters.first!) + String(describing: lastName.characters.first!)
+        placeholder.textAlignment = NSTextAlignment.center
+        placeholder.backgroundColor = UIColor.darkGray
+        placeholder.layer.cornerRadius = 25.0
+        placeholder.layer.masksToBounds = true
+        
+        UIGraphicsBeginImageContext(placeholder.frame.size)
+        placeholder.layer.render(in: UIGraphicsGetCurrentContext()!)
+        imageObj.image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
     }
     
 
