@@ -2,6 +2,7 @@ matrix:
   include:
     - language: swift
       osx_image: xcode9.1
+      os: osx
       podfile: iOS\ App/ColonelFund/Pods
       xcode_workspace: ColonelFund.xcworkspace
       xcode_scheme: ColonelFund
@@ -22,9 +23,9 @@ matrix:
           - build-tools-26.0.2
           - android-25
           - android-26
+          - sys-img-x86-android-26
+          - extra-android-m2repository
       before_script:
         - cd Android\ App/ColonelFund
       script:
         - ./gradlew build connectedCheck
-        
-os: osx
