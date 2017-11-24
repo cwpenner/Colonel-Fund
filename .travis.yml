@@ -1,5 +1,25 @@
-env:
-  - TEST_SUITE=android
-  - TEST_SUITE=ios
-  
-script: "bundle exec rake test:$TEST_SUITE"
+matrix:
+  include:
+    - language: swift
+      osx_image: xcode9.1
+      podfile: iOS\ App/ColonelFund/Pods
+      xcode_workspace: ColonelFund.xcworkspace
+      xcode_scheme: ColonelFund
+      before_script:
+        - cd iOS\ App/ColonelFund
+      script:
+        - xcodebuild -workspace ColonelFund.xcworkspace -scheme ColonelFund
+          -destination 'platform=iOS Simulator,name=iPhone 8 Plus,OS=11.1' build
+          
+    - language: android
+      android:
+        components:
+          - tools
+          - android-26
+          - build-tools-26.0.2
+      before_script:
+        - cd Android\ App/ColonelFund
+      script:
+        - ./gradlew build assembleDebug
+        
+os: osx
