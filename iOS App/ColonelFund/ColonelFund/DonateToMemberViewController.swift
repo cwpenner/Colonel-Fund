@@ -12,14 +12,18 @@ class DonateToMemberViewController: UIViewController {
     
     //MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var memberDonationTextField: UITextField!
+    @IBOutlet weak var profilePicImageView: UIImageView!
     
     var tempNameText: String = ""
+    var tempUsernameText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         nameLabel.text = tempNameText
+        usernameLabel.text = tempUsernameText
     }
 
     override func didReceiveMemoryWarning() {

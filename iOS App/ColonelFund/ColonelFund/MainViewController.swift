@@ -7,9 +7,22 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FacebookLogin
 
 class MainViewController: UIViewController {
-
+    //TODO: - Show logged in user profile
+    //MARK: - Properties
+    @IBAction func logoutButtonPressed(_ sender: Any) {
+        print("You have been logged out")
+        //TODO: perform logout activities
+        if let accessToken = FBSDKAccessToken.current(){
+            LoginManager().logOut()
+        }
+        performSegue(withIdentifier: "ShowLogin", sender: self)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
