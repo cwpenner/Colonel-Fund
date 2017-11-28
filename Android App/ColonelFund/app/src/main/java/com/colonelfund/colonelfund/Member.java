@@ -7,15 +7,6 @@ import org.json.JSONObject;
 /**
  * Basic Member Object
  */
-
-/**
- *
- */
-
-/**
- * @author JWilk
- *
- */
 public class Member {
     private String userID;
     private String firstName;

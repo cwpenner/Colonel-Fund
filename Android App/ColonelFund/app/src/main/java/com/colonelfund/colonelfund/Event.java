@@ -6,7 +6,6 @@ import org.json.JSONException;
 /**
  * Basic Event Object
  */
-
 public class Event {
     private String title;
     private String associatedMember;
