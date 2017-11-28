@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,25 @@ public class ViewMemberActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        Member selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
         setContentView(R.layout.activity_view_member);
+
+        /**
+         * Member info Load
+         */
+        TextView text = (TextView) findViewById(R.id.textView3);
+        text.setText(selectedMember.getUserID());
+        text = (TextView) findViewById(R.id.textView12);
+        text.setText(selectedMember.getEmailAddress());
+        text = (TextView) findViewById(R.id.textView13);
+        text.setText(selectedMember.getPhoneNumber());
+        text = (TextView) findViewById(R.id.textView16);
+        text.setText(selectedMember.getFirstName() + " " + selectedMember.getLastName());
+
+        /**
+         * Event Info load
+         */
         lv = (ListView) findViewById(R.id.eventListView);
 
         //dummy array
