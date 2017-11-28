@@ -3,11 +3,14 @@ package com.colonelfund.colonelfund;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 
 /**
  * Basic Member Object
  */
-public class Member {
+public class Member implements Serializable {
+    private static final long serialVersionUID = 2628890352033932835L;
     private String userID;
     private String firstName;
     private String lastName;
