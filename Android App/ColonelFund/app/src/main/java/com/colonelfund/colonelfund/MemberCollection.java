@@ -1,35 +1,32 @@
 package com.colonelfund.colonelfund;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
+import android.content.Context;
+import android.content.res.AssetManager;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 /**
  * Member Collection Class
  * Needs to be converted from regular java to android compatible for restore and save.
  */
 public class MemberCollection {
-    private static final String jsonFileName = "./members.json";
+    private static final String jsonFileName = "members.json";
     public Map<String,Member> memberMap = null;
+    AssetManager am = null;
 
     /**
      * Default constructor. Will attempt to read a library file that has been saved.
      */
-    public MemberCollection() {
+    public MemberCollection(Context myContext) {
+        am = myContext.getAssets();
         boolean successfulLoad = this.restoreFromFile();
         if (successfulLoad) {
             System.out.println("Library loaded from: " + jsonFileName);
@@ -47,37 +44,7 @@ public class MemberCollection {
      * @return
      */
     public boolean saveJsonLibrary() {
-        FileWriter fileOut = null;
-        JSONObject jsonLibrary = new JSONObject();
-        try {
-            fileOut = new FileWriter(jsonFileName);
-            Iterator<Member> libItr = this.memberMap.values().iterator();
-            while (libItr.hasNext())
-            {
-                Member memberObj = (Member) libItr.next();
-                jsonLibrary.put(memberObj.getUserID(), memberObj.toJson());
-            }
-            fileOut.write(jsonLibrary.toString());
-            System.out.println("Library saved under: " + jsonFileName);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error writing file: " + jsonFileName);
-
-        }
-        finally
-        {
-            if (fileOut != null) {
-                try {
-                    fileOut.close();
-                    return true;
-                }
-                catch (Throwable t) {
-                    t.printStackTrace();
-                }
-            }
-
-        }
+        //toDo not operational
         return false;
     }
     /**
@@ -86,38 +53,46 @@ public class MemberCollection {
      */
     public boolean restoreFromFile() {
         boolean restored = false;
-        this.memberMap = new HashMap<String,Member>();
-        File libraryFile = new File(jsonFileName);
-        FileInputStream fileIn = null;
+        this.memberMap = new HashMap<String, Member>();
+        InputStream is = null;
         try {
-            if (libraryFile.exists()) {
-                System.out.println("Member Library collection found under: " + jsonFileName);
-                fileIn = new FileInputStream(jsonFileName);
-                String fileString = getFileContent(fileIn);
-                JSONObject obj = new JSONObject(new JSONTokener(fileString));
+            is = am.open(jsonFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (!is.equals(null)) {
+                System.out.println("Event Library collection found under: " + jsonFileName);
+                BufferedReader r = new BufferedReader(new InputStreamReader(is));
+                StringBuilder total = new StringBuilder();
+                String line;
+                while ((line = r.readLine()) != null) {
+                    total.append(line).append('\n');
+                }
+                String result = total.toString();
+                JSONObject obj = new JSONObject(result);
                 List<String> keyList = new ArrayList<String>();
                 for (Iterator<String> it = obj.keys(); it.hasNext(); ) {
                     String key = it.next();
                     keyList.add(key);
                 }
-                String [] memberIDs = keyList.toArray(new String[keyList.size()]);
-                for (int i=0; i < memberIDs.length; i++) {
-                    Member memberObj = new Member((JSONObject)obj.getJSONObject(memberIDs[i]));
-                    if (memberObj != null)
-                        this.memberMap.put(memberObj.getUserID(), memberObj);
+                String[] eventTitles = keyList.toArray(new String[keyList.size()]);
+                for (int i = 0; i < eventTitles.length; i++) {
+                    Member memberDesc = new Member((JSONObject) obj.getJSONObject(eventTitles[i]));
+                    if (memberDesc != null)
+                        this.memberMap.put(memberDesc.getUserID(), memberDesc);
+                    }
+                    restored = true;
+                } else {
+                    System.out.println("Error loading library file.");
                 }
-                restored = true;
-            }
-            else {
-                System.out.println("Error loading library file.");
-            }
         } catch (Exception e) {
             System.out.println("Library File Exception: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            if (fileIn != null) {
+            if (is != null) {
                 try {
-                    fileIn.close();
+                    is.close();
                 } catch (Throwable t) {
                     t.printStackTrace();
                 }
@@ -154,7 +129,7 @@ public class MemberCollection {
         }
     }
     /**
-     * Returns the video's description with member aMember.
+     * Returns the member with member aMember.
      * @param aMember
      * @return
      */
@@ -191,24 +166,5 @@ public class MemberCollection {
             }
         }
         return toString;
-    }
-    /**
-     * File in to string
-     * @param fis
-     * @return
-     * @throws IOException
-     */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static String getFileContent(FileInputStream fis) throws IOException {
-        String encoding = "UTF-8";
-        try( BufferedReader br = new BufferedReader( new InputStreamReader(fis, encoding ))) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while(( line = br.readLine()) != null ) {
-                sb.append( line );
-                sb.append( '\n' );
-            }
-            return sb.toString();
-        }
     }
 }

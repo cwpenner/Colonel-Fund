@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ViewMemberActivity extends AppCompatActivity {
@@ -40,30 +41,29 @@ public class ViewMemberActivity extends AppCompatActivity {
          */
         lv = (ListView) findViewById(R.id.eventListView);
 
-        //dummy array
-        List<String> eventList = new ArrayList<>();
-        eventList.add("Independence Day BBQ");
-        eventList.add("John Smith Chemo Fund");
-        eventList.add("Let's Beat Alzheimer's!");
-        eventList.add("Paul's MS Donations");
-        eventList.add("Mrs. Cobain Widow Help");
+        //event array
+        final EventCollection ecf = new EventCollection(getApplicationContext());
+        ArrayList<String> eventList = ecf.getAssociatedEvents(selectedMember.getUserID());
 
         //make array adapter
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                eventList );
-
-        lv.setAdapter(arrayAdapter);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent intent = new Intent(ViewMemberActivity.this, ViewEventActivity.class);
-                startActivity(intent);
-            }
-        });
+        if (eventList != null) {
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    eventList);
+            lv.setAdapter(arrayAdapter);
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+                    Object item = lv.getItemAtPosition(position);
+                    String myItem = item.toString();
+                    Intent intent = new Intent(ViewMemberActivity.this, ViewEventActivity.class);
+                    intent.putExtra("SelecetedEvent", ecf.get(myItem));
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     public void donate(View view) {
