@@ -167,4 +167,22 @@ public class MemberCollection {
         }
         return toString;
     }
+    /**
+     * A method to check user login
+     * @param aMemberID
+     * @param aMemberPassword
+     * @return boolean
+     */
+    public boolean checkLogin(String aMemberID, String aMemberPassword) {
+        if (memberMap.containsKey(aMemberID)) {
+            if (get(aMemberID).getPassword().equals(aMemberPassword)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            System.out.println("Invalid.");
+            return false;
+        }
+    }
 }

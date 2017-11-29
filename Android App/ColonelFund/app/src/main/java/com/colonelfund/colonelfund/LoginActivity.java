@@ -66,13 +66,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
 
@@ -103,6 +96,11 @@ public class LoginActivity extends AppCompatActivity {
         //Button fbLogin = (Button) findViewById(R.id.login_button);
 
 
+        /**
+         * A dummy authentication store containing known user names and passwords.
+         * TODO: remove after connecting to a real authentication system.
+         */
+        final MemberCollection mcf = new MemberCollection(getApplicationContext());
         btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,8 +110,11 @@ public class LoginActivity extends AppCompatActivity {
                     Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
                     startActivity(MainIntent);
                     Toast.makeText(LoginActivity.this, "Signed in successfully",Toast.LENGTH_LONG).show();
-                }
-                else{
+                } else if (mcf.checkLogin(userName,pwd)) {
+                    Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
+                    startActivity(MainIntent);
+                    Toast.makeText(LoginActivity.this, "Signed in successfully",Toast.LENGTH_LONG).show();
+                } else {
                     Toast.makeText(LoginActivity.this, "Wrong username or password",Toast.LENGTH_LONG).show();
                 }
 
