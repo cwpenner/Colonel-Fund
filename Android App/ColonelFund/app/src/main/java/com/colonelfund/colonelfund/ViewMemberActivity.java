@@ -47,7 +47,7 @@ public class ViewMemberActivity extends AppCompatActivity {
         ArrayList<String> eventList = ecf.getAssociatedEvents(selectedMember.getUserID());
 
         //make array adapter
-        if (eventList != null) {
+        if (eventList != null && !eventList.isEmpty()) {
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_list_item_1,
@@ -64,6 +64,14 @@ public class ViewMemberActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+        } else {
+            eventList.add("This user has no associated events.");
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    eventList);
+            lv.setAdapter(arrayAdapter);
+            lv.setEnabled(false);
         }
 
         Button donateButton = findViewById(R.id.button4);
