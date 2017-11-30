@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ public class ViewMemberActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        Member selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
+        final Member selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
         setContentView(R.layout.activity_view_member);
 
         /**
@@ -59,15 +60,20 @@ public class ViewMemberActivity extends AppCompatActivity {
                     Object item = lv.getItemAtPosition(position);
                     String myItem = item.toString();
                     Intent intent = new Intent(ViewMemberActivity.this, ViewEventActivity.class);
-                    intent.putExtra("SelecetedEvent", ecf.get(myItem));
+                    intent.putExtra("SelectedEvent", ecf.get(myItem));
                     startActivity(intent);
                 }
             });
         }
-    }
 
-    public void donate(View view) {
-        Intent intent = new Intent(this, DonateToMemberActivity.class);
-        startActivity(intent);
+        Button donateButton = findViewById(R.id.button4);
+        donateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(ViewMemberActivity.this, DonateToMemberActivity.class);
+                intent2.putExtra("SelectedMember", selectedMember);
+                startActivity(intent2);
+            }
+        });
     }
 }

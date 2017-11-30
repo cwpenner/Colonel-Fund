@@ -80,7 +80,7 @@ public class MemberCollection {
                 for (int i = 0; i < eventTitles.length; i++) {
                     Member memberDesc = new Member((JSONObject) obj.getJSONObject(eventTitles[i]));
                     if (memberDesc != null)
-                        this.memberMap.put(memberDesc.getUserID(), memberDesc);
+                        this.memberMap.put(memberDesc.getUserID().toLowerCase(), memberDesc);
                     }
                     restored = true;
                 } else {
@@ -106,11 +106,11 @@ public class MemberCollection {
      * @return boolean
      */
     public boolean add(Member aMember){
-        if (memberMap.containsKey(aMember.getUserID())){
+        if (memberMap.containsKey(aMember.getUserID().toLowerCase())){
             System.out.println("Member already exists.");
             return false;
         } else {
-            memberMap.put(aMember.getUserID(), aMember);
+            memberMap.put(aMember.getUserID().toLowerCase(), aMember);
             return true;
         }
     }
@@ -120,8 +120,8 @@ public class MemberCollection {
      * @return boolean
      */
     public boolean remove(String aMember) {
-        if (memberMap.containsKey(aMember)) {
-            memberMap.remove(aMember);
+        if (memberMap.containsKey(aMember.toLowerCase())) {
+            memberMap.remove(aMember.toLowerCase());
             return true;
         } else {
             System.out.println("Member does not exist.");
@@ -134,8 +134,8 @@ public class MemberCollection {
      * @return
      */
     public Member get(String aMember) {
-        if (memberMap.containsKey(aMember)) {
-            return memberMap.get(aMember);
+        if (memberMap.containsKey(aMember.toLowerCase())) {
+            return memberMap.get(aMember.toLowerCase());
         } else {
             System.out.println("Member does not exist.");
             return null;
@@ -146,10 +146,17 @@ public class MemberCollection {
      * @return
      */
     public String[] getMembers() {
-        if (memberMap.size() > 0)
-            return memberMap.keySet().toArray(new String[memberMap.size()]);
-        else
+        if (memberMap.size() > 0) {
+            ArrayList<String> memberArray = new ArrayList<String>();
+            Iterator<Member> iter = memberMap.values().iterator();
+            while (iter.hasNext()) {
+                Member aMember = (Member) iter.next();
+                memberArray.add(aMember.getUserID());
+            }
+            return memberArray.toArray(new String[0]);
+        } else {
             return null;
+        }
     }
     /**
      * Returns a string of all Members.
@@ -174,8 +181,8 @@ public class MemberCollection {
      * @return boolean
      */
     public boolean checkLogin(String aMemberID, String aMemberPassword) {
-        if (memberMap.containsKey(aMemberID)) {
-            if (get(aMemberID).getPassword().equals(aMemberPassword)) {
+        if (memberMap.containsKey(aMemberID.toLowerCase())) {
+            if (get(aMemberID.toLowerCase()).getPassword().equals(aMemberPassword)) {
                 return true;
             } else {
                 return false;

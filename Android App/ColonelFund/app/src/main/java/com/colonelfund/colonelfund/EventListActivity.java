@@ -40,7 +40,7 @@ public class EventListActivity extends AppCompatActivity {
                 Object item = lv.getItemAtPosition(position);
                 String myItem = item.toString();
                 Intent intent = new Intent(EventListActivity.this, ViewEventActivity.class);
-                intent.putExtra("SelecetedEvent", ecf.get(myItem));
+                intent.putExtra("SelectedEvent", ecf.get(myItem));
                 startActivity(intent);
             }
         });
