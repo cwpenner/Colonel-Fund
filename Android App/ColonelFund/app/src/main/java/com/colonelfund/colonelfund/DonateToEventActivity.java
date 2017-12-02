@@ -3,6 +3,7 @@ package com.colonelfund.colonelfund;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 public class DonateToEventActivity extends AppCompatActivity {
@@ -10,6 +11,7 @@ public class DonateToEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         final Event selectedEvent =  (Event) intent.getSerializableExtra("SelectedEvent");
 
@@ -25,5 +27,18 @@ public class DonateToEventActivity extends AppCompatActivity {
         text.setText(String.valueOf(selectedEvent.getFundGoal()));
         text = findViewById(R.id.textView7);
         text.setText(String.valueOf(selectedEvent.getCurrentFunds()));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // API 5+ solution
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
