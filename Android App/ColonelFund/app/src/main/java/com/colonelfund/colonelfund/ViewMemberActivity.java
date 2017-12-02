@@ -42,6 +42,8 @@ public class ViewMemberActivity extends AppCompatActivity {
         text.setText(selectedMember.getPhoneNumber());
         text = (TextView) findViewById(R.id.textView16);
         text.setText(selectedMember.getFirstName() + " " + selectedMember.getLastName());
+        text = (TextView) findViewById(R.id.textView15);
+        text.setText(selectedMember.getFirstName().substring(0, 1) + selectedMember.getLastName().substring(0, 1));
 
         /**
          * Event Info load
