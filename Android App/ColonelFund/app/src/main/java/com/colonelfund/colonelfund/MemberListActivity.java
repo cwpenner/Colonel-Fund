@@ -9,8 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class MemberListActivity extends AppCompatActivity {
     private ListView lv;
@@ -24,14 +24,11 @@ public class MemberListActivity extends AppCompatActivity {
 
         //dummy array
         final MemberCollection mcf = new MemberCollection(getApplicationContext());
-        List<String> memberList = new ArrayList<>(Arrays.asList(mcf.getMembers()));
-
+        Collection<Member> memberList = mcf.getMembersList();
 
         //make array adapter
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                memberList );
+        ArrayAdapter arrayAdapter = new MyMemberAdapter(
+                this, generateData(memberList) );
 
         lv.setAdapter(arrayAdapter);
 
@@ -39,8 +36,8 @@ public class MemberListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                Object item = lv.getItemAtPosition(position);
-                String myItem = item.toString();
+                MemberModel item = (MemberModel) lv.getItemAtPosition(position);
+                String myItem = item.getMemberID();
                 Intent intent = new Intent(MemberListActivity.this, ViewMemberActivity.class);
                 intent.putExtra("SelectedMember", mcf.get(myItem));
                 startActivity(intent);
@@ -61,4 +58,13 @@ public class MemberListActivity extends AppCompatActivity {
         }
     }
 
+    private ArrayList<MemberModel> generateData(Collection memberList) {
+        ArrayList<MemberModel> models = new ArrayList<MemberModel>();
+        Iterator<Member> memberIter = memberList.iterator();
+        while (memberIter.hasNext()) {
+            Member temp = memberIter.next();
+            models.add(new MemberModel(temp.getFirstName().substring(0,1)+temp.getLastName().substring(0,1),temp.getUserID()));
+        }
+        return models;
+    }
 }
