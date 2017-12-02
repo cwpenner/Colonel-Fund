@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MemberListActivity extends AppCompatActivity {
@@ -21,22 +21,9 @@ public class MemberListActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.memberListView);
 
         //dummy array
-        List<String> memberList = new ArrayList<>();
-        memberList.add("John Smith");
-        memberList.add("Liam Gallagher");
-        memberList.add("Noel Gallagher");
-        memberList.add("John Lennon");
-        memberList.add("Paul McCartney");
-        memberList.add("Don Henley");
-        memberList.add("Phil Collins");
-        memberList.add("Jimmy Paige");
-        memberList.add("Trevor Hurst");
-        memberList.add("Adam Levine");
-        memberList.add("Axl Rose");
-        memberList.add("Chad Kroeger");
-        memberList.add("Dave Grohl");
-        memberList.add("Jimi Hendrix");
-        memberList.add("Kurt Cobain");
+        final MemberCollection mcf = new MemberCollection(getApplicationContext());
+        List<String> memberList = new ArrayList<>(Arrays.asList(mcf.getMembers()));
+
 
         //make array adapter
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
@@ -50,7 +37,10 @@ public class MemberListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
+                Object item = lv.getItemAtPosition(position);
+                String myItem = item.toString();
                 Intent intent = new Intent(MemberListActivity.this, ViewMemberActivity.class);
+                intent.putExtra("SelectedMember", mcf.get(myItem));
                 startActivity(intent);
             }
         });

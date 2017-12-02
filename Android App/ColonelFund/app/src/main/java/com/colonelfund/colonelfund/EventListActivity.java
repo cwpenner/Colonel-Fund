@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EventListActivity extends AppCompatActivity {
@@ -21,12 +22,8 @@ public class EventListActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.eventListView);
 
         //dummy array
-        List<String> eventList = new ArrayList<>();
-        eventList.add("Independence Day BBQ");
-        eventList.add("John Smith Chemo Fund");
-        eventList.add("Let's Beat Alzheimer's!");
-        eventList.add("Paul's MS Donations");
-        eventList.add("Mrs. Cobain Widow Help");
+        final EventCollection ecf = new EventCollection(getApplicationContext());
+        List<String> eventList = new ArrayList<>(Arrays.asList(ecf.getTitles()));
 
         //make array adapter
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
@@ -40,7 +37,10 @@ public class EventListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
+                Object item = lv.getItemAtPosition(position);
+                String myItem = item.toString();
                 Intent intent = new Intent(EventListActivity.this, ViewEventActivity.class);
+                intent.putExtra("SelectedEvent", ecf.get(myItem));
                 startActivity(intent);
             }
         });

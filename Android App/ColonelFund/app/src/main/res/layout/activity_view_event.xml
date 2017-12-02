@@ -137,8 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="32dp"
-        android:onClick="donate"
+        android:layout_marginTop="8dp"
         android:text="@string/button_donate"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
