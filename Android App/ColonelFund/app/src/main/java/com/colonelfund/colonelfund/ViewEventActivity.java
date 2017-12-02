@@ -14,7 +14,13 @@ public class ViewEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        final Event selectedEvent =  (Event) intent.getSerializableExtra("SelectedEvent");
+        Event aEvent;
+        if ((Event) intent.getSerializableExtra("SelectedEvent") != null) {
+            aEvent = (Event) intent.getSerializableExtra("SelectedEvent");
+        } else {
+            aEvent = new Event ("Error", "Error", "Error",0.0,0.0, "Error");
+        }
+        final Event selectedEvent =  aEvent;
         setContentView(R.layout.activity_view_event);
         TextView text = (TextView) findViewById(R.id.textView3);
         text.setText(selectedEvent.getTitle());

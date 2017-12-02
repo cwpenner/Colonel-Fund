@@ -22,7 +22,13 @@ public class ViewMemberActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        final Member selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
+        Member aMember;
+        if ((Member) intent.getSerializableExtra("SelectedMember") != null) {
+            aMember = (Member) intent.getSerializableExtra("SelectedMember");
+        } else {
+            aMember = new Member ("Error", "Error", "Error", "Error", "Error", "Error");
+        }
+        final Member selectedMember = aMember;
         setContentView(R.layout.activity_view_member);
 
         /**
