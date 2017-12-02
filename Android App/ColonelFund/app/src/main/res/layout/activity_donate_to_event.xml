@@ -13,7 +13,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:text="Independence Day BBQ"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -36,7 +35,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:text="$1,000.00"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
         app:layout_constraintLeft_toRightOf="@+id/textView4" />
 
@@ -56,7 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:text="$75.63"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
         app:layout_constraintLeft_toRightOf="@+id/textView6" />
 
@@ -76,7 +73,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:text="John Smith"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
         app:layout_constraintLeft_toRightOf="@+id/textView8" />
 
@@ -95,10 +91,9 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2018-07-04"
+        android:layout_marginLeft="16dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
-        app:layout_constraintLeft_toRightOf="@+id/textView10"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintLeft_toRightOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/textView22"

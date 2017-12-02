@@ -16,6 +16,7 @@
     <string name="email">Email Address:</string>
     <string name="phone">Phone Number:</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="fullname">Full Name:</string>
 
     <!-- Strings related to login -->
     <string name="facebook_app_id">861301034038497</string>

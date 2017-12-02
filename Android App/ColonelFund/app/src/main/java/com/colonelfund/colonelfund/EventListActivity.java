@@ -3,12 +3,14 @@ package com.colonelfund.colonelfund;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EventListActivity extends AppCompatActivity {
@@ -16,17 +18,14 @@ public class EventListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_event_list);
 
         lv = (ListView) findViewById(R.id.eventListView);
 
         //dummy array
-        List<String> eventList = new ArrayList<>();
-        eventList.add("Independence Day BBQ");
-        eventList.add("John Smith Chemo Fund");
-        eventList.add("Let's Beat Alzheimer's!");
-        eventList.add("Paul's MS Donations");
-        eventList.add("Mrs. Cobain Widow Help");
+        final EventCollection ecf = new EventCollection(getApplicationContext());
+        List<String> eventList = new ArrayList<>(Arrays.asList(ecf.getTitles()));
 
         //make array adapter
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
@@ -40,9 +39,26 @@ public class EventListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
+                Object item = lv.getItemAtPosition(position);
+                String myItem = item.toString();
                 Intent intent = new Intent(EventListActivity.this, ViewEventActivity.class);
+                intent.putExtra("SelectedEvent", ecf.get(myItem));
                 startActivity(intent);
             }
         });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // API 5+ solution
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
