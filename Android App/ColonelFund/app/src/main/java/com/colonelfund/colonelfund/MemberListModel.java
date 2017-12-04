@@ -1,19 +1,23 @@
 package com.colonelfund.colonelfund;
 
 /**
- * Created by JWilk on 12/2/2017.
+ * Member list Item Model class.
  */
-
-public class MemberModel {
-
+public class MemberListModel {
     private String member_id;
     private String initials;
 
-    public MemberModel(String initials, String member_id) {
+    /**
+     * Constructor for Initials circle.
+     * @param initials
+     * @param member_id
+     */
+    public MemberListModel(String initials, String member_id) {
         super();
         this.initials = initials;
         this.member_id = member_id;
     }
+
     public String getInitials() {
         return initials;
     }

@@ -8,13 +8,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Event list view class.
+ */
 public class EventListActivity extends AppCompatActivity {
     private ListView lv;
+
+    /**
+     * Draws event list
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +42,7 @@ public class EventListActivity extends AppCompatActivity {
 
         lv.setAdapter(arrayAdapter);
 
+        // set listener for each item
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -47,7 +55,11 @@ public class EventListActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Added for back button pre API 16
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -60,5 +72,4 @@ public class EventListActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

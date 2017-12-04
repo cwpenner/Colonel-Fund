@@ -2,9 +2,7 @@ package com.colonelfund.colonelfund;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.Serializable;
-
 
 /**
  * Basic Member Object

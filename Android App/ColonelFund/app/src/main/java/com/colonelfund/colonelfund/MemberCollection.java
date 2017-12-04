@@ -38,7 +38,6 @@ public class MemberCollection {
             this.memberMap = new HashMap<String,Member>();
         }
     }
-
     /**
      * Attempts to take a member library, convert it to a json object, then save it to the
      * provided filename.
@@ -194,7 +193,8 @@ public class MemberCollection {
         }
     }
     /**
-     *
+     * Gets membermap values.
+     * @return memberMap collection of values
      */
     public Collection<Member> getMembersList() {
         return memberMap.values();

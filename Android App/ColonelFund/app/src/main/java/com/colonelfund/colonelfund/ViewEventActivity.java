@@ -1,8 +1,6 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,7 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * Activity for Member Viewing an Event.
+ */
 public class ViewEventActivity extends AppCompatActivity {
+    /**
+     * Paints event info to screen.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +52,11 @@ public class ViewEventActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Added for back button pre API 16
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

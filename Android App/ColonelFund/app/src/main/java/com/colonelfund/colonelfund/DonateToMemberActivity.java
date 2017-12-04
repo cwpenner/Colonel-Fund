@@ -6,8 +6,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+/**
+ * Activity for donating to a member.
+ */
 public class DonateToMemberActivity extends AppCompatActivity {
-
+    /**
+     * Sets Member Information
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +24,11 @@ public class DonateToMemberActivity extends AppCompatActivity {
         TextView text = (TextView) findViewById(R.id.textView3);
         text.setText(selectedMember.getUserID());
     }
-
+    /**
+     * Added for back button pre API 16
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

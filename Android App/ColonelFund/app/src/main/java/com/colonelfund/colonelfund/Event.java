@@ -2,7 +2,6 @@ package com.colonelfund.colonelfund;
 
 import org.json.JSONObject;
 import org.json.JSONException;
-
 import java.io.Serializable;
 
 /**

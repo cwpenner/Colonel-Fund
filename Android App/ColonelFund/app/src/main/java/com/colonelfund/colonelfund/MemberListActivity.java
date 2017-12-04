@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * Activity for Member list creation.
+ */
 public class MemberListActivity extends AppCompatActivity {
     private ListView lv;
     @Override
@@ -27,16 +30,17 @@ public class MemberListActivity extends AppCompatActivity {
         Collection<Member> memberList = mcf.getMembersList();
 
         //make array adapter
-        ArrayAdapter arrayAdapter = new MyMemberAdapter(
+        ArrayAdapter arrayAdapter = new MemberListAdapter(
                 this, generateData(memberList) );
 
         lv.setAdapter(arrayAdapter);
 
+         // Add listeners for each list item.
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                MemberModel item = (MemberModel) lv.getItemAtPosition(position);
+                MemberListModel item = (MemberListModel) lv.getItemAtPosition(position);
                 String myItem = item.getMemberID();
                 Intent intent = new Intent(MemberListActivity.this, ViewMemberActivity.class);
                 intent.putExtra("SelectedMember", mcf.get(myItem));
@@ -44,7 +48,11 @@ public class MemberListActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Added for back button pre API 16
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -57,13 +65,17 @@ public class MemberListActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    private ArrayList<MemberModel> generateData(Collection memberList) {
-        ArrayList<MemberModel> models = new ArrayList<MemberModel>();
+    /**
+     * Generates Initials and User Name for memberlist.
+     * @param memberList
+     * @return
+     */
+    private ArrayList<MemberListModel> generateData(Collection memberList) {
+        ArrayList<MemberListModel> models = new ArrayList<MemberListModel>();
         Iterator<Member> memberIter = memberList.iterator();
         while (memberIter.hasNext()) {
             Member temp = memberIter.next();
-            models.add(new MemberModel(temp.getFirstName().substring(0,1)+temp.getLastName().substring(0,1),temp.getUserID()));
+            models.add(new MemberListModel(temp.getFirstName().substring(0,1)+temp.getLastName().substring(0,1),temp.getUserID()));
         }
         return models;
     }

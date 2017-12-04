@@ -12,13 +12,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
+/**
+ * Activity for Member Viewing a member.
+ */
 public class ViewMemberActivity extends AppCompatActivity {
 
     private ListView lv;
 
+    /**
+     * Creates member view and gets/adds related activities.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +89,7 @@ public class ViewMemberActivity extends AppCompatActivity {
             lv.setEnabled(false);
         }
 
+        // Listener for donating to member.
         Button donateButton = findViewById(R.id.button4);
         donateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +100,11 @@ public class ViewMemberActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Added for back button pre API 16
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

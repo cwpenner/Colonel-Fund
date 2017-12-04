@@ -7,7 +7,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class DonateToEventActivity extends AppCompatActivity {
-
+    /**
+     * Sets event information.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,11 @@ public class DonateToEventActivity extends AppCompatActivity {
         text = findViewById(R.id.textView7);
         text.setText(String.valueOf(selectedEvent.getCurrentFunds()));
     }
-
+    /**
+     * Added for back button pre API 16
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
