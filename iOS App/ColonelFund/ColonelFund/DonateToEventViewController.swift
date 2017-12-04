@@ -19,7 +19,7 @@ class DonateToEventViewController: UIViewController {
     @IBOutlet weak var eventDonationTextField: UITextField!
     
     var tempTitleText: String = ""
-    var tempDateText: String = "218-07-04"
+    var tempDateText: String = "2018-07-04"
     var tempMemberText: String = "John Smith"
     var tempFundGoalText: String = "$1,000.00"
     var tempCurrentFundsText: String = "$75.63"
