@@ -47,7 +47,6 @@
 
     <Button
         android:id="@+id/logout_button"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

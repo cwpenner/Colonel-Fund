@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                         try{
                             Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
                             startActivity(MainIntent);
-                            Toast.makeText(LoginActivity.this, object.getString("name") + "Signed in successfully",Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, object.getString("name") + " Signed in successfully",Toast.LENGTH_LONG).show();
 
                         }catch(JSONException ex) {
                             ex.printStackTrace();

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AccessToken token = AccessToken.getCurrentAccessToken();
-                if(token == null) {
+                if(token != null) {
                     LoginManager.getInstance().logOut();
                 }
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
