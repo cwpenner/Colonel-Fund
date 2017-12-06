@@ -96,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         //Button fbLogin = (Button) findViewById(R.id.login_button);
 
 
+
         /**
          * A dummy authentication store containing known user names and passwords.
          * TODO: remove after connecting to a real authentication system.
