@@ -5,6 +5,7 @@
     <string name="button_member_list">Member List</string>
     <string name="button_event_list">Event List</string>
     <string name="button_create_event">Create Event</string>
+    <string name="button_log_out">Log Out</string>
     <string name="fund_goal">Fund Goal:</string>
     <string name="current_funds">Current Funds:</string>
     <string name="associated_member">Associated Member:</string>
