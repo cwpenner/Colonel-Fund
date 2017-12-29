@@ -24,11 +24,32 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.28.0):
     - FBSDKCoreKit
+  - GoogleSignIn (4.1.1):
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
+    - GTMOAuth2 (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+  - GoogleToolboxForMac/Defines (2.1.3)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
+  - GTMOAuth2 (1.1.5):
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.1.12):
+    - GTMSessionFetcher/Full (= 1.1.12)
+  - GTMSessionFetcher/Core (1.1.12)
+  - GTMSessionFetcher/Full (1.1.12):
+    - GTMSessionFetcher/Core (= 1.1.12)
 
 DEPENDENCIES:
   - FacebookCore
   - FacebookLogin
   - FacebookShare
+  - GoogleSignIn
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -38,7 +59,11 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
   FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
   FBSDKShareKit: 4f525556e0df4cf0f574cb3f01c675434f29d477
+  GoogleSignIn: 3fdaa34a2ba04dbd7a25d7db39aecb0da98d5bdc
+  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  GTMOAuth2: be83fd28d63ae3087e7d351b1f39c1a7e24ab6e7
+  GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
 
-PODFILE CHECKSUM: 1669bb04bb3e1cc199ca653e1028ab3fb3d87b19
+PODFILE CHECKSUM: e3a3a28e526e011653b0f3e401e90a44a7c9f2eb
 
 COCOAPODS: 1.3.1
