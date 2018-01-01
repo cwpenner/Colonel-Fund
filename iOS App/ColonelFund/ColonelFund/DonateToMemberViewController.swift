@@ -42,6 +42,8 @@ class DonateToMemberViewController: UIViewController, UITextFieldDelegate {
         self.paymentIconView.addSubview(self.paymentIcon)
         
         self.fetchExistingPaymentMethod(clientToken: token)
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
 
     override func didReceiveMemoryWarning() {

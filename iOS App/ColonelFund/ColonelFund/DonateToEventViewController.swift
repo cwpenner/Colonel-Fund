@@ -51,6 +51,8 @@ class DonateToEventViewController: UIViewController, UITextFieldDelegate {
         self.paymentIconView.addSubview(self.paymentIcon)
         
         self.fetchExistingPaymentMethod(clientToken: token)
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,7 +85,7 @@ class DonateToEventViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func donateButtonPressed(_ sender: Any) {
-        print("Donation Amount: \(self.eventDonationTextField.text!)")
+        print("Donation Amount: \(eventDonationTextField.text!)")
         self.sendRequestPaymentToServer(nonce: self.paymentMethod.nonce, amount: eventDonationTextField.text!)
     }
 
