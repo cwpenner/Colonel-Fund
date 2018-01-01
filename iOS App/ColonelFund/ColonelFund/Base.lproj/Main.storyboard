@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13770" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ixa-5L-0yL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ixa-5L-0yL">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13770"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -450,24 +450,48 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGz-gg-Cs0">
-                                <rect key="frame" x="314" y="384" width="80" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="l2X-2D-Hpj"/>
-                                </constraints>
-                                <state key="normal" title="DONATE"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXf-5i-1Ue">
                                 <rect key="frame" x="183" y="343" width="10.666666666666657" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDV-cU-lBN">
+                                <rect key="frame" x="20" y="390" width="50" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="0rc-jZ-Z9T"/>
+                                    <constraint firstAttribute="height" constant="30" id="Avi-9b-ntb"/>
+                                </constraints>
+                            </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjU-gb-yeK">
+                                <rect key="frame" x="90" y="394.66666666666669" width="304" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7M-oM-n5A">
+                                <rect key="frame" x="20" y="440" width="374" height="30"/>
+                                <state key="normal" title="Select Payment Method"/>
+                                <connections>
+                                    <action selector="selectPaymentButtonPressed:" destination="F1e-gF-vgk" eventType="touchUpInside" id="83l-xe-ggc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGz-gg-Cs0">
+                                <rect key="frame" x="20" y="686" width="374" height="30"/>
+                                <state key="normal" title="DONATE"/>
+                                <connections>
+                                    <action selector="donateButtonPressed:" destination="F1e-gF-vgk" eventType="touchUpInside" id="ZIH-a4-0Tl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="qDV-cU-lBN" firstAttribute="leading" secondItem="3o6-7S-VtV" secondAttribute="leading" constant="20" id="0gr-i9-RsY"/>
                             <constraint firstItem="65Q-lk-xZY" firstAttribute="baseline" secondItem="QkI-fq-zGW" secondAttribute="baseline" id="102-5V-ZzQ"/>
+                            <constraint firstItem="3o6-7S-VtV" firstAttribute="trailing" secondItem="H7M-oM-n5A" secondAttribute="trailing" constant="20" id="27o-i4-fTE"/>
                             <constraint firstItem="QkI-fq-zGW" firstAttribute="leading" secondItem="3o6-7S-VtV" secondAttribute="leading" constant="20" id="4Bf-3J-gGZ"/>
+                            <constraint firstItem="kGz-gg-Cs0" firstAttribute="leading" secondItem="3o6-7S-VtV" secondAttribute="leading" constant="20" id="6Rh-bf-NpI"/>
                             <constraint firstItem="CwX-xJ-Qfk" firstAttribute="leading" secondItem="3o6-7S-VtV" secondAttribute="leading" constant="20" id="6V1-XI-ewP"/>
                             <constraint firstItem="fXf-5i-1Ue" firstAttribute="leading" secondItem="QkI-fq-zGW" secondAttribute="trailing" constant="20" id="8a4-Bp-vMP"/>
                             <constraint firstItem="dt6-vB-qvS" firstAttribute="leading" secondItem="0kc-Rv-5Dq" secondAttribute="trailing" constant="20" id="998-wg-s1d"/>
@@ -476,6 +500,7 @@
                             <constraint firstItem="sT0-3V-lS2" firstAttribute="leading" secondItem="ata-e9-m3L" secondAttribute="trailing" constant="20" id="DZz-SD-02c"/>
                             <constraint firstItem="ata-e9-m3L" firstAttribute="leading" secondItem="3o6-7S-VtV" secondAttribute="leading" constant="20" id="GgS-j3-UCc"/>
                             <constraint firstItem="65Q-lk-xZY" firstAttribute="leading" secondItem="fXf-5i-1Ue" secondAttribute="trailing" constant="8" id="HRV-tL-G3B"/>
+                            <constraint firstItem="qjU-gb-yeK" firstAttribute="centerY" secondItem="qDV-cU-lBN" secondAttribute="centerY" id="IlH-rR-GAs"/>
                             <constraint firstItem="3o6-7S-VtV" firstAttribute="trailing" secondItem="CwX-xJ-Qfk" secondAttribute="trailing" constant="20" id="KUO-GK-b2T"/>
                             <constraint firstItem="0kc-Rv-5Dq" firstAttribute="leading" secondItem="3o6-7S-VtV" secondAttribute="leading" constant="20" id="Mq2-b8-SRJ"/>
                             <constraint firstItem="ata-e9-m3L" firstAttribute="top" secondItem="0kc-Rv-5Dq" secondAttribute="bottom" constant="20" id="PPV-wO-KdE"/>
@@ -484,31 +509,40 @@
                             <constraint firstItem="pzi-Tb-LOe" firstAttribute="top" secondItem="CwX-xJ-Qfk" secondAttribute="bottom" constant="20" id="ZWL-tz-7lM"/>
                             <constraint firstItem="fXf-5i-1Ue" firstAttribute="baseline" secondItem="QkI-fq-zGW" secondAttribute="baseline" id="a8r-Pd-6ul"/>
                             <constraint firstItem="H4z-q7-bp0" firstAttribute="leading" secondItem="pzi-Tb-LOe" secondAttribute="trailing" constant="20" id="aLt-ai-1mG"/>
-                            <constraint firstItem="kGz-gg-Cs0" firstAttribute="top" secondItem="QkI-fq-zGW" secondAttribute="bottom" constant="20" id="feP-bs-1bt"/>
+                            <constraint firstItem="qDV-cU-lBN" firstAttribute="top" secondItem="65Q-lk-xZY" secondAttribute="bottom" constant="20" id="hZb-gN-btd"/>
                             <constraint firstItem="H4z-q7-bp0" firstAttribute="baseline" secondItem="pzi-Tb-LOe" secondAttribute="baseline" id="jS5-5j-a2k"/>
                             <constraint firstItem="0kc-Rv-5Dq" firstAttribute="top" secondItem="wLl-5z-EPs" secondAttribute="bottom" constant="20" id="jxI-Tk-ZqH"/>
                             <constraint firstItem="wLl-5z-EPs" firstAttribute="leading" secondItem="3o6-7S-VtV" secondAttribute="leading" constant="20" id="k3h-L4-5T0"/>
                             <constraint firstItem="Nfw-cj-lNo" firstAttribute="baseline" secondItem="wLl-5z-EPs" secondAttribute="baseline" id="ksB-j1-aXB"/>
                             <constraint firstItem="QkI-fq-zGW" firstAttribute="top" secondItem="ata-e9-m3L" secondAttribute="bottom" constant="64" id="lk7-Ae-ULn"/>
                             <constraint firstItem="wLl-5z-EPs" firstAttribute="top" secondItem="pzi-Tb-LOe" secondAttribute="bottom" constant="20" id="p8e-J6-YZ5"/>
+                            <constraint firstItem="3o6-7S-VtV" firstAttribute="trailing" secondItem="qjU-gb-yeK" secondAttribute="trailing" constant="20" id="pT3-R7-Xbd"/>
                             <constraint firstItem="dt6-vB-qvS" firstAttribute="baseline" secondItem="0kc-Rv-5Dq" secondAttribute="baseline" id="pgW-C1-LgN"/>
+                            <constraint firstItem="qjU-gb-yeK" firstAttribute="leading" secondItem="qDV-cU-lBN" secondAttribute="trailing" constant="20" id="sw8-h5-EYg"/>
+                            <constraint firstItem="H7M-oM-n5A" firstAttribute="top" secondItem="qDV-cU-lBN" secondAttribute="bottom" constant="20" id="t7P-ch-QCq"/>
+                            <constraint firstItem="H7M-oM-n5A" firstAttribute="leading" secondItem="3o6-7S-VtV" secondAttribute="leading" constant="20" id="tEC-tp-Nfh"/>
                             <constraint firstItem="pzi-Tb-LOe" firstAttribute="leading" secondItem="3o6-7S-VtV" secondAttribute="leading" constant="20" id="u9D-GA-gjj"/>
+                            <constraint firstItem="3o6-7S-VtV" firstAttribute="bottom" secondItem="kGz-gg-Cs0" secondAttribute="bottom" constant="20" id="xY3-Kj-aaq"/>
                             <constraint firstItem="Nfw-cj-lNo" firstAttribute="leading" secondItem="wLl-5z-EPs" secondAttribute="trailing" constant="20" id="z08-Vg-eGW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3o6-7S-VtV"/>
                     </view>
                     <connections>
+                        <outlet property="donateButton" destination="kGz-gg-Cs0" id="3k2-Vr-GID"/>
                         <outlet property="eventCurrentFundsLabel" destination="sT0-3V-lS2" id="wsC-ZF-Iv0"/>
                         <outlet property="eventDateLabel" destination="H4z-q7-bp0" id="aRF-JN-cfa"/>
                         <outlet property="eventDonationTextField" destination="65Q-lk-xZY" id="5If-9E-GDb"/>
                         <outlet property="eventFundGoalLabel" destination="dt6-vB-qvS" id="F2i-ks-fMB"/>
                         <outlet property="eventMemberLabel" destination="Nfw-cj-lNo" id="yso-5P-ndK"/>
                         <outlet property="eventTitleLabel" destination="CwX-xJ-Qfk" id="zu1-Rp-DQs"/>
+                        <outlet property="paymentDescriptionLabel" destination="qjU-gb-yeK" id="Jdk-XL-aU8"/>
+                        <outlet property="paymentIconView" destination="qDV-cU-lBN" id="chd-Qk-yrc"/>
+                        <outlet property="selectPaymentButton" destination="H7M-oM-n5A" id="2cr-si-ILC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qec-ug-JHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3278" y="492"/>
+            <point key="canvasLocation" x="3276.811594202899" y="491.57608695652175"/>
         </scene>
         <!--View Member-->
         <scene sceneID="CfP-TT-sO5">
@@ -748,12 +782,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3zT-Ct-Van">
-                                <rect key="frame" x="314" y="207" width="80" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="FLe-1O-RQt"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3zT-Ct-Van">
+                                <rect key="frame" x="20" y="686" width="374" height="30"/>
                                 <state key="normal" title="DONATE"/>
+                                <connections>
+                                    <action selector="donateButtonPressed:" destination="pTf-aG-xnl" eventType="touchUpInside" id="hu8-l3-gVN"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="johnwsmith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDD-b5-tY8">
                                 <rect key="frame" x="20" y="117.66666666666667" width="78" height="18.000000000000014"/>
@@ -773,13 +807,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JBj-X0-726">
+                                <rect key="frame" x="20" y="213.66666666666666" width="50" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="EWz-NH-n38"/>
+                                    <constraint firstAttribute="height" constant="30" id="sFZ-Cw-Uh3"/>
+                                </constraints>
+                            </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GL8-vP-izQ">
+                                <rect key="frame" x="90" y="218.33333333333334" width="304" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mZ-KN-vQx">
+                                <rect key="frame" x="20" y="263.66666666666669" width="374" height="30"/>
+                                <state key="normal" title="Select Payment Method"/>
+                                <connections>
+                                    <action selector="selectPaymentButtonPressed:" destination="pTf-aG-xnl" eventType="touchUpInside" id="uoe-kX-h5P"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fKo-de-22j" firstAttribute="trailing" secondItem="3zT-Ct-Van" secondAttribute="trailing" constant="20" id="1AO-ta-maG"/>
+                            <constraint firstItem="fKo-de-22j" firstAttribute="trailing" secondItem="3mZ-KN-vQx" secondAttribute="trailing" constant="20" id="4DE-In-xS4"/>
+                            <constraint firstItem="JBj-X0-726" firstAttribute="top" secondItem="xqy-Oq-VAx" secondAttribute="bottom" constant="20" id="5Dv-I2-3Df"/>
                             <constraint firstItem="fKo-de-22j" firstAttribute="trailing" secondItem="xqy-Oq-VAx" secondAttribute="trailing" constant="20" id="5IH-4c-gdQ"/>
                             <constraint firstItem="3eY-XX-xcd" firstAttribute="baseline" secondItem="xqy-Oq-VAx" secondAttribute="baseline" id="63b-yc-mZU"/>
-                            <constraint firstItem="3zT-Ct-Van" firstAttribute="top" secondItem="dUt-3H-DfC" secondAttribute="bottom" constant="20" id="86r-Af-WcB"/>
+                            <constraint firstItem="GL8-vP-izQ" firstAttribute="centerY" secondItem="JBj-X0-726" secondAttribute="centerY" id="FF2-G7-pZB"/>
                             <constraint firstItem="3eY-XX-xcd" firstAttribute="baseline" secondItem="dUt-3H-DfC" secondAttribute="baseline" id="GOr-yQ-YOH"/>
                             <constraint firstItem="bDP-OT-Dfr" firstAttribute="leading" secondItem="fKo-de-22j" secondAttribute="leading" constant="20" id="KUO-6w-wid"/>
                             <constraint firstItem="dUt-3H-DfC" firstAttribute="top" secondItem="hDD-b5-tY8" secondAttribute="bottom" constant="32" id="Kor-Wo-4ya"/>
@@ -787,18 +844,29 @@
                             <constraint firstItem="hDD-b5-tY8" firstAttribute="top" secondItem="bDP-OT-Dfr" secondAttribute="bottom" constant="2" id="P5N-bS-CGt"/>
                             <constraint firstItem="xqy-Oq-VAx" firstAttribute="leading" secondItem="3eY-XX-xcd" secondAttribute="trailing" constant="8" id="Pjj-DA-ZDv"/>
                             <constraint firstItem="3eY-XX-xcd" firstAttribute="leading" secondItem="dUt-3H-DfC" secondAttribute="trailing" constant="20" id="RNn-MV-mxO"/>
+                            <constraint firstItem="3zT-Ct-Van" firstAttribute="leading" secondItem="fKo-de-22j" secondAttribute="leading" constant="20" id="TVa-sl-yJq"/>
                             <constraint firstItem="dUt-3H-DfC" firstAttribute="leading" secondItem="fKo-de-22j" secondAttribute="leading" constant="20" id="VC3-KR-WIe"/>
                             <constraint firstItem="bDP-OT-Dfr" firstAttribute="top" secondItem="fKo-de-22j" secondAttribute="top" constant="20" id="VMV-gy-hRl"/>
                             <constraint firstItem="fKo-de-22j" firstAttribute="trailing" secondItem="flz-C8-JzL" secondAttribute="trailing" constant="8" id="Xqg-8d-4Ug"/>
+                            <constraint firstItem="JBj-X0-726" firstAttribute="leading" secondItem="fKo-de-22j" secondAttribute="leading" constant="20" id="aVS-rH-EE4"/>
+                            <constraint firstItem="GL8-vP-izQ" firstAttribute="leading" secondItem="JBj-X0-726" secondAttribute="trailing" constant="20" id="d2H-GO-EqR"/>
+                            <constraint firstItem="fKo-de-22j" firstAttribute="trailing" secondItem="GL8-vP-izQ" secondAttribute="trailing" constant="20" id="fNv-sT-TkK"/>
                             <constraint firstItem="xqy-Oq-VAx" firstAttribute="top" secondItem="flz-C8-JzL" secondAttribute="bottom" constant="8" id="g5f-KV-czh"/>
+                            <constraint firstItem="3mZ-KN-vQx" firstAttribute="leading" secondItem="fKo-de-22j" secondAttribute="leading" constant="20" id="gM2-hh-6Bo"/>
+                            <constraint firstItem="3mZ-KN-vQx" firstAttribute="top" secondItem="JBj-X0-726" secondAttribute="bottom" constant="20" id="k8j-fv-fUK"/>
+                            <constraint firstItem="fKo-de-22j" firstAttribute="bottom" secondItem="3zT-Ct-Van" secondAttribute="bottom" constant="20" id="nOh-jE-RPl"/>
                             <constraint firstItem="hDD-b5-tY8" firstAttribute="leading" secondItem="fKo-de-22j" secondAttribute="leading" constant="20" id="yhl-gv-zfN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fKo-de-22j"/>
                     </view>
                     <connections>
+                        <outlet property="donateButton" destination="3zT-Ct-Van" id="gcj-oa-RXT"/>
                         <outlet property="memberDonationTextField" destination="xqy-Oq-VAx" id="BPS-pg-gTY"/>
                         <outlet property="nameLabel" destination="bDP-OT-Dfr" id="MpM-0I-2PW"/>
+                        <outlet property="paymentDescriptionLabel" destination="GL8-vP-izQ" id="cEf-9I-XV5"/>
+                        <outlet property="paymentIconView" destination="JBj-X0-726" id="fyh-Ln-Emd"/>
                         <outlet property="profilePicImageView" destination="flz-C8-JzL" id="nJ2-5s-Tj7"/>
+                        <outlet property="selectPaymentButton" destination="3mZ-KN-vQx" id="3g2-0U-d8B"/>
                         <outlet property="usernameLabel" destination="hDD-b5-tY8" id="WdM-bB-P6H"/>
                     </connections>
                 </viewController>
@@ -909,6 +977,6 @@
         <image name="img_placeholder" width="1920" height="1090"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7Iq-as-Ab7"/>
+        <segue reference="E5p-ic-7av"/>
     </inferredMetricsTieBreakers>
 </document>
