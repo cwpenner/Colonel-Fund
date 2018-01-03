@@ -23,6 +23,7 @@
 		5F5A49CF1FF70CA5006E211B /* FacebookLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5A49D01FF70CA5006E211B /* FacebookLogin.framework */; };
 		5F5A49D11FF70CE8006E211B /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5A49D21FF70CE8006E211B /* FacebookCore.framework */; };
 		5F5A49D31FF70CED006E211B /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5A49D41FF70CED006E211B /* FacebookShare.framework */; };
+		5F5A49D81FFC1647006E211B /* BraintreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */; };
 		5F8717FC1FC547C60091B13A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8717FB1FC547C60091B13A /* LoginViewController.swift */; };
 		5F8717FE1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */; };
 		5F87180B1FC5FA0A0091B13A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8718091FC5F9FD0091B13A /* Bolts.framework */; };
@@ -76,6 +77,7 @@
 		5F5A49D01FF70CA5006E211B /* FacebookLogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookLogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5A49D21FF70CE8006E211B /* FacebookCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5A49D41FF70CED006E211B /* FacebookShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeViewController.swift; sourceTree = "<group>"; };
 		5F8717FB1FC547C60091B13A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedEventsTableViewCell.swift; sourceTree = "<group>"; };
 		5F8718071FC5F9FD0091B13A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				5F995DD41F9286D700F8E459 /* MainViewController.swift */,
 				5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */,
 				5F995DD61F9286D700F8E459 /* Main.storyboard */,
+				5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */,
 				5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */,
 				5F8717FB1FC547C60091B13A /* LoginViewController.swift */,
 				5F5779EA1FB02AC7000667FC /* CreateEventViewController.swift */,
@@ -559,6 +562,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F995DD51F9286D700F8E459 /* MainViewController.swift in Sources */,
+				5F5A49D81FFC1647006E211B /* BraintreeViewController.swift in Sources */,
 				5F5779E71FB01805000667FC /* ViewMemberViewController.swift in Sources */,
 				5F8717FE1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift in Sources */,
 				5F0713A91FAFD23C00AA623A /* MemberListTableViewController.swift in Sources */,
