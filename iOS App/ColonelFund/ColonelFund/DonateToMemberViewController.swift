@@ -28,11 +28,7 @@ class DonateToMemberViewController: BraintreeViewController {
         nameLabel.text = tempNameText
         usernameLabel.text = tempUsernameText
         
-        super.donationTextField = memberDonationTextField
-        super.donateButton = memberDonateButton
-        super.paymentDescriptionLabel = memberPaymentDescriptionLabel
-        super.selectPaymentButton = memberSelectPaymentButton
-        super.paymentIconView = memberPaymentImageView
+        BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView)
         super.memberName = nameLabel.text!
 
         super.viewDidLoad()

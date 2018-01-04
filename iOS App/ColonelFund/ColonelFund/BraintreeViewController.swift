@@ -11,6 +11,14 @@ import BraintreeDropIn
 import Braintree
 
 class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentAuthorizationViewControllerDelegate {
+    //Constructor
+    func BraintreeViewController(donationTextField: UITextField, donateButton: UIButton, paymentDescriptionLabel: UILabel, selectPaymentButton: UIButton, paymentIconView: UIImageView) {
+        self.donationTextField = donationTextField
+        self.donateButton = donateButton
+        self.paymentDescriptionLabel = paymentDescriptionLabel
+        self.selectPaymentButton = selectPaymentButton
+        self.paymentIconView = paymentIconView
+    }
     
     override func viewDidLoad() {
         //In view controllers using this class, IBOutlets from accessing view controller must declare respective IBOutlets above corresponding super.viewDidLoad() method to link them before this class processes them (ie. donationTextField.delegate = self will error if donationTextField is not passed an object from accessing view controller first)
@@ -68,6 +76,7 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     }
     
     //MARK: Braintree Functions
+    //Displays Drop In view
     func showDropIn(clientTokenOrTokenizationKey: String){
         let request =  BTDropInRequest()
         let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
@@ -95,6 +104,7 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
         self.present(dropIn!, animated: true, completion: nil)
     }
     
+    //Retrieves previously used payment methods, if client token is used
     func fetchExistingPaymentMethod(clientToken: String) {
         BTDropInResult.fetch(forAuthorization: clientToken, handler: { (result, error) in
             if (error != nil) {

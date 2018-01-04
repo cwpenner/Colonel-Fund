@@ -37,11 +37,7 @@ class DonateToEventViewController: BraintreeViewController {
         eventFundGoalLabel.text = tempFundGoalText
         eventCurrentFundsLabel.text = tempCurrentFundsText
         
-        super.donationTextField = eventDonationTextField
-        super.donateButton = eventDonateButton
-        super.paymentDescriptionLabel = eventPaymentDescriptionLabel
-        super.selectPaymentButton = eventSelectPaymentButton
-        super.paymentIconView = eventPaymentImageView
+        BraintreeViewController(donationTextField: eventDonationTextField, donateButton: eventDonateButton, paymentDescriptionLabel: eventPaymentDescriptionLabel, selectPaymentButton: eventSelectPaymentButton, paymentIconView: eventPaymentImageView)
         super.eventTitle = eventTitleLabel.text!
         
         super.viewDidLoad()
