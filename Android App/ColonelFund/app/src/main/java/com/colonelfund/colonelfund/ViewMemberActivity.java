@@ -90,7 +90,7 @@ public class ViewMemberActivity extends AppCompatActivity {
         }
 
         // Listener for donating to member.
-        Button donateButton = findViewById(R.id.button4);
+        Button donateButton = findViewById(R.id.memberDonateButton);
         donateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

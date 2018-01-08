@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/memberDonateButton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="90dp"
         android:layout_height="40dp"
@@ -116,9 +116,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/intColor"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/memberDonateButton"
+        app:layout_constraintEnd_toEndOf="@+id/memberDonateButton"
+        app:layout_constraintStart_toStartOf="@+id/memberDonateButton"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

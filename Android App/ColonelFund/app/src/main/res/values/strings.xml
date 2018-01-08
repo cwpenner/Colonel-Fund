@@ -18,6 +18,12 @@
     <string name="phone">Phone Number:</string>
     <string name="title_activity_login">Sign in</string>
     <string name="fullname">Full Name:</string>
+    <string name="dollarSign">$</string>
+    <string name="paymentDescription">Payment Description</string>
+    <string name="donationAmountPlaceholder">50.00</string>
+    <string name="selectPaymentMethod">Select Payment Method</string>
+    <string name="changePaymentMethod">Change Payment Method</string>
+    <string name="googlePay">Google Pay</string>
 
     <!-- Strings related to login -->
     <string name="facebook_app_id">861301034038497</string>
@@ -34,4 +40,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
 </resources>
