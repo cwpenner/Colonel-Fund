@@ -315,6 +315,14 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     //            .removeObserver(self, name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     //        // ...
     //    }
+    
+    func setMemberName(newMemberName: String) {
+        self.memberName = newMemberName
+    }
+    
+    func setEventTitle(newEventTitle: String) {
+        self.eventTitle = newEventTitle
+    }
 }
 
 extension String {
