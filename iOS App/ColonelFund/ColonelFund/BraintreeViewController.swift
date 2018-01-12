@@ -185,7 +185,6 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     //MARK: Text Field Input Control
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string.isEmpty {
-            self.donateButton.isEnabled = false
             return true
         } else if (Double(string) != 0) {
             if (self.paymentMethod.nonce != "" || useApplePay == true) {
@@ -199,9 +198,18 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
         // cursor and delete something in the middle.
         let currentText = textField.text ?? ""
         let replacementText = (currentText as NSString).replacingCharacters(in: range, with: string)
+
         
         // Use custom string extension to check if the string is valid double with specified amount of decimal places
         return replacementText.isValidDouble(maxDecimalPlaces: 2)
+    }
+    
+    // Disables donate button when user clears text field with backspace
+    // Only disables button once user has dismissed text field
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if (textField.text!.isEmpty) {
+            self.donateButton.isEnabled = false
+        }
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
