@@ -5,9 +5,20 @@ target 'ColonelFund' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   
+  # FacebookSDK
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+  
+  # BraintreeSDK
+  pod 'Braintree'
+  pod 'BraintreeDropIn'
+  pod 'BraintreeDropIn/UIKit'
+  pod 'Braintree/DataCollector'
+  pod 'Braintree/PayPal'
+  pod 'Braintree/Venmo'
+  pod 'Braintree/Apple-Pay'
+  pod 'Braintree/3D-Secure'
 
   # Pods for ColonelFund
 
@@ -22,3 +33,5 @@ target 'ColonelFund' do
   end
 
 end
+
+workspace 'ColonelFund'

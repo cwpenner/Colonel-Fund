@@ -53,7 +53,7 @@ class EventListTableViewController: UITableViewController {
         let cellIdentifier = "EventListTableViewCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? EventListTableViewCell  else {
-            fatalError("The dequeued cell is not an instance of EventListTableViewCell.")
+            fatalError("The dequeued cell is not an instance of \(cellIdentifier).")
         }
         
         let event = eventList[indexPath.row]

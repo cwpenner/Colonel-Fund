@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FacebookCore
 import FacebookLogin
+import Braintree
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-
+        BTAppSwitch.setReturnURLScheme("com.ColonelFund.ColonelFund.payments")
+        
         return true
     }
 
@@ -52,11 +54,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     
-    // MARK: - Required for Facebook
+    // MARK: - Required for Facebook and Braintree
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        //Facebook Login
+        if url.scheme?.localizedCaseInsensitiveCompare("fb861301034038497") == .orderedSame {
+            return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        }
+        
+        //Braintree Payments
+        if url.scheme?.localizedCaseInsensitiveCompare("com.ColonelFund.ColonelFund.payments") == .orderedSame {
+            return BTAppSwitch.handleOpen(url, options: options)
+        }
+        
+        return false
     }
-
+    
 
     // MARK: - Core Data stack
 
