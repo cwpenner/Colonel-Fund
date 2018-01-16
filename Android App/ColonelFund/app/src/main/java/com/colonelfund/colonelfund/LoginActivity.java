@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         txtLoginEmail = (EditText) findViewById(R.id.txtLoginEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnRegister = (Button) findViewById(R.id.btnRegister);
+//        btnRegister = (Button) findViewById(R.id.btnRegister);
         btnFacebookLogin = (LoginButton) findViewById(R.id.btnFacebookLogin);
         //Button fbLogin = (Button) findViewById(R.id.login_button);
 
@@ -79,13 +79,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // TODO: 1/15/2018 Remove before final submission 
+        /*
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onRegister(view);
             }
         });
-
+*/
         btnFacebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -197,12 +199,15 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Launches "Create new Account" page.
      *
-     * @param view
+     * @param
      */
+    // TODO: 1/15/2018 remove before final submission
+    /*
     public void onRegister(View view) {
         Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(i);
     }
+    */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

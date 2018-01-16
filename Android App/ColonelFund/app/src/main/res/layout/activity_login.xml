@@ -71,7 +71,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in_short"
                 android:textStyle="bold"/>
-
+<!--
             <Button
                 android:id="@+id/btnRegister"
                 style="?android:textAppearanceSmall"
@@ -80,7 +80,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/create_an_account"
                 android:textStyle="bold"/>
-
+-->
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/btnFacebookLogin"
                 android:layout_width="match_parent"
