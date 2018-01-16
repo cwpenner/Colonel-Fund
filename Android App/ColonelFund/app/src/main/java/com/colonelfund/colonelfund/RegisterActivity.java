@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnSubmitRegister;
     private RadioGroup genderRadioGroup;
     private final String TAG = "RegisterActivity";
-    private final String URL_FOR_REGISTRATION = "https://wesll.com/register.php";
+    private final String URL_FOR_REGISTRATION = "https://wesll.com/colonelfund/register.php";
     ProgressDialog progressDialog;
 
     @Override

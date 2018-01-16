@@ -38,7 +38,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     private final String TAG = "LoginActivity";
-    private final String URL_FOR_LOGIN = "https://wesll.com/login.php";
+    private final String URL_FOR_LOGIN = "https://wesll.com/colonelfund/login.php";
 
     // UI references.
     private EditText txtLoginEmail;
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         txtLoginEmail = (EditText) findViewById(R.id.txtLoginEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-//        btnRegister = (Button) findViewById(R.id.btnRegister);
+//        btnRegister = (Button) findViewById(R.id.btnRegister); // registrationEnable
         btnFacebookLogin = (LoginButton) findViewById(R.id.btnFacebookLogin);
         //Button fbLogin = (Button) findViewById(R.id.login_button);
 
@@ -81,13 +81,14 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO: 1/15/2018 Remove before final submission 
         /*
+        // registrationEnable
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onRegister(view);
             }
         });
-*/
+        */
         btnFacebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -202,6 +203,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param
      */
     // TODO: 1/15/2018 remove before final submission
+    // registrationEnable
     /*
     public void onRegister(View view) {
         Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
