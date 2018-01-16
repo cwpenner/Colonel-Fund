@@ -23,7 +23,6 @@
     <string name="facebook_app_id">861301034038497</string>
     <string name="fb_login_protocol_scheme">fb861301034038497</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_username">UserName</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -34,4 +33,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="create_an_account">create an account</string>
+    <string name="register_new_account">register new account</string>
+    <string name="i_am">I am</string>
 </resources>
