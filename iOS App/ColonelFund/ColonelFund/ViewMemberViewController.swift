@@ -67,7 +67,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         let cellIdentifier = "AssociatedEventsTableViewCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? AssociatedEventsTableViewCell  else {
-            fatalError("The dequeued cell is not an instance of AssociatedEventsTableViewCell.")
+            fatalError("The dequeued cell is not an instance of \(cellIdentifier).")
         }
         
         let event = eventList[indexPath.row]
@@ -81,10 +81,10 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         placeholder.frame.size = CGSize(width: 100.0, height: 100.0)
         placeholder.textColor = UIColor.white
         placeholder.font = UIFont.boldSystemFont(ofSize: 40)
-        let name = nameLabel.text?.characters.split(separator: " ", maxSplits: 1).map(String.init)
+        let name = nameLabel.text?.split(separator: " ", maxSplits: 1).map(String.init)
         var firstName = name![0]
         var lastName = name![1]
-        placeholder.text = String(describing: firstName.characters.first!) + String(describing: lastName.characters.first!)
+        placeholder.text = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
         placeholder.layer.cornerRadius = 50.0

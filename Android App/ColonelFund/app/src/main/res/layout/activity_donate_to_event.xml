@@ -107,22 +107,78 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
+        android:id="@+id/eventDonationAmount"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:text="$50.00"
-        app:layout_constraintLeft_toRightOf="@+id/textView22"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView22" />
+        android:layout_marginEnd="16dp"
+        android:hint="@string/donationAmountPlaceholder"
+        android:inputType="numberDecimal"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView18" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/eventDonateButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:enabled="false"
+        android:onClick="eventDonateButtonPressed"
+        android:text="@string/button_donate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/dollarSign"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
+        app:layout_constraintStart_toEndOf="@+id/textView22" />
+
+    <ImageView
+        android:id="@+id/eventPaymentMethodImage"
+        android:layout_width="45dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/button_donate"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventDonationAmount"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <TextView
+        android:id="@+id/eventPaymentMethodDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/paymentDescription"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/eventPaymentMethodImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/eventPaymentMethodImage"
+        app:layout_constraintTop_toTopOf="@+id/eventPaymentMethodImage" />
+
+    <Button
+        android:id="@+id/eventSelectPaymentMethodButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:onClick="eventSelectPaymentMethodButtonPressed"
+        android:text="@string/selectPaymentMethod"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventPaymentMethodImage" />
 
 </android.support.constraint.ConstraintLayout>

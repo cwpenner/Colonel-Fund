@@ -62,7 +62,7 @@ class MemberListTableViewController: UITableViewController {
         let cellIdentifier = "MemberListTableViewCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MemberListTableViewCell  else {
-            fatalError("The dequeued cell is not an instance of MemberListTableViewCell.")
+            fatalError("The dequeued cell is not an instance of \(cellIdentifier).")
         }
         
         let member = memberList[indexPath.row]
@@ -82,10 +82,10 @@ class MemberListTableViewController: UITableViewController {
         placeholder.frame.size = CGSize(width: 50.0, height: 50.0)
         placeholder.textColor = UIColor.white
         placeholder.font = UIFont.boldSystemFont(ofSize: 26)
-        let name = nameObj.characters.split(separator: " ", maxSplits: 1).map(String.init)
+        let name = nameObj.split(separator: " ", maxSplits: 1).map(String.init)
         var firstName = name[0]
         var lastName = name[1]
-        placeholder.text = String(describing: firstName.characters.first!) + String(describing: lastName.characters.first!)
+        placeholder.text = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
         placeholder.layer.cornerRadius = 25.0

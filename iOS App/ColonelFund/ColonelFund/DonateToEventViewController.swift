@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import BraintreeDropIn
+import Braintree
 
-class DonateToEventViewController: UIViewController {
+class DonateToEventViewController: BraintreeViewController {
 
     //MARK: Properties
     @IBOutlet weak var eventTitleLabel: UILabel!
@@ -17,6 +19,10 @@ class DonateToEventViewController: UIViewController {
     @IBOutlet weak var eventFundGoalLabel: UILabel!
     @IBOutlet weak var eventCurrentFundsLabel: UILabel!
     @IBOutlet weak var eventDonationTextField: UITextField!
+    @IBOutlet weak var eventDonateButton: UIButton!
+    @IBOutlet weak var eventPaymentDescriptionLabel: UILabel!
+    @IBOutlet weak var eventSelectPaymentButton: UIButton!
+    @IBOutlet weak var eventPaymentImageView: UIImageView!
     
     var tempTitleText: String = ""
     var tempDateText: String = "2018-07-04"
@@ -25,21 +31,33 @@ class DonateToEventViewController: UIViewController {
     var tempCurrentFundsText: String = "$75.63"
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
         eventTitleLabel.text = tempTitleText
         eventDateLabel.text = tempDateText
         eventMemberLabel.text = tempMemberText
         eventFundGoalLabel.text = tempFundGoalText
         eventCurrentFundsLabel.text = tempCurrentFundsText
+        
+        BraintreeViewController(donationTextField: eventDonationTextField, donateButton: eventDonateButton, paymentDescriptionLabel: eventPaymentDescriptionLabel, selectPaymentButton: eventSelectPaymentButton, paymentIconView: eventPaymentImageView)
+        setEventTitle(newEventTitle: eventTitleLabel.text!)
+        
+        super.viewDidLoad()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
+    
+    @IBAction func eventSelectPaymentMethodButtonPressed(_ sender: Any) {
+        super.selectPaymentButtonPressed()
+    }
+    
+    @IBAction func eventDonateButtonPressed(_ sender: Any) {
+        super.donateButtonPressed()
+    }
+
+    
     /*
     // MARK: - Navigation
 
