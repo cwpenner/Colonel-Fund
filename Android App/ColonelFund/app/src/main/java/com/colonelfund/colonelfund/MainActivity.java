@@ -66,4 +66,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
     }
+
+    /**
+     *
+     * @param view
+     */
+    public void viewProfile(View view) {
+        Intent intent = new Intent(this, ViewProfileActivity.class);
+        startActivity(intent);
+    }
 }
