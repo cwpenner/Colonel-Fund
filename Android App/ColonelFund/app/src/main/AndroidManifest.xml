@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Login_check"
+            android:name=".LoginCheck"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -121,6 +121,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BraintreeActivity"></activity>
+        <activity android:name=".RegisterActivity" />
     </application>
 
 </manifest>
