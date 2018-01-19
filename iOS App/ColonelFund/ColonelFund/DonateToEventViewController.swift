@@ -58,14 +58,27 @@ class DonateToEventViewController: BraintreeViewController {
     }
 
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        switch(segue.identifier ?? "") {
+        case "ShowTransactionSummary":
+            guard let transactionSummaryViewController = segue.destination as? TransactionSummaryViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            transactionSummaryViewController.tempNameText = "Event: " + eventTitleLabel.text!
+            transactionSummaryViewController.tempAmountText = "$" + eventDonationTextField.text!
+            transactionSummaryViewController.tempPaymentDescriptionText = eventPaymentDescriptionLabel.text!
+            transactionSummaryViewController.tempPaymentMethodImage = eventPaymentImageView.image!
+            transactionSummaryViewController.tempTransactionIDText = "" //TODO: Update with transaction ID
+            
+        default:
+            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+        }
     }
-    */
 
 }
