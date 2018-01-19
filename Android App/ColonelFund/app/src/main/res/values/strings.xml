@@ -24,6 +24,11 @@
     <string name="selectPaymentMethod">Select Payment Method</string>
     <string name="changePaymentMethod">Change Payment Method</string>
     <string name="googlePay">Google Pay</string>
+    <string name="summaryHeader">Thank you for your donation!</string>
+    <string name="summarySubHeader">Take a screenshot or record this information for your records</string>
+    <string name="donation_recipient">Donation Recipient</string>
+    <string name="transactionID">Transaction ID</string>
+    <string name="summaryContinueButton">Continue</string>
 
     <!-- Strings related to login -->
     <string name="facebook_app_id">861301034038497</string>
