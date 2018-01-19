@@ -62,9 +62,6 @@ public class TransactionSummaryActivity extends AppCompatActivity {
             paymentDescription = extras.getString("paymentDescription");
             paymentMethodImageType = extras.getString("paymentMethodImageType");
             transactionID = extras.getString("transactionID");
-//            if (extras.containsKey("gpsCity")) {
-//                gpsCityName = extras.getString("gpsCity");
-//            }
         }
         System.out.println("name: " + name);
         System.out.println("amount: " + amount);
