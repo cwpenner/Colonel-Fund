@@ -20,14 +20,20 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         aboutYouLayout = (ViewGroup) ViewProfileActivity.this.findViewById(R.id.about_you_table);
 
-        addUserInfoLine("Name:", "Admin Smith");
+        addUserInfoLine("Name:", "First Last");
         addBorder(aboutYouLayout);
-        addUserInfoLine("User ID:", "AdminSmith");
+        addUserInfoLine("User ID:", "CurrentUserID");
         addBorder(aboutYouLayout);
-        addUserInfoLine("Email Address:", "Admin@colnelfund.com");
+        addUserInfoLine("Email Address:", "username@gmail.com");
+        addBorder(aboutYouLayout);
+        addUserInfoLine("Phone Number:", "987-654-3210");
 
         donationInfoLayout = (ViewGroup) ViewProfileActivity.this.findViewById(R.id.history_table);
         addDonationInfoLine("Donation History Here", "  ");
+        addBorder(donationInfoLayout);
+        addDonationInfoLine("Example Event Title", "$15.02");
+        addBorder(donationInfoLayout);
+        addDonationInfoLine("Example Event Title 2", "$1.02");
     }
 
     private void addUserInfoLine(String leftText, String rightText) {
