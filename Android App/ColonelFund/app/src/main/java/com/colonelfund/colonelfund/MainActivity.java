@@ -56,8 +56,15 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ViewProfileActivity.class);
             startActivity(intent);
         } else if (id == R.id.your_history_events) {
-            Intent intent = new Intent(this, ViewProfileActivity.class);
+            Intent intent = new Intent(this, MyHistoryEventsActivity.class);
             startActivity(intent);
+        } else if (id == R.id.logout_item) {
+            AccessToken token = AccessToken.getCurrentAccessToken();
+            if(token != null) {
+                LoginManager.getInstance().logOut();
+            }
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -86,15 +93,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void createEvent(View view) {
         Intent intent = new Intent(this, CreateEventActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     *
-     * @param view
-     */
-    public void viewProfile(View view) {
-        Intent intent = new Intent(this, ViewProfileActivity.class);
         startActivity(intent);
     }
 }

@@ -13,4 +13,9 @@
         android:orderInCategory="101"
         android:title="@string/your_history_events"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/logout_item"
+        android:orderInCategory="102"
+        android:title="@string/logout_item"
+        app:showAsAction="never" />
 </menu>

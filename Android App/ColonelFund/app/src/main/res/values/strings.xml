@@ -29,6 +29,7 @@
     <string name="donation_history">Donation History</string>
     <string name="account_info">Account Info</string>
     <string name="your_history_events">Your History/Events</string>
+    <string name="logout_item">Log Out</string>
 
     <!-- Strings related to login -->
     <string name="facebook_app_id">861301034038497</string>
@@ -49,4 +50,5 @@
     <string name="i_am">I am</string>
     <string name="admin_colonelfund_com">admin@colonelfund.com</string>
     <string name="title_activity_view_profile">Profile</string>
+    <string name="title_activity_view_history">History/Events</string>
 </resources>
