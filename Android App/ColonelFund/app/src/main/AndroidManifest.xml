@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.colonelfund.colonelfund">
-    <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true"/>
+
+    <meta-data
+        android:name="com.google.android.gms.wallet.api.enabled"
+        android:value="true" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -27,10 +30,10 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity
             android:name=".MainActivity"
-            android:label="Main"></activity>
+            android:label="Main" />
         <activity
             android:name=".MemberListActivity"
             android:label="Member List"
@@ -120,8 +123,9 @@
                 <data android:scheme="${applicationId}.braintree" />
             </intent-filter>
         </activity>
-        <activity android:name=".BraintreeActivity"></activity>
+        <activity android:name=".BraintreeActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".TransactionSummaryActivity"></activity>
     </application>
 
 </manifest>
