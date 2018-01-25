@@ -46,8 +46,8 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 		<string>com.paypal.ppclient.touch.v1</string>
-        <string>com.paypal.ppclient.touch.v2</string>
-		<string>com.venmo.touch.v2</string>  
+		<string>com.paypal.ppclient.touch.v2</string>
+		<string>com.venmo.touch.v2</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -72,5 +72,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

@@ -10,6 +10,7 @@
 		3C2D43899BE6FA902C21FB7C /* Pods_ColonelFundUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A912BFC2E0A98E53E6BF197 /* Pods_ColonelFundUITests.framework */; };
 		5F0713A91FAFD23C00AA623A /* MemberListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */; };
 		5F0713AB1FAFD2F200AA623A /* MemberListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0713AA1FAFD2F200AA623A /* MemberListTableViewCell.swift */; };
+		5F318C1120116E040080B62E /* TransactionSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F318C1020116E040080B62E /* TransactionSummaryViewController.swift */; };
 		5F373EC81FC60A4F005B2BD1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8718081FC5F9FD0091B13A /* FBSDKCoreKit.framework */; };
 		5F373ECA1FC60A4F005B2BD1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F87180A1FC5F9FE0091B13A /* FBSDKLoginKit.framework */; };
 		5F373ECC1FC60A4F005B2BD1 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8718071FC5F9FD0091B13A /* FBSDKShareKit.framework */; };
@@ -67,6 +68,7 @@
 		43740B974FEE3F3A620B0E57 /* Pods-ColonelFundUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColonelFundUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColonelFundUITests/Pods-ColonelFundUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListTableViewController.swift; sourceTree = "<group>"; };
 		5F0713AA1FAFD2F200AA623A /* MemberListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListTableViewCell.swift; sourceTree = "<group>"; };
+		5F318C1020116E040080B62E /* TransactionSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSummaryViewController.swift; sourceTree = "<group>"; };
 		5F5779D81FAFE6CB000667FC /* DonateToMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateToMemberViewController.swift; sourceTree = "<group>"; };
 		5F5779DE1FB00F17000667FC /* ViewEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventViewController.swift; sourceTree = "<group>"; };
 		5F5779E21FB017A2000667FC /* EventListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListTableViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				5F995DD41F9286D700F8E459 /* MainViewController.swift */,
 				5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */,
 				5F995DD61F9286D700F8E459 /* Main.storyboard */,
+				5F318C1020116E040080B62E /* TransactionSummaryViewController.swift */,
 				5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */,
 				5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */,
 				5F8717FB1FC547C60091B13A /* LoginViewController.swift */,
@@ -565,6 +568,7 @@
 				5F5A49D81FFC1647006E211B /* BraintreeViewController.swift in Sources */,
 				5F5779E71FB01805000667FC /* ViewMemberViewController.swift in Sources */,
 				5F8717FE1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift in Sources */,
+				5F318C1120116E040080B62E /* TransactionSummaryViewController.swift in Sources */,
 				5F0713A91FAFD23C00AA623A /* MemberListTableViewController.swift in Sources */,
 				5F5779D91FAFE6CB000667FC /* DonateToMemberViewController.swift in Sources */,
 				5F5779E51FB017D3000667FC /* EventListTableViewCell.swift in Sources */,
