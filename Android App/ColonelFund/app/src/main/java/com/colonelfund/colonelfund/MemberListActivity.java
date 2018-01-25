@@ -75,7 +75,7 @@ public class MemberListActivity extends AppCompatActivity {
         Iterator<Member> memberIter = memberList.iterator();
         while (memberIter.hasNext()) {
             Member temp = memberIter.next();
-            models.add(new MemberListModel(temp.getFirstName().substring(0,1)+temp.getLastName().substring(0,1),temp.getUserID()));
+            models.add(new MemberListModel(temp.getFirstName().substring(0,1)+temp.getLastName().substring(0,1),temp.getUserID(), temp.getFirstName() + " " + temp.getLastName()));
         }
         return models;
     }

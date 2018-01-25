@@ -22,7 +22,7 @@
 
     <!-- title -->
     <TextView
-        android:id="@+id/member_id"
+        android:id="@+id/member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/member_initials"
@@ -32,5 +32,30 @@
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@+id/member_initials"
         android:textSize="18dp" />
+
+    <!-- subtitle -->
+    <TextView
+        android:id="@+id/member_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/member_name"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/member_name"
+        android:layout_below="@+id/member_initials"
+        android:textSize="18dp" />
+
+    <!--
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:numStars="1" />
+    -->
 
 </RelativeLayout>

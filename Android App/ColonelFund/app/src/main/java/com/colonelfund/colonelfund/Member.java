@@ -88,7 +88,7 @@ public class Member implements Serializable {
         this.emailAddress = emailAddress;
     }
     /**
-     * @return the phoneNumber
+     * @return t.he phoneNumber
      */
     public String getPhoneNumber() {
         return phoneNumber;
