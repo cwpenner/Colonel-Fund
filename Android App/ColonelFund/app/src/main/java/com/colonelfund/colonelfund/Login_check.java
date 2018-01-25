@@ -8,6 +8,8 @@ import android.content.Intent;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 public class Login_check extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class Login_check extends AppCompatActivity {
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
         AccessToken token = AccessToken.getCurrentAccessToken();
-        if(token == null){
+        if(token == null && GoogleSignIn.getLastSignedInAccount(this) == null){
             Intent LoginIntent = new Intent(Login_check.this,LoginActivity.class);
             startActivity(LoginIntent);
             Login_check.this.finish();

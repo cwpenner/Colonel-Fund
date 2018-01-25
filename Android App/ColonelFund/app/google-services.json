@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "955648583908",
+    "firebase_url": "https://colonelfund-1516322788172.firebaseio.com",
+    "project_id": "colonelfund-1516322788172",
+    "storage_bucket": "colonelfund-1516322788172.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955648583908:android:97dbfdb9e149161b",
+        "android_client_info": {
+          "package_name": "com.colonelfund.colonelfund"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955648583908-5fjh3bid0rc1mlt2e3cvhc1cna3of7p2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "955648583908-rl36h7atjle9c8sl38i7cj7jpfs5om6h.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "955648583908-1us4icrcv72al99qu2gttqqs45eaavc3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.colonelfund.colonelfund",
+            "certificate_hash": "b2ac803d289a29d17c515e222924c775aa2ca763"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaYooEQyuFRycA8Jwsglf2uq4BhRusov0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955648583908-5fjh3bid0rc1mlt2e3cvhc1cna3of7p2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
