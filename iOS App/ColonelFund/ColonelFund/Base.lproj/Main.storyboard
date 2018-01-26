@@ -195,7 +195,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="oAQ-aM-y3P"/>
                                 </constraints>
-                                <state key="normal" title="CREATE EVENT"/>
+                                <state key="normal" title="Create Event"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -324,7 +324,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="GNC-tO-2pK"/>
                                 </constraints>
-                                <state key="normal" title="DONATE"/>
+                                <state key="normal" title="Donate"/>
                                 <connections>
                                     <segue destination="F1e-gF-vgk" kind="show" identifier="ShowDonateToEvent" id="9jq-Fa-0Je"/>
                                 </connections>
@@ -471,7 +471,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGz-gg-Cs0">
                                 <rect key="frame" x="20" y="686" width="374" height="30"/>
-                                <state key="normal" title="DONATE"/>
+                                <state key="normal" title="Donate"/>
                                 <connections>
                                     <action selector="eventDonateButtonPressed:" destination="F1e-gF-vgk" eventType="touchUpInside" id="nze-gx-LgB"/>
                                 </connections>
@@ -537,6 +537,7 @@
                         <outlet property="eventPaymentImageView" destination="qGb-Fi-CIV" id="jK1-pT-hqS"/>
                         <outlet property="eventSelectPaymentButton" destination="H7M-oM-n5A" id="TM3-vr-G5W"/>
                         <outlet property="eventTitleLabel" destination="CwX-xJ-Qfk" id="zu1-Rp-DQs"/>
+                        <segue destination="gFi-VP-FMf" kind="presentation" identifier="ShowTransactionSummary" id="d4R-8W-x6f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qec-ug-JHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -592,7 +593,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="4Ep-B7-5dF"/>
                                 </constraints>
-                                <state key="normal" title="DONATE"/>
+                                <state key="normal" title="Donate"/>
                                 <connections>
                                     <segue destination="pTf-aG-xnl" kind="show" identifier="ShowDonateToMember" id="udT-IG-qfU"/>
                                 </connections>
@@ -783,7 +784,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3zT-Ct-Van">
                                 <rect key="frame" x="20" y="686" width="374" height="30"/>
-                                <state key="normal" title="DONATE"/>
+                                <state key="normal" title="Donate"/>
                                 <connections>
                                     <action selector="memberDonateButtonPressed:" destination="pTf-aG-xnl" eventType="touchUpInside" id="eTC-9Z-eSa"/>
                                 </connections>
@@ -866,11 +867,135 @@
                         <outlet property="nameLabel" destination="bDP-OT-Dfr" id="MpM-0I-2PW"/>
                         <outlet property="profilePicImageView" destination="flz-C8-JzL" id="nJ2-5s-Tj7"/>
                         <outlet property="usernameLabel" destination="hDD-b5-tY8" id="WdM-bB-P6H"/>
+                        <segue destination="gFi-VP-FMf" kind="presentation" identifier="ShowTransactionSummary" id="pnZ-iL-tL5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oW9-G0-H0j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3278.2608695652175" y="-335.054347826087"/>
+        </scene>
+        <!--Transaction Summary-->
+        <scene sceneID="Y0j-o9-Sol">
+            <objects>
+                <viewController title="Transaction Summary" id="gFi-VP-FMf" customClass="TransactionSummaryViewController" customModule="ColonelFund" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZDi-cd-2ZQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you for your donation!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMi-Cm-5zO">
+                                <rect key="frame" x="20" y="40" width="374" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Donation Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mF-zV-ruC">
+                                <rect key="frame" x="20" y="214" width="143" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Donation Recipient" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FD9-bb-FDj">
+                                <rect key="frame" x="20" y="144.66666666666666" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ca0-3L-0qG">
+                                <rect key="frame" x="20" y="255" width="45" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="Toj-0l-PqY"/>
+                                    <constraint firstAttribute="height" constant="29" id="sGZ-of-mS2"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sfv-Nj-PBu">
+                                <rect key="frame" x="20" y="304" width="118" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Method Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxe-BG-15s">
+                                <rect key="frame" x="85" y="259" width="309" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Member Name or Event Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHt-7z-hLX">
+                                <rect key="frame" x="20" y="173" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$50.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGs-yp-i69">
+                                <rect key="frame" x="183" y="214" width="56" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Braintree Transaction ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2G-eH-RMH">
+                                <rect key="frame" x="158" y="304" width="184" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Soa-Ky-tYZ">
+                                <rect key="frame" x="20" y="686" width="374" height="30"/>
+                                <state key="normal" title="Continue"/>
+                                <connections>
+                                    <action selector="continueButtonPressed:" destination="gFi-VP-FMf" eventType="touchUpInside" id="VXQ-ML-M4B"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Take a screenshot or record this information for your records" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Lj-b9-T8H">
+                                <rect key="frame" x="20" y="72" width="374" height="40.666666666666657"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="sRa-vh-UMG" firstAttribute="trailing" secondItem="1Lj-b9-T8H" secondAttribute="trailing" constant="20" id="081-aB-0u6"/>
+                            <constraint firstItem="1Lj-b9-T8H" firstAttribute="leading" secondItem="sRa-vh-UMG" secondAttribute="leading" constant="20" id="0kZ-tm-yco"/>
+                            <constraint firstItem="TGs-yp-i69" firstAttribute="baseline" secondItem="3mF-zV-ruC" secondAttribute="baseline" id="23b-Ry-dKK"/>
+                            <constraint firstItem="R2G-eH-RMH" firstAttribute="baseline" secondItem="Sfv-Nj-PBu" secondAttribute="baseline" id="2Gx-5k-KTM"/>
+                            <constraint firstItem="TGs-yp-i69" firstAttribute="leading" secondItem="3mF-zV-ruC" secondAttribute="trailing" constant="20" id="2LP-dM-CSE"/>
+                            <constraint firstItem="sRa-vh-UMG" firstAttribute="trailing" secondItem="Soa-Ky-tYZ" secondAttribute="trailing" constant="20" id="2yC-lB-O8Y"/>
+                            <constraint firstItem="LHt-7z-hLX" firstAttribute="top" secondItem="FD9-bb-FDj" secondAttribute="bottom" constant="8" id="3tF-Wg-ebA"/>
+                            <constraint firstItem="sRa-vh-UMG" firstAttribute="trailing" secondItem="HMi-Cm-5zO" secondAttribute="trailing" constant="20" id="4HS-uf-ET2"/>
+                            <constraint firstItem="R2G-eH-RMH" firstAttribute="leading" secondItem="Sfv-Nj-PBu" secondAttribute="trailing" constant="20" id="5Xb-bs-MNW"/>
+                            <constraint firstItem="FD9-bb-FDj" firstAttribute="leading" secondItem="sRa-vh-UMG" secondAttribute="leading" constant="20" id="BKc-hx-KuE"/>
+                            <constraint firstItem="LHt-7z-hLX" firstAttribute="leading" secondItem="sRa-vh-UMG" secondAttribute="leading" constant="20" id="F08-Kt-IZi"/>
+                            <constraint firstItem="sRa-vh-UMG" firstAttribute="trailing" secondItem="FD9-bb-FDj" secondAttribute="trailing" constant="20" id="Gig-qp-Ohw"/>
+                            <constraint firstItem="Sfv-Nj-PBu" firstAttribute="top" secondItem="ca0-3L-0qG" secondAttribute="bottom" constant="20" id="IUe-HF-tx7"/>
+                            <constraint firstItem="sRa-vh-UMG" firstAttribute="bottom" secondItem="Soa-Ky-tYZ" secondAttribute="bottom" constant="20" id="KUd-Fw-cfu"/>
+                            <constraint firstItem="Dxe-BG-15s" firstAttribute="leading" secondItem="ca0-3L-0qG" secondAttribute="trailing" constant="20" id="LhC-DW-tKH"/>
+                            <constraint firstItem="sRa-vh-UMG" firstAttribute="trailing" secondItem="LHt-7z-hLX" secondAttribute="trailing" constant="20" id="P0o-je-UC3"/>
+                            <constraint firstItem="ca0-3L-0qG" firstAttribute="top" secondItem="3mF-zV-ruC" secondAttribute="bottom" constant="20" id="RC1-l9-eJc"/>
+                            <constraint firstItem="3mF-zV-ruC" firstAttribute="top" secondItem="LHt-7z-hLX" secondAttribute="bottom" constant="20" id="ZPt-DI-irz"/>
+                            <constraint firstItem="HMi-Cm-5zO" firstAttribute="leading" secondItem="sRa-vh-UMG" secondAttribute="leading" constant="20" id="cVT-l5-NKC"/>
+                            <constraint firstItem="Soa-Ky-tYZ" firstAttribute="leading" secondItem="sRa-vh-UMG" secondAttribute="leading" constant="20" id="hPF-AD-xxQ"/>
+                            <constraint firstItem="ca0-3L-0qG" firstAttribute="leading" secondItem="sRa-vh-UMG" secondAttribute="leading" constant="20" id="idA-5Z-PDJ"/>
+                            <constraint firstItem="3mF-zV-ruC" firstAttribute="leading" secondItem="sRa-vh-UMG" secondAttribute="leading" constant="20" id="lAI-Xt-sYQ"/>
+                            <constraint firstItem="1Lj-b9-T8H" firstAttribute="top" secondItem="HMi-Cm-5zO" secondAttribute="bottom" constant="8" id="mlD-BX-fRg"/>
+                            <constraint firstItem="Dxe-BG-15s" firstAttribute="centerY" secondItem="ca0-3L-0qG" secondAttribute="centerY" id="qRc-6f-SUv"/>
+                            <constraint firstItem="Sfv-Nj-PBu" firstAttribute="leading" secondItem="sRa-vh-UMG" secondAttribute="leading" constant="20" id="rGN-h0-jx9"/>
+                            <constraint firstItem="FD9-bb-FDj" firstAttribute="top" secondItem="1Lj-b9-T8H" secondAttribute="bottom" constant="32" id="sJl-Y4-w7w"/>
+                            <constraint firstItem="sRa-vh-UMG" firstAttribute="trailing" secondItem="Dxe-BG-15s" secondAttribute="trailing" constant="20" id="tJF-fq-LGp"/>
+                            <constraint firstItem="HMi-Cm-5zO" firstAttribute="top" secondItem="sRa-vh-UMG" secondAttribute="top" constant="20" id="xLP-BU-NTT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="sRa-vh-UMG"/>
+                    </view>
+                    <connections>
+                        <outlet property="donationAmountLabel" destination="TGs-yp-i69" id="hTD-C0-dkv"/>
+                        <outlet property="donationMethodImageView" destination="ca0-3L-0qG" id="vc2-k0-LHI"/>
+                        <outlet property="donationMethodLabel" destination="Dxe-BG-15s" id="Mhm-DC-Ded"/>
+                        <outlet property="donationRecipientLabel" destination="LHt-7z-hLX" id="3ni-cU-4U7"/>
+                        <outlet property="transactionIDLabel" destination="R2G-eH-RMH" id="kOI-cR-sqO"/>
+                        <segue destination="seU-oj-fUu" kind="presentation" identifier="ShowMainScreen" id="8Vn-7o-6bN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P7t-K4-Alh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4288.4057971014499" y="61.956521739130437"/>
         </scene>
         <!--Login-->
         <scene sceneID="W8R-jz-4Ck">
@@ -975,6 +1100,8 @@
         <image name="img_placeholder" width="1920" height="1090"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="8Vn-7o-6bN"/>
+        <segue reference="d4R-8W-x6f"/>
         <segue reference="E5p-ic-7av"/>
     </inferredMetricsTieBreakers>
 </document>
