@@ -22,6 +22,7 @@ public class ViewMemberActivity extends AppCompatActivity {
 
     /**
      * Creates member view and gets/adds related activities.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -33,7 +34,7 @@ public class ViewMemberActivity extends AppCompatActivity {
         if ((Member) intent.getSerializableExtra("SelectedMember") != null) {
             aMember = (Member) intent.getSerializableExtra("SelectedMember");
         } else {
-            aMember = new Member ("Error", "Error", "Error", "Error", "Error", "Error");
+            aMember = new Member("Error", "Error", "Error", "Error", "Error");
         }
         final Member selectedMember = aMember;
         setContentView(R.layout.activity_view_member);
@@ -100,8 +101,10 @@ public class ViewMemberActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      * Added for back button pre API 16
+     *
      * @param item
      * @return
      */

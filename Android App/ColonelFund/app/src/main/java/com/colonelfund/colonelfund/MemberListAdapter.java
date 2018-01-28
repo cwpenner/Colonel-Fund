@@ -42,10 +42,10 @@ public class MemberListAdapter extends ArrayAdapter<MemberListModel> {
         rowView = inflater.inflate(R.layout.member_list_item, parent, false);
 
         TextView memberInitials = (TextView) rowView.findViewById(R.id.member_initials);
-        TextView memberID = (TextView) rowView.findViewById(R.id.member_id);
+        TextView memberName = (TextView) rowView.findViewById(R.id.memberName);
 
         memberInitials.setText(modelsArrayList.get(position).getInitials());
-        memberID.setText(modelsArrayList.get(position).getMemberID());
+        memberName.setText(modelsArrayList.get(position).getFullName());
 
         return rowView;
     }

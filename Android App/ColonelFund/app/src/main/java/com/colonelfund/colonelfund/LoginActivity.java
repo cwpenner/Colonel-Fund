@@ -1,8 +1,11 @@
 package com.colonelfund.colonelfund;
 
+<<<<<<< Updated upstream
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+=======
+>>>>>>> Stashed changes
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -76,9 +79,18 @@ public class LoginActivity extends AppCompatActivity {
     private View mLoginFormView;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+<<<<<<< Updated upstream
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+=======
+    private Button btnLogin, btnRegister;
+    AppSingleton appContext;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        appContext = new AppSingleton(this.getApplicationContext());
+>>>>>>> Stashed changes
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login);
@@ -96,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         //Button fbLogin = (Button) findViewById(R.id.login_button);
 
 
+<<<<<<< Updated upstream
 
         /**
          * A dummy authentication store containing known user names and passwords.
@@ -123,6 +136,19 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+=======
+        // TODO: 1/15/2018 Remove before final submission 
+
+        // registrationEnable
+//        btnRegister.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onRegister(view);
+//            }
+//        });
+
+        btnFacebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+>>>>>>> Stashed changes
             @Override
             public void onSuccess(LoginResult loginResult) {
 
@@ -163,10 +189,92 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< Updated upstream
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView =      findViewById(R.id.login_progress);
 
     }
+=======
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // The activity is about to be destroyed.
+
+        appContext.cancelAll();
+    }
+
+    private void loginUser(final String emailAddress, final String password) {
+        // Tag used to cancel the request
+        String cancel_req_tag = "login";
+        StringRequest strReq = new StringRequest(Request.Method.POST, URL_FOR_LOGIN, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Register Response: " + response);
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    if (!error) {
+                        String user = jObj.getJSONObject("user").getString("firstName");
+                        // Launch User activity
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("username", user);
+                        startActivity(intent);
+//                        Toast.makeText(getApplicationContext(), "Signed in successfully", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                    else {
+
+                        String errorMsg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Wrong username or password", Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("emailAddress", emailAddress);
+                params.put("password", password);
+                return params;
+            }
+
+        };
+        // Adding request to request queue
+        strReq.setTag(getApplicationContext());
+
+        appContext.addToRequestQueue(strReq, cancel_req_tag);
+    }
+
+    /**
+     * Launches "Create new Account" page.
+     *
+     * @param
+     */
+    // TODO: 1/15/2018 remove before final submission
+    // registrationEnable
+/*
+    public void onRegister(View view) {
+        Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(i);
+    }
+*/
+
+>>>>>>> Stashed changes
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

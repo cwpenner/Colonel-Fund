@@ -22,7 +22,7 @@
 
     <!-- title -->
     <TextView
-        android:id="@+id/member_id"
+        android:id="@+id/memberName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/member_initials"

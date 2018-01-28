@@ -8,13 +8,10 @@ import android.widget.Button;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
-import com.facebook.login.widget.LoginButton;
 
 public class MainActivity extends AppCompatActivity {
     /**
-     *
      * @param savedInstanceState
      */
     @Override
@@ -23,13 +20,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
+        updateLocalStorage();
 
         Button logoutButton = (Button) findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AccessToken token = AccessToken.getCurrentAccessToken();
-                if(token != null) {
+                if (token != null) {
                     LoginManager.getInstance().logOut();
                 }
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
@@ -38,8 +36,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     /**
-     *
+     * update local storage from remote Database
+     */
+    public void updateLocalStorage() {
+        // TODO: 1/27/2018 add update for Event list to this call
+        MemberCollection mc = new MemberCollection(getApplicationContext());
+        mc.updateFromRemote();
+    }
+
+    /**
      * @param view
      */
     public void viewMemberList(View view) {
@@ -48,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param view
      */
     public void viewEventList(View view) {
@@ -57,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param view
      */
     public void createEvent(View view) {

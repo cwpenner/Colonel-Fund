@@ -40,5 +40,17 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+<<<<<<< Updated upstream
 
+=======
+    <string name="create_an_account">create an account</string>
+    <string name="register_new_account">register new account</string>
+    <string name="i_am">I am</string>
+    <string name="admin_colonelfund_com">admin@colonelfund.com</string>
+    <string name="userid">userID</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="phone_number">Phone Number</string>
+>>>>>>> Stashed changes
 </resources>

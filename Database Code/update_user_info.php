@@ -21,27 +21,28 @@ class update_user_info {
      * Storing new user
      * returns user details
      */
-    public function StoreUserInfo($name, $email, $password, $gender, $age) {
+    public function StoreUserInfo($userID, $firstName, $lastName, $emailAddress, $password, $phoneNumber) {
         $hash = $this->hashFunction($password);
         $encrypted_password = $hash["encrypted"]; // encrypted password
         $salt = $hash["salt"]; // salt
 
-        $stmt = $this->conn->prepare("INSERT INTO android_php_post(name, email, encrypted_password, salt, gender, age) VALUES(?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $name, $email, $encrypted_password, $salt, $gender, $age);
+        $stmt = $this->conn->prepare("INSERT INTO members(userID, firstName, lastName, emailAddress, phoneNumber, encrypted_password, salt) VALUES(?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssss", $userID, $firstName, $lastName, $emailAddress, $phoneNumber, $encrypted_password, $salt);
         $result = $stmt->execute();
         $stmt->close();
 
         // check for successful store
         if ($result) {
-            $stmt = $this->conn->prepare("SELECT name, email, encrypted_password, salt, gender, age FROM android_php_post WHERE email = ?");
-            $stmt->bind_param("s", $email);
+            $stmt = $this->conn->prepare("SELECT userID, firstName, lastName, emailAddress, phoneNumber, encrypted_password, salt FROM members WHERE emailAddress = ?");
+            $stmt->bind_param("s", $emailAddress);
             $stmt->execute();
-            $stmt-> bind_result($token2,$token3,$token4,$token5,$token6,$token7);
+            $stmt-> bind_result($token2,$token3,$token4,$token5,$token6,$token7,$token8);
             while ( $stmt-> fetch() ) {
-                $user["name"] = $token2;
-                $user["email"] = $token3;
-                $user["gender"] = $token6;
-                $user["age"] = $token7;
+                $user["userID"] = $token2;
+                $user["firstName"] = $token3;
+                $user["lastName"] = $token4;
+                $user["emailAddress"] = $token5;
+                $user["phoneNumber"] = $token6;
             }
             $stmt->close();
             return $user;
@@ -52,30 +53,34 @@ class update_user_info {
 
     /**
      * Get user by email and password
+     * @param $emailAddress
+     * @param $password
+     * @return null
      */
-    public function VerifyUserAuthentication($email, $password) {
+    public function VerifyUserAuthentication($emailAddress, $password) {
 
-        $stmt = $this->conn->prepare("SELECT name, email, encrypted_password, salt, gender, age FROM android_php_post WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT userID, firstName, lastName, emailAddress, phoneNumber, encrypted_password, salt FROM members WHERE emailAddress = ?");
 
-        $stmt->bind_param("s", $email);
+        $stmt->bind_param("s", $emailAddress);
 
         if ($stmt->execute()) {
-            $stmt-> bind_result($token2,$token3,$token4,$token5,$token6,$token7);
+            $stmt-> bind_result($token2,$token3,$token4,$token5,$token6,$token7,$token8);
 
             while ( $stmt-> fetch() ) {
-                $user["name"] = $token2;
-                $user["email"] = $token3;
-                $user["encrypted_password"] = $token4;
-                $user["salt"] = $token5;
-                $user["gender"] = $token6;
-                $user["age"] = $token7;
+                $user["userID"] = $token2;
+                $user["firstName"] = $token3;
+                $user["lastName"] = $token4;
+                $user["emailAddress"] = $token5;
+                $user["phoneNumber"] = $token6;
+                $user["encrypted_password"] = $token7;
+                $user["salt"] = $token8;
             }
 
             $stmt->close();
 
             // verifying user password
-            $salt = $token5;
-            $encrypted_password = $token4;
+            $salt = $token8;
+            $encrypted_password = $token7;
             $hash = $this->CheckHashFunction($salt, $password);
             // check for password equality
             if ($encrypted_password == $hash) {
@@ -90,10 +95,10 @@ class update_user_info {
     /**
      * Check user is existed or not
      */
-    public function CheckExistingUser($email) {
-        $stmt = $this->conn->prepare("SELECT email from android_php_post WHERE email = ?");
+    public function CheckExistingUser($emailAddress) {
+        $stmt = $this->conn->prepare("SELECT emailAddress from members WHERE emailAddress = ?");
 
-        $stmt->bind_param("s", $email);
+        $stmt->bind_param("s", $emailAddress);
 
         $stmt->execute();
 
