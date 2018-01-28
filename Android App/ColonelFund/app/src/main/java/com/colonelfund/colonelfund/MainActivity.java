@@ -10,6 +10,8 @@ import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
+
+// TODO: 12/22/2017 Tie in "Logout" button to terminate users session
 public class MainActivity extends AppCompatActivity {
     /**
      * @param savedInstanceState

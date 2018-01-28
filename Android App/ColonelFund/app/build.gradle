@@ -22,7 +22,11 @@ android {
     }
 }
 
+
 dependencies {
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    compile 'com.android.volley:volley:1.0.0'
     implementation 'com.android.support:design:27.0.2'
     implementation 'com.facebook.android:facebook-android-sdk:4.29.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')

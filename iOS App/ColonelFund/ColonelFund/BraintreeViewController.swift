@@ -68,7 +68,6 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
         }
         
         self.sendRequestPaymentToServer(nonce: nonce, amount: donationAmount.stringValue)
-        //TODO: segue to Thank You screen
     }
     
     func selectPaymentButtonPressed() {
@@ -158,16 +157,21 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
             guard let data = data else {
                 print(error!.localizedDescription)
+                //self.displayAlert(alertTitle: "Transaction Failed", alertMessage: "Could not connect to payment server. The payment could not be processed.")
                 return
             }
             
             guard let result = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let success = result?["success"] as? Bool, success == true else {
                 print("Transaction failed. Please try again.")
+                //self.displayAlert(alertTitle: "Transaction Failed", alertMessage: "Transaction failed. The payment could not be processed. Please try again.")
                 return
             }
             
+            
             print("Successfully charged.")
             }.resume()
+        //TODO: add check for successful transaction
+        self.performSegue(withIdentifier: "ShowTransactionSummary", sender: self)
     }
     
     func updatePaymentImage(paymentOptionText: String) {
@@ -284,6 +288,8 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     @available(iOS 8.0, *)
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         dismiss(animated: true, completion: nil)
+        //TODO: add check for successful transaction
+        self.performSegue(withIdentifier: "ShowTransactionSummary", sender: self)
     }
     
     // MARK: - BTViewControllerPresentingDelegate
@@ -330,6 +336,14 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     
     func setEventTitle(newEventTitle: String) {
         self.eventTitle = newEventTitle
+    }
+    
+    func displayAlert(alertTitle: String, alertMessage: String) {
+        let alertController = UIAlertController(title: alertTitle, message:
+            alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 

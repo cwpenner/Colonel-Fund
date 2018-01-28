@@ -18,6 +18,7 @@ If the `.xcodeproj` file is loaded instead of the `.xcworkspace file`, nothing b
 
 
 ### Login Notes
-Until the database is created, the standard login works with `"admin"/"admin"` as the username/password.
+username: `admin@colonelfund.com`
+password: `admin`
 
 Logging in with Facebook works for any of the Facebook test accounts that have been created so far, or if your Facebook ID has been added as an admin.

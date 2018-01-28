@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -65,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(final String userID, final String firstName,
                               final String lastName, final String emailAddress,
                               final String password, final String phoneNumber) {
+
         // Tag used to cancel the request
         String cancel_req_tag = "register";
 
@@ -85,6 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     if (!error) {
                         String user = jObj.getJSONObject("user").getString("userID");
+
                         Toast.makeText(getApplicationContext(), "Hi " + user +
                                 ", You are successfully Added!", Toast.LENGTH_SHORT).show();
 
@@ -92,8 +93,8 @@ public class RegisterActivity extends AppCompatActivity {
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
-                    } else {
 
+                    } else {
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getApplicationContext(),
                                 errorMsg, Toast.LENGTH_LONG).show();
@@ -117,6 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
+
                 params.put("userID", userID);
                 params.put("firstName", firstName);
                 params.put("lastName", lastName);

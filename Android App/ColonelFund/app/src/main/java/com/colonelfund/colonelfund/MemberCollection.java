@@ -9,11 +9,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,10 +24,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Member Collection Class
@@ -51,7 +50,7 @@ public class MemberCollection {
         this.am = myContext.getAssets();
         this.appContext = new AppSingleton(myContext);
         this.context = myContext;
-        boolean successfulLoad = this.restoreFromFile(context);
+        boolean successfulLoad = restoreFromFile(context);
         if (successfulLoad) {
             System.out.println("Library loaded from: " + jsonFileName);
         } else {
@@ -142,7 +141,7 @@ public class MemberCollection {
             e.printStackTrace();
         }
         try {
-            if (!inputStream.equals(null)) {
+            if (inputStream != null) {
                 System.out.println("Event Library collection found under: " + jsonFileName);
                 BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder total = new StringBuilder();
@@ -160,8 +159,7 @@ public class MemberCollection {
                 String[] eventTitles = keyList.toArray(new String[keyList.size()]);
                 for (int i = 0; i < eventTitles.length; i++) {
                     Member memberDesc = new Member((JSONObject) obj.getJSONObject(eventTitles[i]));
-                    if (memberDesc != null)
-                        this.memberMap.put(memberDesc.getUserID().toLowerCase(), memberDesc);
+                    this.memberMap.put(memberDesc.getUserID().toLowerCase(), memberDesc);
                 }
                 restored = true;
             } else {
