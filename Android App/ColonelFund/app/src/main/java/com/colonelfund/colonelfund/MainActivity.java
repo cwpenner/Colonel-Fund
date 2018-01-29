@@ -3,13 +3,14 @@ package com.colonelfund.colonelfund;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-
 
 // TODO: 12/22/2017 Tie in "Logout" button to terminate users session
 public class MainActivity extends AppCompatActivity {
@@ -36,7 +37,33 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(loginIntent);
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.about_you) {
+            Intent intent = new Intent(this, ViewProfileActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.your_history_events) {
+            Intent intent = new Intent(this, MyHistoryEventsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.logout_item) {
+            AccessToken token = AccessToken.getCurrentAccessToken();
+            if(token != null) {
+                LoginManager.getInstance().logOut();
+            }
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
