@@ -125,6 +125,21 @@
         </activity>
         <activity android:name=".BraintreeActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".ViewProfileActivity"
+            android:label="@string/title_activity_view_profile"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".MyHistoryEventsActivity"
+            android:label="@string/title_activity_view_history"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" /></activity>
         <activity android:name=".TransactionSummaryActivity"></activity>
     </application>
 

@@ -3,12 +3,13 @@ package com.colonelfund.colonelfund;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,49 +18,30 @@ import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 
-/**
- * Activity for Member Viewing a member.
- */
-public class ViewMemberActivity extends AppCompatActivity {
+public class MyHistoryEventsActivity extends AppCompatActivity {
 
+    private ViewGroup donationInfoLayout;
     private ListView lv;
 
-    /**
-     * Creates member view and gets/adds related activities.
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent intent = getIntent();
-        Member aMember;
-        if ((Member) intent.getSerializableExtra("SelectedMember") != null) {
-            aMember = (Member) intent.getSerializableExtra("SelectedMember");
-        } else {
-            aMember = new Member ("Error", "Error", "Error", "Error", "Error", "Error");
-        }
-        final Member selectedMember = aMember;
-        setContentView(R.layout.activity_view_member);
+        setContentView(R.layout.activity_my_history_events);
 
-        /**
-         * Member info Load
-         */
-        TextView text = (TextView) findViewById(R.id.textView3);
-        text.setText(selectedMember.getUserID());
-        text = (TextView) findViewById(R.id.textView12);
-        text.setText(selectedMember.getEmailAddress());
-        text = (TextView) findViewById(R.id.textView13);
-        text.setText(selectedMember.getPhoneNumber());
-        text = (TextView) findViewById(R.id.textView16);
-        text.setText(selectedMember.getFirstName() + " " + selectedMember.getLastName());
-        text = (TextView) findViewById(R.id.textView15);
-        text.setText(selectedMember.getFirstName().substring(0, 1) + selectedMember.getLastName().substring(0, 1));
+        donationInfoLayout = (ViewGroup) MyHistoryEventsActivity.this.findViewById(R.id.history_table);
+        addDonationInfoLine("Donation History Here", "  ");
+        addBorder(donationInfoLayout);
+        addDonationInfoLine("Example Event Title", "$15.02");
+        addBorder(donationInfoLayout);
+        addDonationInfoLine("Example Event Title 2", "$1.02");
 
         /**
          * Event Info load
          */
-        lv = (ListView) findViewById(R.id.eventListView);
+        Member aMember;
+        aMember = new Member ("TestID", "Testing", "Event", "test@gmail.com", "987-654-3210", "none");
+        final Member selectedMember = aMember;
+        lv = (ListView) findViewById(R.id.associated_events_table);
 
         //event array
         final EventCollection ecf = new EventCollection(getApplicationContext());
@@ -78,13 +60,13 @@ public class ViewMemberActivity extends AppCompatActivity {
                                         long id) {
                     Object item = lv.getItemAtPosition(position);
                     String myItem = item.toString();
-                    Intent intent = new Intent(ViewMemberActivity.this, ViewEventActivity.class);
+                    Intent intent = new Intent(MyHistoryEventsActivity.this, ViewEventActivity.class);
                     intent.putExtra("SelectedEvent", ecf.get(myItem));
                     startActivity(intent);
                 }
             });
         } else {
-            eventList.add("This user has no associated events.");
+            eventList.add("You have no associated events.");
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_list_item_1,
@@ -92,17 +74,23 @@ public class ViewMemberActivity extends AppCompatActivity {
             lv.setAdapter(arrayAdapter);
             lv.setEnabled(false);
         }
+    }
 
-        // Listener for donating to member.
-        Button donateButton = findViewById(R.id.memberDonateButton);
-        donateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(ViewMemberActivity.this, DonateToMemberActivity.class);
-                intent2.putExtra("SelectedMember", selectedMember);
-                startActivity(intent2);
-            }
-        });
+    private void addDonationInfoLine(String leftText, String rightText) {
+        View layout3 = LayoutInflater.from(this).inflate(R.layout.about_you_list_item, donationInfoLayout, false);
+
+        TextView textViewLeft = (TextView) layout3.findViewById(R.id.text_left);
+        TextView textView1Right = (TextView) layout3.findViewById(R.id.text_right);
+
+        textViewLeft.setText(leftText);
+        textView1Right.setText(rightText);
+
+        donationInfoLayout.addView(layout3);
+    }
+
+    private void addBorder(ViewGroup viewToAdd) {
+        View tableBorder = LayoutInflater.from(this).inflate(R.layout.table_separator, viewToAdd, false);
+        viewToAdd.addView(tableBorder);
     }
 
     @Override

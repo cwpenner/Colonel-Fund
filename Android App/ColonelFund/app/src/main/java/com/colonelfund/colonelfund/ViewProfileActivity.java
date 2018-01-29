@@ -1,30 +1,37 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 
-import java.util.Calendar;
 
-/**
- * Activity for creating an event
- */
-public class CreateEventActivity extends AppCompatActivity {
-    Calendar myCalendar = Calendar.getInstance();
+public class ViewProfileActivity extends AppCompatActivity {
 
-    /**
-     * Sets information for creating event.
-     * @param savedInstanceState
-     */
+    private ViewGroup aboutYouLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event);
+        setContentView(R.layout.activity_view_profile);
+
+        aboutYouLayout = (ViewGroup) ViewProfileActivity.this.findViewById(R.id.about_you_table);
+
+        addUserInfoLine("Name:", "First Last");
+        addBorder(aboutYouLayout);
+        addUserInfoLine("User ID:", "CurrentUserID");
+        addBorder(aboutYouLayout);
+        addUserInfoLine("Email Address:", "username@gmail.com");
+        addBorder(aboutYouLayout);
+        addUserInfoLine("Phone Number:", "987-654-3210");
     }
 
     @Override
@@ -33,6 +40,7 @@ public class CreateEventActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -54,5 +62,22 @@ public class CreateEventActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addUserInfoLine(String leftText, String rightText) {
+        View layout2 = LayoutInflater.from(this).inflate(R.layout.about_you_list_item, aboutYouLayout, false);
+
+        TextView textViewLeft = (TextView) layout2.findViewById(R.id.text_left);
+        TextView textView1Right = (TextView) layout2.findViewById(R.id.text_right);
+
+        textViewLeft.setText(leftText);
+        textView1Right.setText(rightText);
+
+        aboutYouLayout.addView(layout2);
+    }
+
+    private void addBorder(ViewGroup viewToAdd) {
+        View tableBorder = LayoutInflater.from(this).inflate(R.layout.table_separator, viewToAdd, false);
+        viewToAdd.addView(tableBorder);
     }
 }
