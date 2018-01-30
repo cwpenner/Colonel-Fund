@@ -54,13 +54,6 @@ public class DonateToMemberActivity extends BraintreeActivity {
         super.setMemberName(selectedMember.getFirstName() + " " + selectedMember.getLastName());
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, ViewMemberActivity.class);
-        intent.putExtra("SelectedMember", selectedMember);
-        startActivityForResult(intent,0);
-    }
-
     /**
      * For back button at top left of screen, pass back intent params
      * https://developer.android.com/training/basics/intents/result.html
