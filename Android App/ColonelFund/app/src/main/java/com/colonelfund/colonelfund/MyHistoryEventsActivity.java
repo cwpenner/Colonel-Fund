@@ -39,7 +39,7 @@ public class MyHistoryEventsActivity extends AppCompatActivity {
          * Event Info load
          */
         Member aMember;
-        aMember = new Member ("TestID", "Testing", "Event", "test@gmail.com", "987-654-3210", "none");
+        aMember = new Member("93471", "Test", "Event", "test@gmail.com", "987-654-3210");
         final Member selectedMember = aMember;
         lv = (ListView) findViewById(R.id.associated_events_table);
 
@@ -49,15 +49,12 @@ public class MyHistoryEventsActivity extends AppCompatActivity {
 
         //make array adapter
         if (eventList != null && !eventList.isEmpty()) {
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    eventList);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_list_item_1, eventList);
             lv.setAdapter(arrayAdapter);
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position,
-                                        long id) {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Object item = lv.getItemAtPosition(position);
                     String myItem = item.toString();
                     Intent intent = new Intent(MyHistoryEventsActivity.this, ViewEventActivity.class);
@@ -111,12 +108,12 @@ public class MyHistoryEventsActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
-            if(token != null) {
+            if (token != null) {
                 LoginManager.getInstance().logOut();
             }
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
-        } else if (id == R.id.home) {
+        } else if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }
