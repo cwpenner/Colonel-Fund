@@ -5,22 +5,23 @@ $db = new update_user_info();
 // json response array
 $response = array("error" => FALSE);
 
-if (isset($_POST['email']) && isset($_POST['password'])) {
+if (isset($_POST['emailAddress']) && isset($_POST['password'])) {
 
     // receiving the post params
-    $email = $_POST['email'];
+    $emailAddress = $_POST['emailAddress'];
     $password = $_POST['password'];
 
     // get the user by email and password
-    $user = $db->VerifyUserAuthentication($email, $password);
+    $user = $db->VerifyUserAuthentication($emailAddress, $password);
 
     if ($user != false) {
         // use is found
         $response["error"] = FALSE;
-        $response["user"]["name"] = $user["name"];
-        $response["user"]["email"] = $user["email"];
-        $response["user"]["age"] = $user["age"];
-        $response["user"]["gender"] = $user["gender"];
+        $response["user"]["userID"] = $user["userID"];
+        $response["user"]["firstName"] = $user["firstName"];
+        $response["user"]["lastName"] = $user["lastName"];
+        $response["user"]["emailAddress"] = $user["emailAddress"];
+        $response["user"]["phoneNumber"] = $user["phoneNumber"];
         echo json_encode($response);
     } else {
         // user is not found with the credentials

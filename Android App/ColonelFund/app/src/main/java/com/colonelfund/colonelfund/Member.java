@@ -14,7 +14,6 @@ public class Member implements Serializable {
     private String lastName;
     private String emailAddress;
     private String phoneNumber;
-    private String password;
     /**
      * @param userID
      */
@@ -28,16 +27,14 @@ public class Member implements Serializable {
      * @param lastName
      * @param emailAddress
      * @param phoneNumber
-     * @param password
      */
-    public Member(String userID, String firstName, String lastName, String emailAddress, String phoneNumber, String password) {
+    public Member(String userID, String firstName, String lastName, String emailAddress, String phoneNumber) {
         super();
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
-        this.password = password;
     }
     /**
      * @return the userID
@@ -69,6 +66,16 @@ public class Member implements Serializable {
     public String getLastName() {
         return lastName;
     }
+
+    /**
+     * @return a formatted version of the member name. FirstName + LastName with
+     * proper capitalization and a space between the names.
+     */
+    public String getFormattedFullName() {
+        return (firstName.substring(0,1).toUpperCase() + firstName.substring(1) +
+                " " + lastName.substring(0,1).toUpperCase() + lastName.substring(1));
+    }
+
     /**
      * @param lastName the lastName to set
      */
@@ -100,18 +107,6 @@ public class Member implements Serializable {
         this.phoneNumber = phoneNumber;
     }
     /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.userID = password;
-    }
-    /**
      * Get a JSONObject representation of Member
      * @return JSONObject
      */
@@ -122,7 +117,6 @@ public class Member implements Serializable {
         JsonObj.put("LastName",lastName);
         JsonObj.put("EmailAddress",emailAddress);
         JsonObj.put("PhoneNumber",phoneNumber);
-        JsonObj.put("Password",password);
         return JsonObj;
     }
     /**
@@ -135,6 +129,6 @@ public class Member implements Serializable {
         this.lastName = jsonObject.getString("LastName");
         this.emailAddress = jsonObject.getString("EmailAddress");
         this.phoneNumber = jsonObject.getString("PhoneNumber");
-        this.password = jsonObject.getString("Password");
     }
+
 }

@@ -1,9 +1,7 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,8 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.braintreepayments.api.models.BraintreePaymentResult;
-import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 
@@ -27,6 +23,7 @@ public class DonateToMemberActivity extends BraintreeActivity {
     public TextView memberPaymentDescriptionLabel;
     public Button memberSelectPaymentButton;
     public ImageView memberPaymentIconView;
+    Member selectedMember;
 
     /**
      * Sets Member Information
@@ -46,12 +43,28 @@ public class DonateToMemberActivity extends BraintreeActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
-        Member selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
+        selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
 
-        TextView text = (TextView) findViewById(R.id.textView3);
-        text.setText(selectedMember.getUserID());
+        TextView fullNameText = (TextView) findViewById(R.id.donateViewMemberName);
+        fullNameText.setText(selectedMember.getFormattedFullName());
+
+        TextView emailText = (TextView) findViewById(R.id.donateViewMemberEmail);
+        emailText.setText(selectedMember.getEmailAddress());
 
         super.setMemberName(selectedMember.getFirstName() + " " + selectedMember.getLastName());
+    }
+
+    /**
+     * For back button at top left of screen, pass back intent params
+     * https://developer.android.com/training/basics/intents/result.html
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -77,7 +90,7 @@ public class DonateToMemberActivity extends BraintreeActivity {
             }
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
-        } else if (id == R.id.home) {
+        } else if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }

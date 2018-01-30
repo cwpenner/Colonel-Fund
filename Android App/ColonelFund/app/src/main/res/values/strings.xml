@@ -47,13 +47,17 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="create_an_account">create an account</string>
     <string name="register_new_account">register new account</string>
     <string name="i_am">I am</string>
     <string name="admin_colonelfund_com">admin@colonelfund.com</string>
+    <string name="userid">userID</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="phone_number">Phone Number</string>
     <string name="title_activity_view_profile">Profile</string>
     <string name="title_activity_view_history">History/Events</string>
+
 </resources>
