@@ -66,6 +66,16 @@ public class Member implements Serializable {
     public String getLastName() {
         return lastName;
     }
+
+    /**
+     * @return a formatted version of the member name. FirstName + LastName with
+     * proper capitalization and a space between the names.
+     */
+    public String getFormattedFullName() {
+        return (firstName.substring(0,1).toUpperCase() + firstName.substring(1) +
+                " " + lastName.substring(0,1).toUpperCase() + lastName.substring(1));
+    }
+
     /**
      * @param lastName the lastName to set
      */

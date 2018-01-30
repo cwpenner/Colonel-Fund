@@ -102,6 +102,7 @@ public class ViewMemberActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(ViewMemberActivity.this, DonateToMemberActivity.class);
                 intent2.putExtra("SelectedMember", selectedMember);
                 startActivity(intent2);
+//                startActivityForResult(intent2,0);
             }
         });
     }
@@ -118,7 +119,21 @@ public class ViewMemberActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-
+/*
+    /**
+     * For back button at top left of screen, pass back intent params
+     * https://developer.android.com/training/basics/intents/result.html
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+/*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -130,12 +145,12 @@ public class ViewMemberActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
-            if(token != null) {
+            if (token != null) {
                 LoginManager.getInstance().logOut();
             }
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
-        } else if (id == R.id.home) {
+        } else if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }

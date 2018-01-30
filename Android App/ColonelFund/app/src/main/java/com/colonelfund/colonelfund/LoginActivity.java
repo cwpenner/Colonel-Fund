@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 //startActivity(MainIntent);
                 //Log.d("login", accessToken. );
 
-                //Toast.makeText(LoginActivity.this, accessToken.getUserId() + "Signed in successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, accessToken.getUserId() + "Signed in successfully", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -166,11 +166,9 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.putExtra("username", user);
                         startActivity(intent);
-//                        Toast.makeText(getApplicationContext(), "Signed in successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Signed in successfully", Toast.LENGTH_LONG).show();
                         finish();
-                    }
-
-                    else {
+                    } else {
 
                         String errorMsg = jObj.getString("error_msg");
                         Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
@@ -217,7 +215,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
     }
     */
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

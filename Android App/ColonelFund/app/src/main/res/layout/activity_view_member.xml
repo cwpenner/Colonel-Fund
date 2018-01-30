@@ -14,7 +14,8 @@
         android:text="userID"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="@+id/textView16"
-        app:layout_constraintStart_toEndOf="@+id/textView16" />
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/textView22"
@@ -36,7 +37,8 @@
         android:text="@string/button_donate"
         app:layout_constraintBottom_toBottomOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView14" />
+        app:layout_constraintTop_toTopOf="@+id/textView14"
+        android:layout_marginRight="8dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -47,7 +49,8 @@
         android:text="@string/phone"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintTop_toBottomOf="@+id/textView22"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/textView12"
@@ -56,7 +59,8 @@
         android:layout_marginStart="16dp"
         android:text="johnsmith@email.com"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView22"
-        app:layout_constraintStart_toEndOf="@+id/textView22" />
+        app:layout_constraintStart_toEndOf="@+id/textView22"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/textView16"
@@ -67,7 +71,8 @@
         android:text="Full Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/textView13"
@@ -76,7 +81,8 @@
         android:layout_marginStart="16dp"
         android:text="(555) 555-5555"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        android:layout_marginLeft="16dp" />
 
     <ListView
         android:id="@+id/eventListView"
@@ -100,7 +106,8 @@
         android:text="Associated Events"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/textView15"

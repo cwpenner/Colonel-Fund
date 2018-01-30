@@ -80,7 +80,7 @@ public class MemberListActivity extends AppCompatActivity {
             }
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
-        } else if (id == R.id.home) {
+        } else if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }
