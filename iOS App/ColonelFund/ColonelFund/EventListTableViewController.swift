@@ -105,7 +105,7 @@ class EventListTableViewController: UITableViewController {
             }
             
             guard let selectedEventCell = sender as? EventListTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = tableView.indexPath(for: selectedEventCell) else {
@@ -115,7 +115,7 @@ class EventListTableViewController: UITableViewController {
             eventViewController.event = eventList[indexPath.row]
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
     

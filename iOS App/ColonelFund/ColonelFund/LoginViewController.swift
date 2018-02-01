@@ -24,6 +24,8 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonPressed(_ sender: Any) {
         if (usernameTextField.text == username && passwordTextField.text == password) {
+            User.currentUser.setUserID(userID: username)
+            User.currentUser.setUserName(userName: username)
             print("Successfully logged in as: \(usernameTextField.text!)")
             performSegue(withIdentifier: "ShowMain", sender: self)
         } else {
@@ -73,6 +75,22 @@ class LoginViewController: UIViewController {
                     self.dict = result as! [String : AnyObject]
                     print(result!)
                     print(self.dict)
+                    let name = self.dict["name"] as! String
+                    let nameSplit = name.split(separator: " ", maxSplits: 1).map(String.init)
+                    let firstName = nameSplit[0]
+                    let lastName = nameSplit[1]
+                    let emailAddress = self.dict["email"] as! String
+                    let profilePic = self.dict["picture"] as! [String : AnyObject]
+                    let profilePicData = profilePic["data"] as! [String : AnyObject]
+                    let profilePicURL = profilePicData["url"] as! String
+                    let facebookID = self.dict["id"] as! String
+                    User.currentUser.setFacebookID(facebookID: facebookID) //TODO: consider this for linking account
+                    User.currentUser.setFirstName(firstName: firstName)
+                    User.currentUser.setLastName(lastName: lastName)
+                    User.currentUser.makeUserName()
+                    User.currentUser.setUserID(userID: User.currentUser.getUserName())
+                    User.currentUser.setEmailAddress(emailAddress: emailAddress)
+                    User.currentUser.setProfilePicURL(profilePicURL: profilePicURL)
                     self.performSegue(withIdentifier: "ShowMain", sender: self)
                 }
             })

@@ -19,13 +19,12 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var associatedEventsTableView: UITableView!
     
     var member: Member = Member(userID: "temp")
-//    let ec = EventCollection()
-//    var eventList: [Event] = []
+    let ec = EventCollection()
     var associatedEventList: [Event] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        member.setAssociatedEvents()
+        member.setAssociatedEvents(eventList: ec.getEvents())
         associatedEventList = member.getAssociatedEvents()
         
         nameLabel.text = member.getFormattedFullName()
@@ -78,7 +77,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         placeholder.frame.size = CGSize(width: 100.0, height: 100.0)
         placeholder.textColor = UIColor.white
         placeholder.font = UIFont.boldSystemFont(ofSize: 40)
-        placeholder.text = String(describing: member.getFirstName().first) + String(describing: member.getLastName().last)
+        placeholder.text = String(describing: member.getFirstName().first!) + String(describing: member.getLastName().first!)
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
         placeholder.layer.cornerRadius = 50.0
@@ -110,7 +109,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
             guard let selectedEventCell = sender as? AssociatedEventsTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = associatedEventsTableView.indexPath(for: selectedEventCell) else {
@@ -120,7 +119,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
             eventViewController.event = associatedEventList[indexPath.row]
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
     

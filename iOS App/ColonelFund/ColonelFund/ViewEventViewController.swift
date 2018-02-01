@@ -52,7 +52,7 @@ class ViewEventViewController: UIViewController {
             donateToEventViewController.event = event
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
 

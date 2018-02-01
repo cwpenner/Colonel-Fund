@@ -16,6 +16,7 @@ class Member: Codable {
     private var emailAddress: String
     private var phoneNumber: String
     private var profilePicURL: String
+    private var facebookID: String
     private var associatedEvents: [Event]
     
     init(userID: String) {
@@ -26,6 +27,7 @@ class Member: Codable {
         self.emailAddress = ""
         self.phoneNumber = ""
         self.profilePicURL = ""
+        self.facebookID = ""
         self.associatedEvents = []
     }
     
@@ -37,6 +39,7 @@ class Member: Codable {
         self.emailAddress = emailAddress
         self.phoneNumber = phoneNumber
         self.profilePicURL = ""
+        self.facebookID = ""
         self.associatedEvents = []
     }
     
@@ -48,6 +51,7 @@ class Member: Codable {
         self.emailAddress = emailAddress
         self.phoneNumber = phoneNumber
         self.profilePicURL = profilePicURL
+        self.facebookID = ""
         self.associatedEvents = []
     }
     
@@ -74,6 +78,7 @@ class Member: Codable {
         self.emailAddress = emailAddress
         self.phoneNumber = phoneNumber
         self.profilePicURL = ""
+        self.facebookID = ""
         self.associatedEvents = []
     }
     
@@ -133,26 +138,33 @@ class Member: Codable {
         self.profilePicURL = profilePicURL
     }
     
+    func getFacebookID() -> String {
+        return facebookID
+    }
+    
+    func setFacebookID(facebookID: String) {
+        self.facebookID = facebookID
+    }
+    
     func getAssociatedEvents() -> [Event] {
         return self.associatedEvents
     }
     
-    func setAssociatedEvents() {
-        let ec = EventCollection()
-        let eventList = ec.eventMap
-        
-        for (key, value) in eventList {
-            if (value.getAssociatedMember().getUserID() == self.userID) {
-                associatedEvents.append(value)
+    func setAssociatedEvents(eventList: [Event]) {
+        for (item) in eventList {
+            if (item.getAssociatedMember().getUserID() == self.userID) {
+                associatedEvents.append(item)
             }
-            print("Member: \(userID) has the following associated events")
-            print(self.associatedEvents)
         }
     }
     
     func getFormattedFullName() -> String {
         //return self.firstName.capitalized + " " + self.lastName.capitalized
         return self.firstName + " " + self.lastName
+    }
+    
+    func makeUserName() {
+        self.userName = self.firstName.lowercased() + self.lastName.lowercased()
     }
     
     func toJSON() -> Data {

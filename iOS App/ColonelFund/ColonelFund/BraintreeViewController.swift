@@ -87,8 +87,8 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
             } else if let result = result {
                 print("Icon: \(result.paymentIcon)")
                 print("Desc: \(result.paymentDescription)")
-                print("PaymentMethod: \(result.paymentMethod)")
-                print("PaymentMethodOption: \(result.paymentMethod?.type)")
+                print("PaymentMethod: \(String(describing: result.paymentMethod))")
+                print("PaymentMethodOption: \(String(describing: result.paymentMethod?.type))")
                 if (result.paymentOptionType == BTUIKPaymentOptionType.applePay) {
                     self.setupApplePay()
                 } else {

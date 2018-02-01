@@ -66,7 +66,7 @@ class DonateToMemberViewController: BraintreeViewController {
             transactionSummaryViewController.tempTransactionIDText = "" //TODO: Update with transaction ID
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
  

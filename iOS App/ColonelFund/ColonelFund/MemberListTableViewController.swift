@@ -70,7 +70,7 @@ class MemberListTableViewController: UITableViewController {
         placeholder.frame.size = CGSize(width: 50.0, height: 50.0)
         placeholder.textColor = UIColor.white
         placeholder.font = UIFont.boldSystemFont(ofSize: 26)
-        placeholder.text = String(describing: member.getFirstName().first) + String(describing: member.getLastName().last)
+        placeholder.text = String(describing: member.getFirstName().first!) + String(describing: member.getLastName().first!)
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
         placeholder.layer.cornerRadius = 25.0
@@ -131,7 +131,7 @@ class MemberListTableViewController: UITableViewController {
             }
             
             guard let selectedMemberCell = sender as? MemberListTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = tableView.indexPath(for: selectedMemberCell) else {
@@ -141,7 +141,7 @@ class MemberListTableViewController: UITableViewController {
             memberViewController.member = memberList[indexPath.row]
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
     

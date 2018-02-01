@@ -16,7 +16,6 @@
 		5F373ECC1FC60A4F005B2BD1 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8718071FC5F9FD0091B13A /* FBSDKShareKit.framework */; };
 		5F54767020211D4000C91A2B /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54766F20211D4000C91A2B /* Member.swift */; };
 		5F54767220211D4E00C91A2B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54767120211D4E00C91A2B /* Event.swift */; };
-		5F54767420211E4900C91A2B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54767320211E4900C91A2B /* User.swift */; };
 		5F54767B20224F9E00C91A2B /* MemberCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54767A20224F9E00C91A2B /* MemberCollection.swift */; };
 		5F54767F2022571E00C91A2B /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F54767D2022571E00C91A2B /* events.json */; };
 		5F5476802022571E00C91A2B /* members.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F54767E2022571E00C91A2B /* members.json */; };
@@ -32,6 +31,7 @@
 		5F5A49D11FF70CE8006E211B /* FacebookCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5A49D21FF70CE8006E211B /* FacebookCore.framework */; };
 		5F5A49D31FF70CED006E211B /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5A49D41FF70CED006E211B /* FacebookShare.framework */; };
 		5F5A49D81FFC1647006E211B /* BraintreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */; };
+		5F638A882022A71500A9CACA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F638A872022A71500A9CACA /* User.swift */; };
 		5F8717FC1FC547C60091B13A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8717FB1FC547C60091B13A /* LoginViewController.swift */; };
 		5F8717FE1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */; };
 		5F87180B1FC5FA0A0091B13A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8718091FC5F9FD0091B13A /* Bolts.framework */; };
@@ -78,7 +78,6 @@
 		5F318C1020116E040080B62E /* TransactionSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSummaryViewController.swift; sourceTree = "<group>"; };
 		5F54766F20211D4000C91A2B /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		5F54767120211D4E00C91A2B /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		5F54767320211E4900C91A2B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5F54767A20224F9E00C91A2B /* MemberCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCollection.swift; sourceTree = "<group>"; };
 		5F54767D2022571E00C91A2B /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		5F54767E2022571E00C91A2B /* members.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = members.json; sourceTree = "<group>"; };
@@ -94,6 +93,7 @@
 		5F5A49D21FF70CE8006E211B /* FacebookCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5A49D41FF70CED006E211B /* FacebookShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeViewController.swift; sourceTree = "<group>"; };
+		5F638A872022A71500A9CACA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5F8717FB1FC547C60091B13A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedEventsTableViewCell.swift; sourceTree = "<group>"; };
 		5F8718071FC5F9FD0091B13A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -237,8 +237,8 @@
 				5F995DD61F9286D700F8E459 /* Main.storyboard */,
 				5F54766F20211D4000C91A2B /* Member.swift */,
 				5F54767A20224F9E00C91A2B /* MemberCollection.swift */,
-				5F54767320211E4900C91A2B /* User.swift */,
 				5F54767120211D4E00C91A2B /* Event.swift */,
+				5F638A872022A71500A9CACA /* User.swift */,
 				5F547681202287D900C91A2B /* EventCollection.swift */,
 				5F318C1020116E040080B62E /* TransactionSummaryViewController.swift */,
 				5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */,
@@ -615,7 +615,7 @@
 				5F995DDB1F9286D700F8E459 /* ColonelFund.xcdatamodeld in Sources */,
 				5F8717FC1FC547C60091B13A /* LoginViewController.swift in Sources */,
 				5F5779EB1FB02AC7000667FC /* CreateEventViewController.swift in Sources */,
-				5F54767420211E4900C91A2B /* User.swift in Sources */,
+				5F638A882022A71500A9CACA /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
