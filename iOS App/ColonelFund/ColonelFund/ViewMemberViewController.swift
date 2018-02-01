@@ -18,32 +18,29 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var profilePicImageView: UIImageView!
     @IBOutlet weak var associatedEventsTableView: UITableView!
     
-    
-    var tempNameText: String = ""
-    var tempUsernameText: String = "johnwsmith"
-    var tempEmailText: String = "johnsmith@email.com"
-    var tempPhoneText: String = "(555) 555-5555"
-    
-    //dummy array
-    var eventList = [String]()
-    
+    var member: Member = Member(userID: "temp")
+//    let ec = EventCollection()
+//    var eventList: [Event] = []
+    var associatedEventList: [Event] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        member.setAssociatedEvents()
+        associatedEventList = member.getAssociatedEvents()
         
-        eventList.append("Independence Day BBQ")
-        eventList.append("John Smith Chemo Fund")
-        
-        nameLabel.text = tempNameText
-        usernameLabel.text = tempUsernameText
-        emailLabel.text = tempEmailText
-        phoneLabel.text = tempPhoneText
+        nameLabel.text = member.getFormattedFullName()
+        usernameLabel.text = member.getUserName()
+        emailLabel.text = member.getEmailAddress()
+        phoneLabel.text = member.getPhoneNumber()
         
         associatedEventsTableView.delegate = self
         associatedEventsTableView.dataSource = self
         
-        //TODO: - if no profile pic, use placeholder
-        placeholderProfilePic()
+        if member.getProfilePicURL().isEmpty {
+            placeholderProfilePic(member: member)
+        } else {
+            //TODO: display profile pic from URL
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,7 +55,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return eventList.count
+        return member.getAssociatedEvents().count
     }
     
     
@@ -70,21 +67,18 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
             fatalError("The dequeued cell is not an instance of \(cellIdentifier).")
         }
         
-        let event = eventList[indexPath.row]
-        cell.eventNameLabel?.text = event
+        let event = associatedEventList[indexPath.row]
+        cell.eventNameLabel?.text = event.getTitle()
         
         return cell
     }
     
-    func placeholderProfilePic() {
+    func placeholderProfilePic(member: Member) {
         let placeholder = UILabel()
         placeholder.frame.size = CGSize(width: 100.0, height: 100.0)
         placeholder.textColor = UIColor.white
         placeholder.font = UIFont.boldSystemFont(ofSize: 40)
-        let name = nameLabel.text?.split(separator: " ", maxSplits: 1).map(String.init)
-        var firstName = name![0]
-        var lastName = name![1]
-        placeholder.text = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
+        placeholder.text = String(describing: member.getFirstName().first) + String(describing: member.getLastName().last)
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
         placeholder.layer.cornerRadius = 50.0
@@ -108,8 +102,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            donateToMemberViewController.tempNameText = nameLabel.text!
-            donateToMemberViewController.tempUsernameText = usernameLabel.text!
+            donateToMemberViewController.member = member
             
         case "ShowEvent":
             guard let eventViewController = segue.destination as? ViewEventViewController else {
@@ -124,8 +117,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedEvent = eventList[indexPath.row]
-            eventViewController.tempTitleText = selectedEvent
+            eventViewController.event = associatedEventList[indexPath.row]
             
         default:
             fatalError("Unexpected Segue Identifier: \(segue.identifier)")

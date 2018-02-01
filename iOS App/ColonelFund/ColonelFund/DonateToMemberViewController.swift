@@ -21,12 +21,11 @@ class DonateToMemberViewController: BraintreeViewController {
     @IBOutlet weak var memberSelectPaymentButton: UIButton!
     @IBOutlet weak var memberPaymentImageView: UIImageView!
     
-    var tempNameText: String = ""
-    var tempUsernameText: String = ""
+    var member: Member = Member(userID: "temp")
     
     override func viewDidLoad() {
-        nameLabel.text = tempNameText
-        usernameLabel.text = tempUsernameText
+        nameLabel.text = member.getFormattedFullName()
+        usernameLabel.text = member.getUserName()
         
         BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView)
         setMemberName(newMemberName: nameLabel.text!)

@@ -24,18 +24,14 @@ class DonateToEventViewController: BraintreeViewController {
     @IBOutlet weak var eventSelectPaymentButton: UIButton!
     @IBOutlet weak var eventPaymentImageView: UIImageView!
     
-    var tempTitleText: String = ""
-    var tempDateText: String = "2018-07-04"
-    var tempMemberText: String = "John Smith"
-    var tempFundGoalText: String = "$1,000.00"
-    var tempCurrentFundsText: String = "$75.63"
+    var event: Event = Event(eventID: "temp")
     
     override func viewDidLoad() {
-        eventTitleLabel.text = tempTitleText
-        eventDateLabel.text = tempDateText
-        eventMemberLabel.text = tempMemberText
-        eventFundGoalLabel.text = tempFundGoalText
-        eventCurrentFundsLabel.text = tempCurrentFundsText
+        eventTitleLabel.text = event.getTitle()
+        eventDateLabel.text = event.getEventDate()
+        eventMemberLabel.text = event.getAssociatedMember().getFormattedFullName()
+        eventFundGoalLabel.text = "$" + String(event.getFundGoal())
+        eventCurrentFundsLabel.text = "$" + String(event.getCurrentFunds())
         
         BraintreeViewController(donationTextField: eventDonationTextField, donateButton: eventDonateButton, paymentDescriptionLabel: eventPaymentDescriptionLabel, selectPaymentButton: eventSelectPaymentButton, paymentIconView: eventPaymentImageView)
         setEventTitle(newEventTitle: eventTitleLabel.text!)

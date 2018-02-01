@@ -771,13 +771,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Donation Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUt-3H-DfC">
-                                <rect key="frame" x="20" y="167.66666666666666" width="143" height="19.333333333333343"/>
+                                <rect key="frame" x="20" y="167.66666666666666" width="143" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="50.00" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xqy-Oq-VAx">
-                                <rect key="frame" x="201.66666666666663" y="163.66666666666666" width="192.33333333333337" height="30"/>
+                                <rect key="frame" x="201.66666666666663" y="164.66666666666666" width="192.33333333333337" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad"/>
@@ -796,32 +796,32 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="flz-C8-JzL">
-                                <rect key="frame" x="252.66666666666663" y="64" width="153.33333333333337" height="92"/>
+                                <rect key="frame" x="251" y="64" width="155" height="93"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="flz-C8-JzL" secondAttribute="height" multiplier="5:3" id="trQ-ih-9MS"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eY-XX-xcd">
-                                <rect key="frame" x="183" y="166" width="10.666666666666657" height="21"/>
+                                <rect key="frame" x="183" y="167" width="10.666666666666657" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GL8-vP-izQ">
-                                <rect key="frame" x="85" y="218.33333333333334" width="309" height="21"/>
+                                <rect key="frame" x="85" y="219.33333333333334" width="309" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mZ-KN-vQx">
-                                <rect key="frame" x="20" y="262.66666666666669" width="374" height="30"/>
+                                <rect key="frame" x="20" y="263.66666666666669" width="374" height="30"/>
                                 <state key="normal" title="Select Payment Method"/>
                                 <connections>
                                     <action selector="memberSelectPaymentMethodButtonPressed:" destination="pTf-aG-xnl" eventType="touchUpInside" id="FlV-rX-hwb"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-Vm-eJe">
-                                <rect key="frame" x="20" y="213.66666666666666" width="45" height="29"/>
+                                <rect key="frame" x="20" y="214.66666666666666" width="45" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="5Vs-hM-JRC"/>
                                     <constraint firstAttribute="height" constant="29" id="QZc-qX-OD6"/>

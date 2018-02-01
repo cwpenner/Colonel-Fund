@@ -11,28 +11,13 @@ import UIKit
 class MemberListTableViewController: UITableViewController {
     
     //MARK: Properties
-    //dummy array
-    var memberList = [String]()
-    
+    let mc = MemberCollection()
+    var memberList: [Member] = []
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        memberList.append("John Smith")
-        memberList.append("Liam Gallagher")
-        memberList.append("Noel Gallagher")
-        memberList.append("John Lennon")
-        memberList.append("Paul McCartney")
-        memberList.append("Don Henley")
-        memberList.append("Phil Collins")
-        memberList.append("Jimmy Paige")
-        memberList.append("Trevor Hurst")
-        memberList.append("Adam Levine")
-        memberList.append("Axl Rose")
-        memberList.append("Chad Kroeger")
-        memberList.append("Dave Grohl")
-        memberList.append("Jimi Hendrix")
-        memberList.append("Kurt Cobain")
+        memberList = mc.getMembers()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -66,10 +51,13 @@ class MemberListTableViewController: UITableViewController {
         }
         
         let member = memberList[indexPath.row]
-        cell.nameLabel.text = member
-        cell.usernameLabel.text = "johnwsmith" //replace with username
-        //TODO: - if no profile pic, use placeholder
-        placeholderProfilePic(nameObj: cell.nameLabel.text!, imageObj: cell.profilePicImageView)
+        cell.nameLabel.text = member.getFormattedFullName()
+        cell.usernameLabel.text = member.getUserName()
+        if member.getProfilePicURL().isEmpty {
+            placeholderProfilePic(member: member, imageObj: cell.profilePicImageView)
+        } else {
+            //TODO: display profile pic from URL
+        }
         
         
         cell.layoutIfNeeded()
@@ -77,15 +65,12 @@ class MemberListTableViewController: UITableViewController {
         return cell
     }
     
-    func placeholderProfilePic(nameObj: String, imageObj: UIImageView) {
+    func placeholderProfilePic(member: Member, imageObj: UIImageView) {
         let placeholder = UILabel()
         placeholder.frame.size = CGSize(width: 50.0, height: 50.0)
         placeholder.textColor = UIColor.white
         placeholder.font = UIFont.boldSystemFont(ofSize: 26)
-        let name = nameObj.split(separator: " ", maxSplits: 1).map(String.init)
-        var firstName = name[0]
-        var lastName = name[1]
-        placeholder.text = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
+        placeholder.text = String(describing: member.getFirstName().first) + String(describing: member.getLastName().last)
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
         placeholder.layer.cornerRadius = 25.0
@@ -153,8 +138,7 @@ class MemberListTableViewController: UITableViewController {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedMember = memberList[indexPath.row]
-            memberViewController.tempNameText = selectedMember
+            memberViewController.member = memberList[indexPath.row]
             
         default:
             fatalError("Unexpected Segue Identifier: \(segue.identifier)")

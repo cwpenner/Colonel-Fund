@@ -11,19 +11,13 @@ import UIKit
 class EventListTableViewController: UITableViewController {
     
     //MARK: Properties
-    //dummy array
-    var eventList = [String]()
+    let ec = EventCollection()
+    var eventList: [Event] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        eventList.append("Independence Day BBQ")
-        eventList.append("John Smith Chemo Fund")
-        eventList.append("Let's Beat Alzheimer's!")
-        eventList.append("Paul's MS Donations")
-        eventList.append("Mrs. Cobain Widow Help")
-        
+        eventList = ec.getEvents()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -57,7 +51,7 @@ class EventListTableViewController: UITableViewController {
         }
         
         let event = eventList[indexPath.row]
-        cell.nameLabel.text = event
+        cell.nameLabel.text = event.getTitle()
         
         return cell
     }
@@ -118,8 +112,7 @@ class EventListTableViewController: UITableViewController {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedEvent = eventList[indexPath.row]
-            eventViewController.tempTitleText = selectedEvent
+            eventViewController.event = eventList[indexPath.row]
             
         default:
             fatalError("Unexpected Segue Identifier: \(segue.identifier)")

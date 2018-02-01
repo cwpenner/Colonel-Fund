@@ -19,22 +19,17 @@ class ViewEventViewController: UIViewController {
     @IBOutlet weak var eventCurrentFundsLabel: UILabel!
     @IBOutlet weak var eventDescriptionLabel: UILabel!
     
-    var tempTitleText: String = ""
-    var tempDateText: String = "2018-07-04"
-    var tempMemberText: String = "John Smith"
-    var tempFundGoalText: String = "$1,000.00"
-    var tempCurrentFundsText: String = "$75.63"
-    var tempDescriptionText: String = "This will be a fun event for everyone to get together and enjoy some delicious food and great company!"
+    var event: Event = Event(eventID: "temp")
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        eventTitleLabel.text = tempTitleText
-        eventDateLabel.text = tempDateText
-        eventMemberLabel.text = tempMemberText
-        eventFundGoalLabel.text = tempFundGoalText
-        eventCurrentFundsLabel.text = tempCurrentFundsText
-        eventDescriptionLabel.text = tempDescriptionText
+        eventTitleLabel.text = event.getTitle()
+        eventDateLabel.text = event.getEventDate()
+        eventMemberLabel.text = event.getAssociatedMember().getFormattedFullName()
+        eventFundGoalLabel.text = "$" + String(event.getFundGoal())
+        eventCurrentFundsLabel.text = "$" + String(event.getCurrentFunds())
+        eventDescriptionLabel.text = event.getDescription()
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,11 +49,7 @@ class ViewEventViewController: UIViewController {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            donateToEventViewController.tempTitleText = eventTitleLabel.text!
-            donateToEventViewController.tempDateText = eventDateLabel.text!
-            donateToEventViewController.tempMemberText = eventMemberLabel.text!
-            donateToEventViewController.tempFundGoalText = eventFundGoalLabel.text!
-            donateToEventViewController.tempCurrentFundsText = eventCurrentFundsLabel.text!
+            donateToEventViewController.event = event
             
         default:
             fatalError("Unexpected Segue Identifier: \(segue.identifier)")
