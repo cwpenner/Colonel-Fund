@@ -8,6 +8,12 @@
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
 
+    <SearchView
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        tools:layout_editor_absoluteX="167dp"
+        tools:layout_editor_absoluteY="0dp" />
+
     <ListView
         android:id="@+id/memberListView"
         android:layout_width="0dp"
@@ -16,4 +22,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
