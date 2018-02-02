@@ -9,8 +9,8 @@
 import Foundation
 
 class User {
-    static var currentUser: Member = Member(userID: "temp")
-    
+    static var currentUser: Member! = nil
+       
     static func getCurrentUser() -> Member {
         return self.currentUser
     }
@@ -20,6 +20,6 @@ class User {
     }
     
     static func logout() {
-        self.currentUser = Member(userID: "temp")
+        self.currentUser = nil
     }
 }

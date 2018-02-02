@@ -26,7 +26,7 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
     @IBOutlet weak var eventCurrentFundsLabel: UILabel!
     @IBOutlet weak var eventDescriptionLabel: UILabel!
     
-    var event: Event = Event(eventID: "temp")
+    var event: Event! = nil
     let mc = MemberCollection()
     var memberList: [Member] = []
     
@@ -58,7 +58,7 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            donateToEventViewController.event = event
+            donateToEventViewController.donateEvent = event
             donateToEventViewController.tempMemberText = eventMemberLabel.text!
             
         default:

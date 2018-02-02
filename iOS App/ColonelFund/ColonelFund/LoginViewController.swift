@@ -12,30 +12,44 @@ import FacebookCore
 import FacebookLogin
 import FBSDKLoginKit
 
-class LoginViewController: UIViewController {
+protocol LoginProtocol {
+    func loginRequestComplete(loginMessage: String, loginSuccessful: Bool)
+}
+
+class LoginViewController: UIViewController, URLSessionDelegate, LoginProtocol {
+    
+    //LoginProtocol
+    //This has a LoginProtocal delegate update the UI after request is complete
+    func loginRequestComplete(loginMessage: String, loginSuccessful: Bool) {
+        self.loginMessageLabel.text = loginMessage
+        self.loginMessageLabel.isHidden = false
+        if loginSuccessful {
+            self.performSegue(withIdentifier: "ShowMain", sender: self)
+        }
+    }
+    
+    let delegate: LoginProtocol! = nil
     let URL_FOR_LOGIN = "https://wesll.com/colonelfund/login.php"
     
     //MARK: - Properties
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
+    @IBOutlet var loginMessageLabel: UILabel!
     
-    //TODO: **Delete these once database login functional
-    var username = "admin"
-    var password = "admin"
-    //**
+    var dict : [String : AnyObject]!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.loginMessageLabel.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        configureFBLoginButton()
+    }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        //TODO: **Delete once database login functional
-        if (usernameTextField.text == username && passwordTextField.text == password) {
-            User.currentUser.setUserID(userID: username)
-            User.currentUser.setUserName(userName: username)
-            print("Successfully logged in as: \(usernameTextField.text!)")
-            performSegue(withIdentifier: "ShowMain", sender: self) //DO NOT DELETE SEGUE
-        } else {
-            print("Invalid username and password combination")
-        }
-        //**
+        loginUser(emailAddress: usernameTextField.text!, password: passwordTextField.text!)
     }
     
     @IBAction func fbLoginButtonPressed(_ sender: Any) {
@@ -52,17 +66,6 @@ class LoginViewController: UIViewController {
                 self.getFBUserData()
             }
         }
-    }
-    
-    
-    var dict : [String : AnyObject]!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        configureFBLoginButton()
     }
     
     func configureFBLoginButton() {
@@ -89,13 +92,8 @@ class LoginViewController: UIViewController {
                     let profilePicData = profilePic["data"] as! [String : AnyObject]
                     let profilePicURL = profilePicData["url"] as! String
                     let facebookID = self.dict["id"] as! String
-                    User.currentUser.setFacebookID(facebookID: facebookID) //TODO: consider this for linking account
-                    User.currentUser.setFirstName(firstName: firstName)
-                    User.currentUser.setLastName(lastName: lastName)
-                    User.currentUser.makeUserName()
-                    User.currentUser.setUserID(userID: User.currentUser.getUserName())
-                    User.currentUser.setEmailAddress(emailAddress: emailAddress)
-                    User.currentUser.setProfilePicURL(profilePicURL: profilePicURL)
+                    let member = Member(facebookID: facebookID, firstName: firstName, lastName: lastName, emailAddress: emailAddress, profilePicURL: profilePicURL)
+                    User.setCurrentUser(currentUser: member)
                     self.performSegue(withIdentifier: "ShowMain", sender: self)
                 }
             })
@@ -108,9 +106,75 @@ class LoginViewController: UIViewController {
     }
     
     func loginUser(emailAddress: String, password: String) {
-        
+        var loginSuccess = false
+        var loginMessage = ""
+        let url = URL(string: URL_FOR_LOGIN)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let postBody = "emailAddress=\(emailAddress)&password=\(password)"
+        request.httpBody = postBody.data(using: .utf8)
+        let defaultSession = Foundation.URLSession(configuration: URLSessionConfiguration.default)
+        var httpStatus = 0
+        let task = defaultSession.dataTask(with: request) { (data, response, error) in
+            let res = response as? HTTPURLResponse
+            httpStatus = res!.statusCode
+            if (error != nil) {
+                loginMessage = "Error logging in. Error code: \(String(describing: error))"
+                print(loginMessage)
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: false)
+                })
+            } else {
+                if (httpStatus == 200) {
+                    loginMessage = "Connected to server successfully"
+                    print(loginMessage)
+                    loginSuccess = self.databaseLoginController(jsonData: data!)
+                } else {
+                    loginMessage = "Error connecting to server. Server response: \(httpStatus)"
+                    print(loginMessage)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: false)
+                    })
+                }
+            }
+        }
+        task.resume()
     }
     
+    func databaseLoginController(jsonData: Data) -> Bool {
+        var loginMessage = ""
+        let error: Bool
+        do {
+            let object = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
+            print("LoginData: \(object)")
+            if let dict = object as? [String: AnyObject] {
+                error = dict["error"] as! Bool
+                if (error) {
+                    loginMessage = dict["error_msg"] as! String
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: false)
+                    })
+                } else {
+                    let user = dict["user"] as? [String : AnyObject]
+                    let member = try Member(json: user!)
+                    User.setCurrentUser(currentUser: member)
+                    loginMessage = "Successfully logged in as \(User.currentUser.getFormattedFullName())"
+                    print(loginMessage)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: true)
+                    })
+                    return true
+                }
+            }
+        } catch {
+            loginMessage = "Error! Unable to login"
+            print(loginMessage)
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: false)
+            })
+        }
+        return false
+    }
     
     
      // MARK: - Navigation

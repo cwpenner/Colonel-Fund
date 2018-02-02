@@ -51,6 +51,7 @@ class EventCollection: NSObject, URLSessionDelegate {
         self.restoreFromFile(fileName: self.jsonFileName)
     }
     
+    //TODO: save persistent
     func saveJSONLocal(jsonData: Data, fileName: String) -> Bool {
         let path = Bundle.main.path(forResource: fileName, ofType: "json")
         let url = URL(fileURLWithPath: path!)

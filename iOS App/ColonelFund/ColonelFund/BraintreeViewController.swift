@@ -12,12 +12,13 @@ import Braintree
 
 class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentAuthorizationViewControllerDelegate {
     //Constructor
-    func BraintreeViewController(donationTextField: UITextField, donateButton: UIButton, paymentDescriptionLabel: UILabel, selectPaymentButton: UIButton, paymentIconView: UIImageView) {
+    func BraintreeViewController(donationTextField: UITextField, donateButton: UIButton, paymentDescriptionLabel: UILabel, selectPaymentButton: UIButton, paymentIconView: UIImageView, donationType: AnyObject) {
         self.donationTextField = donationTextField
         self.donateButton = donateButton
         self.paymentDescriptionLabel = paymentDescriptionLabel
         self.selectPaymentButton = selectPaymentButton
         self.paymentIconView = paymentIconView
+        setDonationType(donationType: donationType)
     }
     
     override func viewDidLoad() {
@@ -38,8 +39,8 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     
     //MARK: Properties
     var donationAmount: NSDecimalNumber = 0.00
-    var memberName: String = "" //TODO: consider changing to Member object, once implemented
-    var eventTitle: String = "" //TODO: consider changing to Event object, once implemented
+    var member: Member! = nil
+    var event: Event! = nil
     
     //API Tokenization Key
     let token = "sandbox_3swsvvz5_mhbr9s54673smz3g"
@@ -225,10 +226,12 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     func paymentRequest() -> PKPaymentRequest {
         let paymentRequest = PKPaymentRequest()
         let donationLabel: String
-        if (eventTitle != "") {
-            donationLabel = eventTitle
+        if (event != nil) {
+            donationLabel = event.getTitle()
+        } else if (member != nil) {
+            donationLabel = member.getFormattedFullName()
         } else {
-            donationLabel = memberName
+            donationLabel = "Error"
         }
         paymentRequest.merchantIdentifier = "merchant.sandbox.com.ColonelFund.ColonelFund"
         paymentRequest.supportedNetworks = [PKPaymentNetwork.amex, PKPaymentNetwork.visa, PKPaymentNetwork.masterCard]
@@ -330,12 +333,14 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     //        // ...
     //    }
     
-    func setMemberName(newMemberName: String) {
-        self.memberName = newMemberName
-    }
-    
-    func setEventTitle(newEventTitle: String) {
-        self.eventTitle = newEventTitle
+    func setDonationType(donationType: AnyObject) {
+        if (type(of: donationType) == Member.self) {
+            member = donationType as! Member
+        } else if (type(of: donationType) == Event.self) {
+            event = donationType as! Event
+        } else {
+            print("Whoops! Invalid donation type")
+        }
     }
     
     func displayAlert(alertTitle: String, alertMessage: String) {

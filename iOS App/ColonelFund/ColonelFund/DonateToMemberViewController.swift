@@ -20,14 +20,13 @@ class DonateToMemberViewController: BraintreeViewController {
     @IBOutlet weak var memberSelectPaymentButton: UIButton!
     @IBOutlet weak var memberPaymentImageView: UIImageView!
     
-    var member: Member = Member(userID: "temp")
+    var donateMember: Member! = nil
     
     override func viewDidLoad() {
-        nameLabel.text = member.getFormattedFullName()
-        usernameLabel.text = member.getUserName()
+        nameLabel.text = donateMember.getFormattedFullName()
+        usernameLabel.text = donateMember.getUserName()
         
-        BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView)
-        setMemberName(newMemberName: nameLabel.text!)
+        BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView, donationType: donateMember)
 
         super.viewDidLoad()
     }

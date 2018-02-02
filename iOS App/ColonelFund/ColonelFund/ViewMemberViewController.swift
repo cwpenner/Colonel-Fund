@@ -26,7 +26,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var profilePicImageView: UIImageView!
     @IBOutlet weak var associatedEventsTableView: UITableView!
     
-    var member: Member = Member(userID: "temp")
+    var member: Member! = nil
     let ec = EventCollection()
     var associatedEventList: [Event] = []
     
@@ -108,7 +108,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            donateToMemberViewController.member = member
+            donateToMemberViewController.donateMember = member
             
         case "ShowEvent":
             guard let eventViewController = segue.destination as? ViewEventViewController else {

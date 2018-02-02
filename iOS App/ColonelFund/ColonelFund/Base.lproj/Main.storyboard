@@ -1047,9 +1047,16 @@
                                     <action selector="fbLoginButtonPressed:" destination="ixa-5L-0yL" eventType="touchUpInside" id="OOm-CV-jML"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMA-Cf-x3C">
+                                <rect key="frame" x="20" y="698" width="374" height="18"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="LHU-f7-q4N" firstAttribute="bottom" secondItem="SMA-Cf-x3C" secondAttribute="bottom" constant="20" id="2fB-1N-HxB"/>
                             <constraint firstItem="LHU-f7-q4N" firstAttribute="trailing" secondItem="sWf-U2-0fB" secondAttribute="trailing" constant="20" id="3Kw-js-35T"/>
                             <constraint firstItem="iru-Ho-vNj" firstAttribute="top" secondItem="saZ-96-crv" secondAttribute="bottom" constant="20" id="7Kk-hY-aqL"/>
                             <constraint firstItem="LHU-f7-q4N" firstAttribute="trailing" secondItem="5Hv-rP-rUv" secondAttribute="trailing" constant="20" id="84T-rm-pt2"/>
@@ -1059,6 +1066,8 @@
                             <constraint firstItem="5Hv-rP-rUv" firstAttribute="top" secondItem="K6j-Mf-kir" secondAttribute="bottom" constant="20" id="H90-B8-pXS"/>
                             <constraint firstItem="7hM-hL-und" firstAttribute="top" secondItem="sWf-U2-0fB" secondAttribute="bottom" constant="20" id="JIC-0l-Zdp"/>
                             <constraint firstItem="sWf-U2-0fB" firstAttribute="leading" secondItem="LHU-f7-q4N" secondAttribute="leading" constant="20" id="KrW-vw-uFd"/>
+                            <constraint firstItem="SMA-Cf-x3C" firstAttribute="leading" secondItem="LHU-f7-q4N" secondAttribute="leading" constant="20" id="PFR-Cs-Wag"/>
+                            <constraint firstItem="LHU-f7-q4N" firstAttribute="trailing" secondItem="SMA-Cf-x3C" secondAttribute="trailing" constant="20" id="ZFw-Nz-HOh"/>
                             <constraint firstItem="K6j-Mf-kir" firstAttribute="top" secondItem="LHU-f7-q4N" secondAttribute="top" id="c3y-tB-13O"/>
                             <constraint firstItem="iru-Ho-vNj" firstAttribute="centerX" secondItem="LHU-f7-q4N" secondAttribute="centerX" id="cw1-Y2-GRt"/>
                             <constraint firstItem="7hM-hL-und" firstAttribute="leading" secondItem="LHU-f7-q4N" secondAttribute="leading" constant="20" id="grG-j0-z5T"/>
@@ -1072,6 +1081,7 @@
                     </view>
                     <connections>
                         <outlet property="fbLoginButton" destination="iru-Ho-vNj" id="ezE-Kj-0Jj"/>
+                        <outlet property="loginMessageLabel" destination="SMA-Cf-x3C" id="sPg-qc-W9Z"/>
                         <outlet property="passwordTextField" destination="7hM-hL-und" id="L7J-gE-boI"/>
                         <outlet property="usernameTextField" destination="sWf-U2-0fB" id="II9-yk-bdw"/>
                         <segue destination="seU-oj-fUu" kind="show" identifier="ShowMain" id="fLt-8f-ESz"/>
@@ -1105,7 +1115,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fLt-8f-ESz"/>
-        <segue reference="d4R-8W-x6f"/>
+        <segue reference="pnZ-iL-tL5"/>
         <segue reference="E5p-ic-7av"/>
     </inferredMetricsTieBreakers>
 </document>

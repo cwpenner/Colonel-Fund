@@ -16,7 +16,7 @@ class Member: NSObject, Codable {
     private var emailAddress: String
     private var phoneNumber: String
     private var profilePicURL: String
-    private var facebookID: String
+    private var facebookID: String //TODO: consider this for linking account
     private var associatedEvents: [Event]
     
     init(userID: String) {
@@ -43,16 +43,20 @@ class Member: NSObject, Codable {
         self.associatedEvents = []
     }
     
-    init(userID: String, firstName: String, lastName: String, userName: String, emailAddress: String, phoneNumber: String, profilePicURL: String) {
-        self.userID = userID
+    init(facebookID: String, firstName: String, lastName: String, emailAddress: String, profilePicURL: String) {
+        self.userID = ""
         self.firstName = firstName
         self.lastName = lastName
-        self.userName = userName
+        self.userName = ""
         self.emailAddress = emailAddress
-        self.phoneNumber = phoneNumber
+        self.phoneNumber = ""
         self.profilePicURL = profilePicURL
-        self.facebookID = ""
+        self.facebookID = facebookID
         self.associatedEvents = []
+        super.init()
+        
+        makeUserName()
+        self.userID = self.userName
     }
     
     init(json: [String: AnyObject]) throws {
