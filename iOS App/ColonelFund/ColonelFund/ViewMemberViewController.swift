@@ -8,7 +8,15 @@
 
 import UIKit
 
-class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCollectionProtocol {
+
+    //EventCollectionProtocol
+    //This has a EventCollection delegate reload the table when the data is finished being loaded
+    func eventDataDownloaded() {
+        member.setAssociatedEvents(eventList: ec.getEvents())
+        associatedEventList = member.getAssociatedEvents()
+        self.associatedEventsTableView.reloadData()
+    }
     
     //MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
@@ -24,8 +32,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        member.setAssociatedEvents(eventList: ec.getEvents())
-        associatedEventList = member.getAssociatedEvents()
+        ec.delegate = self
         
         nameLabel.text = member.getFormattedFullName()
         usernameLabel.text = member.getUserName()

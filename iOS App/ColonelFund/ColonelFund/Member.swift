@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Member: Codable {
+class Member: NSObject, Codable {
     private var userID: String
     private var firstName: String
     private var lastName: String
@@ -55,26 +55,26 @@ class Member: Codable {
         self.associatedEvents = []
     }
     
-    init(json: [String: Any]) throws {
-        guard let userID = json["UserID"] as? String else {
-            throw SerializationError.missing("UserID")
+    init(json: [String: AnyObject]) throws {
+        guard let userID = json["userID"] as? String else {
+            throw SerializationError.missing("userID")
         }
-        guard let firstName = json["FirstName"] as? String else {
-            throw SerializationError.missing("FirstName")
+        guard let firstName = json["firstName"] as? String else {
+            throw SerializationError.missing("firstName")
         }
-        guard let lastName = json["LastName"] as? String else {
-            throw SerializationError.missing("LastName")
+        guard let lastName = json["lastName"] as? String else {
+            throw SerializationError.missing("lastName")
         }
-        guard let emailAddress = json["EmailAddress"] as? String else {
-            throw SerializationError.missing("EmailAddress")
+        guard let emailAddress = json["emailAddress"] as? String else {
+            throw SerializationError.missing("emailAddress")
         }
-        guard let phoneNumber = json["PhoneNumber"] as? String else {
-            throw SerializationError.missing("PhoneNumber")
+        guard let phoneNumber = json["phoneNumber"] as? String else {
+            throw SerializationError.missing("phoneNumber")
         }
         self.userID = userID
-        self.firstName = firstName
-        self.lastName = lastName
-        self.userName = ""
+        self.firstName = firstName.capitalized
+        self.lastName = lastName.capitalized
+        self.userName = firstName.lowercased() + lastName.lowercased()
         self.emailAddress = emailAddress
         self.phoneNumber = phoneNumber
         self.profilePicURL = ""
@@ -152,14 +152,13 @@ class Member: Codable {
     
     func setAssociatedEvents(eventList: [Event]) {
         for (item) in eventList {
-            if (item.getAssociatedMember().getUserID() == self.userID) {
+            if (item.getAssociatedMember() == self.userID) {
                 associatedEvents.append(item)
             }
         }
     }
     
     func getFormattedFullName() -> String {
-        //return self.firstName.capitalized + " " + self.lastName.capitalized
         return self.firstName + " " + self.lastName
     }
     

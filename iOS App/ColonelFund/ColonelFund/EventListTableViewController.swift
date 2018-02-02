@@ -8,16 +8,24 @@
 
 import UIKit
 
-class EventListTableViewController: UITableViewController {
+class EventListTableViewController: UITableViewController, EventCollectionProtocol {
+    
+    //EventCollectionProtocol
+    //This has a EventCollection delegate reload the table when the data is finished being loaded
+    func eventDataDownloaded() {
+        eventList = ec.getEvents()
+        self.eventListTableView.reloadData()
+    }
     
     //MARK: Properties
+    @IBOutlet var eventListTableView: UITableView!
     let ec = EventCollection()
     var eventList: [Event] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        eventList = ec.getEvents()
+        ec.delegate = self
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

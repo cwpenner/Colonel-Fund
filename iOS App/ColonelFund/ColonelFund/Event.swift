@@ -8,49 +8,51 @@
 
 import Foundation
 
-class Event: Codable {
+class Event: NSObject, Codable {
+    
     private var eventID: String
     private var title: String
     private var eventDate: String
-    private var description: String
+    private var eventDescription: String
     private var fundGoal: Double
     private var currentFunds: Double
     private var eventPicURL: String
-    private var associatedMember: Member
+    private var associatedMember: String
     
     init(eventID: String) {
         self.eventID = eventID
         self.title = ""
         self.eventDate = ""
-        self.description = ""
+        self.eventDescription = ""
         self.fundGoal = 0
         self.currentFunds = 0
         self.eventPicURL = ""
-        self.associatedMember = Member(userID: "temp")
+        self.associatedMember = ""
     }
     
-    init(eventID: String, title: String, eventDate: String, description: String, fundGoal: Double, currentFunds: Double, associatedMember: Member) {
+    init(eventID: String, title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, associatedMember: String) {
         self.eventID = eventID
         self.title = title
         self.eventDate = eventDate
-        self.description = description
+        self.eventDescription = eventDescription
         self.fundGoal = fundGoal
         self.currentFunds = currentFunds
         self.eventPicURL = ""
         self.associatedMember = associatedMember
     }
     
-    init(eventID: String, title: String, eventDate: String, description: String, fundGoal: Double, currentFunds: Double, eventPicURL: String, associatedMember: Member) {
+    init(eventID: String, title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicURL: String, associatedMember: String) {
         self.eventID = eventID
         self.title = title
         self.eventDate = eventDate
-        self.description = description
+        self.eventDescription = eventDescription
         self.fundGoal = fundGoal
         self.currentFunds = currentFunds
         self.eventPicURL = eventPicURL
         self.associatedMember = associatedMember
     }
     
+    //TODO: revise with updated keys when Richard is done (most likely drop capitals)
     init(json: [String: Any]) throws {
         guard let eventID = json["EventID"] as? String else {
             throw SerializationError.missing("EventID")
@@ -61,8 +63,8 @@ class Event: Codable {
         guard let eventDate = json["EventDate"] as? String else {
             throw SerializationError.missing("EventDate")
         }
-        guard let description = json["Description"] as? String else {
-            throw SerializationError.missing("Description")
+        guard let eventDescription = json["eventDescription"] as? String else {
+            throw SerializationError.missing("eventDescription")
         }
         guard let fundGoal = json["FundGoal"] as? Double else {
             throw SerializationError.missing("FundGoal")
@@ -70,20 +72,18 @@ class Event: Codable {
         guard let currentFunds = json["CurrentFunds"] as? Double else {
             throw SerializationError.missing("CurrentFunds")
         }
-        guard let memberName = json["AssociatedMember"] as? String else {
+        guard let associatedMember = json["AssociatedMember"] as? String else {
             throw SerializationError.missing("AssociatedMember")
         }
-        let mc = MemberCollection()
-        let associatedMember = mc.getMember(userID: memberName)
         
         self.eventID = eventID
         self.title = title
         self.eventDate = eventDate
-        self.description = description
+        self.eventDescription = eventDescription
         self.fundGoal = fundGoal
         self.currentFunds = currentFunds
         self.eventPicURL = ""
-        self.associatedMember = associatedMember!
+        self.associatedMember = associatedMember
     }
     
     func getEventID() -> String {
@@ -110,12 +110,12 @@ class Event: Codable {
         self.eventDate = eventDate
     }
     
-    func getDescription() -> String {
-        return self.description
+    func getEventDescription() -> String {
+        return self.eventDescription
     }
     
-    func setDescription(description: String) {
-        self.description = description
+    func setEventDescription(eventDescription: String) {
+        self.eventDescription = eventDescription
     }
     
     func getFundGoal() -> Double {
@@ -142,11 +142,11 @@ class Event: Codable {
         self.eventPicURL = eventPicURL
     }
     
-    func getAssociatedMember() -> Member {
+    func getAssociatedMember() -> String {
         return associatedMember
     }
     
-    func setAssociatedMember(associatedMember: Member) {
+    func setAssociatedMember(associatedMember: String) {
         self.associatedMember = associatedMember
     }
     
@@ -154,10 +154,10 @@ class Event: Codable {
         //        let dict = ["EventID": self.eventID,
         //                    "Title": self.title,
         //                    "EventDate": self.eventDate,
-        //                    "Description": self.description,
+        //                    "eventDescription": self.eventDescription,
         //                    "FundGoal": self.fundGoal,
         //                    "CurrentFunds": self.currentFunds,
-        //                    "AssociatedMember": self.associatedMember]
+        //                    "AssociatedMember": self.memberString]
         let encoder = JSONEncoder()
         let jsonData = try? encoder.encode(self) //change to dict if this contains too much data
         return jsonData!

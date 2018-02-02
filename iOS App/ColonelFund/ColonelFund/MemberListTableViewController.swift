@@ -8,16 +8,25 @@
 
 import UIKit
 
-class MemberListTableViewController: UITableViewController {
+class MemberListTableViewController: UITableViewController, MemberCollectionProtocol {
+    
+    //MemberCollectionProtocol
+    //This has a MemberCollection delegate reload the table when the data is finished being loaded
+    func memberDataDownloaded() {
+        memberList = mc.getMembers()
+        self.memberListTableView.reloadData()
+    }
     
     //MARK: Properties
+    @IBOutlet var memberListTableView: UITableView!
     let mc = MemberCollection()
     var memberList: [Member] = []
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        memberList = mc.getMembers()
+        mc.delegate = self
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -30,6 +39,7 @@ class MemberListTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
 
     // MARK: - Table view data source
 

@@ -13,24 +13,29 @@ import FacebookLogin
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
+    let URL_FOR_LOGIN = "https://wesll.com/colonelfund/login.php"
     
     //MARK: - Properties
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
     
+    //TODO: **Delete these once database login functional
     var username = "admin"
     var password = "admin"
+    //**
     
     @IBAction func loginButtonPressed(_ sender: Any) {
+        //TODO: **Delete once database login functional
         if (usernameTextField.text == username && passwordTextField.text == password) {
             User.currentUser.setUserID(userID: username)
             User.currentUser.setUserName(userName: username)
             print("Successfully logged in as: \(usernameTextField.text!)")
-            performSegue(withIdentifier: "ShowMain", sender: self)
+            performSegue(withIdentifier: "ShowMain", sender: self) //DO NOT DELETE SEGUE
         } else {
             print("Invalid username and password combination")
         }
+        //**
     }
     
     @IBAction func fbLoginButtonPressed(_ sender: Any) {
@@ -100,6 +105,10 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func loginUser(emailAddress: String, password: String) {
+        
     }
     
     

@@ -10,7 +10,6 @@ import UIKit
 
 class DonateToMemberViewController: BraintreeViewController {
     
-    
     //MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!

@@ -8,7 +8,14 @@
 
 import UIKit
 
-class ViewEventViewController: UIViewController {
+class ViewEventViewController: UIViewController, MemberCollectionProtocol {
+    
+    //MemberCollectionProtocol
+    //This has a MemberCollection delegate reload the table when the data is finished being loaded
+    func memberDataDownloaded() {
+        let member = mc.getMember(userID: event.getAssociatedMember())
+        eventMemberLabel.text = member?.getFormattedFullName()
+    }
     
     //MARK: Properties
     @IBOutlet weak var eventImageView: UIImageView!
@@ -20,16 +27,18 @@ class ViewEventViewController: UIViewController {
     @IBOutlet weak var eventDescriptionLabel: UILabel!
     
     var event: Event = Event(eventID: "temp")
+    let mc = MemberCollection()
+    var memberList: [Member] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mc.delegate = self
 
         eventTitleLabel.text = event.getTitle()
         eventDateLabel.text = event.getEventDate()
-        eventMemberLabel.text = event.getAssociatedMember().getFormattedFullName()
         eventFundGoalLabel.text = "$" + String(event.getFundGoal())
         eventCurrentFundsLabel.text = "$" + String(event.getCurrentFunds())
-        eventDescriptionLabel.text = event.getDescription()
+        eventDescriptionLabel.text = event.getEventDescription()
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,6 +59,7 @@ class ViewEventViewController: UIViewController {
             }
             
             donateToEventViewController.event = event
+            donateToEventViewController.tempMemberText = eventMemberLabel.text!
             
         default:
             fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
