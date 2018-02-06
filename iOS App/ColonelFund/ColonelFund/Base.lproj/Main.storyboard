@@ -143,8 +143,7 @@
                                 <rect key="frame" x="20" y="254" width="374" height="30"/>
                                 <state key="normal" title="My Activity"/>
                                 <connections>
-                                    <action selector="MyActivityButtonPressed:" destination="fgj-d1-ogt" eventType="touchUpInside" id="vCi-xg-TIx"/>
-                                    <segue destination="zor-Gb-ug9" kind="show" identifier="ShowMyActivity" id="ecn-is-Jfm"/>
+                                    <segue destination="zor-Gb-ug9" kind="show" identifier="ShowMyActivity" id="wQO-7d-m4P"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSo-Ia-Aom">
@@ -987,7 +986,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDP-OT-Dfr">
-                                <rect key="frame" x="20" y="40" width="138" height="31.666666666666671"/>
+                                <rect key="frame" x="20" y="84" width="138" height="31.666666666666671"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1000,51 +999,51 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="johnwsmith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hDD-b5-tY8">
-                                <rect key="frame" x="20" y="73.666666666666671" width="78" height="18"/>
+                                <rect key="frame" x="20" y="117.66666666666667" width="78" height="18.000000000000014"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="flz-C8-JzL">
-                                <rect key="frame" x="294" y="20" width="100" height="100"/>
+                                <rect key="frame" x="294" y="64" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="XwT-jG-jgu"/>
                                     <constraint firstAttribute="width" secondItem="flz-C8-JzL" secondAttribute="height" multiplier="1:1" id="trQ-ih-9MS"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Donation Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUt-3H-DfC">
-                                <rect key="frame" x="20" y="131" width="143" height="20.333333333333343"/>
+                                <rect key="frame" x="20" y="175" width="143" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="50.00" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xqy-Oq-VAx">
-                                <rect key="frame" x="201" y="128" width="192.33333333333337" height="30"/>
+                                <rect key="frame" x="201" y="172" width="192.33333333333337" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eY-XX-xcd">
-                                <rect key="frame" x="183" y="131" width="10.666666666666657" height="21"/>
+                                <rect key="frame" x="183" y="175" width="10.666666666666657" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GL8-vP-izQ">
-                                <rect key="frame" x="85" y="182" width="309" height="21"/>
+                                <rect key="frame" x="85" y="226" width="309" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mZ-KN-vQx">
-                                <rect key="frame" x="20" y="227" width="374" height="30"/>
+                                <rect key="frame" x="20" y="271" width="374" height="30"/>
                                 <state key="normal" title="Select Payment Method"/>
                                 <connections>
                                     <action selector="memberSelectPaymentMethodButtonPressed:" destination="pTf-aG-xnl" eventType="touchUpInside" id="FlV-rX-hwb"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-Vm-eJe">
-                                <rect key="frame" x="20" y="178" width="45" height="29"/>
+                                <rect key="frame" x="20" y="222" width="45" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="5Vs-hM-JRC"/>
                                     <constraint firstAttribute="height" constant="29" id="QZc-qX-OD6"/>
@@ -1322,10 +1321,9 @@
         <image name="img_placeholder" width="1920" height="1090"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="udT-IG-qfU"/>
         <segue reference="8Vn-7o-6bN"/>
         <segue reference="Rea-bV-mxh"/>
         <segue reference="pnZ-iL-tL5"/>
-        <segue reference="E5p-ic-7av"/>
+        <segue reference="tHA-4H-kH6"/>
     </inferredMetricsTieBreakers>
 </document>
