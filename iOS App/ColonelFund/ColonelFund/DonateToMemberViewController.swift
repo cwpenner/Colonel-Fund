@@ -29,6 +29,12 @@ class DonateToMemberViewController: BraintreeViewController {
         BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView, donationType: donateMember)
 
         super.viewDidLoad()
+        
+        if member.getProfilePicURL().isEmpty {
+            placeholderProfilePic(member: member)
+        } else {
+            loadProfilePicFromURL(url: member.getProfilePicURL())
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,6 +50,34 @@ class DonateToMemberViewController: BraintreeViewController {
         super.donateButtonPressed()
     }
     
+    func placeholderProfilePic(member: Member) {
+        let placeholder = UILabel()
+        placeholder.frame.size = CGSize(width: 100.0, height: 100.0)
+        placeholder.textColor = UIColor.white
+        placeholder.font = UIFont.boldSystemFont(ofSize: 40)
+        placeholder.text = String(describing: member.getFirstName().first!) + String(describing: member.getLastName().first!)
+        placeholder.textAlignment = NSTextAlignment.center
+        placeholder.backgroundColor = UIColor.darkGray
+        placeholder.layer.cornerRadius = 50.0
+        placeholder.layer.masksToBounds = true
+        
+        UIGraphicsBeginImageContext(placeholder.frame.size)
+        placeholder.layer.render(in: UIGraphicsGetCurrentContext()!)
+        profilePicImageView.image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+    }
+    
+    func loadProfilePicFromURL(url: String) {
+        let imageURL = URL(string: url)
+        do {
+            let imageData = try Data(contentsOf: imageURL!)
+            profilePicImageView.image = UIImage(data: imageData)
+            profilePicImageView.layer.cornerRadius = 50.0
+            profilePicImageView.layer.masksToBounds = true
+        } catch {
+            print("Error processing profile pic: \(error.localizedDescription)")
+        }
+    }
     
     
     // MARK: - Navigation

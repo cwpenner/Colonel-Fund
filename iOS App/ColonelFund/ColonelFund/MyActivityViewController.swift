@@ -15,6 +15,10 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     func eventDataDownloaded() {
         member.setAssociatedEvents(eventList: ec.getEvents())
         associatedEventList = member.getAssociatedEvents()
+        if self.refresher.isRefreshing
+        {
+            self.refresher.endRefreshing()
+        }
         self.myEventsTableView.reloadData()
     }
     
@@ -25,6 +29,7 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     var member: Member! = User.getCurrentUser()
     let ec = EventCollection()
     var associatedEventList: [Event] = []
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +41,20 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
         
         myEventsTableView.delegate = self
         myEventsTableView.dataSource = self
+        
+        self.refresher = UIRefreshControl()
+        self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
+        self.myEventsTableView?.addSubview(refresher!)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc private func refreshEventList(_ sender: Any) {
+        self.ec.updateFromRemote()
     }
     
     // MARK: - Table view data source

@@ -43,12 +43,12 @@ class Member: NSObject, Codable {
         self.associatedEvents = []
     }
     
-    init(facebookID: String, firstName: String, lastName: String, emailAddress: String, profilePicURL: String) {
+    init(facebookID: String, firstName: String, lastName: String, profilePicURL: String) {
         self.userID = ""
         self.firstName = firstName
         self.lastName = lastName
         self.userName = ""
-        self.emailAddress = emailAddress
+        self.emailAddress = ""
         self.phoneNumber = ""
         self.profilePicURL = profilePicURL
         self.facebookID = facebookID

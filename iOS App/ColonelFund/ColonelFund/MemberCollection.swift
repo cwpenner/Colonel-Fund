@@ -51,26 +51,35 @@ class MemberCollection: NSObject, URLSessionDelegate {
         self.restoreFromFile(fileName: self.jsonFileName)
     }
     
-    //TODO: save persistent
     func saveJSONLocal(jsonData: Data, fileName: String) -> Bool {
-        let path = Bundle.main.path(forResource: fileName, ofType: "json")
-        let url = URL(fileURLWithPath: path!)
-        do {
-            try jsonData.write(to: url)
-            print("Successfully saved local json file: \(fileName).json")
-            return true
-        } catch {
-            print("Error saving member json file: \(error)")
+        let dir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        if let fileURL = dir?.appendingPathComponent(fileName).appendingPathExtension("json") {
+            
+            do {
+                try jsonData.write(to: fileURL, options: .atomic)
+                print("Successfully saved local json file: \(fileName).json")
+                return true
+            } catch {
+                print("Failed saving member json file: " + error.localizedDescription)
+            }
         }
         return false
     }
     
     func restoreFromFile(fileName: String) -> Bool {
-        if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
-            print("Member Library collection found under: \(fileName).json")
+        let dir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        if let fileURL = dir?.appendingPathComponent(fileName).appendingPathExtension("json") {
+            print("Member Collection found under: \(fileName).json")
             do {
-                let jsonData = try Data(contentsOf: url)
-                let object = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
+                let jsonData: Data?
+                do {
+                    jsonData = try Data(contentsOf: fileURL)
+                } catch {
+                    let url = Bundle.main.url(forResource: fileName, withExtension: "json")
+                    jsonData = try Data(contentsOf: url!)
+                    saveJSONLocal(jsonData: jsonData!, fileName: fileName)
+                }
+                let object = try JSONSerialization.jsonObject(with: jsonData!, options: .allowFragments)
                 if let dict = object as? [String: AnyObject] {
                     for (key, value) in dict {
                         let userID = key
@@ -94,6 +103,9 @@ class MemberCollection: NSObject, URLSessionDelegate {
                 return true
             } catch {
                 print("Error! Unable to parse \(fileName).json")
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.delegate.memberDataDownloaded()
+                })
             }
         }
         return false
@@ -104,6 +116,7 @@ class MemberCollection: NSObject, URLSessionDelegate {
     }
     
     func getMembers() -> [Member] {
+        memberArray.removeAll()
         for (key, value) in memberMap {
             memberArray.append(value)
         }

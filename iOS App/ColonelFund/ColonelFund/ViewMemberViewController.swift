@@ -15,6 +15,10 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     func eventDataDownloaded() {
         member.setAssociatedEvents(eventList: ec.getEvents())
         associatedEventList = member.getAssociatedEvents()
+        if self.refresher.isRefreshing
+        {
+            self.refresher.endRefreshing()
+        }
         self.associatedEventsTableView.reloadData()
     }
     
@@ -29,6 +33,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     var member: Member! = nil
     let ec = EventCollection()
     var associatedEventList: [Event] = []
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,13 +51,22 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         if member.getProfilePicURL().isEmpty {
             placeholderProfilePic(member: member)
         } else {
-            //TODO: display profile pic from URL
+            loadProfilePicFromURL(url: member.getProfilePicURL())
         }
+        
+        self.refresher = UIRefreshControl()
+        self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
+        self.associatedEventsTableView?.addSubview(refresher!)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc private func refreshEventList(_ sender: Any) {
+        self.ec.updateFromRemote()
     }
     
     // MARK: - Table view data source
@@ -95,6 +109,18 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         placeholder.layer.render(in: UIGraphicsGetCurrentContext()!)
         profilePicImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+    }
+    
+    func loadProfilePicFromURL(url: String) {
+        let imageURL = URL(string: url)
+        do {
+            let imageData = try Data(contentsOf: imageURL!)
+            profilePicImageView.image = UIImage(data: imageData)
+            profilePicImageView.layer.cornerRadius = 50.0
+            profilePicImageView.layer.masksToBounds = true
+        } catch {
+            print("Error processing profile pic: \(error.localizedDescription)")
+        }
     }
     
     
