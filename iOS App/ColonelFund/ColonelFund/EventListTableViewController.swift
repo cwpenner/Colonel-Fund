@@ -8,22 +8,24 @@
 
 import UIKit
 
-class EventListTableViewController: UITableViewController {
+class EventListTableViewController: UITableViewController, EventCollectionProtocol {
+    
+    //EventCollectionProtocol
+    //This has a EventCollection delegate reload the table when the data is finished being loaded
+    func eventDataDownloaded() {
+        eventList = ec.getEvents()
+        self.eventListTableView.reloadData()
+    }
     
     //MARK: Properties
-    //dummy array
-    var eventList = [String]()
+    @IBOutlet var eventListTableView: UITableView!
+    let ec = EventCollection()
+    var eventList: [Event] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        eventList.append("Independence Day BBQ")
-        eventList.append("John Smith Chemo Fund")
-        eventList.append("Let's Beat Alzheimer's!")
-        eventList.append("Paul's MS Donations")
-        eventList.append("Mrs. Cobain Widow Help")
-        
+        ec.delegate = self
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -57,7 +59,7 @@ class EventListTableViewController: UITableViewController {
         }
         
         let event = eventList[indexPath.row]
-        cell.nameLabel.text = event
+        cell.nameLabel.text = event.getTitle()
         
         return cell
     }
@@ -111,18 +113,17 @@ class EventListTableViewController: UITableViewController {
             }
             
             guard let selectedEventCell = sender as? EventListTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = tableView.indexPath(for: selectedEventCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedEvent = eventList[indexPath.row]
-            eventViewController.tempTitleText = selectedEvent
+            eventViewController.event = eventList[indexPath.row]
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
     

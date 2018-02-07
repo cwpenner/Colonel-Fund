@@ -20,21 +20,21 @@ class MyProfileViewController: UIViewController {
     @IBOutlet weak var profilePicImageView: UIImageView!
     
     
-    var tempNameText: String = "John Smith"
-    var tempUsernameText: String = "johnwsmith"
-    var tempEmailText: String = "johnsmith@email.com"
-    var tempPhoneText: String = "(555) 555-5555"
+    var member: Member! = User.getCurrentUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameLabel.text = tempNameText
-        usernameLabel.text = tempUsernameText
-        emailLabel.text = tempEmailText
-        phoneLabel.text = tempPhoneText
+        nameLabel.text = member.getFormattedFullName()
+        usernameLabel.text = member.getUserName()
+        emailLabel.text = member.getEmailAddress()
+        phoneLabel.text = member.getPhoneNumber()
         
-        //TODO: - if no profile pic, use placeholder
-        placeholderProfilePic()
+        if member.getProfilePicURL().isEmpty {
+            placeholderProfilePic(member: member)
+        } else {
+            //TODO: display profile pic from URL
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,15 +42,12 @@ class MyProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func placeholderProfilePic() {
+    func placeholderProfilePic(member: Member) {
         let placeholder = UILabel()
         placeholder.frame.size = CGSize(width: 100.0, height: 100.0)
         placeholder.textColor = UIColor.white
         placeholder.font = UIFont.boldSystemFont(ofSize: 40)
-        let name = nameLabel.text?.split(separator: " ", maxSplits: 1).map(String.init)
-        var firstName = name![0]
-        var lastName = name![1]
-        placeholder.text = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
+        placeholder.text = String(describing: member.getFirstName().first!) + String(describing: member.getLastName().first!)
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
         placeholder.layer.cornerRadius = 50.0

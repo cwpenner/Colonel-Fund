@@ -10,7 +10,6 @@ import UIKit
 
 class DonateToMemberViewController: BraintreeViewController {
     
-    
     //MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -21,15 +20,13 @@ class DonateToMemberViewController: BraintreeViewController {
     @IBOutlet weak var memberSelectPaymentButton: UIButton!
     @IBOutlet weak var memberPaymentImageView: UIImageView!
     
-    var tempNameText: String = ""
-    var tempUsernameText: String = ""
+    var donateMember: Member! = nil
     
     override func viewDidLoad() {
-        nameLabel.text = tempNameText
-        usernameLabel.text = tempUsernameText
+        nameLabel.text = donateMember.getFormattedFullName()
+        usernameLabel.text = donateMember.getUserName()
         
-        BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView)
-        setMemberName(newMemberName: nameLabel.text!)
+        BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView, donationType: donateMember)
 
         super.viewDidLoad()
     }
@@ -67,7 +64,7 @@ class DonateToMemberViewController: BraintreeViewController {
             transactionSummaryViewController.tempTransactionIDText = "" //TODO: Update with transaction ID
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
  

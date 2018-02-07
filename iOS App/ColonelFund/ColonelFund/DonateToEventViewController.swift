@@ -24,21 +24,17 @@ class DonateToEventViewController: BraintreeViewController {
     @IBOutlet weak var eventSelectPaymentButton: UIButton!
     @IBOutlet weak var eventPaymentImageView: UIImageView!
     
-    var tempTitleText: String = ""
-    var tempDateText: String = "2018-07-04"
-    var tempMemberText: String = "John Smith"
-    var tempFundGoalText: String = "$1,000.00"
-    var tempCurrentFundsText: String = "$75.63"
+    var donateEvent: Event! = nil
+    var tempMemberText = ""
     
     override func viewDidLoad() {
-        eventTitleLabel.text = tempTitleText
-        eventDateLabel.text = tempDateText
+        eventTitleLabel.text = donateEvent.getTitle()
+        eventDateLabel.text = donateEvent.getEventDate()
         eventMemberLabel.text = tempMemberText
-        eventFundGoalLabel.text = tempFundGoalText
-        eventCurrentFundsLabel.text = tempCurrentFundsText
+        eventFundGoalLabel.text = "$" + String(donateEvent.getFundGoal())
+        eventCurrentFundsLabel.text = "$" + String(donateEvent.getCurrentFunds())
         
-        BraintreeViewController(donationTextField: eventDonationTextField, donateButton: eventDonateButton, paymentDescriptionLabel: eventPaymentDescriptionLabel, selectPaymentButton: eventSelectPaymentButton, paymentIconView: eventPaymentImageView)
-        setEventTitle(newEventTitle: eventTitleLabel.text!)
+        BraintreeViewController(donationTextField: eventDonationTextField, donateButton: eventDonateButton, paymentDescriptionLabel: eventPaymentDescriptionLabel, selectPaymentButton: eventSelectPaymentButton, paymentIconView: eventPaymentImageView, donationType: donateEvent)
         
         super.viewDidLoad()
     }
@@ -77,7 +73,7 @@ class DonateToEventViewController: BraintreeViewController {
             transactionSummaryViewController.tempTransactionIDText = "" //TODO: Update with transaction ID
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
 

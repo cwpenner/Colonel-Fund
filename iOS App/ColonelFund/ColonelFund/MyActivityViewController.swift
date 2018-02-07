@@ -8,20 +8,28 @@
 
 import UIKit
 
-class MyActivityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MyActivityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCollectionProtocol {
+    
+    //EventCollectionProtocol
+    //This has a EventCollection delegate reload the table when the data is finished being loaded
+    func eventDataDownloaded() {
+        member.setAssociatedEvents(eventList: ec.getEvents())
+        associatedEventList = member.getAssociatedEvents()
+        self.myEventsTableView.reloadData()
+    }
     
     //MARK: Properties
     @IBOutlet var myDonationHistoryTableView: UITableView!
     @IBOutlet var myEventsTableView: UITableView!
     
-    //dummy array
-    var eventList = [String]()
+    var member: Member! = User.getCurrentUser()
+    let ec = EventCollection()
+    var associatedEventList: [Event] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        eventList.append("Independence Day BBQ")
-        eventList.append("John Smith Chemo Fund")
+        ec.delegate = self
+        associatedEventList = member.getAssociatedEvents()
         
         myDonationHistoryTableView.delegate = self
         myDonationHistoryTableView.dataSource = self
@@ -56,7 +64,7 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
         case myDonationHistoryTableView:
             num = 1
         case myEventsTableView:
-            num = eventList.count
+            num = member.getAssociatedEvents().count
         default:
             num = 1
         }
@@ -82,8 +90,8 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
                 fatalError("The dequeued cell is not an instance of \(cellIdentifier).")
             }
             
-            let event = eventList[indexPath.row]
-            cell.eventNameLabel?.text = event
+            let event = associatedEventList[indexPath.row]
+            cell.eventNameLabel?.text = event.getTitle()
             return cell
         default:
             let cellIdentifier = "MyEventsTableViewCell"
@@ -109,18 +117,17 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
             guard let selectedEventCell = sender as? MyEventsTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = myEventsTableView.indexPath(for: selectedEventCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedEvent = eventList[indexPath.row]
-            eventViewController.tempTitleText = selectedEvent
+            eventViewController.event = associatedEventList[indexPath.row]
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
     
