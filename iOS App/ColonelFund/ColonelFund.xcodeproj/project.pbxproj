@@ -20,6 +20,10 @@
 		5F54767F2022571E00C91A2B /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F54767D2022571E00C91A2B /* events.json */; };
 		5F5476802022571E00C91A2B /* members.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F54767E2022571E00C91A2B /* members.json */; };
 		5F547682202287D900C91A2B /* EventCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F547681202287D900C91A2B /* EventCollection.swift */; };
+		5F5476682020EAB000C91A2B /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5476672020EAB000C91A2B /* MyProfileViewController.swift */; };
+		5F54766A2020EFD100C91A2B /* MyActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5476692020EFD100C91A2B /* MyActivityViewController.swift */; };
+		5F54766C2020F15100C91A2B /* MyEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54766B2020F15100C91A2B /* MyEventsTableViewCell.swift */; };
+		5F54766E2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54766D2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift */; };
 		5F5779D91FAFE6CB000667FC /* DonateToMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779D81FAFE6CB000667FC /* DonateToMemberViewController.swift */; };
 		5F5779DF1FB00F17000667FC /* ViewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779DE1FB00F17000667FC /* ViewEventViewController.swift */; };
 		5F5779E31FB017A2000667FC /* EventListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779E21FB017A2000667FC /* EventListTableViewController.swift */; };
@@ -82,6 +86,10 @@
 		5F54767D2022571E00C91A2B /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		5F54767E2022571E00C91A2B /* members.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = members.json; sourceTree = "<group>"; };
 		5F547681202287D900C91A2B /* EventCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollection.swift; sourceTree = "<group>"; };
+		5F5476672020EAB000C91A2B /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		5F5476692020EFD100C91A2B /* MyActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityViewController.swift; sourceTree = "<group>"; };
+		5F54766B2020F15100C91A2B /* MyEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventsTableViewCell.swift; sourceTree = "<group>"; };
+		5F54766D2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDonationHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		5F5779D81FAFE6CB000667FC /* DonateToMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateToMemberViewController.swift; sourceTree = "<group>"; };
 		5F5779DE1FB00F17000667FC /* ViewEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventViewController.swift; sourceTree = "<group>"; };
 		5F5779E21FB017A2000667FC /* EventListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListTableViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +248,10 @@
 				5F54767120211D4E00C91A2B /* Event.swift */,
 				5F638A872022A71500A9CACA /* User.swift */,
 				5F547681202287D900C91A2B /* EventCollection.swift */,
+				5F54766D2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift */,
+				5F54766B2020F15100C91A2B /* MyEventsTableViewCell.swift */,
+				5F5476692020EFD100C91A2B /* MyActivityViewController.swift */,
+				5F5476672020EAB000C91A2B /* MyProfileViewController.swift */,
 				5F318C1020116E040080B62E /* TransactionSummaryViewController.swift */,
 				5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */,
 				5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */,
@@ -601,18 +613,22 @@
 				5F5779E71FB01805000667FC /* ViewMemberViewController.swift in Sources */,
 				5F8717FE1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift in Sources */,
 				5F318C1120116E040080B62E /* TransactionSummaryViewController.swift in Sources */,
+				5F54766C2020F15100C91A2B /* MyEventsTableViewCell.swift in Sources */,
 				5F0713A91FAFD23C00AA623A /* MemberListTableViewController.swift in Sources */,
 				5F5779D91FAFE6CB000667FC /* DonateToMemberViewController.swift in Sources */,
 				5F54767020211D4000C91A2B /* Member.swift in Sources */,
 				5F5779E51FB017D3000667FC /* EventListTableViewCell.swift in Sources */,
 				5F5779E91FB01BDD000667FC /* DonateToEventViewController.swift in Sources */,
 				5F54767220211D4E00C91A2B /* Event.swift in Sources */,
+				5F54766E2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift in Sources */,
 				5F995DD31F9286D700F8E459 /* AppDelegate.swift in Sources */,
 				5F547682202287D900C91A2B /* EventCollection.swift in Sources */,
 				5F5779E31FB017A2000667FC /* EventListTableViewController.swift in Sources */,
 				5F0713AB1FAFD2F200AA623A /* MemberListTableViewCell.swift in Sources */,
 				5F5779DF1FB00F17000667FC /* ViewEventViewController.swift in Sources */,
+				5F54766A2020EFD100C91A2B /* MyActivityViewController.swift in Sources */,
 				5F995DDB1F9286D700F8E459 /* ColonelFund.xcdatamodeld in Sources */,
+				5F5476682020EAB000C91A2B /* MyProfileViewController.swift in Sources */,
 				5F8717FC1FC547C60091B13A /* LoginViewController.swift in Sources */,
 				5F5779EB1FB02AC7000667FC /* CreateEventViewController.swift in Sources */,
 				5F638A882022A71500A9CACA /* User.swift in Sources */,

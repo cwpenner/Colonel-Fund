@@ -155,6 +155,7 @@ class Member: NSObject, Codable {
     }
     
     func setAssociatedEvents(eventList: [Event]) {
+        self.associatedEvents.removeAll()
         for (item) in eventList {
             if (item.getAssociatedMember() == self.userID) {
                 associatedEvents.append(item)

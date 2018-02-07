@@ -33,6 +33,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         ec.delegate = self
+        associatedEventList = member.getAssociatedEvents()
         
         nameLabel.text = member.getFormattedFullName()
         usernameLabel.text = member.getUserName()
