@@ -14,6 +14,10 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     //This has a MemberCollection delegate reload the table when the data is finished being loaded
     func memberDataDownloaded() {
         memberList = mc.getMembers()
+        if self.refresher.isRefreshing
+        {
+            self.refresher.endRefreshing()
+        }
         self.memberListTableView.reloadData()
     }
     
@@ -21,26 +25,35 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     @IBOutlet var memberListTableView: UITableView!
     let mc = MemberCollection()
     var memberList: [Member] = []
-  
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mc.delegate = self
+        memberList = mc.getMembers()
         
+        self.refresher = UIRefreshControl()
+        self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refresher?.addTarget(self, action: #selector(self.refreshMemberList(_:)), for: UIControlEvents.valueChanged)
+        self.memberListTableView?.addSubview(refresher!)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    @objc private func refreshMemberList(_ sender: Any) {
+        self.mc.updateFromRemote()
+    }
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -66,7 +79,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         if member.getProfilePicURL().isEmpty {
             placeholderProfilePic(member: member, imageObj: cell.profilePicImageView)
         } else {
-            //TODO: display profile pic from URL
+            loadProfilePicFromURL(url: member.getProfilePicURL(), imageObj: cell.profilePicImageView)
         }
         
         
@@ -90,6 +103,18 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         placeholder.layer.render(in: UIGraphicsGetCurrentContext()!)
         imageObj.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+    }
+    
+    func loadProfilePicFromURL(url: String, imageObj: UIImageView) {
+        let imageURL = URL(string: url)
+        do {
+            let imageData = try Data(contentsOf: imageURL!)
+            imageObj.image = UIImage(data: imageData)
+            imageObj.layer.cornerRadius = 50.0
+            imageObj.layer.masksToBounds = true
+        } catch {
+            print("Error processing profile pic: \(error.localizedDescription)")
+        }
     }
     
 

@@ -33,7 +33,7 @@ class MyProfileViewController: UIViewController {
         if member.getProfilePicURL().isEmpty {
             placeholderProfilePic(member: member)
         } else {
-            //TODO: display profile pic from URL
+            loadProfilePicFromURL(url: member.getProfilePicURL())
         }
     }
 
@@ -57,6 +57,18 @@ class MyProfileViewController: UIViewController {
         placeholder.layer.render(in: UIGraphicsGetCurrentContext()!)
         profilePicImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+    }
+    
+    func loadProfilePicFromURL(url: String) {
+        let imageURL = URL(string: url)
+        do {
+            let imageData = try Data(contentsOf: imageURL!)
+            profilePicImageView.image = UIImage(data: imageData)
+            profilePicImageView.layer.cornerRadius = 50.0
+            profilePicImageView.layer.masksToBounds = true
+        } catch {
+            print("Error processing profile pic: \(error.localizedDescription)")
+        }
     }
     
     @IBAction func LinkAccountButtonPressed(_ sender: Any) {

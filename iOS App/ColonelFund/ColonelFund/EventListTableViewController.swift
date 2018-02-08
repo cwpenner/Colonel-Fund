@@ -14,6 +14,10 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     //This has a EventCollection delegate reload the table when the data is finished being loaded
     func eventDataDownloaded() {
         eventList = ec.getEvents()
+        if self.refresher.isRefreshing
+        {
+            self.refresher.endRefreshing()
+        }
         self.eventListTableView.reloadData()
     }
     
@@ -21,11 +25,17 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     @IBOutlet var eventListTableView: UITableView!
     let ec = EventCollection()
     var eventList: [Event] = []
-    
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ec.delegate = self
+        eventList = ec.getEvents()
+        
+        self.refresher = UIRefreshControl()
+        self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
+        self.eventListTableView?.addSubview(refresher!)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -37,6 +47,10 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc private func refreshEventList(_ sender: Any) {
+        self.ec.updateFromRemote()
     }
     
     // MARK: - Table view data source
