@@ -5,7 +5,7 @@
     android:background="#F3F3F3">
 
     <!-- icon -->
-    <TextView
+    <ImageView
         android:id="@+id/event_type_pic"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -13,7 +13,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/circle"
+        android:src="@drawable/img_placeholder"
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
@@ -25,12 +25,15 @@
         android:id="@+id/eventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_alignBaseline="@+id/event_type_pic"
         android:layout_alignParentRight="true"
         android:layout_marginRight="0dp"
         android:layout_toEndOf="@+id/event_type_pic"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@+id/event_type_pic"
+        android:gravity="center"
         android:textSize="18dp" />
 
 </RelativeLayout>

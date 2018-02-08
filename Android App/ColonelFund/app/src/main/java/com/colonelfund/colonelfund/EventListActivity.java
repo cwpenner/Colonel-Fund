@@ -1,20 +1,26 @@
 package com.colonelfund.colonelfund;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,13 +43,15 @@ public class EventListActivity extends AppCompatActivity {
 
         //dummy array
         final EventCollection ecf = new EventCollection(getApplicationContext());
-        List<String> eventList = new ArrayList<>(Arrays.asList(ecf.getTitles()));
+        Collection<Event> eventList = ecf.getEventsList();
+        //List<String> eventList = new ArrayList<>(Arrays.asList(ecf.getTitles()));
 
         //make array adapter
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                eventList );
+        ArrayAdapter arrayAdapter = new EventListAdapter(this, generateData(eventList));
+        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+        //        this,
+        //        android.R.layout.simple_list_item_1,
+        //        eventList );
 
         lv.setAdapter(arrayAdapter);
 
@@ -52,8 +60,8 @@ public class EventListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                Object item = lv.getItemAtPosition(position);
-                String myItem = item.toString();
+                EventListModel item = (EventListModel) lv.getItemAtPosition(position);
+                String myItem = item.getTitle();
                 Intent intent = new Intent(EventListActivity.this, ViewEventActivity.class);
                 intent.putExtra("SelectedEvent", ecf.get(myItem));
                 startActivity(intent);
@@ -90,4 +98,94 @@ public class EventListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Generates Initials and User Name for memberlist.
+     *
+     * @param eventList
+     * @return
+     */
+    private ArrayList<EventListModel> generateData(Collection eventList) {
+        ArrayList<EventListModel> models = new ArrayList<EventListModel>();
+        Iterator<Event> EventItr = eventList.iterator();
+        while (EventItr.hasNext()) {
+            Event temp = EventItr.next();
+            String eventTitle = temp.getTitle();
+            //String eventType = temp.getEventType();
+            String eventType = "Placeholder";
+            models.add(new EventListModel(eventTitle,eventType));
+        }
+        return models;
+    }
 }
+
+/**
+ * Event list adapter class.
+ */
+class EventListAdapter extends ArrayAdapter<EventListModel> {
+
+    private final Context context;
+    private final ArrayList<EventListModel> modelsArrayList;
+
+    /**
+     * Constructor for member list item adapter.
+     * @param context
+     * @param modelsArrayList
+     */
+    public EventListAdapter(Context context, ArrayList<EventListModel> modelsArrayList) {
+        super(context, R.layout.event_list_item, modelsArrayList);
+        this.context = context;
+        this.modelsArrayList = modelsArrayList;
+    }
+
+    /**
+     * Gets View for Member List Item.
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View rowView = null;
+        rowView = inflater.inflate(R.layout.event_list_item, parent, false);
+
+        //TextView memberInitials = (TextView) rowView.findViewById(R.id.event_type_pic);
+        TextView memberName = (TextView) rowView.findViewById(R.id.eventName);
+
+        //memberInitials.setText(modelsArrayList.get(position).getInitials());
+        memberName.setText(modelsArrayList.get(position).getTitle());
+
+        return rowView;
+    }
+}
+
+/**
+ * Event list Item Model class.
+ */
+class EventListModel {
+    private String title;
+    private String type;
+
+    /**
+     * Constructor for Initials circle.
+     * @param title
+     * @param type
+     */
+    public EventListModel(String title, String type) {
+        super();
+        this.title = title;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+    public String getTitle() {
+        return title;
+    }
+
+}
+
