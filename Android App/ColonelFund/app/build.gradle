@@ -43,4 +43,9 @@ dependencies {
     implementation 'com.braintreepayments.api:drop-in:3.2.0'
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.google.android.gms:play-services-wallet:11.8.0'
+    compile 'com.google.android.gms:play-services-auth:11.8.0'
+    compile 'com.google.firebase:firebase-auth:11.8.0'
 }
+apply plugin: 'com.google.gms.google-services'
+
+
