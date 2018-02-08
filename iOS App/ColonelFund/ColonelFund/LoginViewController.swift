@@ -87,12 +87,12 @@ class LoginViewController: UIViewController, URLSessionDelegate, LoginProtocol {
                     let nameSplit = name.split(separator: " ", maxSplits: 1).map(String.init)
                     let firstName = nameSplit[0]
                     let lastName = nameSplit[1]
-                    let emailAddress = self.dict["email"] as! String
+                    //let emailAddress = self.dict["email"] as! String //FacebookSDK no longer returns email address
                     let profilePic = self.dict["picture"] as! [String : AnyObject]
                     let profilePicData = profilePic["data"] as! [String : AnyObject]
                     let profilePicURL = profilePicData["url"] as! String
                     let facebookID = self.dict["id"] as! String
-                    let member = Member(facebookID: facebookID, firstName: firstName, lastName: lastName, emailAddress: emailAddress, profilePicURL: profilePicURL)
+                    let member = Member(facebookID: facebookID, firstName: firstName, lastName: lastName, profilePicURL: profilePicURL)
                     User.setCurrentUser(currentUser: member)
                     self.performSegue(withIdentifier: "ShowMain", sender: self)
                 }
