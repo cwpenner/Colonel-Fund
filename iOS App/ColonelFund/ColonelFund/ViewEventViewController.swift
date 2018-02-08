@@ -8,7 +8,14 @@
 
 import UIKit
 
-class ViewEventViewController: UIViewController {
+class ViewEventViewController: UIViewController, MemberCollectionProtocol {
+    
+    //MemberCollectionProtocol
+    //This has a MemberCollection delegate reload the table when the data is finished being loaded
+    func memberDataDownloaded() {
+        let member = mc.getMember(userID: event.getAssociatedMember())
+        eventMemberLabel.text = member?.getFormattedFullName()
+    }
     
     //MARK: Properties
     @IBOutlet weak var eventImageView: UIImageView!
@@ -19,22 +26,19 @@ class ViewEventViewController: UIViewController {
     @IBOutlet weak var eventCurrentFundsLabel: UILabel!
     @IBOutlet weak var eventDescriptionLabel: UILabel!
     
-    var tempTitleText: String = ""
-    var tempDateText: String = "2018-07-04"
-    var tempMemberText: String = "John Smith"
-    var tempFundGoalText: String = "$1,000.00"
-    var tempCurrentFundsText: String = "$75.63"
-    var tempDescriptionText: String = "This will be a fun event for everyone to get together and enjoy some delicious food and great company!"
+    var event: Event! = nil
+    let mc = MemberCollection()
+    var memberList: [Member] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mc.delegate = self
 
-        eventTitleLabel.text = tempTitleText
-        eventDateLabel.text = tempDateText
-        eventMemberLabel.text = tempMemberText
-        eventFundGoalLabel.text = tempFundGoalText
-        eventCurrentFundsLabel.text = tempCurrentFundsText
-        eventDescriptionLabel.text = tempDescriptionText
+        eventTitleLabel.text = event.getTitle()
+        eventDateLabel.text = event.getEventDate()
+        eventFundGoalLabel.text = "$" + String(event.getFundGoal())
+        eventCurrentFundsLabel.text = "$" + String(event.getCurrentFunds())
+        eventDescriptionLabel.text = event.getEventDescription()
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,14 +58,11 @@ class ViewEventViewController: UIViewController {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            donateToEventViewController.tempTitleText = eventTitleLabel.text!
-            donateToEventViewController.tempDateText = eventDateLabel.text!
+            donateToEventViewController.donateEvent = event
             donateToEventViewController.tempMemberText = eventMemberLabel.text!
-            donateToEventViewController.tempFundGoalText = eventFundGoalLabel.text!
-            donateToEventViewController.tempCurrentFundsText = eventCurrentFundsLabel.text!
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
 

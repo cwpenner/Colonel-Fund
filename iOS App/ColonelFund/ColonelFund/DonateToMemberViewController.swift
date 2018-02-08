@@ -10,7 +10,6 @@ import UIKit
 
 class DonateToMemberViewController: BraintreeViewController {
     
-    
     //MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -21,15 +20,13 @@ class DonateToMemberViewController: BraintreeViewController {
     @IBOutlet weak var memberSelectPaymentButton: UIButton!
     @IBOutlet weak var memberPaymentImageView: UIImageView!
     
-    var tempNameText: String = ""
-    var tempUsernameText: String = ""
+    var donateMember: Member! = nil
     
     override func viewDidLoad() {
-        nameLabel.text = tempNameText
-        usernameLabel.text = tempUsernameText
+        nameLabel.text = donateMember.getFormattedFullName()
+        usernameLabel.text = donateMember.getUserName()
         
-        BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView)
-        setMemberName(newMemberName: nameLabel.text!)
+        BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView, donationType: donateMember)
 
         super.viewDidLoad()
     }
@@ -48,14 +45,28 @@ class DonateToMemberViewController: BraintreeViewController {
     }
     
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        switch(segue.identifier ?? "") {
+        case "ShowTransactionSummary":
+            guard let transactionSummaryViewController = segue.destination as? TransactionSummaryViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            transactionSummaryViewController.tempNameText = "Member: " + nameLabel.text!
+            transactionSummaryViewController.tempAmountText = "$" + memberDonationTextField.text!
+            transactionSummaryViewController.tempPaymentDescriptionText = memberPaymentDescriptionLabel.text!
+            transactionSummaryViewController.tempPaymentMethodImage = memberPaymentImageView.image!
+            transactionSummaryViewController.tempTransactionIDText = "" //TODO: Update with transaction ID
+            
+        default:
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
+        }
     }
-    */
+ 
 
 }

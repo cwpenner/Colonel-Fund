@@ -107,7 +107,6 @@ public class BraintreeActivity extends AppCompatActivity implements ActivityComp
     //Activity Methods
     public void donateButtonPressed() {
         donationAmount = Double.parseDouble(donationTextField.getText().toString());
-        Toast.makeText(this, "Donation Amount: " + donationAmount,Toast.LENGTH_LONG).show();
         String nonce = "";
 
         if (this.useGooglePay) {
@@ -124,7 +123,6 @@ public class BraintreeActivity extends AppCompatActivity implements ActivityComp
         }
         Log.d("Donation", "Nonce: " + nonce);
         sendRequestPaymentToServer(nonce, String.valueOf(donationAmount));
-        //TODO: segue to Thank You screen
     }
 
     public void selectPaymentButtonPressed() {
@@ -239,6 +237,8 @@ public class BraintreeActivity extends AppCompatActivity implements ActivityComp
                     // Your implementation here
                 }
         );
+        //TODO: add check for successful transaction
+        performIntent();
     }
 
     private DropInRequest getDropInRequest() {
@@ -358,5 +358,23 @@ public class BraintreeActivity extends AppCompatActivity implements ActivityComp
 
     public void setEventTitle(String newEventTitle) {
         eventTitle = newEventTitle;
+    }
+
+    public void performIntent() {
+        Intent intent = new Intent(this, TransactionSummaryActivity.class);
+        if (!memberName.equals("")) {
+            intent.putExtra("name", "Member: " + memberName);
+        } else if (!eventTitle.equals("")) {
+            intent.putExtra("name", "Event: " + eventTitle);
+        }
+        intent.putExtra("amount", "$" + String.valueOf(donationAmount));
+        intent.putExtra("paymentDescription", this.paymentDescriptionLabel.getText());
+        if (useGooglePay) {
+            intent.putExtra("paymentMethodImageType", "useGooglePay");
+        } else {
+            intent.putExtra("paymentMethodImageType", this.paymentMethod.getTypeLabel());
+        }
+        intent.putExtra("transactionID",""); //TODO: update with transaction ID from payment server response
+        startActivity(intent);
     }
 }

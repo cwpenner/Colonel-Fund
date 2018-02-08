@@ -5,6 +5,7 @@
     <string name="button_member_list">Member List</string>
     <string name="button_event_list">Event List</string>
     <string name="button_create_event">Create Event</string>
+    <string name="button_my_profile">My Profile</string>
     <string name="button_log_out">Log Out</string>
     <string name="fund_goal">Fund Goal:</string>
     <string name="current_funds">Current Funds:</string>
@@ -24,12 +25,21 @@
     <string name="selectPaymentMethod">Select Payment Method</string>
     <string name="changePaymentMethod">Change Payment Method</string>
     <string name="googlePay">Google Pay</string>
+    <string name="about_you">About You</string>
+    <string name="donation_history">Donation History</string>
+    <string name="account_info">Account Info</string>
+    <string name="your_history_events">Your History/Events</string>
+    <string name="logout_item">Log Out</string>
+    <string name="summaryHeader">Thank you for your donation!</string>
+    <string name="summarySubHeader">Take a screenshot or record this information for your records</string>
+    <string name="donation_recipient">Donation Recipient</string>
+    <string name="transactionID">Transaction ID</string>
+    <string name="summaryContinueButton">Continue</string>
 
     <!-- Strings related to login -->
     <string name="facebook_app_id">861301034038497</string>
     <string name="fb_login_protocol_scheme">fb861301034038497</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_username">UserName</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -37,8 +47,17 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="create_an_account">create an account</string>
+    <string name="register_new_account">register new account</string>
+    <string name="i_am">I am</string>
+    <string name="admin_colonelfund_com">admin@colonelfund.com</string>
+    <string name="userid">userID</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="title_activity_view_profile">Profile</string>
+    <string name="title_activity_view_history">History/Events</string>
 
 </resources>

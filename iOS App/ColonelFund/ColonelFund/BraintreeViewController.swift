@@ -12,12 +12,13 @@ import Braintree
 
 class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentAuthorizationViewControllerDelegate {
     //Constructor
-    func BraintreeViewController(donationTextField: UITextField, donateButton: UIButton, paymentDescriptionLabel: UILabel, selectPaymentButton: UIButton, paymentIconView: UIImageView) {
+    func BraintreeViewController(donationTextField: UITextField, donateButton: UIButton, paymentDescriptionLabel: UILabel, selectPaymentButton: UIButton, paymentIconView: UIImageView, donationType: AnyObject) {
         self.donationTextField = donationTextField
         self.donateButton = donateButton
         self.paymentDescriptionLabel = paymentDescriptionLabel
         self.selectPaymentButton = selectPaymentButton
         self.paymentIconView = paymentIconView
+        setDonationType(donationType: donationType)
     }
     
     override func viewDidLoad() {
@@ -38,8 +39,8 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     
     //MARK: Properties
     var donationAmount: NSDecimalNumber = 0.00
-    var memberName: String = "" //TODO: consider changing to Member object, once implemented
-    var eventTitle: String = "" //TODO: consider changing to Event object, once implemented
+    var member: Member! = nil
+    var event: Event! = nil
     
     //API Tokenization Key
     let token = "sandbox_3swsvvz5_mhbr9s54673smz3g"
@@ -68,7 +69,6 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
         }
         
         self.sendRequestPaymentToServer(nonce: nonce, amount: donationAmount.stringValue)
-        //TODO: segue to Thank You screen
     }
     
     func selectPaymentButtonPressed() {
@@ -88,8 +88,8 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
             } else if let result = result {
                 print("Icon: \(result.paymentIcon)")
                 print("Desc: \(result.paymentDescription)")
-                print("PaymentMethod: \(result.paymentMethod)")
-                print("PaymentMethodOption: \(result.paymentMethod?.type)")
+                print("PaymentMethod: \(String(describing: result.paymentMethod))")
+                print("PaymentMethodOption: \(String(describing: result.paymentMethod?.type))")
                 if (result.paymentOptionType == BTUIKPaymentOptionType.applePay) {
                     self.setupApplePay()
                 } else {
@@ -158,16 +158,21 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
             guard let data = data else {
                 print(error!.localizedDescription)
+                //self.displayAlert(alertTitle: "Transaction Failed", alertMessage: "Could not connect to payment server. The payment could not be processed.")
                 return
             }
             
             guard let result = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let success = result?["success"] as? Bool, success == true else {
                 print("Transaction failed. Please try again.")
+                //self.displayAlert(alertTitle: "Transaction Failed", alertMessage: "Transaction failed. The payment could not be processed. Please try again.")
                 return
             }
             
+            
             print("Successfully charged.")
             }.resume()
+        //TODO: add check for successful transaction
+        self.performSegue(withIdentifier: "ShowTransactionSummary", sender: self)
     }
     
     func updatePaymentImage(paymentOptionText: String) {
@@ -221,10 +226,12 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     func paymentRequest() -> PKPaymentRequest {
         let paymentRequest = PKPaymentRequest()
         let donationLabel: String
-        if (eventTitle != "") {
-            donationLabel = eventTitle
+        if (event != nil) {
+            donationLabel = event.getTitle()
+        } else if (member != nil) {
+            donationLabel = member.getFormattedFullName()
         } else {
-            donationLabel = memberName
+            donationLabel = "Error"
         }
         paymentRequest.merchantIdentifier = "merchant.sandbox.com.ColonelFund.ColonelFund"
         paymentRequest.supportedNetworks = [PKPaymentNetwork.amex, PKPaymentNetwork.visa, PKPaymentNetwork.masterCard]
@@ -284,6 +291,8 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     @available(iOS 8.0, *)
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         dismiss(animated: true, completion: nil)
+        //TODO: add check for successful transaction
+        self.performSegue(withIdentifier: "ShowTransactionSummary", sender: self)
     }
     
     // MARK: - BTViewControllerPresentingDelegate
@@ -324,12 +333,22 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     //        // ...
     //    }
     
-    func setMemberName(newMemberName: String) {
-        self.memberName = newMemberName
+    func setDonationType(donationType: AnyObject) {
+        if (type(of: donationType) == Member.self) {
+            member = donationType as! Member
+        } else if (type(of: donationType) == Event.self) {
+            event = donationType as! Event
+        } else {
+            print("Whoops! Invalid donation type")
+        }
     }
     
-    func setEventTitle(newEventTitle: String) {
-        self.eventTitle = newEventTitle
+    func displayAlert(alertTitle: String, alertMessage: String) {
+        let alertController = UIAlertController(title: alertTitle, message:
+            alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
