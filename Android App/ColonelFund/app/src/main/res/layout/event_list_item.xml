@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#F3F3F3">
 
     <!-- icon -->
+    <ImageView
+        android:id="@+id/event_type_pic2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:src="@drawable/img_placeholder"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
     <ImageView
         android:id="@+id/event_type_pic"
         android:layout_width="40dp"
@@ -25,15 +40,45 @@
         android:id="@+id/eventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:layout_alignBaseline="@+id/event_type_pic"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="0dp"
-        android:layout_toEndOf="@+id/event_type_pic"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/event_type_pic"
+        android:layout_toLeftOf="@+id/event_type_pic2"
         android:layout_toRightOf="@+id/event_type_pic"
-        android:gravity="center"
+        android:layout_toStartOf="@+id/event_type_pic2"
+        android:gravity="left"
+        android:text="Event Title"
         android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/eventUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/eventName"
+        android:layout_marginTop="18dp"
+        android:gravity="left"
+        android:layout_alignLeft="@id/eventName"
+        android:layout_alignRight="@id/eventName"
+        android:layout_below="@+id/eventName"
+        android:layout_toLeftOf="@id/event_type_pic2"
+        android:text="TextView"
+        android:textSize="14dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="16dp"
+        tools:text="First Last" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/eventUser"
+        android:progress="45" />
 
 </RelativeLayout>
