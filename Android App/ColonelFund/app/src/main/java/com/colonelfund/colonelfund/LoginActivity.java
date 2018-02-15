@@ -1,6 +1,21 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.app.LoaderManager.LoaderCallbacks;
+
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,6 +38,15 @@ import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.Task;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +59,6 @@ import java.util.Map;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private final String TAG = "LoginActivity";
     private final String URL_FOR_LOGIN = "https://wesll.com/colonelfund/login.php";
 
     // UI references.
@@ -43,10 +66,17 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtPassword;
     private View mProgressView;
     private View mLoginFormView;
-    private LoginButton btnFacebookLogin;
+    private LoginButton loginButton;
+    private SignInButton mGoogleButton;
     private CallbackManager callbackManager;
+    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleApiClient mGoogleApiClient;
+    private static final int RC_SIGN_IN = 1;
+    private static final String TAG = "LoginActivity";
+    private LoginButton btnFacebookLogin;
     private Button btnLogin, btnRegister;
     AppSingleton appContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +86,48 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
+        // Configure sign-in to request the user's ID, email address, and basic
+// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
+
+        AppEventsLogger.activateApp(this);
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
         AppEventsLogger.activateApp(getApplicationContext());
+
         callbackManager = CallbackManager.Factory.create();
         //logger.logPurchase(BigDecimal.valueOf(4.32), Currency.getInstance("USD"));
 
         // Set up the login form.
+        txtLoginEmail = (EditText) findViewById(R.id.txtLoginEmail);
+        txtPassword = (EditText) findViewById(R.id.txtPassword);
+
+
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+
+        //fb login
+        btnFacebookLogin = (LoginButton) findViewById(R.id.btnFacebookLogin);
+
+        //google login
+        mGoogleButton = (SignInButton) findViewById(R.id.sign_in_button);
+
+        mGoogleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
+
         txtLoginEmail = (EditText) findViewById(R.id.txtLoginEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -220,6 +284,33 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task <GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+
+      }
+      private void signIn(){
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+      }
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
+            startActivity(MainIntent);
+            Toast.makeText(LoginActivity.this, account.getGivenName() + " Signed in successfully",Toast.LENGTH_LONG).show();
+
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+
+        }
     }
 }
 
