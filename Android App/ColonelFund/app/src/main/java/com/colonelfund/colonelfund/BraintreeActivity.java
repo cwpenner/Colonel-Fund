@@ -318,10 +318,10 @@ public class BraintreeActivity extends AppCompatActivity implements ActivityComp
                         parsed = new BigDecimal(newString).setScale(currentDecimalPlaces, BigDecimal.ROUND_FLOOR);
                         newString = String.valueOf(parsed);
                     } else {
-                        // leave as text
+                        // leave as eventView
                     }
                 } else {
-                    // leave as text
+                    // leave as eventView
                 }
 
                 finalLength = newString.length();

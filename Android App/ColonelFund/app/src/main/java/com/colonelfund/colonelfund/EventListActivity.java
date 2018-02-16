@@ -28,13 +28,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import static com.paypal.android.sdk.onetouch.core.metadata.ah.s;
-
 /**
  * Event list view class.
  */
 public class EventListActivity extends AppCompatActivity {
-    private ListView lv;
+    private ListView lv = null;
+    private ArrayAdapter arrayAdapter =  null;
+    private EditText searchBar = null;
 
     /**
      * Draws event list
@@ -45,6 +45,7 @@ public class EventListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_event_list);
+        searchBar = (EditText) findViewById(R.id.editText);
 
         lv = (ListView) findViewById(R.id.eventListView);
 
@@ -53,7 +54,7 @@ public class EventListActivity extends AppCompatActivity {
         Collection<Event> eventList = ecf.getEventsList();
 
         //make array adapter
-        final ArrayAdapter arrayAdapter = new EventListAdapter(this, generateData(eventList));
+        arrayAdapter = new EventListAdapter(this, generateData(eventList));
         lv.setAdapter(arrayAdapter);
 
         // set listener for each item
@@ -68,8 +69,8 @@ public class EventListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        lv.setTextFilterEnabled(true);
 
-        EditText searchBar = (EditText) findViewById(R.id.editText);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -149,20 +150,20 @@ public class EventListActivity extends AppCompatActivity {
 class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterable {
 
     private final Context context;
-    private final ArrayList<EventListModel> modelsArrayList;
+    private ArrayList<EventListModel> originalArrayList;
     private ArrayList<EventListModel> filteredModelsArrayList;
     private ItemFilter mFilter = new ItemFilter();
 
     /**
      * Constructor for member list item adapter.
      * @param context
-     * @param modelsArrayList
+     * @param data
      */
-    public EventListAdapter(Context context, ArrayList<EventListModel> modelsArrayList) {
-        super(context, R.layout.event_list_item, modelsArrayList);
+    public EventListAdapter(Context context, ArrayList<EventListModel> data) {
+        super(context, R.layout.event_list_item, data);
         this.context = context;
-        this.modelsArrayList = modelsArrayList;
-        this.filteredModelsArrayList = modelsArrayList;
+        this.originalArrayList = data;
+        this.filteredModelsArrayList = data;
     }
 
     /**
@@ -177,15 +178,15 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         ViewHolder holder;
+        holder = new ViewHolder();
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.event_list_item, parent, false);
 
-            holder = new ViewHolder();
-            holder.text = inflater.inflate(R.layout.event_list_item, parent, false);
+            holder.eventView = inflater.inflate(R.layout.event_list_item, parent, false);
             convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            holder.eventView = convertView;
         }
 
         /**
@@ -199,18 +200,18 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         ProgressBar goalProgress = (ProgressBar) rowView.findViewById(R.id.goalProgress);
         ImageView eventType = (ImageView) rowView.findViewById(R.id.event_type_pic);
 
-        eventName.setText(modelsArrayList.get(position).getTitle());
-        eventMember.setText(modelsArrayList.get(position).getAssociatedMember());
-        goalProgress.setProgress(modelsArrayList.get(position).getGoalProgress().intValue());
-        if (modelsArrayList.get(position).getType().equalsIgnoreCase("bbq")) {
+        eventName.setText(origionalArrayList.get(position).getTitle());
+        eventMember.setText(origionalArrayList.get(position).getAssociatedMember());
+        goalProgress.setProgress(origionalArrayList.get(position).getGoalProgress().intValue());
+        if (origionalArrayList.get(position).getType().equalsIgnoreCase("bbq")) {
             eventType.setImageResource(R.drawable.bbq);
-        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("emergency")) {
+        } else if (origionalArrayList.get(position).getType().equalsIgnoreCase("emergency")) {
             eventType.setImageResource(R.drawable.emergency);
-        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("medical")) {
+        } else if (origionalArrayList.get(position).getType().equalsIgnoreCase("medical")) {
             eventType.setImageResource(R.drawable.medical);
-        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("party")) {
+        } else if (origionalArrayList.get(position).getType().equalsIgnoreCase("party")) {
             eventType.setImageResource(R.drawable.party);
-        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("unknown")) {
+        } else if (origionalArrayList.get(position).getType().equalsIgnoreCase("unknown")) {
             eventType.setImageResource(R.drawable.unknown);
         } else {
             eventType.setImageResource(R.drawable.question);
@@ -219,35 +220,35 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         return rowView;
 
          */
-        //holder.text = inflater.inflate(R.layout.event_list_item, parent, false);
+        //holder.eventView = inflater.inflate(R.layout.event_list_item, parent, false);
 
-        TextView eventName = (TextView) holder.text.findViewById(R.id.eventName);
-        TextView eventMember = (TextView) holder.text.findViewById(R.id.eventUser);
-        ProgressBar goalProgress = (ProgressBar) holder.text.findViewById(R.id.goalProgress);
-        ImageView eventType = (ImageView) holder.text.findViewById(R.id.event_type_pic);
+        TextView eventName = (TextView) holder.eventView.findViewById(R.id.eventName);
+        TextView eventMember = (TextView) holder.eventView.findViewById(R.id.eventUser);
+        ProgressBar goalProgress = (ProgressBar) holder.eventView.findViewById(R.id.goalProgress);
+        ImageView eventType = (ImageView) holder.eventView.findViewById(R.id.event_type_pic);
 
-        eventName.setText(modelsArrayList.get(position).getTitle());
-        eventMember.setText(modelsArrayList.get(position).getAssociatedMember());
-        goalProgress.setProgress(modelsArrayList.get(position).getGoalProgress().intValue());
-        if (modelsArrayList.get(position).getType().equalsIgnoreCase("bbq")) {
+        eventName.setText(filteredModelsArrayList.get(position).getTitle());
+        eventMember.setText(filteredModelsArrayList.get(position).getAssociatedMember());
+        goalProgress.setProgress(filteredModelsArrayList.get(position).getGoalProgress().intValue());
+        if (filteredModelsArrayList.get(position).getType().equalsIgnoreCase("bbq")) {
             eventType.setImageResource(R.drawable.bbq);
-        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("emergency")) {
+        } else if (filteredModelsArrayList.get(position).getType().equalsIgnoreCase("emergency")) {
             eventType.setImageResource(R.drawable.emergency);
-        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("medical")) {
+        } else if (filteredModelsArrayList.get(position).getType().equalsIgnoreCase("medical")) {
             eventType.setImageResource(R.drawable.medical);
-        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("party")) {
+        } else if (filteredModelsArrayList.get(position).getType().equalsIgnoreCase("party")) {
             eventType.setImageResource(R.drawable.party);
-        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("unknown")) {
+        } else if (filteredModelsArrayList.get(position).getType().equalsIgnoreCase("unknown")) {
             eventType.setImageResource(R.drawable.unknown);
         } else {
             eventType.setImageResource(R.drawable.question);
         }
-        return convertView;
+        return holder.eventView;
     }
 
 
     static class ViewHolder {
-        View text;
+        View eventView;
     }
 
     public Filter getFilter() {
@@ -263,7 +264,7 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
 
             FilterResults results = new FilterResults();
 
-            final ArrayList<EventListModel> list = modelsArrayList;
+            final ArrayList<EventListModel> list = originalArrayList;
 
             int count = list.size();
             final ArrayList<EventListModel> nlist = new ArrayList<EventListModel>(count);
@@ -274,6 +275,7 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
                 filterableModel = list.get(i);
                 if (filterableModel.getTitle().toLowerCase().contains(filterString)) {
                     nlist.add(filterableModel);
+                    System.out.println("Added event: " + filterableModel.getTitle());
                 }
             }
 
@@ -289,10 +291,18 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         protected void publishResults(CharSequence constraint, FilterResults results) {
             filteredModelsArrayList = (ArrayList<EventListModel>) results.values;
             notifyDataSetChanged();
+            clear();
+            for (int i = 0, l = filteredModelsArrayList.size(); i < l; i++)
+                add((EventListModel) filteredModelsArrayList.get(i));
+            notifyDataSetInvalidated();
         }
 
         public int getCount() {
-            return filteredModelsArrayList.size();
+            if(filteredModelsArrayList==null){
+                return 0;
+            }else{
+                return filteredModelsArrayList.size();
+            }
         }
 
         public EventListModel getItem(int position) {
