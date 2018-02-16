@@ -11,17 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
+
+import static com.paypal.android.sdk.onetouch.core.metadata.ah.s;
 
 /**
  * Event list view class.
@@ -44,15 +51,9 @@ public class EventListActivity extends AppCompatActivity {
         //dummy array
         final EventCollection ecf = new EventCollection(getApplicationContext());
         Collection<Event> eventList = ecf.getEventsList();
-        //List<String> eventList = new ArrayList<>(Arrays.asList(ecf.getTitles()));
 
         //make array adapter
-        ArrayAdapter arrayAdapter = new EventListAdapter(this, generateData(eventList));
-        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-        //        this,
-        //        android.R.layout.simple_list_item_1,
-        //        eventList );
-
+        final ArrayAdapter arrayAdapter = new EventListAdapter(this, generateData(eventList));
         lv.setAdapter(arrayAdapter);
 
         // set listener for each item
@@ -65,6 +66,24 @@ public class EventListActivity extends AppCompatActivity {
                 Intent intent = new Intent(EventListActivity.this, ViewEventActivity.class);
                 intent.putExtra("SelectedEvent", ecf.get(myItem));
                 startActivity(intent);
+            }
+        });
+
+        EditText searchBar = (EditText) findViewById(R.id.editText);
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("Text ["+s+"]");
+
+                arrayAdapter.getFilter().filter(s.toString());
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
     }
@@ -100,7 +119,7 @@ public class EventListActivity extends AppCompatActivity {
     }
 
     /**
-     * Generates Initials and User Name for memberlist.
+     * Generates Initials and User Name for Event List.
      *
      * @param eventList
      * @return
@@ -110,22 +129,29 @@ public class EventListActivity extends AppCompatActivity {
         Iterator<Event> EventItr = eventList.iterator();
         while (EventItr.hasNext()) {
             Event temp = EventItr.next();
-            String eventTitle = temp.getTitle();
-            //String eventType = temp.getEventType();
-            String eventType = "Placeholder";
-            models.add(new EventListModel(eventTitle,eventType));
+            double goalProgress;
+            if ((temp.getCurrentFunds()/temp.getFundGoal()) < 1) {
+                goalProgress = (temp.getCurrentFunds()/temp.getFundGoal());
+            } else {
+                goalProgress = 1;
+            }
+            models.add(new EventListModel(temp.getTitle(),temp.getType(),temp.getAssociatedMember(),
+                    temp.getEventDate(),goalProgress));
         }
         return models;
     }
+
 }
 
 /**
  * Event list adapter class.
  */
-class EventListAdapter extends ArrayAdapter<EventListModel> {
+class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterable {
 
     private final Context context;
     private final ArrayList<EventListModel> modelsArrayList;
+    private ArrayList<EventListModel> filteredModelsArrayList;
+    private ItemFilter mFilter = new ItemFilter();
 
     /**
      * Constructor for member list item adapter.
@@ -136,6 +162,7 @@ class EventListAdapter extends ArrayAdapter<EventListModel> {
         super(context, R.layout.event_list_item, modelsArrayList);
         this.context = context;
         this.modelsArrayList = modelsArrayList;
+        this.filteredModelsArrayList = modelsArrayList;
     }
 
     /**
@@ -149,16 +176,132 @@ class EventListAdapter extends ArrayAdapter<EventListModel> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        ViewHolder holder;
+
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.event_list_item, parent, false);
+
+            holder = new ViewHolder();
+            holder.text = inflater.inflate(R.layout.event_list_item, parent, false);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        /**
+         *
+
         View rowView = null;
         rowView = inflater.inflate(R.layout.event_list_item, parent, false);
 
-        //TextView memberInitials = (TextView) rowView.findViewById(R.id.event_type_pic);
-        TextView memberName = (TextView) rowView.findViewById(R.id.eventName);
+        TextView eventName = (TextView) rowView.findViewById(R.id.eventName);
+        TextView eventMember = (TextView) rowView.findViewById(R.id.eventUser);
+        ProgressBar goalProgress = (ProgressBar) rowView.findViewById(R.id.goalProgress);
+        ImageView eventType = (ImageView) rowView.findViewById(R.id.event_type_pic);
 
-        //memberInitials.setText(modelsArrayList.get(position).getInitials());
-        memberName.setText(modelsArrayList.get(position).getTitle());
+        eventName.setText(modelsArrayList.get(position).getTitle());
+        eventMember.setText(modelsArrayList.get(position).getAssociatedMember());
+        goalProgress.setProgress(modelsArrayList.get(position).getGoalProgress().intValue());
+        if (modelsArrayList.get(position).getType().equalsIgnoreCase("bbq")) {
+            eventType.setImageResource(R.drawable.bbq);
+        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("emergency")) {
+            eventType.setImageResource(R.drawable.emergency);
+        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("medical")) {
+            eventType.setImageResource(R.drawable.medical);
+        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("party")) {
+            eventType.setImageResource(R.drawable.party);
+        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("unknown")) {
+            eventType.setImageResource(R.drawable.unknown);
+        } else {
+            eventType.setImageResource(R.drawable.question);
+        }
 
         return rowView;
+
+         */
+        //holder.text = inflater.inflate(R.layout.event_list_item, parent, false);
+
+        TextView eventName = (TextView) holder.text.findViewById(R.id.eventName);
+        TextView eventMember = (TextView) holder.text.findViewById(R.id.eventUser);
+        ProgressBar goalProgress = (ProgressBar) holder.text.findViewById(R.id.goalProgress);
+        ImageView eventType = (ImageView) holder.text.findViewById(R.id.event_type_pic);
+
+        eventName.setText(modelsArrayList.get(position).getTitle());
+        eventMember.setText(modelsArrayList.get(position).getAssociatedMember());
+        goalProgress.setProgress(modelsArrayList.get(position).getGoalProgress().intValue());
+        if (modelsArrayList.get(position).getType().equalsIgnoreCase("bbq")) {
+            eventType.setImageResource(R.drawable.bbq);
+        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("emergency")) {
+            eventType.setImageResource(R.drawable.emergency);
+        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("medical")) {
+            eventType.setImageResource(R.drawable.medical);
+        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("party")) {
+            eventType.setImageResource(R.drawable.party);
+        } else if (modelsArrayList.get(position).getType().equalsIgnoreCase("unknown")) {
+            eventType.setImageResource(R.drawable.unknown);
+        } else {
+            eventType.setImageResource(R.drawable.question);
+        }
+        return convertView;
+    }
+
+
+    static class ViewHolder {
+        View text;
+    }
+
+    public Filter getFilter() {
+        return mFilter;
+    }
+
+
+    private class ItemFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            String filterString = constraint.toString().toLowerCase();
+
+            FilterResults results = new FilterResults();
+
+            final ArrayList<EventListModel> list = modelsArrayList;
+
+            int count = list.size();
+            final ArrayList<EventListModel> nlist = new ArrayList<EventListModel>(count);
+
+            EventListModel filterableModel;
+
+            for (int i = 0; i < count; i++) {
+                filterableModel = list.get(i);
+                if (filterableModel.getTitle().toLowerCase().contains(filterString)) {
+                    nlist.add(filterableModel);
+                }
+            }
+
+            results.values = nlist;
+            results.count = nlist.size();
+
+            return results;
+        }
+
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredModelsArrayList = (ArrayList<EventListModel>) results.values;
+            notifyDataSetChanged();
+        }
+
+        public int getCount() {
+            return filteredModelsArrayList.size();
+        }
+
+        public EventListModel getItem(int position) {
+            return filteredModelsArrayList.get(position);
+        }
+
+        public long getItemId(int position) {
+            return position;
+        }
     }
 }
 
@@ -168,16 +311,22 @@ class EventListAdapter extends ArrayAdapter<EventListModel> {
 class EventListModel {
     private String title;
     private String type;
+    private String associatedMember;
+    private String eventDate;
+    private Double goalProgress;
 
     /**
      * Constructor for Initials circle.
      * @param title
      * @param type
      */
-    public EventListModel(String title, String type) {
+    public EventListModel(String title, String type, String associatedMember, String eventDate, Double goalProgress) {
         super();
         this.title = title;
         this.type = type;
+        this.associatedMember = associatedMember;
+        this.eventDate = eventDate;
+        this.goalProgress = (goalProgress*100);
     }
 
     public String getType() {
@@ -185,6 +334,15 @@ class EventListModel {
     }
     public String getTitle() {
         return title;
+    }
+    public String getAssociatedMember() {
+        return associatedMember;
+    }
+    public String getEventDate() {
+        return eventDate;
+    }
+    public Double getGoalProgress() {
+        return goalProgress;
     }
 
 }

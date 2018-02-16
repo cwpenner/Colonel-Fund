@@ -15,6 +15,7 @@ public class Event implements Serializable {
     private double fundGoal;
     private double currentFunds;
     private String description;
+    private String type;
     /**
      * @param title
      * @param associatedMember
@@ -23,7 +24,7 @@ public class Event implements Serializable {
      * @param currentFunds
      * @param description
      */
-    public Event(String title, String associatedMember, String eventDate, double fundGoal, double currentFunds, String description) {
+    public Event(String title, String associatedMember, String eventDate, double fundGoal, double currentFunds, String description, String type) {
         super();
         this.title = title;
         this.associatedMember = associatedMember;
@@ -31,6 +32,7 @@ public class Event implements Serializable {
         this.fundGoal = fundGoal;
         this.currentFunds = currentFunds;
         this.description = description;
+        this.type = type;
     }
     /**
      * @return the title
@@ -106,6 +108,18 @@ public class Event implements Serializable {
         this.description = description;
     }
     /**
+     * @return the title
+     */
+    public String getType() {
+        return type;
+    }
+    /**
+     * @param type the title to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+    /**
      * Get a JSONObject representation of Event
      * @return JSONObject
      */
@@ -117,6 +131,7 @@ public class Event implements Serializable {
         JsonObj.put("FundGoal",fundGoal);
         JsonObj.put("CurrentFunds",currentFunds);
         JsonObj.put("Description",description);
+        JsonObj.put("EventType",type);
         return JsonObj;
     }
     /**
@@ -130,5 +145,6 @@ public class Event implements Serializable {
         this.fundGoal = jsonObject.getDouble("FundGoal");
         this.currentFunds = jsonObject.getDouble("CurrentFunds");
         this.description = jsonObject.getString("Description");
+        this.type = jsonObject.getString("EventType");
     }
 }

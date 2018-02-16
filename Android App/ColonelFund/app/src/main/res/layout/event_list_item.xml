@@ -70,7 +70,7 @@
         tools:text="First Last" />
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/goalProgress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

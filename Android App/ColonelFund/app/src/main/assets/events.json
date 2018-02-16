@@ -5,7 +5,8 @@
     "Title": "John's Chemo Fund",
     "FundGoal": 5000,
     "CurrentFunds": 1075.63,
-    "AssociatedMember": "JohnSmith"
+    "AssociatedMember": "JohnSmith",
+    "EventType": "Medical"
   },
   "Alzheimer's Research Fund": {
     "EventDate": "2018-01-18",
@@ -13,7 +14,8 @@
     "Title": "Alzheimer's Research Fund",
     "FundGoal": 7550,
     "CurrentFunds": 750.63,
-    "AssociatedMember": "LiamGallagher"
+    "AssociatedMember": "LiamGallagher",
+    "EventType": "Medical"
   },
   "Paul's MS Donations": {
     "EventDate": "2018-05-14",
@@ -21,15 +23,17 @@
     "Title": "Paul's MS Donations",
     "FundGoal": 8367.53,
     "CurrentFunds": 7505.63,
-    "AssociatedMember": "PaulMcCartney"
+    "AssociatedMember": "PaulMcCartney",
+    "EventType": "Medical"
   },
   "Independence Day BBQ": {
     "EventDate": "2018-07-04",
-    "Description": "Fun BBQ party for 388 Dark Knights!",
+    "Description": "Fun BBQ for 388 Dark Knights!",
     "Title": "Independence Day BBQ",
     "FundGoal": 1000,
     "CurrentFunds": 75.63,
-    "AssociatedMember": "JohnSmith"
+    "AssociatedMember": "JohnSmith",
+    "EventType": "BBQ"
   },
   "Mrs. Cobain's Widow Help": {
     "EventDate": "2018-02-05",
@@ -37,6 +41,25 @@
     "Title": "Mrs. Cobain's Widow Help",
     "FundGoal": 3500,
     "CurrentFunds": 2735.63,
-    "AssociatedMember": "CourtneyLove"
+    "AssociatedMember": "CourtneyLove",
+    "EventType": "Unknown"
+  },
+  "Liam's house fire help": {
+    "EventDate": "2018-05-20",
+    "Description": "Help an unfortunate friend out.",
+    "Title": "Liam's house fire help",
+    "FundGoal": 7500,
+    "CurrentFunds": 2735.63,
+    "AssociatedMember": "LiamGallagher",
+    "EventType": "Emergency"
+  },
+  "Mrs. Cobain's birthday": {
+    "EventDate": "2018-05-20",
+    "Description": "Support a widows birthday party.",
+    "Title": "Mrs. Cobain's birthday",
+    "FundGoal": 1500,
+    "CurrentFunds": 25.01,
+    "AssociatedMember": "CourtneyLove",
+    "EventType": "Party"
   }
 }
