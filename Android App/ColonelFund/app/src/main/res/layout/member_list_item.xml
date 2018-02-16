@@ -33,4 +33,14 @@
         android:layout_toRightOf="@+id/member_initials"
         android:textSize="18dp" />
 
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:numStars="1"
+        android:stepSize="1" />
+
 </RelativeLayout>

@@ -135,6 +135,14 @@ public class MainActivity extends AppCompatActivity {
     /**
      * @param view
      */
+    public void searchMemberList(View view) {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * @param view
+     */
     public void viewEventList(View view) {
         Intent intent = new Intent(this, EventListActivity.class);
         startActivity(intent);
