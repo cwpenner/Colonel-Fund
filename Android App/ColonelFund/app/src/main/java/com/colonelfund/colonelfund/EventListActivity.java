@@ -162,8 +162,8 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
     public EventListAdapter(Context context, ArrayList<EventListModel> data) {
         super(context, R.layout.event_list_item, data);
         this.context = context;
-        this.originalArrayList = data;
-        this.filteredModelsArrayList = data;
+        this.originalArrayList = new ArrayList<EventListModel>(data);
+        this.filteredModelsArrayList = new ArrayList<EventListModel>(data);
     }
 
     /**
@@ -264,7 +264,9 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
 
             FilterResults results = new FilterResults();
 
-            final ArrayList<EventListModel> list = originalArrayList;
+            final ArrayList<EventListModel> list = new ArrayList<EventListModel>(originalArrayList);
+
+            System.out.println("Original Array List Size: " + originalArrayList.size());
 
             int count = list.size();
             final ArrayList<EventListModel> nlist = new ArrayList<EventListModel>(count);
