@@ -278,6 +278,12 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
                 if (filterableModel.getTitle().toLowerCase().contains(filterString)) {
                     nlist.add(filterableModel);
                     System.out.println("Added event: " + filterableModel.getTitle());
+                } else if (filterableModel.getType().toLowerCase().contains(filterString)) {
+                    nlist.add(filterableModel);
+                    System.out.println("Added event: " + filterableModel.getTitle());
+                } else if (filterableModel.getAssociatedMember().toLowerCase().contains(filterString)) {
+                    nlist.add(filterableModel);
+                    System.out.println("Added event: " + filterableModel.getTitle());
                 }
             }
 
