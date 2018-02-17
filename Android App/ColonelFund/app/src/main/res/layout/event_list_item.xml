@@ -6,19 +6,35 @@
     android:background="#F3F3F3">
 
     <!-- icon -->
-    <ImageView
-        android:id="@+id/event_type_pic2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+    <TextView
+        android:id="@+id/event_day_box"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
+        android:background="#4EB1BA"
+        android:textColor="#E9E9E9"
         android:gravity="center"
         android:src="@drawable/img_placeholder"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/event_month_box"
+        android:layout_width="10dp"
+        android:layout_height="35dp"
+        android:layout_alignRight="@id/event_day_box"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="38dp"
+        android:background="#222930"
+        android:textColor="#E9E9E9"
+        android:gravity="center"
+        android:src="@drawable/img_placeholder"
+        android:text="J\nA\nN"
+        android:textSize="8sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <ImageView
         android:id="@+id/event_type_pic"
@@ -45,9 +61,9 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/event_type_pic"
-        android:layout_toLeftOf="@+id/event_type_pic2"
+        android:layout_toLeftOf="@+id/event_month_box"
         android:layout_toRightOf="@+id/event_type_pic"
-        android:layout_toStartOf="@+id/event_type_pic2"
+        android:layout_toStartOf="@+id/event_month_box"
         android:gravity="left"
         android:text="Event Title"
         android:textSize="18dp" />
@@ -62,7 +78,7 @@
         android:layout_alignLeft="@id/eventName"
         android:layout_alignRight="@id/eventName"
         android:layout_below="@+id/eventName"
-        android:layout_toLeftOf="@id/event_type_pic2"
+        android:layout_toLeftOf="@id/event_month_box"
         android:text="TextView"
         android:textSize="14dp"
         android:layout_marginRight="0dp"

@@ -153,6 +153,18 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
     private ArrayList<EventListModel> originalArrayList;
     private ArrayList<EventListModel> filteredModelsArrayList;
     private ItemFilter mFilter = new ItemFilter();
+    private final String[] months = {"J\nA\nN",
+            "F\nE\nB",
+            "M\nA\nR",
+            "A\nP\nR",
+            "M\nA\nY",
+            "J\nU\nN",
+            "J\nU\nL",
+            "A\nU\nG",
+            "S\nE\nP",
+            "O\nC\nT",
+            "N\nO\nV",
+            "D\nE\nC"};
 
     /**
      * Constructor for member list item adapter.
@@ -226,10 +238,18 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         TextView eventMember = (TextView) holder.eventView.findViewById(R.id.eventUser);
         ProgressBar goalProgress = (ProgressBar) holder.eventView.findViewById(R.id.goalProgress);
         ImageView eventType = (ImageView) holder.eventView.findViewById(R.id.event_type_pic);
+        TextView eventDay = (TextView) holder.eventView.findViewById(R.id.event_day_box);
+        TextView eventMonth = (TextView) holder.eventView.findViewById(R.id.event_month_box);
 
         eventName.setText(filteredModelsArrayList.get(position).getTitle());
         eventMember.setText(filteredModelsArrayList.get(position).getAssociatedMember());
         goalProgress.setProgress(filteredModelsArrayList.get(position).getGoalProgress().intValue());
+        String eventDate = filteredModelsArrayList.get(position).getEventDate();
+        eventDay.setText(eventDate.substring((eventDate.length()-2), (eventDate.length())));
+
+        String monthString = eventDate.substring((eventDate.length()-5), (eventDate.length()- 3));
+        int month = Integer.parseInt(monthString);
+        eventMonth.setText(months[month-1]);
         if (filteredModelsArrayList.get(position).getType().equalsIgnoreCase("bbq")) {
             eventType.setImageResource(R.drawable.bbq);
         } else if (filteredModelsArrayList.get(position).getType().equalsIgnoreCase("emergency")) {
