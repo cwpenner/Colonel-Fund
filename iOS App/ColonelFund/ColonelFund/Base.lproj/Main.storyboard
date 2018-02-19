@@ -934,31 +934,31 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Member Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grH-vh-Xty">
-                                            <rect key="frame" x="40" y="4" width="284.33333333333331" height="21"/>
+                                            <rect key="frame" x="65.666666666666657" y="4" width="328.33333333333337" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dko-9b-vFL">
-                                            <rect key="frame" x="344.33333333333331" y="0.0" width="49.666666666666686" height="49.666666666666664"/>
+                                            <rect key="frame" x="7.9999999999999964" y="0.0" width="49.666666666666657" height="49.666666666666664"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="Dko-9b-vFL" secondAttribute="height" multiplier="1:1" id="SjK-4l-sJf"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGc-V7-av9">
-                                            <rect key="frame" x="40" y="27" width="284.33333333333331" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGc-V7-av9">
+                                            <rect key="frame" x="65.666666666666657" y="27" width="328.33333333333337" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="grH-vh-Xty" secondAttribute="trailing" constant="20" id="0kB-mi-5Uo"/>
                                         <constraint firstItem="Dko-9b-vFL" firstAttribute="top" secondItem="4KT-fL-dUe" secondAttribute="top" id="5ax-Tv-TsF"/>
-                                        <constraint firstItem="Dko-9b-vFL" firstAttribute="leading" secondItem="aGc-V7-av9" secondAttribute="trailing" constant="20" id="AzX-Tm-4Mj"/>
-                                        <constraint firstAttribute="trailing" secondItem="Dko-9b-vFL" secondAttribute="trailing" constant="20" id="FbM-at-sKR"/>
                                         <constraint firstItem="aGc-V7-av9" firstAttribute="top" secondItem="grH-vh-Xty" secondAttribute="bottom" constant="2" id="HrD-My-EuS"/>
-                                        <constraint firstItem="grH-vh-Xty" firstAttribute="leading" secondItem="4KT-fL-dUe" secondAttribute="leadingMargin" constant="20" id="PJF-BR-Tp7"/>
-                                        <constraint firstItem="Dko-9b-vFL" firstAttribute="leading" secondItem="grH-vh-Xty" secondAttribute="trailing" constant="20" id="Rqb-ZK-RdK"/>
+                                        <constraint firstItem="Dko-9b-vFL" firstAttribute="leading" secondItem="4KT-fL-dUe" secondAttribute="leading" constant="8" id="MTf-ay-quE"/>
+                                        <constraint firstItem="grH-vh-Xty" firstAttribute="leading" secondItem="Dko-9b-vFL" secondAttribute="trailing" constant="8" id="ZS6-rl-f5X"/>
+                                        <constraint firstAttribute="trailing" secondItem="aGc-V7-av9" secondAttribute="trailing" constant="20" id="b4u-Bl-54p"/>
                                         <constraint firstItem="grH-vh-Xty" firstAttribute="top" secondItem="4KT-fL-dUe" secondAttribute="top" constant="4" id="cCW-vc-zqe"/>
                                         <constraint firstItem="aGc-V7-av9" firstAttribute="leading" secondItem="grH-vh-Xty" secondAttribute="leading" id="hB5-b9-00f"/>
                                         <constraint firstAttribute="bottom" secondItem="Dko-9b-vFL" secondAttribute="bottom" id="ih8-Gr-f3U"/>

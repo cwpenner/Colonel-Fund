@@ -75,7 +75,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         
         let member = memberList[indexPath.row]
         cell.nameLabel.text = member.getFormattedFullName()
-        cell.usernameLabel.text = member.getUserName()
+        cell.usernameLabel.text = member.getEmailAddress()
         if member.getProfilePicURL().isEmpty {
             placeholderProfilePic(member: member, imageObj: cell.profilePicImageView)
         } else {
