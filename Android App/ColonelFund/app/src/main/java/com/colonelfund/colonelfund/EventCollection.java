@@ -37,11 +37,10 @@ public class EventCollection {
             this.eventMap = new HashMap<String,Event>();
         }
     }
-
     /**
      * Attempts to take a event library, convert it to a json object, then save it to the
      * provided filename.
-     * @return
+     * @return false
      */
     public boolean saveJsonLibrary() {
         //toDo not operational
@@ -169,7 +168,7 @@ public class EventCollection {
         return toString;
     }
     /**
-     * Returns an array of strings for associated events.
+     * Returns an array of associated events.
      * @return
      */
     public ArrayList<String> getAssociatedEvents(String aMemberId) {
@@ -190,9 +189,8 @@ public class EventCollection {
             return null;
         }
     }
-
     /**
-     * Gets membermap values.
+     * Gets eventMap values.
      * @return
      */
     public Collection<Event> getEventsList() {

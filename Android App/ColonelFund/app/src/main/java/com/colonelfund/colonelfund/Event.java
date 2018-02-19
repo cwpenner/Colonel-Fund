@@ -5,7 +5,7 @@ import org.json.JSONException;
 import java.io.Serializable;
 
 /**
- * Basic Event Object
+ * Basic Event Object that holds all of the information for an event.
  */
 public class Event implements Serializable {
     private static final long serialVersionUID = -8645384342222081215L;
@@ -17,12 +17,12 @@ public class Event implements Serializable {
     private String description;
     private String type;
     /**
-     * @param title
-     * @param associatedMember
-     * @param eventDate
-     * @param fundGoal
-     * @param currentFunds
-     * @param description
+     * @param title of event
+     * @param associatedMember of event
+     * @param eventDate of event
+     * @param fundGoal of event
+     * @param currentFunds of event
+     * @param description of event
      */
     public Event(String title, String associatedMember, String eventDate, double fundGoal, double currentFunds, String description, String type) {
         super();
@@ -121,7 +121,7 @@ public class Event implements Serializable {
     }
     /**
      * Get a JSONObject representation of Event
-     * @return JSONObject
+     * @return JSONObject of an event
      */
     public JSONObject toJson() throws JSONException {
         JSONObject JsonObj = new JSONObject();
@@ -136,7 +136,7 @@ public class Event implements Serializable {
     }
     /**
      * Constructor with JSON Object.
-     * @param jsonObject
+     * @param jsonObject of an event
      */
     public Event(JSONObject jsonObject) throws JSONException {
         this.title = jsonObject.getString("Title");

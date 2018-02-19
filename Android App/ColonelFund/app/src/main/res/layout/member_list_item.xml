@@ -6,7 +6,7 @@
 
     <!-- icon -->
     <TextView
-        android:id="@+id/event_type_pic"
+        android:id="@+id/member_initials"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
@@ -22,15 +22,15 @@
 
     <!-- title -->
     <TextView
-        android:id="@+id/eventName"
+        android:id="@+id/memberName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/event_type_pic"
+        android:layout_alignBaseline="@+id/member_initials"
         android:layout_alignParentRight="true"
         android:layout_marginRight="0dp"
-        android:layout_toEndOf="@+id/event_type_pic"
+        android:layout_toEndOf="@+id/member_initials"
         android:layout_marginLeft="8dp"
-        android:layout_toRightOf="@+id/event_type_pic"
+        android:layout_toRightOf="@+id/member_initials"
         android:textSize="18dp" />
 
 </RelativeLayout>

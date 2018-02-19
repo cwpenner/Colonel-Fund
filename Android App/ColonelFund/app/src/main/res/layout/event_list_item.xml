@@ -37,7 +37,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <ImageView
-        android:id="@+id/event_type_pic"
+        android:id="@+id/member_initials"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
@@ -53,16 +53,16 @@
 
     <!-- title -->
     <TextView
-        android:id="@+id/eventName"
+        android:id="@+id/memberName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/event_type_pic"
+        android:layout_alignBaseline="@+id/member_initials"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_toEndOf="@+id/event_type_pic"
+        android:layout_toEndOf="@+id/member_initials"
         android:layout_toLeftOf="@+id/event_month_box"
-        android:layout_toRightOf="@+id/event_type_pic"
+        android:layout_toRightOf="@+id/member_initials"
         android:layout_toStartOf="@+id/event_month_box"
         android:gravity="left"
         android:text="Event Title"
@@ -72,12 +72,12 @@
         android:id="@+id/eventUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/eventName"
+        android:layout_alignTop="@id/memberName"
         android:layout_marginTop="18dp"
         android:gravity="left"
-        android:layout_alignLeft="@id/eventName"
-        android:layout_alignRight="@id/eventName"
-        android:layout_below="@+id/eventName"
+        android:layout_alignLeft="@id/memberName"
+        android:layout_alignRight="@id/memberName"
+        android:layout_below="@+id/memberName"
         android:layout_toLeftOf="@id/event_month_box"
         android:text="TextView"
         android:textSize="14dp"

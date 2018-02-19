@@ -20,10 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.text.Editable;
 import android.text.TextWatcher;
-
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -35,9 +33,8 @@ public class EventListActivity extends AppCompatActivity {
     private ListView lv = null;
     private ArrayAdapter arrayAdapter =  null;
     private EditText searchBar = null;
-
     /**
-     * Draws event list
+     * Overrides on create in order to draw event list and sets listeners for buttons and search.
      * @param savedInstanceState
      */
     @Override
@@ -46,17 +43,12 @@ public class EventListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_event_list);
         searchBar = (EditText) findViewById(R.id.editText);
-
         lv = (ListView) findViewById(R.id.eventListView);
-
-        //dummy array
         final EventCollection ecf = new EventCollection(getApplicationContext());
         Collection<Event> eventList = ecf.getEventsList();
-
         //make array adapter
         arrayAdapter = new EventListAdapter(this, generateData(eventList));
         lv.setAdapter(arrayAdapter);
-
         // set listener for each item
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,7 +62,6 @@ public class EventListActivity extends AppCompatActivity {
             }
         });
         lv.setTextFilterEnabled(true);
-
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -88,14 +79,21 @@ public class EventListActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Inflates the main menu bar.
+     * @param menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-
+    /**
+     * Gets the information on buttons selected and takes the appropriate action.
+     * @param item
+     * @return selectedItem
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -118,12 +116,11 @@ public class EventListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     /**
      * Generates Initials and User Name for Event List.
      *
      * @param eventList
-     * @return
+     * @return eventModel
      */
     private ArrayList<EventListModel> generateData(Collection eventList) {
         ArrayList<EventListModel> models = new ArrayList<EventListModel>();
@@ -137,22 +134,19 @@ public class EventListActivity extends AppCompatActivity {
                 goalProgress = 1;
             }
             models.add(new EventListModel(temp.getTitle(),temp.getType(),temp.getAssociatedMember(),
-                    temp.getEventDate(),goalProgress));
+                    temp.getEventDate(),goalProgress,temp.getDescription()));
         }
         return models;
     }
-
 }
-
 /**
- * Event list adapter class.
+ * Filterable Event list adapter class. Allows the array to be search by custom variables.
  */
 class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterable {
-
     private final Context context;
     private ArrayList<EventListModel> originalArrayList;
     private ArrayList<EventListModel> filteredModelsArrayList;
-    private ItemFilter mFilter = new ItemFilter();
+    private ItemFilter eFilter = new ItemFilter();
     private final String[] months = {"J\nA\nN",
             "F\nE\nB",
             "M\nA\nR",
@@ -165,7 +159,6 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
             "O\nC\nT",
             "N\nO\nV",
             "D\nE\nC"};
-
     /**
      * Constructor for member list item adapter.
      * @param context
@@ -177,21 +170,18 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         this.originalArrayList = new ArrayList<EventListModel>(data);
         this.filteredModelsArrayList = new ArrayList<EventListModel>(data);
     }
-
     /**
-     * Gets View for Member List Item.
+     * Gets View for Event List Item.
      * @param position
      * @param convertView
      * @param parent
-     * @return
+     * @return EventListView
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         ViewHolder holder;
         holder = new ViewHolder();
-
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.event_list_item, parent, false);
 
@@ -200,53 +190,19 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         } else {
             holder.eventView = convertView;
         }
-
-        /**
-         *
-
-        View rowView = null;
-        rowView = inflater.inflate(R.layout.event_list_item, parent, false);
-
-        TextView eventName = (TextView) rowView.findViewById(R.id.eventName);
-        TextView eventMember = (TextView) rowView.findViewById(R.id.eventUser);
-        ProgressBar goalProgress = (ProgressBar) rowView.findViewById(R.id.goalProgress);
-        ImageView eventType = (ImageView) rowView.findViewById(R.id.event_type_pic);
-
-        eventName.setText(origionalArrayList.get(position).getTitle());
-        eventMember.setText(origionalArrayList.get(position).getAssociatedMember());
-        goalProgress.setProgress(origionalArrayList.get(position).getGoalProgress().intValue());
-        if (origionalArrayList.get(position).getType().equalsIgnoreCase("bbq")) {
-            eventType.setImageResource(R.drawable.bbq);
-        } else if (origionalArrayList.get(position).getType().equalsIgnoreCase("emergency")) {
-            eventType.setImageResource(R.drawable.emergency);
-        } else if (origionalArrayList.get(position).getType().equalsIgnoreCase("medical")) {
-            eventType.setImageResource(R.drawable.medical);
-        } else if (origionalArrayList.get(position).getType().equalsIgnoreCase("party")) {
-            eventType.setImageResource(R.drawable.party);
-        } else if (origionalArrayList.get(position).getType().equalsIgnoreCase("unknown")) {
-            eventType.setImageResource(R.drawable.unknown);
-        } else {
-            eventType.setImageResource(R.drawable.question);
-        }
-
-        return rowView;
-
-         */
-        //holder.eventView = inflater.inflate(R.layout.event_list_item, parent, false);
-
-        TextView eventName = (TextView) holder.eventView.findViewById(R.id.eventName);
+        // view holders for information
+        TextView eventName = (TextView) holder.eventView.findViewById(R.id.memberName);
         TextView eventMember = (TextView) holder.eventView.findViewById(R.id.eventUser);
         ProgressBar goalProgress = (ProgressBar) holder.eventView.findViewById(R.id.goalProgress);
-        ImageView eventType = (ImageView) holder.eventView.findViewById(R.id.event_type_pic);
+        ImageView eventType = (ImageView) holder.eventView.findViewById(R.id.member_initials);
         TextView eventDay = (TextView) holder.eventView.findViewById(R.id.event_day_box);
         TextView eventMonth = (TextView) holder.eventView.findViewById(R.id.event_month_box);
-
+        //set main view to specific view holders
         eventName.setText(filteredModelsArrayList.get(position).getTitle());
         eventMember.setText(filteredModelsArrayList.get(position).getAssociatedMember());
         goalProgress.setProgress(filteredModelsArrayList.get(position).getGoalProgress().intValue());
         String eventDate = filteredModelsArrayList.get(position).getEventDate();
         eventDay.setText(eventDate.substring((eventDate.length()-2), (eventDate.length())));
-
         String monthString = eventDate.substring((eventDate.length()-5), (eventDate.length()- 3));
         int month = Integer.parseInt(monthString);
         eventMonth.setText(months[month-1]);
@@ -265,34 +221,32 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         }
         return holder.eventView;
     }
-
-
+    /**
+     * Holds eventView for filterable events
+     */
     static class ViewHolder {
         View eventView;
     }
-
+    /**
+     * Gets filter for Events
+     * @return eventFilter
+     */
     public Filter getFilter() {
-        return mFilter;
+        return eFilter;
     }
-
-
+    /**
+     * Overrides ItemFilter class in order to filter by custom variables in an event object.
+     */
     private class ItemFilter extends Filter {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-
             String filterString = constraint.toString().toLowerCase();
-
             FilterResults results = new FilterResults();
-
             final ArrayList<EventListModel> list = new ArrayList<EventListModel>(originalArrayList);
-
             System.out.println("Original Array List Size: " + originalArrayList.size());
-
             int count = list.size();
             final ArrayList<EventListModel> nlist = new ArrayList<EventListModel>(count);
-
             EventListModel filterableModel;
-
             for (int i = 0; i < count; i++) {
                 filterableModel = list.get(i);
                 if (filterableModel.getTitle().toLowerCase().contains(filterString)) {
@@ -304,16 +258,23 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
                 } else if (filterableModel.getAssociatedMember().toLowerCase().contains(filterString)) {
                     nlist.add(filterableModel);
                     System.out.println("Added event: " + filterableModel.getTitle());
+                } else if (filterableModel.getEventDate().toLowerCase().contains(filterString)) {
+                    nlist.add(filterableModel);
+                    System.out.println("Added event: " + filterableModel.getTitle());
+                } else if (filterableModel.getEventDesc().toLowerCase().contains(filterString)) {
+                    nlist.add(filterableModel);
+                    System.out.println("Added event: " + filterableModel.getTitle());
                 }
             }
-
             results.values = nlist;
             results.count = nlist.size();
-
             return results;
         }
-
-
+        /**
+         * Override filters publish results for array list
+         * @param constraint
+         * @param results
+         */
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
@@ -324,7 +285,10 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
                 add((EventListModel) filteredModelsArrayList.get(i));
             notifyDataSetInvalidated();
         }
-
+        /**
+         * Get the size of a filtered array list
+         * @return arrayListSize
+         */
         public int getCount() {
             if(filteredModelsArrayList==null){
                 return 0;
@@ -332,17 +296,24 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
                 return filteredModelsArrayList.size();
             }
         }
-
+        /**
+         * Get a filterable items position
+         * @param position
+         * @return itemPosition
+         */
         public EventListModel getItem(int position) {
             return filteredModelsArrayList.get(position);
         }
-
+        /**
+         * Get a filterable items ID
+         * @param position
+         * @return itemID
+         */
         public long getItemId(int position) {
             return position;
         }
     }
 }
-
 /**
  * Event list Item Model class.
  */
@@ -352,36 +323,59 @@ class EventListModel {
     private String associatedMember;
     private String eventDate;
     private Double goalProgress;
-
+    private String eventDescription;
     /**
-     * Constructor for Initials circle.
-     * @param title
-     * @param type
+     * Constructor for Event List Model with 6 args
+     * @param title of event
+     * @param type of event
+     * @param associatedMember of event
+     * @param eventDate of event
+     * @param goalProgress of event
+     * @param eventDesc of event
      */
-    public EventListModel(String title, String type, String associatedMember, String eventDate, Double goalProgress) {
+    public EventListModel(String title, String type, String associatedMember, String eventDate, Double goalProgress, String eventDesc) {
         super();
         this.title = title;
         this.type = type;
         this.associatedMember = associatedMember;
         this.eventDate = eventDate;
         this.goalProgress = (goalProgress*100);
+        this.eventDescription = eventDesc;
     }
-
+    /**
+     * @return eventType
+     */
     public String getType() {
         return type;
     }
+    /**
+     * @return eventTitle
+     */
     public String getTitle() {
         return title;
     }
+    /**
+     * @return eventAssociatedMember
+     */
     public String getAssociatedMember() {
         return associatedMember;
     }
+    /**
+     * @return eventDate
+     */
     public String getEventDate() {
         return eventDate;
     }
+    /**
+     * @return eventGoalProgress
+     */
     public Double getGoalProgress() {
         return goalProgress;
     }
-
+    /**
+     * @return eventDescription
+     */
+    public String getEventDesc() {
+        return eventDescription;
+    }
 }
-
