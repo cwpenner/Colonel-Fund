@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -36,11 +37,10 @@ public class EventCollection {
             this.eventMap = new HashMap<String,Event>();
         }
     }
-
     /**
      * Attempts to take a event library, convert it to a json object, then save it to the
      * provided filename.
-     * @return
+     * @return false
      */
     public boolean saveJsonLibrary() {
         //toDo not operational
@@ -168,7 +168,7 @@ public class EventCollection {
         return toString;
     }
     /**
-     * Returns an array of strings for associated events.
+     * Returns an array of associated events.
      * @return
      */
     public ArrayList<String> getAssociatedEvents(String aMemberId) {
@@ -188,5 +188,12 @@ public class EventCollection {
             System.out.println("No Events");
             return null;
         }
+    }
+    /**
+     * Gets eventMap values.
+     * @return
+     */
+    public Collection<Event> getEventsList() {
+        return eventMap.values();
     }
 }
