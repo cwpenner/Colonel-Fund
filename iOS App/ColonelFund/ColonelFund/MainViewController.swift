@@ -9,6 +9,10 @@
 import UIKit
 import FBSDKCoreKit
 import FacebookLogin
+import Firebase
+import FirebaseGoogleAuthUI
+import GoogleSignIn
+
 
 class MainViewController: UIViewController {
     //TODO: - Show logged in user profile
@@ -20,6 +24,7 @@ class MainViewController: UIViewController {
             LoginManager().logOut()
             User.logout()
         }
+        GIDSignIn.sharedInstance().signOut()
         performSegue(withIdentifier: "ShowLogin", sender: self)
     }
     
