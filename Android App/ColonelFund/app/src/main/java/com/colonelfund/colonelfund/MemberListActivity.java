@@ -1,6 +1,7 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,7 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -22,6 +27,7 @@ import java.util.Iterator;
  */
 public class MemberListActivity extends AppCompatActivity {
     private ListView lv;
+    ToggleButton toggleFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,7 @@ public class MemberListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_member_list);
 
         lv = (ListView) findViewById(R.id.memberListView);
+        toggleFavorite = (ToggleButton) findViewById(R.id.toggleFavorite);
 
         final MemberCollection mcf = new MemberCollection(getApplicationContext());
         Collection<Member> memberList = mcf.getMembersList();
@@ -87,6 +94,21 @@ public class MemberListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+    toggleFavorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+            if (isChecked) {
+                //Change the icon state
+                toggleFavorite.setBackgroundResource(R.mipmap.yellowstar);
+
+            } else {
+                toggleFavorite.setBackgroundResource(R.mipmap.whitestar);
+            }
+        }
+    });
+    */
+
     /**
      * Generates Initials and User Name for memberlist.
      *
@@ -104,5 +126,11 @@ public class MemberListActivity extends AppCompatActivity {
                     temp.getUserID(), firstName, lastName));
         }
         return models;
+    }
+
+    public void tbToggleFav_Click(View view) {
+        if (toggleFavorite.isChecked()) {
+
+        }
     }
 }

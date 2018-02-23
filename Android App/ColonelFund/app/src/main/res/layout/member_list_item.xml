@@ -33,4 +33,22 @@
         android:layout_toRightOf="@+id/member_initials"
         android:textSize="18dp" />
 
+    <ToggleButton
+        android:id="@+id/toggleFavorite"
+        android:layout_width="68dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/member_initials"
+        android:layout_alignBottom="@+id/member_initials"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+        android:width="25dp"
+        android:height="10dp"
+        android:background="@drawable/list"
+        android:checked="true"
+        android:onClick="tbToggleFav_Click"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="0sp" />
+
 </RelativeLayout>
