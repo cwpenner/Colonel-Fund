@@ -11,12 +11,24 @@ import FBSDKCoreKit
 import FacebookCore
 import FacebookLogin
 import FBSDKLoginKit
+import Firebase
+import FirebaseAuth
+import FirebaseGoogleAuthUI
+import GoogleSignIn
+
+
+
 
 protocol LoginProtocol {
     func loginRequestComplete(loginMessage: String, loginSuccessful: Bool)
 }
 
-class LoginViewController: UIViewController, URLSessionDelegate, LoginProtocol {
+class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDelegate, GIDSignInDelegate, LoginProtocol {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        print(user.authentication)
+        loginWithGoogle(authentication: user.authentication)
+    }
+    
     
     //LoginProtocol
     //This has a LoginProtocal delegate update the UI after request is complete
@@ -27,7 +39,7 @@ class LoginViewController: UIViewController, URLSessionDelegate, LoginProtocol {
             self.performSegue(withIdentifier: "ShowMain", sender: self)
         }
     }
-    
+
     let delegate: LoginProtocol! = nil
     let URL_FOR_LOGIN = "https://wesll.com/colonelfund/login.php"
     
@@ -35,18 +47,38 @@ class LoginViewController: UIViewController, URLSessionDelegate, LoginProtocol {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
+
+    @IBOutlet weak var googleLoginButton: GIDSignInButton!
+    
+    
     @IBOutlet var loginMessageLabel: UILabel!
+    
     
     var dict : [String : AnyObject]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loginMessageLabel.isHidden = true
+
+        GIDSignIn.sharedInstance().clientID = "955648583908-18fsgss07paoie7hs3f22g23vbude6n1.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
+        
+        
+  
+     
     }
     
     override func viewDidAppear(_ animated: Bool) {
         configureFBLoginButton()
+   //     let googleLoginButton = GIDSignInButton(frame: CGRect(x: 20, y: 20, width: 50,height: 70))
+     //   googleLoginButton.center = view.center
+       // view.addSubview(googleLoginButton)
+        
+
+        
     }
+   
     
     @IBAction func loginButtonPressed(_ sender: Any) {
         loginUser(emailAddress: usernameTextField.text!, password: passwordTextField.text!)
@@ -66,6 +98,11 @@ class LoginViewController: UIViewController, URLSessionDelegate, LoginProtocol {
                 self.getFBUserData()
             }
         }
+    }
+    
+    @IBAction func googleLoginButtonPressed(_ sender: Any){
+        
+        GIDSignIn.sharedInstance().signIn()
     }
     
     func configureFBLoginButton() {
@@ -175,6 +212,31 @@ class LoginViewController: UIViewController, URLSessionDelegate, LoginProtocol {
         }
         return false
     }
+    
+    func loginWithGoogle(authentication: GIDAuthentication){
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        
+        Auth.auth().signIn(with: credential, completion: {(user, error) in
+            if error != nil{
+                print(error!.localizedDescription)
+                return
+            }else {
+                print(user?.email)
+                print(user?.displayName)
+                let name = user?.displayName
+                let nameSplit = name?.split(separator: " ", maxSplits: 1).map(String.init)
+                let firstName = nameSplit?[0]
+                let lastName = nameSplit?[1]
+                let emailAddress = user?.email
+                let profilePicURL = user?.photoURL?.absoluteString
+                let googleID = user?.uid
+                let member = Member(googleID: googleID!, emailAddress: emailAddress!, firstName: firstName!, lastName: lastName!, profilePicURL: profilePicURL!)
+                User.setCurrentUser(currentUser: member)
+                self.performSegue(withIdentifier: "ShowMain", sender: self)
+            }
+        })
+    }
+    
     
     
      // MARK: - Navigation

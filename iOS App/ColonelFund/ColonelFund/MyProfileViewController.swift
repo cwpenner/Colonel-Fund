@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKCoreKit
 import FacebookLogin
+import GoogleSignIn
 
 class MyProfileViewController: UIViewController {
     
@@ -28,6 +29,7 @@ class MyProfileViewController: UIViewController {
         nameLabel.text = member.getFormattedFullName()
         usernameLabel.text = member.getUserName()
         emailLabel.text = member.getEmailAddress()
+        print(member.getEmailAddress())
         phoneLabel.text = member.getPhoneNumber()
         
         if member.getProfilePicURL().isEmpty {
@@ -66,6 +68,7 @@ class MyProfileViewController: UIViewController {
             profilePicImageView.image = UIImage(data: imageData)
             profilePicImageView.layer.cornerRadius = 50.0
             profilePicImageView.layer.masksToBounds = true
+            print("loading google pic")
         } catch {
             print("Error processing profile pic: \(error.localizedDescription)")
         }
@@ -81,6 +84,7 @@ class MyProfileViewController: UIViewController {
         if let accessToken = FBSDKAccessToken.current(){
             LoginManager().logOut()
         }
+        GIDSignIn.sharedInstance().signOut()
         performSegue(withIdentifier: "ShowLogin", sender: self)
     }
     

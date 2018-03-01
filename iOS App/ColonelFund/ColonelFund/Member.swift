@@ -17,6 +17,7 @@ class Member: NSObject, Codable {
     private var phoneNumber: String
     private var profilePicURL: String
     private var facebookID: String //TODO: consider this for linking account
+    private var googleID: String   //TODO: consider this for linking account
     private var associatedEvents: [Event]
     
     init(userID: String) {
@@ -28,6 +29,7 @@ class Member: NSObject, Codable {
         self.phoneNumber = ""
         self.profilePicURL = ""
         self.facebookID = ""
+        self.googleID = ""
         self.associatedEvents = []
     }
     
@@ -40,6 +42,7 @@ class Member: NSObject, Codable {
         self.phoneNumber = phoneNumber
         self.profilePicURL = ""
         self.facebookID = ""
+        self.googleID = ""
         self.associatedEvents = []
     }
     
@@ -52,6 +55,24 @@ class Member: NSObject, Codable {
         self.phoneNumber = ""
         self.profilePicURL = profilePicURL
         self.facebookID = facebookID
+        self.googleID = ""
+        self.associatedEvents = []
+        super.init()
+        
+        makeUserName()
+        self.userID = self.userName
+    }
+    
+    init(googleID: String, emailAddress: String, firstName: String, lastName: String, profilePicURL: String) {
+        self.userID = ""
+        self.firstName = firstName
+        self.lastName = lastName
+        self.userName = ""
+        self.emailAddress = emailAddress
+        self.phoneNumber = ""
+        self.profilePicURL = profilePicURL
+        self.facebookID = ""
+        self.googleID = googleID
         self.associatedEvents = []
         super.init()
         
@@ -83,6 +104,7 @@ class Member: NSObject, Codable {
         self.phoneNumber = phoneNumber
         self.profilePicURL = ""
         self.facebookID = ""
+        self.googleID = ""
         self.associatedEvents = []
     }
     

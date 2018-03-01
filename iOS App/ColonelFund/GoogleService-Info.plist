@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>955648583908-18fsgss07paoie7hs3f22g23vbude6n1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.955648583908-18fsgss07paoie7hs3f22g23vbude6n1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAqWb2aQ1LPalJtfIPhsvvY16cxwQT8QZc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>955648583908</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ColonelFund.ColonelFund</string>
+	<key>PROJECT_ID</key>
+	<string>colonelfund-1516322788172</string>
+	<key>STORAGE_BUCKET</key>
+	<string>colonelfund-1516322788172.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:955648583908:ios:420c38e64f22de1f</string>
+	<key>DATABASE_URL</key>
+	<string>https://colonelfund-1516322788172.firebaseio.com</string>
+</dict>
+</plist>

@@ -14,16 +14,16 @@
 		5F373EC81FC60A4F005B2BD1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8718081FC5F9FD0091B13A /* FBSDKCoreKit.framework */; };
 		5F373ECA1FC60A4F005B2BD1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F87180A1FC5F9FE0091B13A /* FBSDKLoginKit.framework */; };
 		5F373ECC1FC60A4F005B2BD1 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8718071FC5F9FD0091B13A /* FBSDKShareKit.framework */; };
+		5F5476682020EAB000C91A2B /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5476672020EAB000C91A2B /* MyProfileViewController.swift */; };
+		5F54766A2020EFD100C91A2B /* MyActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5476692020EFD100C91A2B /* MyActivityViewController.swift */; };
+		5F54766C2020F15100C91A2B /* MyEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54766B2020F15100C91A2B /* MyEventsTableViewCell.swift */; };
+		5F54766E2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54766D2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift */; };
 		5F54767020211D4000C91A2B /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54766F20211D4000C91A2B /* Member.swift */; };
 		5F54767220211D4E00C91A2B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54767120211D4E00C91A2B /* Event.swift */; };
 		5F54767B20224F9E00C91A2B /* MemberCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54767A20224F9E00C91A2B /* MemberCollection.swift */; };
 		5F54767F2022571E00C91A2B /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F54767D2022571E00C91A2B /* events.json */; };
 		5F5476802022571E00C91A2B /* members.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F54767E2022571E00C91A2B /* members.json */; };
 		5F547682202287D900C91A2B /* EventCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F547681202287D900C91A2B /* EventCollection.swift */; };
-		5F5476682020EAB000C91A2B /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5476672020EAB000C91A2B /* MyProfileViewController.swift */; };
-		5F54766A2020EFD100C91A2B /* MyActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5476692020EFD100C91A2B /* MyActivityViewController.swift */; };
-		5F54766C2020F15100C91A2B /* MyEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54766B2020F15100C91A2B /* MyEventsTableViewCell.swift */; };
-		5F54766E2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54766D2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift */; };
 		5F5779D91FAFE6CB000667FC /* DonateToMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779D81FAFE6CB000667FC /* DonateToMemberViewController.swift */; };
 		5F5779DF1FB00F17000667FC /* ViewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779DE1FB00F17000667FC /* ViewEventViewController.swift */; };
 		5F5779E31FB017A2000667FC /* EventListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5779E21FB017A2000667FC /* EventListTableViewController.swift */; };
@@ -49,6 +49,7 @@
 		5F995DF61F9286D700F8E459 /* ColonelFundUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F995DF51F9286D700F8E459 /* ColonelFundUITests.swift */; };
 		5FB066D01FF7064F00FCF659 /* Braintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB066D11FF7064F00FCF659 /* Braintree.framework */; };
 		5FB066D21FF7065300FCF659 /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB066D31FF7065300FCF659 /* BraintreeDropIn.framework */; };
+		866382152041B5D3003F2DE9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 866382142041B5D3003F2DE9 /* GoogleService-Info.plist */; };
 		DAFE769E0EABF81414A3D1B4 /* Pods_ColonelFund.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B3F85F0CD37838ACE633B6 /* Pods_ColonelFund.framework */; };
 		FBD42D9F42E7DF6A273C7D38 /* Pods_ColonelFundTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BE0B8B54E0CB317F88435 /* Pods_ColonelFundTests.framework */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		865CA2D6203B507F003660DB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		010C6108D7C79DF2AC8155CD /* Pods-ColonelFund.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColonelFund.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColonelFund/Pods-ColonelFund.release.xcconfig"; sourceTree = "<group>"; };
 		0A912BFC2E0A98E53E6BF197 /* Pods_ColonelFundUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColonelFundUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,16 +93,16 @@
 		5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListTableViewController.swift; sourceTree = "<group>"; };
 		5F0713AA1FAFD2F200AA623A /* MemberListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListTableViewCell.swift; sourceTree = "<group>"; };
 		5F318C1020116E040080B62E /* TransactionSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSummaryViewController.swift; sourceTree = "<group>"; };
+		5F5476672020EAB000C91A2B /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		5F5476692020EFD100C91A2B /* MyActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityViewController.swift; sourceTree = "<group>"; };
+		5F54766B2020F15100C91A2B /* MyEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventsTableViewCell.swift; sourceTree = "<group>"; };
+		5F54766D2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDonationHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		5F54766F20211D4000C91A2B /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		5F54767120211D4E00C91A2B /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		5F54767A20224F9E00C91A2B /* MemberCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCollection.swift; sourceTree = "<group>"; };
 		5F54767D2022571E00C91A2B /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		5F54767E2022571E00C91A2B /* members.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = members.json; sourceTree = "<group>"; };
 		5F547681202287D900C91A2B /* EventCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollection.swift; sourceTree = "<group>"; };
-		5F5476672020EAB000C91A2B /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
-		5F5476692020EFD100C91A2B /* MyActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActivityViewController.swift; sourceTree = "<group>"; };
-		5F54766B2020F15100C91A2B /* MyEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventsTableViewCell.swift; sourceTree = "<group>"; };
-		5F54766D2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDonationHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		5F5779D81FAFE6CB000667FC /* DonateToMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateToMemberViewController.swift; sourceTree = "<group>"; };
 		5F5779DE1FB00F17000667FC /* ViewEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventViewController.swift; sourceTree = "<group>"; };
 		5F5779E21FB017A2000667FC /* EventListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListTableViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +139,7 @@
 		5FB066CF1FF702FF00FCF659 /* ColonelFund.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColonelFund.entitlements; sourceTree = "<group>"; };
 		5FB066D11FF7064F00FCF659 /* Braintree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Braintree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FB066D31FF7065300FCF659 /* BraintreeDropIn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BraintreeDropIn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		866382142041B5D3003F2DE9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9F6BE0B8B54E0CB317F88435 /* Pods_ColonelFundTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColonelFundTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6E3F394D4DC866E93014003 /* Pods-ColonelFundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColonelFundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColonelFundTests/Pods-ColonelFundTests.release.xcconfig"; sourceTree = "<group>"; };
 		CEE03B6FBA26E11D87463B51 /* Pods-ColonelFundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColonelFundTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColonelFundTests/Pods-ColonelFundTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +249,7 @@
 		5F995DD11F9286D700F8E459 /* ColonelFund */ = {
 			isa = PBXGroup;
 			children = (
+				866382142041B5D3003F2DE9 /* GoogleService-Info.plist */,
 				5F54767C202256C300C91A2B /* Data */,
 				5FB066CF1FF702FF00FCF659 /* ColonelFund.entitlements */,
 				5F5779E41FB017D3000667FC /* EventListTableViewCell.swift */,
@@ -301,6 +316,7 @@
 				5F995DCD1F9286D700F8E459 /* Resources */,
 				D2B55FDEC43B3BF23ADE352B /* [CP] Embed Pods Frameworks */,
 				620B96A67E163D4DF267B9F5 /* [CP] Copy Pods Resources */,
+				865CA2D6203B507F003660DB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -417,6 +433,7 @@
 				5F995DE01F9286D700F8E459 /* LaunchScreen.storyboard in Resources */,
 				5F995DDD1F9286D700F8E459 /* Assets.xcassets in Resources */,
 				5F995DD81F9286D700F8E459 /* Main.storyboard in Resources */,
+				866382152041B5D3003F2DE9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,9 +526,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ColonelFund/Pods-ColonelFund-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -567,6 +591,10 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -579,6 +607,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -800,12 +832,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ColonelFund/ColonelFund.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F29UMC73E8;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ColonelFund/Info.plist;
+				"INFOPLIST_FILE[sdk=*]" = ColonelFund/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ColonelFund.ColonelFund;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -821,12 +854,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ColonelFund/ColonelFund.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F29UMC73E8;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ColonelFund/Info.plist;
+				"INFOPLIST_FILE[sdk=*]" = ColonelFund/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ColonelFund.ColonelFund;
 				PRODUCT_NAME = "$(TARGET_NAME)";
