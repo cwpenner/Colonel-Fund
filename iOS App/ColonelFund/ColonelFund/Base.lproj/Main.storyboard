@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ixa-5L-0yL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ixa-5L-0yL">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1278,10 +1278,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="802-bX-DFu" userLabel="Google Sign In Button" customClass="GIDSignInButton">
-                                <rect key="frame" x="119" y="326" width="176" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="802-bX-DFu" userLabel="Google Sign In Button" customClass="GIDSignInButton">
+                                <rect key="frame" x="147" y="309.66666666666669" width="120" height="31"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="1Nu-P9-0NZ"/>
+                                    <constraint firstAttribute="width" constant="120" id="LZh-gp-iIP"/>
+                                </constraints>
                                 <connections>
                                     <action selector="googleLoginButtonPressed:" destination="ixa-5L-0yL" eventType="valueChanged" id="o37-0B-f9b"/>
                                 </connections>
@@ -1293,6 +1296,7 @@
                             <constraint firstItem="LHU-f7-q4N" firstAttribute="trailing" secondItem="sWf-U2-0fB" secondAttribute="trailing" constant="20" id="3Kw-js-35T"/>
                             <constraint firstItem="iru-Ho-vNj" firstAttribute="top" secondItem="saZ-96-crv" secondAttribute="bottom" constant="20" id="7Kk-hY-aqL"/>
                             <constraint firstItem="LHU-f7-q4N" firstAttribute="trailing" secondItem="5Hv-rP-rUv" secondAttribute="trailing" constant="20" id="84T-rm-pt2"/>
+                            <constraint firstItem="802-bX-DFu" firstAttribute="centerX" secondItem="LHU-f7-q4N" secondAttribute="centerX" id="9ci-ht-Nhp"/>
                             <constraint firstItem="saZ-96-crv" firstAttribute="top" secondItem="7hM-hL-und" secondAttribute="bottom" constant="20" id="CPq-mX-CiA"/>
                             <constraint firstItem="K6j-Mf-kir" firstAttribute="leading" secondItem="LHU-f7-q4N" secondAttribute="leading" constant="20" id="DP8-og-6GZ"/>
                             <constraint firstItem="5Hv-rP-rUv" firstAttribute="leading" secondItem="LHU-f7-q4N" secondAttribute="leading" constant="20" id="EBA-4w-72w"/>
@@ -1309,6 +1313,7 @@
                             <constraint firstItem="LHU-f7-q4N" firstAttribute="trailing" secondItem="K6j-Mf-kir" secondAttribute="trailing" constant="20" id="pNi-65-qLl"/>
                             <constraint firstItem="saZ-96-crv" firstAttribute="leading" secondItem="LHU-f7-q4N" secondAttribute="leading" constant="20" id="sWn-fm-ScE"/>
                             <constraint firstItem="sWf-U2-0fB" firstAttribute="top" secondItem="5Hv-rP-rUv" secondAttribute="bottom" constant="20" id="uYe-G9-kdk"/>
+                            <constraint firstItem="802-bX-DFu" firstAttribute="top" secondItem="iru-Ho-vNj" secondAttribute="bottom" constant="20" id="vIV-qx-5Rv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LHU-f7-q4N"/>
                     </view>
