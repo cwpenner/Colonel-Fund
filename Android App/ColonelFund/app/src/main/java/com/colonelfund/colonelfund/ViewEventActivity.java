@@ -29,7 +29,7 @@ public class ViewEventActivity extends AppCompatActivity {
         if ((Event) intent.getSerializableExtra("SelectedEvent") != null) {
             aEvent = (Event) intent.getSerializableExtra("SelectedEvent");
         } else {
-            aEvent = new Event ("Error", "Error", "Error",0.0,0.0, "Error");
+            aEvent = new Event ("Error", "Error", "Error",0.0,0.0, "Error", "Error");
         }
         final Event selectedEvent =  aEvent;
         setContentView(R.layout.activity_view_event);
