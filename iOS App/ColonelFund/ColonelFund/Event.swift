@@ -18,6 +18,7 @@ class Event: NSObject, Codable {
     private var currentFunds: Double
     private var eventPicURL: String
     private var associatedMember: String
+    private var eventType: String
     
     init(eventID: String) {
         self.eventID = eventID
@@ -28,9 +29,10 @@ class Event: NSObject, Codable {
         self.currentFunds = 0
         self.eventPicURL = ""
         self.associatedMember = ""
+        self.eventType = ""
     }
     
-    init(eventID: String, title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, associatedMember: String) {
+    init(eventID: String, title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, associatedMember: String, eventType: String) {
         self.eventID = eventID
         self.title = title
         self.eventDate = eventDate
@@ -39,9 +41,10 @@ class Event: NSObject, Codable {
         self.currentFunds = currentFunds
         self.eventPicURL = ""
         self.associatedMember = associatedMember
+        self.eventType = eventType
     }
     
-    init(eventID: String, title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicURL: String, associatedMember: String) {
+    init(eventID: String, title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicURL: String, associatedMember: String, eventType: String) {
         self.eventID = eventID
         self.title = title
         self.eventDate = eventDate
@@ -50,6 +53,7 @@ class Event: NSObject, Codable {
         self.currentFunds = currentFunds
         self.eventPicURL = eventPicURL
         self.associatedMember = associatedMember
+        self.eventType = eventType
     }
     
     //TODO: revise with updated keys when Richard is done (most likely drop capitals)
@@ -75,6 +79,9 @@ class Event: NSObject, Codable {
         guard let associatedMember = json["AssociatedMember"] as? String else {
             throw SerializationError.missing("AssociatedMember")
         }
+        guard let eventType = json["EventType"] as? String else {
+            throw SerializationError.missing("EventType")
+        }
         
         self.eventID = eventID
         self.title = title
@@ -84,6 +91,7 @@ class Event: NSObject, Codable {
         self.currentFunds = currentFunds
         self.eventPicURL = ""
         self.associatedMember = associatedMember
+        self.eventType = eventType
     }
     
     func getEventID() -> String {
@@ -150,6 +158,14 @@ class Event: NSObject, Codable {
         self.associatedMember = associatedMember
     }
     
+    func getEventType() -> String {
+        return eventType
+    }
+    
+    func setEventType(eventType: String) {
+        self.eventType = eventType
+    }
+    
     func toJSON() -> Data {
         //        let dict = ["EventID": self.eventID,
         //                    "Title": self.title,
@@ -157,7 +173,8 @@ class Event: NSObject, Codable {
         //                    "eventDescription": self.eventDescription,
         //                    "FundGoal": self.fundGoal,
         //                    "CurrentFunds": self.currentFunds,
-        //                    "AssociatedMember": self.memberString]
+        //                    "AssociatedMember": self.memberString,
+        //                    "EventType": self.eventType]
         let encoder = JSONEncoder()
         let jsonData = try? encoder.encode(self) //change to dict if this contains too much data
         return jsonData!

@@ -71,6 +71,7 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
     
     override func viewDidAppear(_ animated: Bool) {
         configureFBLoginButton()
+        isGoogleLoggedIn()
    //     let googleLoginButton = GIDSignInButton(frame: CGRect(x: 20, y: 20, width: 50,height: 70))
      //   googleLoginButton.center = view.center
        // view.addSubview(googleLoginButton)
@@ -211,6 +212,12 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
             })
         }
         return false
+    }
+    
+    func isGoogleLoggedIn() {
+        if Auth.auth().currentUser != nil {
+            GIDSignIn.sharedInstance().signIn()
+        }
     }
     
     func loginWithGoogle(authentication: GIDAuthentication){
