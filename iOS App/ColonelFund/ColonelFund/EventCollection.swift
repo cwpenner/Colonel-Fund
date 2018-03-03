@@ -89,7 +89,8 @@ class EventCollection: NSObject, URLSessionDelegate {
                         let fundGoal = value["FundGoal"] as! Double
                         let currentFunds = value["CurrentFunds"] as! Double
                         let associatedMember = value["AssociatedMember"] as! String
-                        let newEvent = Event(eventID: eventID, title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: fundGoal, currentFunds: currentFunds, associatedMember: associatedMember)
+                        let eventType = value["EventType"] as! String
+                        let newEvent = Event(eventID: eventID, title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: fundGoal, currentFunds: currentFunds, associatedMember: associatedMember, eventType: eventType)
                         eventMap[eventID.lowercased()] = newEvent
                     }
                 } else if let jsonArray = object as? [AnyObject] {

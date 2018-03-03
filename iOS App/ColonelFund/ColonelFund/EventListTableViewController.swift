@@ -8,7 +8,13 @@
 
 import UIKit
 
-class EventListTableViewController: UITableViewController, EventCollectionProtocol {
+class EventListTableViewController: UITableViewController, EventCollectionProtocol, MemberCollectionProtocol {
+    
+    //MemberCollectionProtocol
+    //This has a MemberCollection delegate reload the table when the data is finished being loaded
+    func memberDataDownloaded() {
+        self.eventListTableView.reloadData()
+    }
     
     //EventCollectionProtocol
     //This has a EventCollection delegate reload the table when the data is finished being loaded
@@ -25,11 +31,26 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     @IBOutlet var eventListTableView: UITableView!
     let ec = EventCollection()
     var eventList: [Event] = []
+    let mc = MemberCollection()
     var refresher: UIRefreshControl!
+    let months: [String] = ["J\nA\nN",
+                            "F\nE\nB",
+                            "M\nA\nR",
+                            "A\nP\nR",
+                            "M\nA\nY",
+                            "J\nU\nN",
+                            "J\nU\nL",
+                            "A\nU\nG",
+                            "S\nE\nP",
+                            "O\nC\nT",
+                            "N\nO\nV",
+                            "D\nE\nC"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ec.delegate = self
+        mc.delegate = self
+        
         eventList = ec.getEvents()
         
         self.refresher = UIRefreshControl()
@@ -73,7 +94,45 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
         }
         
         let event = eventList[indexPath.row]
+        let eventType = event.getEventType().lowercased()
+        let eventDate = event.getEventDate()
+        let dayIndex = eventDate.index(eventDate.endIndex, offsetBy: -2)
+        let dayString = String(eventDate[dayIndex...])
+        let monthStartIndex = eventDate.index(eventDate.endIndex, offsetBy: -5)
+        let monthEndIndex = eventDate.index(eventDate.endIndex, offsetBy: -3)
+        let monthString = String(eventDate[monthStartIndex..<monthEndIndex])
+        var progress = Float(event.getCurrentFunds() / event.getFundGoal())
+        if (progress < 0.5) {
+            cell.progressBar.progressTintColor = UIColor.red
+        } else if (progress > 0.5 && progress < 1.0) {
+            cell.progressBar.progressTintColor = UIColor.yellow
+        } else if (progress >= 1.0) {
+            progress = 1.0
+            cell.progressBar.progressTintColor = UIColor.green
+        }
         cell.nameLabel.text = event.getTitle()
+        cell.dayLabel.text = String(Int(dayString)!)
+        cell.monthLabel.text = months[Int(monthString)! - 1]
+        cell.progressBar.setProgress(progress, animated: true)
+        
+        switch eventType {
+        case "bbq":
+            cell.eventIconImageView.image = UIImage(named: "bbq")
+        case "emergency":
+            cell.eventIconImageView.image = UIImage(named: "emergency")
+        case "medical":
+            cell.eventIconImageView.image = UIImage(named: "medical")
+        case "party":
+            cell.eventIconImageView.image = UIImage(named: "party")
+        case "unknown":
+            cell.eventIconImageView.image = UIImage(named: "unknown")
+        default:
+            cell.eventIconImageView.image = UIImage(named: "unknown")
+        }
+        
+        let member = mc.getMember(userID: event.getAssociatedMember())
+        cell.memberLabel.text = member?.getFormattedFullName()
+        
         
         return cell
     }
