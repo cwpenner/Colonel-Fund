@@ -3,6 +3,7 @@ package com.colonelfund.colonelfund;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 
@@ -22,6 +26,7 @@ public class ViewMemberActivity extends AppCompatActivity {
 
     /**
      * Creates member view and gets/adds related activities.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -33,7 +38,7 @@ public class ViewMemberActivity extends AppCompatActivity {
         if ((Member) intent.getSerializableExtra("SelectedMember") != null) {
             aMember = (Member) intent.getSerializableExtra("SelectedMember");
         } else {
-            aMember = new Member ("Error", "Error", "Error", "Error", "Error", "Error");
+            aMember = new Member("Error", "Error", "Error", "Error", "Error");
         }
         final Member selectedMember = aMember;
         setContentView(R.layout.activity_view_member);
@@ -97,24 +102,58 @@ public class ViewMemberActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(ViewMemberActivity.this, DonateToMemberActivity.class);
                 intent2.putExtra("SelectedMember", selectedMember);
                 startActivity(intent2);
+//                startActivityForResult(intent2,0);
             }
         });
     }
+
     /**
      * Added for back button pre API 16
-     * @param item
+     *
+     * @param menu
      * @return
      */
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+/*
+    /**
+     * For back button at top left of screen, pass back intent params
+     * https://developer.android.com/training/basics/intents/result.html
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+/*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+*/
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // API 5+ solution
-                onBackPressed();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == R.id.about_you) {
+            Intent intent = new Intent(this, ViewProfileActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.your_history_events) {
+            Intent intent = new Intent(this, MyHistoryEventsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.logout_item) {
+            AccessToken token = AccessToken.getCurrentAccessToken();
+            if (token != null) {
+                LoginManager.getInstance().logOut();
+            }
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            startActivity(loginIntent);
+        } else if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

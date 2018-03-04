@@ -8,7 +8,19 @@
 
 import UIKit
 
-class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EventCollectionProtocol {
+
+    //EventCollectionProtocol
+    //This has a EventCollection delegate reload the table when the data is finished being loaded
+    func eventDataDownloaded() {
+        member.setAssociatedEvents(eventList: ec.getEvents())
+        associatedEventList = member.getAssociatedEvents()
+        if self.refresher.isRefreshing
+        {
+            self.refresher.endRefreshing()
+        }
+        self.associatedEventsTableView.reloadData()
+    }
     
     //MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
@@ -18,37 +30,43 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var profilePicImageView: UIImageView!
     @IBOutlet weak var associatedEventsTableView: UITableView!
     
-    
-    var tempNameText: String = ""
-    var tempUsernameText: String = "johnwsmith"
-    var tempEmailText: String = "johnsmith@email.com"
-    var tempPhoneText: String = "(555) 555-5555"
-    
-    //dummy array
-    var eventList = [String]()
-    
+    var member: Member! = nil
+    let ec = EventCollection()
+    var associatedEventList: [Event] = []
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ec.delegate = self
+        associatedEventList = member.getAssociatedEvents()
         
-        eventList.append("Independence Day BBQ")
-        eventList.append("John Smith Chemo Fund")
-        
-        nameLabel.text = tempNameText
-        usernameLabel.text = tempUsernameText
-        emailLabel.text = tempEmailText
-        phoneLabel.text = tempPhoneText
+        nameLabel.text = member.getFormattedFullName()
+        usernameLabel.text = member.getUserName()
+        emailLabel.text = member.getEmailAddress()
+        phoneLabel.text = member.getPhoneNumber()
         
         associatedEventsTableView.delegate = self
         associatedEventsTableView.dataSource = self
         
-        //TODO: - if no profile pic, use placeholder
-        placeholderProfilePic()
+        if member.getProfilePicURL().isEmpty {
+            placeholderProfilePic(member: member)
+        } else {
+            loadProfilePicFromURL(url: member.getProfilePicURL())
+        }
+        
+        self.refresher = UIRefreshControl()
+        self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
+        self.associatedEventsTableView?.addSubview(refresher!)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc private func refreshEventList(_ sender: Any) {
+        self.ec.updateFromRemote()
     }
     
     // MARK: - Table view data source
@@ -58,7 +76,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return eventList.count
+        return member.getAssociatedEvents().count
     }
     
     
@@ -70,21 +88,18 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
             fatalError("The dequeued cell is not an instance of \(cellIdentifier).")
         }
         
-        let event = eventList[indexPath.row]
-        cell.eventNameLabel?.text = event
+        let event = associatedEventList[indexPath.row]
+        cell.eventNameLabel?.text = event.getTitle()
         
         return cell
     }
     
-    func placeholderProfilePic() {
+    func placeholderProfilePic(member: Member) {
         let placeholder = UILabel()
         placeholder.frame.size = CGSize(width: 100.0, height: 100.0)
         placeholder.textColor = UIColor.white
         placeholder.font = UIFont.boldSystemFont(ofSize: 40)
-        let name = nameLabel.text?.split(separator: " ", maxSplits: 1).map(String.init)
-        var firstName = name![0]
-        var lastName = name![1]
-        placeholder.text = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
+        placeholder.text = String(describing: member.getFirstName().first!) + String(describing: member.getLastName().first!)
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
         placeholder.layer.cornerRadius = 50.0
@@ -94,6 +109,18 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         placeholder.layer.render(in: UIGraphicsGetCurrentContext()!)
         profilePicImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+    }
+    
+    func loadProfilePicFromURL(url: String) {
+        let imageURL = URL(string: url)
+        do {
+            let imageData = try Data(contentsOf: imageURL!)
+            profilePicImageView.image = UIImage(data: imageData)
+            profilePicImageView.layer.cornerRadius = 50.0
+            profilePicImageView.layer.masksToBounds = true
+        } catch {
+            print("Error processing profile pic: \(error.localizedDescription)")
+        }
     }
     
     
@@ -108,8 +135,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
-            donateToMemberViewController.tempNameText = nameLabel.text!
-            donateToMemberViewController.tempUsernameText = usernameLabel.text!
+            donateToMemberViewController.donateMember = member
             
         case "ShowEvent":
             guard let eventViewController = segue.destination as? ViewEventViewController else {
@@ -117,18 +143,17 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
             guard let selectedEventCell = sender as? AssociatedEventsTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = associatedEventsTableView.indexPath(for: selectedEventCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedEvent = eventList[indexPath.row]
-            eventViewController.tempTitleText = selectedEvent
+            eventViewController.event = associatedEventList[indexPath.row]
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
     

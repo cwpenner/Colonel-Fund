@@ -11,24 +11,78 @@ import FBSDKCoreKit
 import FacebookCore
 import FacebookLogin
 import FBSDKLoginKit
+import Firebase
+import FirebaseAuth
+import FirebaseGoogleAuthUI
+import GoogleSignIn
 
-class LoginViewController: UIViewController {
+
+
+
+protocol LoginProtocol {
+    func loginRequestComplete(loginMessage: String, loginSuccessful: Bool)
+}
+
+class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDelegate, GIDSignInDelegate, LoginProtocol {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        print(user.authentication)
+        loginWithGoogle(authentication: user.authentication)
+    }
+    
+    
+    //LoginProtocol
+    //This has a LoginProtocal delegate update the UI after request is complete
+    func loginRequestComplete(loginMessage: String, loginSuccessful: Bool) {
+        self.loginMessageLabel.text = loginMessage
+        self.loginMessageLabel.isHidden = false
+        if loginSuccessful {
+            self.performSegue(withIdentifier: "ShowMain", sender: self)
+        }
+    }
+
+    let delegate: LoginProtocol! = nil
+    let URL_FOR_LOGIN = "https://wesll.com/colonelfund/login.php"
     
     //MARK: - Properties
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
+
+    @IBOutlet weak var googleLoginButton: GIDSignInButton!
     
-    var username = "admin"
-    var password = "admin"
+    
+    @IBOutlet var loginMessageLabel: UILabel!
+    
+    
+    var dict : [String : AnyObject]!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.loginMessageLabel.isHidden = true
+
+        GIDSignIn.sharedInstance().clientID = "955648583908-18fsgss07paoie7hs3f22g23vbude6n1.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
+        
+        
+  
+     
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        configureFBLoginButton()
+        isGoogleLoggedIn()
+   //     let googleLoginButton = GIDSignInButton(frame: CGRect(x: 20, y: 20, width: 50,height: 70))
+     //   googleLoginButton.center = view.center
+       // view.addSubview(googleLoginButton)
+        
+
+        
+    }
+   
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        if (usernameTextField.text == username && passwordTextField.text == password) {
-            print("Successfully logged in as: \(usernameTextField.text!)")
-            performSegue(withIdentifier: "ShowMain", sender: self)
-        } else {
-            print("Invalid username and password combination")
-        }
+        loginUser(emailAddress: usernameTextField.text!, password: passwordTextField.text!)
     }
     
     @IBAction func fbLoginButtonPressed(_ sender: Any) {
@@ -47,15 +101,9 @@ class LoginViewController: UIViewController {
         }
     }
     
-    
-    var dict : [String : AnyObject]!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        configureFBLoginButton()
+    @IBAction func googleLoginButtonPressed(_ sender: Any){
+        
+        GIDSignIn.sharedInstance().signIn()
     }
     
     func configureFBLoginButton() {
@@ -73,6 +121,17 @@ class LoginViewController: UIViewController {
                     self.dict = result as! [String : AnyObject]
                     print(result!)
                     print(self.dict)
+                    let name = self.dict["name"] as! String
+                    let nameSplit = name.split(separator: " ", maxSplits: 1).map(String.init)
+                    let firstName = nameSplit[0]
+                    let lastName = nameSplit[1]
+                    //let emailAddress = self.dict["email"] as! String //FacebookSDK no longer returns email address
+                    let profilePic = self.dict["picture"] as! [String : AnyObject]
+                    let profilePicData = profilePic["data"] as! [String : AnyObject]
+                    let profilePicURL = profilePicData["url"] as! String
+                    let facebookID = self.dict["id"] as! String
+                    let member = Member(facebookID: facebookID, firstName: firstName, lastName: lastName, profilePicURL: profilePicURL)
+                    User.setCurrentUser(currentUser: member)
                     self.performSegue(withIdentifier: "ShowMain", sender: self)
                 }
             })
@@ -82,6 +141,107 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func loginUser(emailAddress: String, password: String) {
+        var loginSuccess = false
+        var loginMessage = ""
+        let url = URL(string: URL_FOR_LOGIN)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let postBody = "emailAddress=\(emailAddress)&password=\(password)"
+        request.httpBody = postBody.data(using: .utf8)
+        let defaultSession = Foundation.URLSession(configuration: URLSessionConfiguration.default)
+        var httpStatus = 0
+        let task = defaultSession.dataTask(with: request) { (data, response, error) in
+            let res = response as? HTTPURLResponse
+            httpStatus = res!.statusCode
+            if (error != nil) {
+                loginMessage = "Error logging in. Error code: \(String(describing: error))"
+                print(loginMessage)
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: false)
+                })
+            } else {
+                if (httpStatus == 200) {
+                    loginMessage = "Connected to server successfully"
+                    print(loginMessage)
+                    loginSuccess = self.databaseLoginController(jsonData: data!)
+                } else {
+                    loginMessage = "Error connecting to server. Server response: \(httpStatus)"
+                    print(loginMessage)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: false)
+                    })
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    func databaseLoginController(jsonData: Data) -> Bool {
+        var loginMessage = ""
+        let error: Bool
+        do {
+            let object = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
+            print("LoginData: \(object)")
+            if let dict = object as? [String: AnyObject] {
+                error = dict["error"] as! Bool
+                if (error) {
+                    loginMessage = dict["error_msg"] as! String
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: false)
+                    })
+                } else {
+                    let user = dict["user"] as? [String : AnyObject]
+                    let member = try Member(json: user!)
+                    User.setCurrentUser(currentUser: member)
+                    loginMessage = "Successfully logged in as \(User.currentUser.getFormattedFullName())"
+                    print(loginMessage)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: true)
+                    })
+                    return true
+                }
+            }
+        } catch {
+            loginMessage = "Error! Unable to login"
+            print(loginMessage)
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: false)
+            })
+        }
+        return false
+    }
+    
+    func isGoogleLoggedIn() {
+        if Auth.auth().currentUser != nil {
+            GIDSignIn.sharedInstance().signIn()
+        }
+    }
+    
+    func loginWithGoogle(authentication: GIDAuthentication){
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        
+        Auth.auth().signIn(with: credential, completion: {(user, error) in
+            if error != nil{
+                print(error!.localizedDescription)
+                return
+            }else {
+                print(user?.email)
+                print(user?.displayName)
+                let name = user?.displayName
+                let nameSplit = name?.split(separator: " ", maxSplits: 1).map(String.init)
+                let firstName = nameSplit?[0]
+                let lastName = nameSplit?[1]
+                let emailAddress = user?.email
+                let profilePicURL = user?.photoURL?.absoluteString
+                let googleID = user?.uid
+                let member = Member(googleID: googleID!, emailAddress: emailAddress!, firstName: firstName!, lastName: lastName!, profilePicURL: profilePicURL!)
+                User.setCurrentUser(currentUser: member)
+                self.performSegue(withIdentifier: "ShowMain", sender: self)
+            }
+        })
     }
     
     

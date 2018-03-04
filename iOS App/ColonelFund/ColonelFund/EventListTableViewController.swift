@@ -8,22 +8,55 @@
 
 import UIKit
 
-class EventListTableViewController: UITableViewController {
+class EventListTableViewController: UITableViewController, EventCollectionProtocol, MemberCollectionProtocol {
+    
+    //MemberCollectionProtocol
+    //This has a MemberCollection delegate reload the table when the data is finished being loaded
+    func memberDataDownloaded() {
+        self.eventListTableView.reloadData()
+    }
+    
+    //EventCollectionProtocol
+    //This has a EventCollection delegate reload the table when the data is finished being loaded
+    func eventDataDownloaded() {
+        eventList = ec.getEvents()
+        if self.refresher.isRefreshing
+        {
+            self.refresher.endRefreshing()
+        }
+        self.eventListTableView.reloadData()
+    }
     
     //MARK: Properties
-    //dummy array
-    var eventList = [String]()
-    
+    @IBOutlet var eventListTableView: UITableView!
+    let ec = EventCollection()
+    var eventList: [Event] = []
+    let mc = MemberCollection()
+    var refresher: UIRefreshControl!
+    let months: [String] = ["J\nA\nN",
+                            "F\nE\nB",
+                            "M\nA\nR",
+                            "A\nP\nR",
+                            "M\nA\nY",
+                            "J\nU\nN",
+                            "J\nU\nL",
+                            "A\nU\nG",
+                            "S\nE\nP",
+                            "O\nC\nT",
+                            "N\nO\nV",
+                            "D\nE\nC"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ec.delegate = self
+        mc.delegate = self
         
-        eventList.append("Independence Day BBQ")
-        eventList.append("John Smith Chemo Fund")
-        eventList.append("Let's Beat Alzheimer's!")
-        eventList.append("Paul's MS Donations")
-        eventList.append("Mrs. Cobain Widow Help")
+        eventList = ec.getEvents()
         
+        self.refresher = UIRefreshControl()
+        self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
+        self.eventListTableView?.addSubview(refresher!)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -35,6 +68,10 @@ class EventListTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc private func refreshEventList(_ sender: Any) {
+        self.ec.updateFromRemote()
     }
     
     // MARK: - Table view data source
@@ -57,7 +94,45 @@ class EventListTableViewController: UITableViewController {
         }
         
         let event = eventList[indexPath.row]
-        cell.nameLabel.text = event
+        let eventType = event.getEventType().lowercased()
+        let eventDate = event.getEventDate()
+        let dayIndex = eventDate.index(eventDate.endIndex, offsetBy: -2)
+        let dayString = String(eventDate[dayIndex...])
+        let monthStartIndex = eventDate.index(eventDate.endIndex, offsetBy: -5)
+        let monthEndIndex = eventDate.index(eventDate.endIndex, offsetBy: -3)
+        let monthString = String(eventDate[monthStartIndex..<monthEndIndex])
+        var progress = Float(event.getCurrentFunds() / event.getFundGoal())
+        if (progress < 0.5) {
+            cell.progressBar.progressTintColor = UIColor.red
+        } else if (progress > 0.5 && progress < 1.0) {
+            cell.progressBar.progressTintColor = UIColor.yellow
+        } else if (progress >= 1.0) {
+            progress = 1.0
+            cell.progressBar.progressTintColor = UIColor.green
+        }
+        cell.nameLabel.text = event.getTitle()
+        cell.dayLabel.text = String(Int(dayString)!)
+        cell.monthLabel.text = months[Int(monthString)! - 1]
+        cell.progressBar.setProgress(progress, animated: true)
+        
+        switch eventType {
+        case "bbq":
+            cell.eventIconImageView.image = UIImage(named: "bbq")
+        case "emergency":
+            cell.eventIconImageView.image = UIImage(named: "emergency")
+        case "medical":
+            cell.eventIconImageView.image = UIImage(named: "medical")
+        case "party":
+            cell.eventIconImageView.image = UIImage(named: "party")
+        case "unknown":
+            cell.eventIconImageView.image = UIImage(named: "unknown")
+        default:
+            cell.eventIconImageView.image = UIImage(named: "unknown")
+        }
+        
+        let member = mc.getMember(userID: event.getAssociatedMember())
+        cell.memberLabel.text = member?.getFormattedFullName()
+        
         
         return cell
     }
@@ -111,18 +186,17 @@ class EventListTableViewController: UITableViewController {
             }
             
             guard let selectedEventCell = sender as? EventListTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = tableView.indexPath(for: selectedEventCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedEvent = eventList[indexPath.row]
-            eventViewController.tempTitleText = selectedEvent
+            eventViewController.event = eventList[indexPath.row]
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
     

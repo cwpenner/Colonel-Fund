@@ -12,6 +12,10 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FacebookCore
 import FacebookLogin
+import GoogleSignIn
+import Firebase
+import FirebaseAuthUI
+import FirebaseGoogleAuthUI
 import Braintree
 
 @UIApplicationMain
@@ -24,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         BTAppSwitch.setReturnURLScheme("com.ColonelFund.ColonelFund.payments")
-        
+        FirebaseApp.configure()
+
         return true
     }
 
@@ -56,9 +61,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Required for Facebook and Braintree
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        print(url)
         //Facebook Login
         if url.scheme?.localizedCaseInsensitiveCompare("fb861301034038497") == .orderedSame {
             return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        }
+        //Google Login
+        if url.scheme?.localizedCaseInsensitiveCompare("com.googleusercontent.apps.955648583908-18fsgss07paoie7hs3f22g23vbude6n1") == .orderedSame{
+            return GIDSignIn.sharedInstance().handle(url as URL!, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         }
         
         //Braintree Payments

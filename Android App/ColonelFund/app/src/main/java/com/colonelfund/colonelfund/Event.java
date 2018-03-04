@@ -5,7 +5,7 @@ import org.json.JSONException;
 import java.io.Serializable;
 
 /**
- * Basic Event Object
+ * Basic Event Object that holds all of the information for an event.
  */
 public class Event implements Serializable {
     private static final long serialVersionUID = -8645384342222081215L;
@@ -15,15 +15,16 @@ public class Event implements Serializable {
     private double fundGoal;
     private double currentFunds;
     private String description;
+    private String type;
     /**
-     * @param title
-     * @param associatedMember
-     * @param eventDate
-     * @param fundGoal
-     * @param currentFunds
-     * @param description
+     * @param title of event
+     * @param associatedMember of event
+     * @param eventDate of event
+     * @param fundGoal of event
+     * @param currentFunds of event
+     * @param description of event
      */
-    public Event(String title, String associatedMember, String eventDate, double fundGoal, double currentFunds, String description) {
+    public Event(String title, String associatedMember, String eventDate, double fundGoal, double currentFunds, String description, String type) {
         super();
         this.title = title;
         this.associatedMember = associatedMember;
@@ -31,6 +32,7 @@ public class Event implements Serializable {
         this.fundGoal = fundGoal;
         this.currentFunds = currentFunds;
         this.description = description;
+        this.type = type;
     }
     /**
      * @return the title
@@ -106,8 +108,20 @@ public class Event implements Serializable {
         this.description = description;
     }
     /**
+     * @return the title
+     */
+    public String getType() {
+        return type;
+    }
+    /**
+     * @param type the title to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+    /**
      * Get a JSONObject representation of Event
-     * @return JSONObject
+     * @return JSONObject of an event
      */
     public JSONObject toJson() throws JSONException {
         JSONObject JsonObj = new JSONObject();
@@ -117,11 +131,12 @@ public class Event implements Serializable {
         JsonObj.put("FundGoal",fundGoal);
         JsonObj.put("CurrentFunds",currentFunds);
         JsonObj.put("Description",description);
+        JsonObj.put("EventType",type);
         return JsonObj;
     }
     /**
      * Constructor with JSON Object.
-     * @param jsonObject
+     * @param jsonObject of an event
      */
     public Event(JSONObject jsonObject) throws JSONException {
         this.title = jsonObject.getString("Title");
@@ -130,5 +145,6 @@ public class Event implements Serializable {
         this.fundGoal = jsonObject.getDouble("FundGoal");
         this.currentFunds = jsonObject.getDouble("CurrentFunds");
         this.description = jsonObject.getString("Description");
+        this.type = jsonObject.getString("EventType");
     }
 }

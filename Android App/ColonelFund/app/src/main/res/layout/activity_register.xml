@@ -30,15 +30,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/txtRegUserID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/userid"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <EditText
-                    android:id="@+id/txtRegName"
+                    android:id="@+id/txtRegFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
+                    android:hint="@string/first_name"
                     android:inputType="textPersonName"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -48,21 +63,37 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <EditText
-                    android:id="@+id/txtRegEmail"
+                    android:id="@+id/txtRegLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
+                    android:hint="@string/last_name"
+                    android:inputType="textPersonName"
                     android:maxLines="1"
                     android:singleLine="true" />
-
             </android.support.design.widget.TextInputLayout>
 
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/txtRegEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email_address"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/txtRegPassword"
                     android:layout_width="match_parent"
@@ -81,49 +112,16 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <EditText
-                    android:id="@+id/txtRegAge"
+                    android:id="@+id/txtRegPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Enter Age"
-                    android:inputType="text"
+                    android:hint="@string/phone_number"
+                    android:inputType="phone"
                     android:singleLine="true" />
-
             </android.support.design.widget.TextInputLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp">
-                <TextView
-                    android:id="@+id/gender_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="15dp"
-                    android:paddingRight="15dp"
-                    android:text="@string/i_am"
-                    android:textSize="20sp" />
-                <RadioGroup
-                    android:id="@+id/gender_radio_group"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/gender_textview"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:id="@+id/male_radio_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="male" />
-                    <RadioButton
-                        android:id="@+id/female_radio_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="female" />
-                </RadioGroup>
-            </RelativeLayout>
 
             <Button
                 android:id="@+id/btnSubmitRegister"
@@ -133,7 +131,6 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/register_new_account"
                 android:textStyle="bold" />
-
 
         </LinearLayout>
 

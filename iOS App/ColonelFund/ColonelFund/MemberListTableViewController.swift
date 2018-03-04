@@ -8,44 +8,52 @@
 
 import UIKit
 
-class MemberListTableViewController: UITableViewController {
+class MemberListTableViewController: UITableViewController, MemberCollectionProtocol {
+    
+    //MemberCollectionProtocol
+    //This has a MemberCollection delegate reload the table when the data is finished being loaded
+    func memberDataDownloaded() {
+        memberList = mc.getMembers()
+        if self.refresher.isRefreshing
+        {
+            self.refresher.endRefreshing()
+        }
+        self.memberListTableView.reloadData()
+    }
     
     //MARK: Properties
-    //dummy array
-    var memberList = [String]()
-    
+    @IBOutlet var memberListTableView: UITableView!
+    let mc = MemberCollection()
+    var memberList: [Member] = []
+    var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mc.delegate = self
+        memberList = mc.getMembers()
         
-        memberList.append("John Smith")
-        memberList.append("Liam Gallagher")
-        memberList.append("Noel Gallagher")
-        memberList.append("John Lennon")
-        memberList.append("Paul McCartney")
-        memberList.append("Don Henley")
-        memberList.append("Phil Collins")
-        memberList.append("Jimmy Paige")
-        memberList.append("Trevor Hurst")
-        memberList.append("Adam Levine")
-        memberList.append("Axl Rose")
-        memberList.append("Chad Kroeger")
-        memberList.append("Dave Grohl")
-        memberList.append("Jimi Hendrix")
-        memberList.append("Kurt Cobain")
+        self.refresher = UIRefreshControl()
+        self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refresher?.addTarget(self, action: #selector(self.refreshMemberList(_:)), for: UIControlEvents.valueChanged)
+        self.memberListTableView?.addSubview(refresher!)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @objc private func refreshMemberList(_ sender: Any) {
+        self.mc.updateFromRemote()
+    }
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -66,10 +74,13 @@ class MemberListTableViewController: UITableViewController {
         }
         
         let member = memberList[indexPath.row]
-        cell.nameLabel.text = member
-        cell.usernameLabel.text = "johnwsmith" //replace with username
-        //TODO: - if no profile pic, use placeholder
-        placeholderProfilePic(nameObj: cell.nameLabel.text!, imageObj: cell.profilePicImageView)
+        cell.nameLabel.text = member.getFormattedFullName()
+        cell.usernameLabel.text = member.getEmailAddress()
+        if member.getProfilePicURL().isEmpty {
+            placeholderProfilePic(member: member, imageObj: cell.profilePicImageView)
+        } else {
+            loadProfilePicFromURL(url: member.getProfilePicURL(), imageObj: cell.profilePicImageView)
+        }
         
         
         cell.layoutIfNeeded()
@@ -77,15 +88,12 @@ class MemberListTableViewController: UITableViewController {
         return cell
     }
     
-    func placeholderProfilePic(nameObj: String, imageObj: UIImageView) {
+    func placeholderProfilePic(member: Member, imageObj: UIImageView) {
         let placeholder = UILabel()
         placeholder.frame.size = CGSize(width: 50.0, height: 50.0)
         placeholder.textColor = UIColor.white
         placeholder.font = UIFont.boldSystemFont(ofSize: 26)
-        let name = nameObj.split(separator: " ", maxSplits: 1).map(String.init)
-        var firstName = name[0]
-        var lastName = name[1]
-        placeholder.text = String(firstName[firstName.startIndex]) + String(lastName[lastName.startIndex])
+        placeholder.text = String(describing: member.getFirstName().first!) + String(describing: member.getLastName().first!)
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
         placeholder.layer.cornerRadius = 25.0
@@ -95,6 +103,18 @@ class MemberListTableViewController: UITableViewController {
         placeholder.layer.render(in: UIGraphicsGetCurrentContext()!)
         imageObj.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+    }
+    
+    func loadProfilePicFromURL(url: String, imageObj: UIImageView) {
+        let imageURL = URL(string: url)
+        do {
+            let imageData = try Data(contentsOf: imageURL!)
+            imageObj.image = UIImage(data: imageData)
+            imageObj.layer.cornerRadius = 50.0
+            imageObj.layer.masksToBounds = true
+        } catch {
+            print("Error processing profile pic: \(error.localizedDescription)")
+        }
     }
     
 
@@ -146,18 +166,17 @@ class MemberListTableViewController: UITableViewController {
             }
             
             guard let selectedMemberCell = sender as? MemberListTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(String(describing: sender))")
             }
             
             guard let indexPath = tableView.indexPath(for: selectedMemberCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedMember = memberList[indexPath.row]
-            memberViewController.tempNameText = selectedMember
+            memberViewController.member = memberList[indexPath.row]
             
         default:
-            fatalError("Unexpected Segue Identifier: \(segue.identifier)")
+            fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
     
