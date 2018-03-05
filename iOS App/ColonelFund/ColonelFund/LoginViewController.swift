@@ -25,7 +25,7 @@ protocol LoginProtocol {
 
 class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDelegate, GIDSignInDelegate, LoginProtocol {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        print(user.authentication)
+        //print(user.authentication)
         loginWithGoogle(authentication: user.authentication)
     }
     
@@ -71,13 +71,7 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
     
     override func viewDidAppear(_ animated: Bool) {
         configureFBLoginButton()
-        isGoogleLoggedIn()
-   //     let googleLoginButton = GIDSignInButton(frame: CGRect(x: 20, y: 20, width: 50,height: 70))
-     //   googleLoginButton.center = view.center
-       // view.addSubview(googleLoginButton)
-        
-
-        
+        //isGoogleLoggedIn()
     }
    
     
