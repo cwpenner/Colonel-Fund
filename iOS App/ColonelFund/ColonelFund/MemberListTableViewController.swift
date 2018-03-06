@@ -32,6 +32,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         mc.delegate = self
         memberList = mc.getMembers()
         
+        //Pull to Refresh
         self.refresher = UIRefreshControl()
         self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refresher?.addTarget(self, action: #selector(self.refreshMemberList(_:)), for: UIControlEvents.valueChanged)
@@ -90,13 +91,13 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     
     func placeholderProfilePic(member: Member, imageObj: UIImageView) {
         let placeholder = UILabel()
-        placeholder.frame.size = CGSize(width: 50.0, height: 50.0)
+        placeholder.frame.size = CGSize(width: 42.0, height: 42.0)
         placeholder.textColor = UIColor.white
-        placeholder.font = UIFont.boldSystemFont(ofSize: 26)
+        placeholder.font = UIFont.boldSystemFont(ofSize: 20)
         placeholder.text = String(describing: member.getFirstName().first!) + String(describing: member.getLastName().first!)
         placeholder.textAlignment = NSTextAlignment.center
         placeholder.backgroundColor = UIColor.darkGray
-        placeholder.layer.cornerRadius = 25.0
+        placeholder.layer.cornerRadius = 21.0
         placeholder.layer.masksToBounds = true
         
         UIGraphicsBeginImageContext(placeholder.frame.size)

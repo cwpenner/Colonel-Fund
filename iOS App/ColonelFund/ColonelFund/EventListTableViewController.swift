@@ -33,6 +33,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     var eventList: [Event] = []
     let mc = MemberCollection()
     var refresher: UIRefreshControl!
+    let searchController = UISearchController(searchResultsController: nil)
     let months: [String] = ["J\nA\nN",
                             "F\nE\nB",
                             "M\nA\nR",
@@ -45,6 +46,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
                             "O\nC\nT",
                             "N\nO\nV",
                             "D\nE\nC"]
+    var filteredEvents = [Event]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,10 +55,22 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
         
         eventList = ec.getEvents()
         
+        //Pull to Refresh
         self.refresher = UIRefreshControl()
         self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
         self.eventListTableView?.addSubview(refresher!)
+        
+        //Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Events"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        //Scope Bar
+        searchController.searchBar.scopeButtonTitles = ["All", "BBQ", "Emergency", "Medical", "Party", "Unknown"]
+        searchController.searchBar.delegate = self
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -81,6 +95,10 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+            return filteredEvents.count
+        }
+        
         return eventList.count
     }
     
@@ -93,7 +111,12 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
             fatalError("The dequeued cell is not an instance of \(cellIdentifier).")
         }
         
-        let event = eventList[indexPath.row]
+        let event : Event
+        if isFiltering() {
+            event = filteredEvents[indexPath.row]
+        } else {
+            event = eventList[indexPath.row]
+        }
         let eventType = event.getEventType().lowercased()
         let eventDate = event.getEventDate()
         let dayIndex = eventDate.index(eventDate.endIndex, offsetBy: -2)
@@ -174,6 +197,34 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
      */
     
     
+    // MARK: - Search Controller
+    func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredEvents = eventList.filter({(event : Event) -> Bool in
+            let doesEventTypeMatch = (scope == "All") || (event.getEventType() == scope)
+            let title = event.getTitle().lowercased().contains(searchText.lowercased())
+            let member = event.getAssociatedMember().lowercased().contains(searchText.lowercased())
+            let description = event.getEventDescription().lowercased().contains(searchText.lowercased())
+            let type = event.getEventType().lowercased().contains(searchText.lowercased())
+            let date = event.getEventDate().lowercased().contains(searchText.lowercased())
+            
+            if searchBarIsEmpty() {
+                return doesEventTypeMatch
+            } else {
+                return doesEventTypeMatch && (title || member || description || type || date)
+            }
+        })
+        eventListTableView.reloadData()
+    }
+    
+    func isFiltering() -> Bool {
+        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+    }
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -193,7 +244,11 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            eventViewController.event = eventList[indexPath.row]
+            if isFiltering() {
+                eventViewController.event = filteredEvents[indexPath.row]
+            } else {
+                eventViewController.event = eventList[indexPath.row]
+            }
             
         default:
             fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
@@ -203,3 +258,18 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     
 }
 
+extension EventListTableViewController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdatingDelegate
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+    }
+}
+
+extension EventListTableViewController: UISearchBarDelegate {
+    // MARK: - UISearchBarDelegate
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
+}
