@@ -35,7 +35,14 @@
     <string name="donation_recipient">Donation Recipient</string>
     <string name="transactionID">Transaction ID</string>
     <string name="summaryContinueButton">Continue</string>
+
+    <!-- Strings related to eventList -->
     <string name="search_string">Search</string>
+    <string name="bbq">BBQ</string>
+    <string name="party">Party</string>
+    <string name="emergency">Emergency</string>
+    <string name="unknown">Unknown</string>
+    <string name="medical">Medical</string>
 
     <!-- Strings related to login -->
     <string name="facebook_app_id">861301034038497</string>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <CheckBox android:id="@+id/checkbox_emergency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/emergency"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_medical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/medical"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_bbq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bbq"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_party"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/party"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_unknown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unknown"
+        android:onClick="onCheckboxClicked"/>
+
+</shape>

@@ -2,6 +2,7 @@ package com.colonelfund.colonelfund;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,15 +12,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Toast;
+
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import java.util.ArrayList;
@@ -33,6 +40,7 @@ public class EventListActivity extends AppCompatActivity {
     private ListView lv = null;
     private ArrayAdapter arrayAdapter =  null;
     private EditText searchBar = null;
+    Button showMenu;
     /**
      * Overrides on create in order to draw event list and sets listeners for buttons and search.
      * @param savedInstanceState
@@ -78,6 +86,13 @@ public class EventListActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+        /**Testing Dropdown Menu Start
+        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout layout = (LinearLayout)inflater.inflate(R.layout.pop_up_window, (ViewGroup)findViewById(R.id.PopUpView));
+        PopupWindow  pw = new PopupWindow(layout, ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        pw.setBackgroundDrawable(new BitmapDrawable());
+        pw.setTouchable(true);
+        //Testing Dropdown Menu End */
     }
     /**
      * Inflates the main menu bar.
