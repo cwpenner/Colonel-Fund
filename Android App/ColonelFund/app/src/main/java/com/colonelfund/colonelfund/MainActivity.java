@@ -1,9 +1,9 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,17 +13,12 @@ import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 // TODO: 12/22/2017 Tie in "Logout" button to terminate users session
 public class MainActivity extends AppCompatActivity {
@@ -118,9 +113,11 @@ public class MainActivity extends AppCompatActivity {
      * update local storage from remote Database
      */
     public void updateLocalStorage() {
-        // TODO: 1/27/2018 add update for Event list to this call
         MemberCollection mc = new MemberCollection(getApplicationContext());
         mc.updateFromRemote();
+
+        EventCollection ec = new EventCollection(getApplicationContext());
+        ec.updateFromRemote();
     }
 
 

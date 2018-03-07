@@ -61,8 +61,10 @@ public class CreateEventActivity extends AppCompatActivity {
         txtEventGoal = (EditText) findViewById(R.id.txtEventGoal);
         txtEventDescription = (EditText) findViewById(R.id.txtEventDescription);
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+//        String fixingGoal = txtEventGoal.getText().toString().replace(",", "");
+//        final String finalGoal = fixingGoal.replace("$", "");
 
+        imageView = (ImageView) findViewById(R.id.imageView);
         btnCreateEvent = (Button) findViewById(R.id.btnCreateEvent);
 
         btnCreateEvent.setOnClickListener(new View.OnClickListener() {
@@ -97,9 +99,9 @@ public class CreateEventActivity extends AppCompatActivity {
                     boolean error = jObj.getBoolean("error");
 
                     if (!error) {
-                        String user = jObj.getJSONObject("event").getString("title");
-                        Toast.makeText(getApplicationContext(), "Hi " + user +
-                                ", You have successfully added " + eventTitle, Toast.LENGTH_SHORT).show();
+                        String title = jObj.getJSONObject("event").getString("title");
+                        Toast.makeText(getApplicationContext(), "Event: \"" + title +
+                                "\" successfully added " + eventTitle, Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(CreateEventActivity.this, MainActivity.class);
                         startActivity(intent);

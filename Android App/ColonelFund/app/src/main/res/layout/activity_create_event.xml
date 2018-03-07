@@ -100,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:text="@string/fund_goal"
+        android:text="Fund Goal: $"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="15dp"
@@ -112,18 +112,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:text="$1,000.00"
+        android:text="1000.00"
         android:inputType="numberDecimal"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
         app:layout_constraintLeft_toRightOf="@+id/textView4"
         android:layout_marginStart="16dp" />
 
-
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/event_date"
+        android:text="End Date:"
         android:textStyle="bold"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -140,7 +139,6 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
         app:layout_constraintLeft_toRightOf="@+id/textView10"
         android:clickable="true"
-        android:focusable="false"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp" />
 
