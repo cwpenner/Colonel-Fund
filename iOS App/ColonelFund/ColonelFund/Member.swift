@@ -194,11 +194,11 @@ class Member: NSObject, Codable {
     }
     
     func toJSON() -> Data {
-//        let dict = ["UserID": self.userID,
-//                    "FirstName": self.firstName,
-//                    "LastName": self.lastName,
-//                    "EmailAddress": self.emailAddress,
-//                    "PhoneNumber": self.phoneNumber]
+//        let dict = ["userID": self.userID,
+//                    "firstName": self.firstName,
+//                    "lastName": self.lastName,
+//                    "emailAddress": self.emailAddress,
+//                    "phoneNumber": self.phoneNumber]
         let encoder = JSONEncoder()
         let jsonData = try? encoder.encode(self) //change to dict if this contains too much data
         return jsonData!
