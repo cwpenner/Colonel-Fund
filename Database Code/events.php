@@ -2,11 +2,14 @@
 
 $response = array("error" => FALSE);
 
+require_once 'update_event.php';
+$something = new update_event();
+
 $conn = __construct();
 
 // constructor
 function __construct() {
-    require_once  'android_login_connect.php';
+    require_once 'android_login_connect.php';
     // connecting to database
     $db = new android_login_connect();
     $conn = $db->connect();
@@ -18,6 +21,7 @@ $response = mysqli_query($conn,$query) or die("Couldn't execute query.");
 
 $rows = array();
 while($r = mysqli_fetch_assoc($response)) {
+    $r['associatedMember'] = $something->returnEmail($r['associatedMember']);
     $rows[] = $r;
 }
 

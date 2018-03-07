@@ -63,5 +63,14 @@ class update_event {
         }
     }
 
+    public function returnEmail($userID) {
+        $stmt = $this->conn->prepare("SELECT emailAddress FROM members WHERE userID = ?");
+        $stmt->bind_param("s", $userID);
+        $stmt->execute();
+        $stmt->bind_result($token1);
+        $stmt->fetch();
+        $stmt->close();
+        return $token1;
+    }
 
 }
