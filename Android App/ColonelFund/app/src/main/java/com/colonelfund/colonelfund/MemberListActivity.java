@@ -1,6 +1,9 @@
 package com.colonelfund.colonelfund;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,20 +25,45 @@ import java.util.Iterator;
  */
 public class MemberListActivity extends AppCompatActivity {
     private ListView lv;
+    private ArrayAdapter arrayAdapter = null;
+    Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ctx = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_member_list);
 
         lv = (ListView) findViewById(R.id.memberListView);
 
+        final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+
         final MemberCollection mcf = new MemberCollection(getApplicationContext());
         Collection<Member> memberList = mcf.getMembersList();
 
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MemberCollection mc = new MemberCollection(getApplicationContext());
+                mc.updateFromRemote();
+                swiperefresh.setRefreshing(true);
+
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swiperefresh.setRefreshing(false);
+                        MemberCollection newMcf = new MemberCollection(getApplicationContext());
+                        Collection<Member> newMemberList = newMcf.getMembersList();
+                        arrayAdapter = new MemberListAdapter(ctx, generateData(newMemberList));
+                        lv.setAdapter(arrayAdapter);
+                    }
+                },3000);
+            }
+        });
+
         //make array adapter
-        ArrayAdapter arrayAdapter = new MemberListAdapter(this, generateData(memberList));
+        arrayAdapter = new MemberListAdapter(this, generateData(memberList));
         lv.setAdapter(arrayAdapter);
 
         // Add listeners for each list item.

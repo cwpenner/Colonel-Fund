@@ -3,6 +3,8 @@ package com.colonelfund.colonelfund;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -35,6 +37,7 @@ public class EventListActivity extends AppCompatActivity {
     private ListView lv = null;
     private ArrayAdapter arrayAdapter = null;
     private EditText searchBar = null;
+    Context ctx;
 
     /**
      * Overrides on create in order to draw event list and sets listeners for buttons and search.
@@ -44,12 +47,35 @@ public class EventListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ctx = this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_event_list);
         searchBar = (EditText) findViewById(R.id.editText);
+        final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         lv = (ListView) findViewById(R.id.eventListView);
         final EventCollection ecf = new EventCollection(getApplicationContext());
         Collection<Event> eventList = ecf.getEventsList();
+
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                EventCollection ec = new EventCollection(getApplicationContext());
+                ec.updateFromRemote();
+                swiperefresh.setRefreshing(true);
+
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swiperefresh.setRefreshing(false);
+                        EventCollection newEcf = new EventCollection(getApplicationContext());
+                        Collection<Event> newEventList = newEcf.getEventsList();
+                        arrayAdapter = new EventListAdapter(ctx, generateData(newEventList));
+                        lv.setAdapter(arrayAdapter);
+                    }
+                },3000);
+            }
+        });
+
         //make array adapter
         arrayAdapter = new EventListAdapter(this, generateData(eventList));
         lv.setAdapter(arrayAdapter);
