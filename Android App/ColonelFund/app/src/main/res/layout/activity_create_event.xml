@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:text="John Smith"
+        android:text="01"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
         app:layout_constraintLeft_toRightOf="@+id/textView8"
         android:layout_marginStart="16dp" />
