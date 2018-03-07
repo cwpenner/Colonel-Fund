@@ -68,7 +68,6 @@ class MyProfileViewController: UIViewController {
             profilePicImageView.image = UIImage(data: imageData)
             profilePicImageView.layer.cornerRadius = 50.0
             profilePicImageView.layer.masksToBounds = true
-            print("loading google pic")
         } catch {
             print("Error processing profile pic: \(error.localizedDescription)")
         }
@@ -80,10 +79,10 @@ class MyProfileViewController: UIViewController {
     
     @IBAction func LogoutButtonPressed(_ sender: Any) {
         print("You have been logged out")
-        //TODO: perform logout activities
         if let accessToken = FBSDKAccessToken.current(){
             LoginManager().logOut()
         }
+        //TODO: If statement to check if Google token exists
         GIDSignIn.sharedInstance().signOut()
         performSegue(withIdentifier: "ShowLogin", sender: self)
     }

@@ -15,7 +15,7 @@ protocol EventCollectionProtocol {
 class EventCollection: NSObject, URLSessionDelegate {
     var delegate: EventCollectionProtocol!
     let jsonFileName = "events"
-    let URL_FOR_EVENTS = "https://wesll.com/colonelfund/events.php"
+    let URL_FOR_EVENTS = "https://wesll.com/colonelfund/event.php" //change to events
     var eventMap: [String: Event] = [:]
     var eventArray: [Event] = []
     
