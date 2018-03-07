@@ -27,10 +27,11 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 // TODO: 12/22/2017 Tie in "Logout" button to terminate users session
 public class MainActivity extends AppCompatActivity {
+    private GoogleApiClient mGoogleApiClient;
+
     /**
      * @param savedInstanceState
      */
-    private GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
         updateLocalStorage();
 
+        //Logout Button code here must be copied to each Activity, as the menu in the top right contains a logout button
         Button logoutButton = (Button) findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AccessToken token = AccessToken.getCurrentAccessToken();
-                if (token != null) {
-                    LoginManager.getInstance().logOut();
-                }
                 FirebaseAuth.getInstance().signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                         new ResultCallback<Status>() {
@@ -55,10 +54,11 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
                             }
                         }
-                        );
-
-
-
+                );
+                if(token != null) {
+                    LoginManager.getInstance().logOut();
+                }
+                User.logout();
                 Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
             }
@@ -92,11 +92,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
             );
-
             if(token != null) {
                 LoginManager.getInstance().logOut();
-
             }
+            User.logout();
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
         }

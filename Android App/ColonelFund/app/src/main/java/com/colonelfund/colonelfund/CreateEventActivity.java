@@ -1,13 +1,19 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
 
@@ -44,9 +50,11 @@ public class CreateEventActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
+            //TODO: Add Google logout code
             if(token != null) {
                 LoginManager.getInstance().logOut();
             }
+            User.logout();
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
         } else if (id == android.R.id.home) {

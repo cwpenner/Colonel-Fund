@@ -75,9 +75,11 @@ public class MemberListActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
+            //TODO: Add Google logout code
             if(token != null) {
                 LoginManager.getInstance().logOut();
             }
+            User.logout();
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
         } else if (id == android.R.id.home) {
