@@ -21,7 +21,7 @@ $response = mysqli_query($conn,$query) or die("Couldn't execute query.");
 
 $rows = array();
 while($r = mysqli_fetch_assoc($response)) {
-    $r['associatedMember'] = $something->returnEmail($r['associatedMember']);
+    $r['associatedEmail'] = $something->returnEmail($r['associatedMember']);
     $rows[] = $r;
 }
 

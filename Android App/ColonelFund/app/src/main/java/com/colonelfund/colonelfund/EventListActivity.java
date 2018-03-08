@@ -165,7 +165,7 @@ public class EventListActivity extends AppCompatActivity {
                 goalProgress = 1;
             }
             models.add(new EventListModel(temp.getTitle(), temp.getType(), temp.getAssociatedMember(),
-                    temp.getEventDate(), goalProgress, temp.getDescription()));
+                    temp.getAssociatedEmail(), temp.getEventDate(), goalProgress, temp.getDescription()));
         }
         return models;
     }
@@ -236,7 +236,7 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         TextView eventMonth = (TextView) holder.eventView.findViewById(R.id.event_month_box);
         //set main view to specific view holders
         eventName.setText(filteredModelsArrayList.get(position).getTitle());
-        eventMember.setText(filteredModelsArrayList.get(position).getAssociatedMember());
+        eventMember.setText(filteredModelsArrayList.get(position).getAssociatedEmail());
         goalProgress.setProgress(filteredModelsArrayList.get(position).getGoalProgress().intValue());
         String eventDate = filteredModelsArrayList.get(position).getEventDate();
         eventDay.setText(eventDate.substring((eventDate.length() - 2), (eventDate.length())));
@@ -296,7 +296,7 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
                 } else if (filterableModel.getType().toLowerCase().contains(filterString)) {
                     nlist.add(filterableModel);
                     System.out.println("Added event: " + filterableModel.getTitle());
-                } else if (filterableModel.getAssociatedMember().toLowerCase().contains(filterString)) {
+                } else if (filterableModel.getAssociatedEmail().toLowerCase().contains(filterString)) {
                     nlist.add(filterableModel);
                     System.out.println("Added event: " + filterableModel.getTitle());
                 } else if (filterableModel.getEventDate().toLowerCase().contains(filterString)) {
@@ -371,6 +371,7 @@ class EventListModel {
     private String title;
     private String type;
     private String associatedMember;
+    private String associatedEmail;
     private String eventDate;
     private Double goalProgress;
     private String eventDescription;
@@ -385,11 +386,14 @@ class EventListModel {
      * @param goalProgress     of event
      * @param eventDesc        of event
      */
-    public EventListModel(String title, String type, String associatedMember, String eventDate, Double goalProgress, String eventDesc) {
+    public EventListModel(String title, String type, String associatedMember,
+                          String associatedEmail, String eventDate,
+                          Double goalProgress, String eventDesc) {
         super();
         this.title = title;
         this.type = type;
         this.associatedMember = associatedMember;
+        this.associatedEmail = associatedEmail;
         this.eventDate = eventDate;
         this.goalProgress = (goalProgress * 100);
         this.eventDescription = eventDesc;
@@ -419,6 +423,9 @@ class EventListModel {
     /**
      * @return eventDate
      */
+
+    public String getAssociatedEmail() {return associatedEmail;}
+
     public String getEventDate() {
         return eventDate;
     }

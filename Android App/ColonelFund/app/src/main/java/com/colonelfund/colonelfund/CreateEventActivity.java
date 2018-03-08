@@ -43,6 +43,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     /**
      * Sets information for creating event.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -61,18 +62,30 @@ public class CreateEventActivity extends AppCompatActivity {
         txtEventGoal = (EditText) findViewById(R.id.txtEventGoal);
         txtEventDescription = (EditText) findViewById(R.id.txtEventDescription);
 
-//        String fixingGoal = txtEventGoal.getText().toString().replace(",", "");
-//        final String finalGoal = fixingGoal.replace("$", "");
-
         imageView = (ImageView) findViewById(R.id.imageView);
         btnCreateEvent = (Button) findViewById(R.id.btnCreateEvent);
 
         btnCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createEvent(txtEventTitle.getText().toString(), txtEventMember.getText().toString(),
-                        txtEventDate.getText().toString(), txtEventGoal.getText().toString(),
-                        txtEventDescription.getText().toString(), txtEventType.getText().toString(), imageView);
+
+                String strEventTitle = txtEventTitle.getText().toString();
+                String strEventMember = txtEventMember.getText().toString();
+                String strEventDate = txtEventDate.getText().toString();
+                String strEventGoal = txtEventGoal.getText().toString();
+                String strEventDescription = txtEventDescription.getText().toString();
+                String strEventType = txtEventType.getText().toString();
+
+                if (strEventTitle.isEmpty() || strEventMember.isEmpty() ||
+                        strEventDate.isEmpty() || strEventGoal.isEmpty() ||
+                        strEventDescription.isEmpty() || strEventType.isEmpty()) {
+                    Log.e(TAG, "Event Creation Error: ");
+                    Toast.makeText(getApplicationContext(), "field contains empty value, Event not created", Toast.LENGTH_LONG).show();
+                    hideDialog();
+                } else {
+                    createEvent(strEventTitle, strEventMember, strEventDate, strEventGoal,
+                            strEventDescription, strEventType, imageView);
+                }
             }
         });
     }
@@ -161,7 +174,7 @@ public class CreateEventActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
-            if(token != null) {
+            if (token != null) {
                 LoginManager.getInstance().logOut();
             }
             Intent loginIntent = new Intent(this, LoginActivity.class);

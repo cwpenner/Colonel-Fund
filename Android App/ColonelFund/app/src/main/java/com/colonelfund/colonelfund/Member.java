@@ -112,11 +112,11 @@ public class Member implements Serializable {
      */
     public JSONObject toJson() throws JSONException {
         JSONObject JsonObj = new JSONObject();
-        JsonObj.put("UserID",userID);
-        JsonObj.put("FirstName",firstName);
-        JsonObj.put("LastName",lastName);
-        JsonObj.put("EmailAddress",emailAddress);
-        JsonObj.put("PhoneNumber",phoneNumber);
+        JsonObj.put("userID",userID);
+        JsonObj.put("firstName",firstName);
+        JsonObj.put("lastName",lastName);
+        JsonObj.put("emailAddress",emailAddress);
+        JsonObj.put("phoneNumber",phoneNumber);
         return JsonObj;
     }
     /**
@@ -124,11 +124,11 @@ public class Member implements Serializable {
      * @param jsonObject
      */
     public Member(JSONObject jsonObject) throws JSONException {
-        this.userID = jsonObject.getString("UserID");
-        this.firstName = jsonObject.getString("FirstName");
-        this.lastName = jsonObject.getString("LastName");
-        this.emailAddress = jsonObject.getString("EmailAddress");
-        this.phoneNumber = jsonObject.getString("PhoneNumber");
+        this.userID = jsonObject.getString("userID");
+        this.firstName = jsonObject.getString("firstName");
+        this.lastName = jsonObject.getString("lastName");
+        this.emailAddress = jsonObject.getString("emailAddress");
+        this.phoneNumber = jsonObject.getString("phoneNumber");
     }
 
 }

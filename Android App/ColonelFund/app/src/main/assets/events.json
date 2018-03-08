@@ -6,6 +6,7 @@
     "fundGoal": 5000,
     "currentFunds": 1075.63,
     "associatedMember": "JohnSmith",
+    "associatedEmail": "",
     "type": "Medical"
   },
   "Alzheimer's Research Fund": {
@@ -15,6 +16,7 @@
     "fundGoal": 7550,
     "currentFunds": 750.63,
     "associatedMember": "LiamGallagher",
+    "associatedEmail": "",
     "type": "Medical"
   },
   "Paul's MS Donations": {
@@ -24,6 +26,7 @@
     "fundGoal": 8367.53,
     "currentFunds": 7505.63,
     "associatedMember": "PaulMcCartney",
+    "associatedEmail": "",
     "type": "Medical"
   },
   "Independence Day BBQ": {
@@ -33,6 +36,7 @@
     "fundGoal": 1000,
     "currentFunds": 75.63,
     "associatedMember": "JohnSmith",
+    "associatedEmail": "",
     "type": "BBQ"
   },
   "Mrs. Cobain's Widow Help": {
@@ -42,6 +46,7 @@
     "fundGoal": 3500,
     "currentFunds": 2735.63,
     "associatedMember": "CourtneyLove",
+    "associatedEmail": "",
     "type": "Unknown"
   },
   "Liam's house fire help": {
@@ -51,6 +56,7 @@
     "fundGoal": 7500,
     "currentFunds": 2735.63,
     "associatedMember": "LiamGallagher",
+    "associatedEmail": "",
     "type": "Emergency"
   },
   "Mrs. Cobain's birthday": {
@@ -60,6 +66,7 @@
     "fundGoal": 1500,
     "currentFunds": 25.01,
     "associatedMember": "CourtneyLove",
+    "associatedEmail": "",
     "type": "Party"
   }
 }

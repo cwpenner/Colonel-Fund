@@ -72,6 +72,7 @@ public class EventCollection {
                         jObj = (JSONObject) jArray.get(i);
                         Event aEvent = new Event(jObj.getString("title"),
                                 jObj.getString("associatedMember"),
+                                jObj.getString("associatedEmail"),
                                 jObj.getString("eventDate"),
                                 Double.parseDouble(jObj.getString("fundGoal")),
                                 Double.parseDouble(jObj.getString("currentFunds")),
