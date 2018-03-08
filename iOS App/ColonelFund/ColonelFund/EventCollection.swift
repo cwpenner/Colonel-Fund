@@ -15,7 +15,7 @@ protocol EventCollectionProtocol {
 class EventCollection: NSObject, URLSessionDelegate {
     var delegate: EventCollectionProtocol!
     let jsonFileName = "events"
-    let URL_FOR_EVENTS = "https://wesll.com/colonelfund/event.php" //change to events
+    let URL_FOR_EVENTS = "https://wesll.com/colonelfund/events.php"
     var eventMap: [String: Event] = [:]
     var eventArray: [Event] = []
     
@@ -80,23 +80,30 @@ class EventCollection: NSObject, URLSessionDelegate {
                     saveJSONLocal(jsonData: jsonData!, fileName: fileName)
                 }
                 let object = try JSONSerialization.jsonObject(with: jsonData!, options: .allowFragments)
+                print("Object: \(object)")
                 if let dict = object as? [String: AnyObject] {
                     for (key, value) in dict {
-                        let eventID = key
-                        let title = value["Title"] as! String
-                        let eventDate = value["EventDate"] as! String
-                        let eventDescription = value["Description"] as! String
-                        let fundGoal = value["FundGoal"] as! Double
-                        let currentFunds = value["CurrentFunds"] as! Double
-                        let associatedMember = value["AssociatedMember"] as! String
-                        let eventType = value["EventType"] as! String
-                        let newEvent = Event(eventID: eventID, title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: fundGoal, currentFunds: currentFunds, associatedMember: associatedMember, eventType: eventType)
-                        eventMap[eventID.lowercased()] = newEvent
+                        let title = value["title"] as! String
+                        let eventDate = value["eventDate"] as! String
+                        let eventDescription = value["description"] as! String
+                        let fundGoal = value["fundGoal"] as! Double
+                        let currentFunds = value["currentFunds"] as! Double
+                        let associatedMember = value["associatedMember"] as! String
+                        let eventType = value["type"] as! String
+                        let newEvent = Event(title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: fundGoal, currentFunds: currentFunds, associatedMember: associatedMember, eventType: eventType)
+                        eventMap[title.lowercased()] = newEvent
                     }
                 } else if let jsonArray = object as? [AnyObject] {
                     for item in jsonArray {
-                        let newEvent = try Event(json: item as! [String : AnyObject])
-                        eventMap[newEvent.getEventID()] = newEvent
+                        let title = item["title"] as! String
+                        let eventDate = item["eventDate"] as! String
+                        let eventDescription = item["description"] as! String
+                        let fundGoal = Double(item["fundGoal"] as! String)!
+                        let currentFunds = Double(item["currentFunds"] as! String)!
+                        let associatedMember = item["associatedMember"] as! String
+                        let eventType = item["type"] as! String
+                        let newEvent = Event(title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: fundGoal, currentFunds: currentFunds, associatedMember: associatedMember, eventType: eventType)
+                        eventMap[title.lowercased()] = newEvent
                     }
                 }
                 DispatchQueue.main.async(execute: { () -> Void in
@@ -126,12 +133,12 @@ class EventCollection: NSObject, URLSessionDelegate {
         return eventArray
     }
     
-    func getEvent(eventID: String) -> Event? {
-        let keyExists = eventMap[eventID.lowercased()] != nil
+    func getEvent(eventTitle: String) -> Event? {
+        let keyExists = eventMap[eventTitle.lowercased()] != nil
         if keyExists {
-            return eventMap[eventID.lowercased()]!
+            return eventMap[eventTitle.lowercased()]!
         } else {
-            print("Event: \(eventID) does not exist")
+            print("Event: \(eventTitle) does not exist")
             return nil
         }
     }

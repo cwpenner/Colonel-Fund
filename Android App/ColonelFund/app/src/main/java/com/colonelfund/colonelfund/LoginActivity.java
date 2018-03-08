@@ -1,21 +1,6 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -38,7 +23,6 @@ import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -273,12 +257,12 @@ public class LoginActivity extends AppCompatActivity {
      */
     // TODO: 1/15/2018 remove before final submission
     // registrationEnable
-    /*
-    public void onRegister(View view) {
-        Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(i);
-    }
-    */
+
+//    public void onRegister(View view) {
+//        Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+//        startActivity(i);
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -87,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
                         String user = jObj.getJSONObject("user").getString("userID");
 
                         Toast.makeText(getApplicationContext(), "Hi " + user +
-                                ", You are successfully Added!", Toast.LENGTH_SHORT).show();
+                                ", You are successfully added!", Toast.LENGTH_SHORT).show();
 
                         // Launch login activity
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);

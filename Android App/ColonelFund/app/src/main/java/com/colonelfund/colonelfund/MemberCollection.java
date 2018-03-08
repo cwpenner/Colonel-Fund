@@ -142,7 +142,7 @@ public class MemberCollection {
         }
         try {
             if (inputStream != null) {
-                System.out.println("Event Library collection found under: " + jsonFileName);
+                System.out.println("Member collection found under: " + jsonFileName);
                 BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
                 StringBuilder total = new StringBuilder();
                 String line;
@@ -156,9 +156,9 @@ public class MemberCollection {
                     String key = it.next();
                     keyList.add(key);
                 }
-                String[] eventTitles = keyList.toArray(new String[keyList.size()]);
-                for (int i = 0; i < eventTitles.length; i++) {
-                    Member memberDesc = new Member((JSONObject) obj.getJSONObject(eventTitles[i]));
+                String[] memberList = keyList.toArray(new String[keyList.size()]);
+                for (int i = 0; i < memberList.length; i++) {
+                    Member memberDesc = new Member((JSONObject) obj.getJSONObject(memberList[i]));
                     this.memberMap.put(memberDesc.getUserID().toLowerCase(), memberDesc);
                 }
                 restored = true;

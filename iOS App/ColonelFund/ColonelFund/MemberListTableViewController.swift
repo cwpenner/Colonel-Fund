@@ -26,6 +26,8 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     let mc = MemberCollection()
     var memberList: [Member] = []
     var refresher: UIRefreshControl!
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredMembers = [Member]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +40,12 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         self.refresher?.addTarget(self, action: #selector(self.refreshMemberList(_:)), for: UIControlEvents.valueChanged)
         self.memberListTableView?.addSubview(refresher!)
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Events"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,6 +65,10 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+            return filteredMembers.count
+        }
+        
         return memberList.count
     }
 
@@ -74,7 +81,13 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
             fatalError("The dequeued cell is not an instance of \(cellIdentifier).")
         }
         
-        let member = memberList[indexPath.row]
+        let member : Member
+        if isFiltering() {
+            member = filteredMembers[indexPath.row]
+        } else {
+            member = memberList[indexPath.row]
+        }
+        
         cell.nameLabel.text = member.getFormattedFullName()
         cell.usernameLabel.text = member.getEmailAddress()
         if member.getProfilePicURL().isEmpty {
@@ -83,9 +96,6 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
             loadProfilePicFromURL(url: member.getProfilePicURL(), imageObj: cell.profilePicImageView)
         }
         
-        
-        cell.layoutIfNeeded()
-
         return cell
     }
     
@@ -153,7 +163,33 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         return true
     }
     */
+    
+    
+    // MARK: - Search Controller
+    func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredMembers = memberList.filter({(member : Member) -> Bool in
+            let userID = member.getUserID().lowercased().contains(searchText.lowercased())
+            let name = member.getFormattedFullName().lowercased().contains(searchText.lowercased())
+            let userName = member.getUserName().lowercased().contains(searchText.lowercased())
+            let phoneNumber = member.getPhoneNumber().lowercased().contains(searchText.lowercased())
+            let email = member.getEmailAddress().lowercased().contains(searchText.lowercased())
 
+            if searchBarIsEmpty() {
+                return true
+            } else {
+                return (userID || name || userName || phoneNumber || email)
+            }
+        })
+        memberListTableView.reloadData()
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
     
     // MARK: - Navigation
 
@@ -174,7 +210,11 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            memberViewController.member = memberList[indexPath.row]
+            if isFiltering() {
+                memberViewController.member = filteredMembers[indexPath.row]
+            } else {
+                memberViewController.member = memberList[indexPath.row]
+            }
             
         default:
             fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
@@ -182,4 +222,11 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     }
     
 
+}
+
+extension MemberListTableViewController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdatingDelegate
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!, scope: "All")
+    }
 }
