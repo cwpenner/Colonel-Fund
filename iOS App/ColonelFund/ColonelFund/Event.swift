@@ -10,7 +10,6 @@ import Foundation
 
 class Event: NSObject, Codable {
     
-    private var eventID: String
     private var title: String
     private var eventDate: String
     private var eventDescription: String
@@ -20,9 +19,8 @@ class Event: NSObject, Codable {
     private var associatedMember: String
     private var eventType: String
     
-    init(eventID: String) {
-        self.eventID = eventID
-        self.title = ""
+    init(title: String) {
+        self.title = title
         self.eventDate = ""
         self.eventDescription = ""
         self.fundGoal = 0
@@ -32,8 +30,7 @@ class Event: NSObject, Codable {
         self.eventType = ""
     }
     
-    init(eventID: String, title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, associatedMember: String, eventType: String) {
-        self.eventID = eventID
+    init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, associatedMember: String, eventType: String) {
         self.title = title
         self.eventDate = eventDate
         self.eventDescription = eventDescription
@@ -44,8 +41,7 @@ class Event: NSObject, Codable {
         self.eventType = eventType
     }
     
-    init(eventID: String, title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicURL: String, associatedMember: String, eventType: String) {
-        self.eventID = eventID
+    init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicURL: String, associatedMember: String, eventType: String) {
         self.title = title
         self.eventDate = eventDate
         self.eventDescription = eventDescription
@@ -56,34 +52,29 @@ class Event: NSObject, Codable {
         self.eventType = eventType
     }
     
-    //TODO: revise with updated keys when Richard is done (most likely drop capitals)
     init(json: [String: Any]) throws {
-        guard let eventID = json["EventID"] as? String else {
-            throw SerializationError.missing("EventID")
+        guard let title = json["title"] as? String else {
+            throw SerializationError.missing("title")
         }
-        guard let title = json["Title"] as? String else {
-            throw SerializationError.missing("Title")
+        guard let eventDate = json["eventDate"] as? String else {
+            throw SerializationError.missing("eventDate")
         }
-        guard let eventDate = json["EventDate"] as? String else {
-            throw SerializationError.missing("EventDate")
+        guard let eventDescription = json["description"] as? String else {
+            throw SerializationError.missing("description")
         }
-        guard let eventDescription = json["eventDescription"] as? String else {
-            throw SerializationError.missing("eventDescription")
+        guard let fundGoal = json["fundGoal"] as? Double else {
+            throw SerializationError.missing("fundGoal")
         }
-        guard let fundGoal = json["FundGoal"] as? Double else {
-            throw SerializationError.missing("FundGoal")
+        guard let currentFunds = json["currentFunds"] as? Double else {
+            throw SerializationError.missing("currentFunds")
         }
-        guard let currentFunds = json["CurrentFunds"] as? Double else {
-            throw SerializationError.missing("CurrentFunds")
+        guard let associatedMember = json["associatedMember"] as? String else {
+            throw SerializationError.missing("associatedMember")
         }
-        guard let associatedMember = json["AssociatedMember"] as? String else {
-            throw SerializationError.missing("AssociatedMember")
-        }
-        guard let eventType = json["EventType"] as? String else {
-            throw SerializationError.missing("EventType")
+        guard let eventType = json["type"] as? String else {
+            throw SerializationError.missing("type")
         }
         
-        self.eventID = eventID
         self.title = title
         self.eventDate = eventDate
         self.eventDescription = eventDescription
@@ -92,14 +83,6 @@ class Event: NSObject, Codable {
         self.eventPicURL = ""
         self.associatedMember = associatedMember
         self.eventType = eventType
-    }
-    
-    func getEventID() -> String {
-        return self.eventID
-    }
-    
-    func setEventID(eventID: String) {
-        self.eventID = eventID
     }
     
     func getTitle() -> String {
@@ -167,14 +150,13 @@ class Event: NSObject, Codable {
     }
     
     func toJSON() -> Data {
-        //        let dict = ["EventID": self.eventID,
-        //                    "Title": self.title,
-        //                    "EventDate": self.eventDate,
-        //                    "eventDescription": self.eventDescription,
-        //                    "FundGoal": self.fundGoal,
-        //                    "CurrentFunds": self.currentFunds,
-        //                    "AssociatedMember": self.memberString,
-        //                    "EventType": self.eventType]
+        //        let dict = ["title": self.title,
+        //                    "eventDate": self.eventDate,
+        //                    "description": self.eventDescription,
+        //                    "fundGoal": self.fundGoal,
+        //                    "currentFunds": self.currentFunds,
+        //                    "associatedMember": self.memberString,
+        //                    "type": self.eventType]
         let encoder = JSONEncoder()
         let jsonData = try? encoder.encode(self) //change to dict if this contains too much data
         return jsonData!
