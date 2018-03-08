@@ -160,17 +160,26 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
                             Log.d("login", "Facebook object:" + object.toString());
-                            firstName = object.getString("first_name");
-                            lastName = object.getString("last_name");
-                            emailAddress = object.getString("email");
-                            profilePicURL = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                            Log.d("login", profilePicURL);
-                            facebookID = object.getString("id");
+                            if (object.getString("first_name") != null) {
+                                firstName = object.getString("first_name");
+                            }
+                            if (object.getString("last_name") != null) {
+                                lastName = object.getString("last_name");
+                            }
+                            if (object.getString("email") != null) {
+                                emailAddress = object.getString("email");
+                            }
+                            if (object.getString("picture") != null) {
+                                profilePicURL = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                            }
+                            if (object.getString("id") != null) {
+                                facebookID = object.getString("id");
+                            }
                             Member member = new Member("", firstName, lastName, emailAddress, "");
                             member.setProfilePicURL(profilePicURL);
                             member.setFacebookID(facebookID);
                             User.setCurrentUser(member);
-                            Toast.makeText(LoginActivity.this, User.currentUser.getFormattedFullName() + " Signed in successfully", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, User.currentUser.getFormattedFullName() + " signed in successfully", Toast.LENGTH_LONG).show();
                             startActivity(MainIntent);
 
                         } catch (JSONException ex) {
@@ -296,20 +305,29 @@ public class LoginActivity extends AppCompatActivity {
       }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            firstName = account.getGivenName();
-            lastName = account.getFamilyName();
-            emailAddress = account.getEmail();
-            profilePicURL = account.getPhotoUrl().toString();
-            googleID = account.getId();
+            GoogleSignInAccount googleAccount = completedTask.getResult(ApiException.class);
+            Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
+            if (googleAccount.getGivenName() != null) {
+                firstName = googleAccount.getGivenName();
+            }
+            if (googleAccount.getFamilyName() != null) {
+                lastName = googleAccount.getFamilyName();
+            }
+            if (googleAccount.getEmail() != null) {
+                emailAddress = googleAccount.getEmail();
+            }
+            if (googleAccount.getPhotoUrl() != null) {
+                profilePicURL = googleAccount.getPhotoUrl().toString();
+            }
+            if (googleAccount.getId() != null) {
+                googleID = googleAccount.getId();
+            }
             Member member = new Member("", firstName, lastName, emailAddress, "");
             member.setProfilePicURL(profilePicURL);
             member.setGoogleID(googleID);
             User.setCurrentUser(member);
-            Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
+            Toast.makeText(LoginActivity.this, User.currentUser.getFormattedFullName() + " signed in successfully", Toast.LENGTH_LONG).show();
             startActivity(MainIntent);
-            Toast.makeText(LoginActivity.this, User.currentUser.getFormattedFullName() + " Signed in successfully",Toast.LENGTH_LONG).show();
-
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.

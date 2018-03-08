@@ -166,14 +166,14 @@ public class Event implements Serializable {
      */
     public JSONObject toJson() throws JSONException {
         JSONObject jsonObj = new JSONObject();
-        jsonObj.put("title",title);
-        jsonObj.put("associatedMember",associatedMember);
-        jsonObj.put("associatedEmail",associatedEmail);
-        jsonObj.put("eventDate",eventDate);
-        jsonObj.put("fundGoal",fundGoal);
-        jsonObj.put("currentFunds",currentFunds);
-        jsonObj.put("description",description);
-        jsonObj.put("type",type);
+        jsonObj.put("title", title);
+        jsonObj.put("associatedMember", associatedMember);
+        jsonObj.put("associatedEmail", associatedEmail);
+        jsonObj.put("eventDate", eventDate);
+        jsonObj.put("fundGoal", fundGoal);
+        jsonObj.put("currentFunds", currentFunds);
+        jsonObj.put("description", description);
+        jsonObj.put("type", type);
         return jsonObj;
     }
     /**

@@ -176,13 +176,13 @@ public class Member implements Serializable {
      */
     public JSONObject toJson() throws JSONException {
         JSONObject jsonObj = new JSONObject();
-        jsonObj.put("userID",userID);
-        jsonObj.put("firstName",firstName);
-        jsonObj.put("lastName",lastName);
-        jsonObj.put("emailAddress",emailAddress);
-        jsonObj.put("phoneNumber",phoneNumber);
-        jsonObj.put("facebookID",facebookID);
-        jsonObj.put("googleID",googleID);
+        jsonObj.put("userID", userID);
+        jsonObj.put("firstName", firstName);
+        jsonObj.put("lastName", lastName);
+        jsonObj.put("emailAddress", emailAddress);
+        jsonObj.put("phoneNumber", phoneNumber);
+        jsonObj.put("facebookID", facebookID);
+        jsonObj.put("googleID", googleID);
         return jsonObj;
     }
     /**
@@ -194,7 +194,7 @@ public class Member implements Serializable {
         this.firstName = jsonObject.getString("firstName");
         this.lastName = jsonObject.getString("lastName");
         this.emailAddress = jsonObject.getString("emailAddress");
-        this.phoneNumber = jsonObject.getString("ohoneNumber");
+        this.phoneNumber = jsonObject.getString("phoneNumber");
         //TODO: update with FacebookID and GoogleID once it gets added to member table in database
 
     }
