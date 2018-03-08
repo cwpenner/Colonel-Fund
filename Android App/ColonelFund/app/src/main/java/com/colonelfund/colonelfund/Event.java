@@ -11,6 +11,7 @@ public class Event implements Serializable {
     private static final long serialVersionUID = -8645384342222081215L;
     private String title;
     private String associatedMember;
+    private String associatedEmail;
     private String eventDate;
     private double fundGoal;
     private double currentFunds;
@@ -19,15 +20,40 @@ public class Event implements Serializable {
     /**
      * @param title of event
      * @param associatedMember of event
+     * @param associatedEmail of event
      * @param eventDate of event
      * @param fundGoal of event
      * @param currentFunds of event
      * @param description of event
      */
-    public Event(String title, String associatedMember, String eventDate, double fundGoal, double currentFunds, String description, String type) {
+    public Event(String title,
+                 String associatedMember,
+                 String eventDate,
+                 double fundGoal,
+                 double currentFunds,
+                 String description,
+                 String type) {
         super();
         this.title = title;
         this.associatedMember = associatedMember;
+        this.eventDate = eventDate;
+        this.fundGoal = fundGoal;
+        this.currentFunds = currentFunds;
+        this.description = description;
+        this.type = type;
+    }
+    public Event(String title,
+                 String associatedMember,
+                 String associatedEmail,
+                 String eventDate,
+                 double fundGoal,
+                 double currentFunds,
+                 String description,
+                 String type) {
+        super();
+        this.title = title;
+        this.associatedMember = associatedMember;
+        this.associatedEmail = associatedEmail;
         this.eventDate = eventDate;
         this.fundGoal = fundGoal;
         this.currentFunds = currentFunds;
@@ -58,6 +84,9 @@ public class Event implements Serializable {
     public void setAssociatedMember(String associatedMember) {
         this.associatedMember = associatedMember;
     }
+    public void setAssociatedEmail(String associatedEmail) {
+        this.associatedEmail = associatedEmail;
+    }
     /**
      * @return the eventDate
      */
@@ -85,6 +114,8 @@ public class Event implements Serializable {
     /**
      * @return the currentFunds
      */
+    public String getAssociatedEmail() {return associatedEmail;}
+
     public double getCurrentFunds() {
         return currentFunds;
     }
@@ -125,13 +156,14 @@ public class Event implements Serializable {
      */
     public JSONObject toJson() throws JSONException {
         JSONObject JsonObj = new JSONObject();
-        JsonObj.put("Title",title);
-        JsonObj.put("AssociatedMember",associatedMember);
-        JsonObj.put("EventDate",eventDate);
-        JsonObj.put("FundGoal",fundGoal);
-        JsonObj.put("CurrentFunds",currentFunds);
-        JsonObj.put("Description",description);
-        JsonObj.put("EventType",type);
+        JsonObj.put("title", title);
+        JsonObj.put("associatedMember", associatedMember);
+        JsonObj.put("associatedEmail", associatedEmail);
+        JsonObj.put("eventDate", eventDate);
+        JsonObj.put("fundGoal", fundGoal);
+        JsonObj.put("currentFunds", currentFunds);
+        JsonObj.put("description", description);
+        JsonObj.put("type", type);
         return JsonObj;
     }
     /**
@@ -139,12 +171,13 @@ public class Event implements Serializable {
      * @param jsonObject of an event
      */
     public Event(JSONObject jsonObject) throws JSONException {
-        this.title = jsonObject.getString("Title");
-        this.associatedMember = jsonObject.getString("AssociatedMember");
-        this.eventDate = jsonObject.getString("EventDate");
-        this.fundGoal = jsonObject.getDouble("FundGoal");
-        this.currentFunds = jsonObject.getDouble("CurrentFunds");
-        this.description = jsonObject.getString("Description");
-        this.type = jsonObject.getString("EventType");
+        this.title = jsonObject.getString("title");
+        this.associatedMember = jsonObject.getString("associatedMember");
+        this.associatedEmail = jsonObject.getString("associatedEmail");
+        this.eventDate = jsonObject.getString("eventDate");
+        this.fundGoal = jsonObject.getDouble("fundGoal");
+        this.currentFunds = jsonObject.getDouble("currentFunds");
+        this.description = jsonObject.getString("description");
+        this.type = jsonObject.getString("type");
     }
 }
