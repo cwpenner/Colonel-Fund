@@ -124,27 +124,27 @@ public class Event implements Serializable {
      * @return JSONObject of an event
      */
     public JSONObject toJson() throws JSONException {
-        JSONObject JsonObj = new JSONObject();
-        JsonObj.put("Title",title);
-        JsonObj.put("AssociatedMember",associatedMember);
-        JsonObj.put("EventDate",eventDate);
-        JsonObj.put("FundGoal",fundGoal);
-        JsonObj.put("CurrentFunds",currentFunds);
-        JsonObj.put("Description",description);
-        JsonObj.put("EventType",type);
-        return JsonObj;
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("title",title);
+        jsonObj.put("associatedMember",associatedMember);
+        jsonObj.put("eventDate",eventDate);
+        jsonObj.put("fundGoal",fundGoal);
+        jsonObj.put("currentFunds",currentFunds);
+        jsonObj.put("description",description);
+        jsonObj.put("type",type);
+        return jsonObj;
     }
     /**
      * Constructor with JSON Object.
      * @param jsonObject of an event
      */
     public Event(JSONObject jsonObject) throws JSONException {
-        this.title = jsonObject.getString("Title");
-        this.associatedMember = jsonObject.getString("AssociatedMember");
-        this.eventDate = jsonObject.getString("EventDate");
-        this.fundGoal = jsonObject.getDouble("FundGoal");
-        this.currentFunds = jsonObject.getDouble("CurrentFunds");
-        this.description = jsonObject.getString("Description");
-        this.type = jsonObject.getString("EventType");
+        this.title = jsonObject.getString("title");
+        this.associatedMember = jsonObject.getString("associatedMember");
+        this.eventDate = jsonObject.getString("eventDate");
+        this.fundGoal = jsonObject.getDouble("fundGoal");
+        this.currentFunds = jsonObject.getDouble("currentFunds");
+        this.description = jsonObject.getString("description");
+        this.type = jsonObject.getString("type");
     }
 }

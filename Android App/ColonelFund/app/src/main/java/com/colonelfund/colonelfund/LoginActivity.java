@@ -176,9 +176,8 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
                             Log.d("login", "Facebook object:" + object.toString());
-                            String name = object.getString("name");
-                            firstName = name.substring(0, name.indexOf(' '));
-                            lastName = name.substring(name.indexOf(' ') + 1);
+                            firstName = object.getString("first_name");
+                            lastName = object.getString("last_name");
                             emailAddress = object.getString("email");
                             profilePicURL = object.getJSONObject("picture").getJSONObject("data").getString("url");
                             Log.d("login", profilePicURL);
@@ -197,12 +196,9 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, name, email, gender, birthday, picture");
+                parameters.putString("fields", "id, first_name, last_name, email, gender, birthday, picture");
                 req.setParameters(parameters);
                 req.executeAsync();
-                //Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
-                //startActivity(MainIntent);
-                //Log.d("login", accessToken. );
             }
 
             @Override
