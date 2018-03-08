@@ -22,9 +22,11 @@ class MainViewController: UIViewController {
         //TODO: perform logout activities
         if let accessToken = FBSDKAccessToken.current(){
             LoginManager().logOut()
-            User.logout()
         }
-        GIDSignIn.sharedInstance().signOut()
+        if GIDSignIn.sharedInstance().currentUser != nil {
+            GIDSignIn.sharedInstance().signOut()
+        }
+        User.logout()
         performSegue(withIdentifier: "ShowLogin", sender: self)
     }
     

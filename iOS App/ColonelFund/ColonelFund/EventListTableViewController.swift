@@ -71,12 +71,6 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
         //Scope Bar
         searchController.searchBar.scopeButtonTitles = ["All", "BBQ", "Emergency", "Medical", "Party", "Unknown"]
         searchController.searchBar.delegate = self
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func didReceiveMemoryWarning() {
@@ -117,6 +111,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
         } else {
             event = eventList[indexPath.row]
         }
+        
         let eventType = event.getEventType().lowercased()
         let eventDate = event.getEventDate()
         let dayIndex = eventDate.index(eventDate.endIndex, offsetBy: -2)
