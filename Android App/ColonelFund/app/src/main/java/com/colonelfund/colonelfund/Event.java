@@ -11,11 +11,13 @@ public class Event implements Serializable {
     private static final long serialVersionUID = -8645384342222081215L;
     private String title;
     private String associatedMember;
+    private String associatedEmail;
     private String eventDate;
     private double fundGoal;
     private double currentFunds;
     private String description;
     private String type;
+
     /**
      * @param title of event
      * @param associatedMember of event
@@ -24,10 +26,44 @@ public class Event implements Serializable {
      * @param currentFunds of event
      * @param description of event
      */
-    public Event(String title, String associatedMember, String eventDate, double fundGoal, double currentFunds, String description, String type) {
+    public Event(String title,
+                 String associatedMember,
+                 String eventDate,
+                 double fundGoal,
+                 double currentFunds,
+                 String description,
+                 String type) {
         super();
         this.title = title;
         this.associatedMember = associatedMember;
+        this.eventDate = eventDate;
+        this.fundGoal = fundGoal;
+        this.currentFunds = currentFunds;
+        this.description = description;
+        this.type = type;
+    }
+
+    /**
+     * @param title of event
+     * @param associatedMember of event
+     * @param associatedEmail of event
+     * @param eventDate of event
+     * @param fundGoal of event
+     * @param currentFunds of event
+     * @param description of event
+     */
+    public Event(String title,
+                 String associatedMember,
+                 String associatedEmail,
+                 String eventDate,
+                 double fundGoal,
+                 double currentFunds,
+                 String description,
+                 String type) {
+        super();
+        this.title = title;
+        this.associatedMember = associatedMember;
+        this.associatedEmail = associatedEmail;
         this.eventDate = eventDate;
         this.fundGoal = fundGoal;
         this.currentFunds = currentFunds;
@@ -58,6 +94,9 @@ public class Event implements Serializable {
     public void setAssociatedMember(String associatedMember) {
         this.associatedMember = associatedMember;
     }
+    public void setAssociatedEmail(String associatedEmail) {
+        this.associatedEmail = associatedEmail;
+    }
     /**
      * @return the eventDate
      */
@@ -85,6 +124,8 @@ public class Event implements Serializable {
     /**
      * @return the currentFunds
      */
+    public String getAssociatedEmail() {return associatedEmail;}
+
     public double getCurrentFunds() {
         return currentFunds;
     }
@@ -127,6 +168,7 @@ public class Event implements Serializable {
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("title",title);
         jsonObj.put("associatedMember",associatedMember);
+        jsonObj.put("associatedEmail",associatedEmail);
         jsonObj.put("eventDate",eventDate);
         jsonObj.put("fundGoal",fundGoal);
         jsonObj.put("currentFunds",currentFunds);
@@ -141,6 +183,7 @@ public class Event implements Serializable {
     public Event(JSONObject jsonObject) throws JSONException {
         this.title = jsonObject.getString("title");
         this.associatedMember = jsonObject.getString("associatedMember");
+        this.associatedEmail = jsonObject.getString("associatedEmail");
         this.eventDate = jsonObject.getString("eventDate");
         this.fundGoal = jsonObject.getDouble("fundGoal");
         this.currentFunds = jsonObject.getDouble("currentFunds");

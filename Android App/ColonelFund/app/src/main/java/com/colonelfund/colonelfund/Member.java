@@ -196,6 +196,7 @@ public class Member implements Serializable {
         this.emailAddress = jsonObject.getString("emailAddress");
         this.phoneNumber = jsonObject.getString("ohoneNumber");
         //TODO: update with FacebookID and GoogleID once it gets added to member table in database
+
     }
 
 }

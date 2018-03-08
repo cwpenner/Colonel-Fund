@@ -25,8 +25,10 @@ protocol LoginProtocol {
 
 class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDelegate, GIDSignInDelegate, LoginProtocol {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        //print(user.authentication)
-        loginWithGoogle(authentication: user.authentication)
+        if (user != nil) {
+            print(user.authentication)
+            loginWithGoogle(authentication: user.authentication)
+        }
     }
     
     
@@ -63,15 +65,12 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
         GIDSignIn.sharedInstance().clientID = "955648583908-18fsgss07paoie7hs3f22g23vbude6n1.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
-        
-        
-  
      
     }
     
     override func viewDidAppear(_ animated: Bool) {
         configureFBLoginButton()
-        //isGoogleLoggedIn()
+        isGoogleLoggedIn()
     }
    
     
@@ -209,7 +208,7 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
     }
     
     func isGoogleLoggedIn() {
-        if Auth.auth().currentUser != nil {
+        if GIDSignIn.sharedInstance().hasAuthInKeychain() == true {
             GIDSignIn.sharedInstance().signIn()
         }
     }

@@ -44,7 +44,7 @@ public class ViewEventActivity extends AppCompatActivity {
         text = (TextView) findViewById(R.id.textView11);
         text.setText(selectedEvent.getEventDate());
         text = (TextView) findViewById(R.id.textView9);
-        text.setText(selectedEvent.getAssociatedMember());
+        text.setText(selectedEvent.getAssociatedEmail());
         text = (TextView) findViewById(R.id.textView5);
         text.setText(String.valueOf(selectedEvent.getFundGoal()));
         text = (TextView) findViewById(R.id.textView7);

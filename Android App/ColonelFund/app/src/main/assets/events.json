@@ -1,65 +1,72 @@
 {
   "John's Chemo Fund": {
-    "EventDate": "2018-03-20",
-    "Description": "Help me pay my medical bills!",
-    "Title": "John's Chemo Fund",
-    "FundGoal": 5000,
-    "CurrentFunds": 1075.63,
-    "AssociatedMember": "JohnSmith",
-    "EventType": "Medical"
+    "eventDate": "2018-03-20",
+    "description": "Help me pay my medical bills!",
+    "title": "John's Chemo Fund",
+    "fundGoal": 5000,
+    "currentFunds": 1075.63,
+    "associatedMember": "JohnSmith",
+    "associatedEmail": "",
+    "type": "Medical"
   },
   "Alzheimer's Research Fund": {
-    "EventDate": "2018-01-18",
-    "Description": "Help out researchers.",
-    "Title": "Alzheimer's Research Fund",
-    "FundGoal": 7550,
-    "CurrentFunds": 750.63,
-    "AssociatedMember": "LiamGallagher",
-    "EventType": "Medical"
+    "eventDate": "2018-01-18",
+    "description": "Help out researchers.",
+    "title": "Alzheimer's Research Fund",
+    "fundGoal": 7550,
+    "currentFunds": 750.63,
+    "associatedMember": "LiamGallagher",
+    "associatedEmail": "",
+    "type": "Medical"
   },
   "Paul's MS Donations": {
-    "EventDate": "2018-05-14",
-    "Description": "Help me fund my MS bills.",
-    "Title": "Paul's MS Donations",
-    "FundGoal": 8367.53,
-    "CurrentFunds": 7505.63,
-    "AssociatedMember": "PaulMcCartney",
-    "EventType": "Medical"
+    "eventDate": "2018-05-14",
+    "description": "Help me fund my MS bills.",
+    "title": "Paul's MS Donations",
+    "fundGoal": 8367.53,
+    "currentFunds": 7505.63,
+    "associatedMember": "PaulMcCartney",
+    "associatedEmail": "",
+    "type": "Medical"
   },
   "Independence Day BBQ": {
-    "EventDate": "2018-07-04",
-    "Description": "Fun BBQ for 388 Dark Knights!",
-    "Title": "Independence Day BBQ",
-    "FundGoal": 1000,
-    "CurrentFunds": 75.63,
-    "AssociatedMember": "JohnSmith",
-    "EventType": "BBQ"
+    "eventDate": "2018-07-04",
+    "description": "Fun BBQ for 388 Dark Knights!",
+    "title": "Independence Day BBQ",
+    "fundGoal": 1000,
+    "currentFunds": 75.63,
+    "associatedMember": "JohnSmith",
+    "associatedEmail": "",
+    "type": "BBQ"
   },
   "Mrs. Cobain's Widow Help": {
-    "EventDate": "2018-02-05",
-    "Description": "Help out a Widow.",
-    "Title": "Mrs. Cobain's Widow Help",
-    "FundGoal": 3500,
-    "CurrentFunds": 2735.63,
-    "AssociatedMember": "CourtneyLove",
-    "EventType": "Unknown"
+    "eventDate": "2018-02-05",
+    "description": "Help out a Widow.",
+    "title": "Mrs. Cobain's Widow Help",
+    "fundGoal": 3500,
+    "currentFunds": 2735.63,
+    "associatedMember": "CourtneyLove",
+    "associatedEmail": "",
+    "type": "Unknown"
   },
   "Liam's house fire help": {
-    "EventDate": "2018-05-20",
-    "Description": "Help an unfortunate friend out.",
-    "Title": "Liam's house fire help",
-    "FundGoal": 7500,
-    "CurrentFunds": 2735.63,
-    "AssociatedMember": "LiamGallagher",
-    "EventType": "Emergency"
+    "eventDate": "2018-05-20",
+    "description": "Help an unfortunate friend out.",
+    "title": "Liam's house fire help",
+    "fundGoal": 7500,
+    "currentFunds": 2735.63,
+    "associatedMember": "LiamGallagher",
+    "associatedEmail": "",
+    "type": "Emergency"
   },
   "Mrs. Cobain's birthday": {
-    "EventDate": "2018-05-20",
-    "Description": "Support a widows birthday party.",
-    "Title": "Mrs. Cobain's birthday",
-    "FundGoal": 1500,
-    "CurrentFunds": 25.01,
-    "AssociatedMember": "CourtneyLove",
-    "EventType": "Party"
+    "eventDate": "2018-05-20",
+    "description": "Support a widows birthday party.",
+    "title": "Mrs. Cobain's birthday",
+    "fundGoal": 1500,
+    "currentFunds": 25.01,
+    "associatedMember": "CourtneyLove",
+    "associatedEmail": "",
+    "type": "Party"
   }
 }
