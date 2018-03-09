@@ -17,11 +17,8 @@ class update_event {
 
     public function checkExistingEvent($title) {
         $stmt = $this->conn->prepare("SELECT title from events WHERE upper(title) = ?");
-
         $stmt->bind_param("s", strtoupper($title));
-
         $stmt->execute();
-
         $stmt->store_result();
 
         if($stmt->num_rows > 0) {
@@ -35,18 +32,18 @@ class update_event {
         }
     }
 
-    public function storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type) {
-        $stmt = $this->conn->prepare("INSERT INTO events(title, associatedMember, eventDate, fundGoal, currentFunds, description, type) VALUES(?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssss", $title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type);
+    public function storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imagePath, $imageName) {
+        $stmt = $this->conn->prepare("INSERT INTO events(title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imagePath, imageName) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssss", $title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imagePath, $imageName);
         $result = $stmt->execute();
         $stmt->close();
 
         // check for successful store
         if($result) {
-            $stmt = $this->conn->prepare("SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type FROM events WHERE upper(title) = ?");
+            $stmt = $this->conn->prepare("SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imagePath, imageName FROM events WHERE upper(title) = ?");
             $stmt->bind_param("s", strtoupper($title));
             $stmt->execute();
-            $stmt->bind_result($token1,$token2,$token3,$token4,$token5,$token6,$token7);
+            $stmt->bind_result($token1,$token2,$token3,$token4,$token5,$token6,$token7,$token8,$token9);
             while($stmt->fetch()) {
                 $event["title"] = $token1;
                 $event["associatedMember"] = $token2;
@@ -55,6 +52,8 @@ class update_event {
                 $event["currentFunds"] = $token5;
                 $event["description"] = $token6;
                 $event["type"] = $token7;
+                $event["imagePath"] = $token8;
+                $event["imageName"] = $token9;
             }
             $stmt->close();
             return $event;

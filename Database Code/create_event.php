@@ -13,7 +13,9 @@ if (isset($_POST['title']) &&
     isset($_POST['fundGoal']) &&
     isset($_POST['currentFunds']) &&
     isset($_POST['description']) &&
-    isset($_POST['type'])) {
+    isset($_POST['type']) &&
+    isset($_POST['imagePath']) &&
+    isset($_POST['imageName'])) {
 
     // receiving the post params
     $title = $_POST['title'];
@@ -23,6 +25,8 @@ if (isset($_POST['title']) &&
     $currentFunds = $_POST['currentFunds'];
     $description = $_POST['description'];
     $type = $_POST['type'];
+    $imagePath = $_POST['imagePath'];
+    $imageName = $_POST['imageName'];
 
     // check if event is already existed with the same title
     if ($db->checkExistingEvent($title)) {
@@ -32,7 +36,7 @@ if (isset($_POST['title']) &&
         echo json_encode($response);
     } else {
         // create a new event
-        $event = $db->storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type);
+        $event = $db->storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imagePath, $imageName);
         if ($event) {
             // user stored successfully
             $response["error"] = FALSE;
@@ -43,6 +47,8 @@ if (isset($_POST['title']) &&
             $response["event"]["currentFunds"] = $event["currentFunds"];
             $response["event"]["description"] = $event["description"];
             $response["event"]["type"] = $event["type"];
+            $response["event"]["imagePath"] = $event["imagePath"];
+            $response["event"]["imageName"] = $event["imageName"];
             echo json_encode($response);
         } else {
             // user failed to store
@@ -53,7 +59,7 @@ if (isset($_POST['title']) &&
     }
 } else {
     $response["error"] = TRUE;
-    $response["error_msg"] = "Required parameters (title, associatedMember, eventDate, fundGoal, currentFunds, description, type) is missing!";
+    $response["error_msg"] = "Required parameters (title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imagePath, imageName) is missing!";
     echo json_encode($response);
 }
 ?>

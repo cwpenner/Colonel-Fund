@@ -110,6 +110,8 @@ public class CreateEventActivity extends AppCompatActivity {
                              final String eventDescription, final String eventType,
                              final ImageView imageView) {
 
+        // https://androidjson.com/android-upload-image-server-using-php-mysql/
+
         String cancel_event_tag = "register";
 
         progressDialog.setMessage("Creating Event...");
@@ -164,6 +166,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 params.put("currentFunds", "0");
                 params.put("description", eventDescription);
                 params.put("type", eventType);
+//                params.put("imagePath", imagePath);
+//                params.put("imageName", imageName);
                 return params;
             }
         };

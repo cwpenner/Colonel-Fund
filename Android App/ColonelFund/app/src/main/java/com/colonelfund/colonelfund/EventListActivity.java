@@ -72,7 +72,7 @@ public class EventListActivity extends AppCompatActivity {
                         arrayAdapter = new EventListAdapter(ctx, generateData(newEventList));
                         lv.setAdapter(arrayAdapter);
                     }
-                },3000);
+                }, 3000);
             }
         });
 
@@ -99,10 +99,12 @@ public class EventListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
@@ -424,7 +426,9 @@ class EventListModel {
      * @return eventDate
      */
 
-    public String getAssociatedEmail() {return associatedEmail;}
+    public String getAssociatedEmail() {
+        return associatedEmail;
+    }
 
     public String getEventDate() {
         return eventDate;
