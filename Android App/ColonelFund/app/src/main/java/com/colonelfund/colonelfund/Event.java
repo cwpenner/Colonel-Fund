@@ -1,7 +1,13 @@
 package com.colonelfund.colonelfund;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 /**
@@ -17,6 +23,7 @@ public class Event implements Serializable {
     private double currentFunds;
     private String description;
     private String type;
+    private Bitmap bitmap;
     /**
      * @param title of event
      * @param associatedMember of event
@@ -25,6 +32,7 @@ public class Event implements Serializable {
      * @param fundGoal of event
      * @param currentFunds of event
      * @param description of event
+     * @param bitmap of event
      */
     public Event(String title,
                  String associatedMember,
@@ -49,7 +57,8 @@ public class Event implements Serializable {
                  double fundGoal,
                  double currentFunds,
                  String description,
-                 String type) {
+                 String type,
+                 Bitmap bitmap) {
         super();
         this.title = title;
         this.associatedMember = associatedMember;
@@ -59,6 +68,7 @@ public class Event implements Serializable {
         this.currentFunds = currentFunds;
         this.description = description;
         this.type = type;
+        this.bitmap = bitmap;
     }
     /**
      * @return the title
@@ -154,6 +164,25 @@ public class Event implements Serializable {
      * Get a JSONObject representation of Event
      * @return JSONObject of an event
      */
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    private String imageToString(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] imgBytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+    }
+
+    private Bitmap stringToBitmap(String image) {
+        byte[] imageAsBytes = Base64.decode(image.getBytes(),0);
+        return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+    }
+
     public JSONObject toJson() throws JSONException {
         JSONObject JsonObj = new JSONObject();
         JsonObj.put("title", title);
@@ -164,6 +193,7 @@ public class Event implements Serializable {
         JsonObj.put("currentFunds", currentFunds);
         JsonObj.put("description", description);
         JsonObj.put("type", type);
+//        JsonObj.put("image", imageToString(getBitmap()));
         return JsonObj;
     }
     /**
@@ -179,5 +209,6 @@ public class Event implements Serializable {
         this.currentFunds = jsonObject.getDouble("currentFunds");
         this.description = jsonObject.getString("description");
         this.type = jsonObject.getString("type");
+//        this.bitmap = stringToBitmap(jsonObject.getString("image"));
     }
 }

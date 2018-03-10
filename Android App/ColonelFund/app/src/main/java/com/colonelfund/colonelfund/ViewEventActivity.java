@@ -18,6 +18,7 @@ import com.facebook.login.LoginManager;
 public class ViewEventActivity extends AppCompatActivity {
     /**
      * Paints event info to screen.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -29,9 +30,9 @@ public class ViewEventActivity extends AppCompatActivity {
         if ((Event) intent.getSerializableExtra("SelectedEvent") != null) {
             aEvent = (Event) intent.getSerializableExtra("SelectedEvent");
         } else {
-            aEvent = new Event ("Error", "Error", "Error",0.0,0.0, "Error", "Error");
+            aEvent = new Event("Error", "Error", "Error", 0.0, 0.0, "Error", "Error");
         }
-        final Event selectedEvent =  aEvent;
+        final Event selectedEvent = aEvent;
         setContentView(R.layout.activity_view_event);
         TextView text = (TextView) findViewById(R.id.textView3);
         text.setText(selectedEvent.getTitle());
@@ -75,7 +76,7 @@ public class ViewEventActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
-            if(token != null) {
+            if (token != null) {
                 LoginManager.getInstance().logOut();
             }
             Intent loginIntent = new Intent(this, LoginActivity.class);
