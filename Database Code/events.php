@@ -16,17 +16,14 @@ function __construct() {
     return $conn;
 }
 
-$query = "SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imagePath FROM events";
+$query = "SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imageURL FROM events";
 $response = mysqli_query($conn,$query) or die("Couldn't execute query.");
 
 $rows = array();
 while($r = mysqli_fetch_assoc($response)) {
     $r['associatedEmail'] = $something->returnEmail($r['associatedMember']);
-    $r['image'] = base64_encode(file_get_contents($r['imagePath']));
-    unset($r['imagePath']);
     $rows[] = $r;
 }
-
 
 echo json_encode($rows);
 

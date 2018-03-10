@@ -32,15 +32,15 @@ class update_event {
         }
     }
 
-    public function storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imagePath) {
-        $stmt = $this->conn->prepare("INSERT INTO events(title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imagePath) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssss", $title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imagePath);
+    public function storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imageURL) {
+        $stmt = $this->conn->prepare("INSERT INTO events(title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imageURL) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssss", $title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imageURL);
         $result = $stmt->execute();
         $stmt->close();
 
         // check for successful store
         if($result) {
-            $stmt = $this->conn->prepare("SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imagePath FROM events WHERE upper(title) = ?");
+            $stmt = $this->conn->prepare("SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imageURL FROM events WHERE upper(title) = ?");
             $stmt->bind_param("s", strtoupper($title));
             $stmt->execute();
             $stmt->bind_result($token1,$token2,$token3,$token4,$token5,$token6,$token7,$token8);
@@ -52,7 +52,7 @@ class update_event {
                 $event["currentFunds"] = $token5;
                 $event["description"] = $token6;
                 $event["type"] = $token7;
-                $event["imagePath"] = $token8;
+                $event["imageURL"] = $token8;
             }
             $stmt->close();
             return $event;
