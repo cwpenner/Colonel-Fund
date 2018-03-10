@@ -23,16 +23,18 @@ public class Event implements Serializable {
     private double currentFunds;
     private String description;
     private String type;
-    private Bitmap bitmap;
+    private String imageURL;
+
     /**
-     * @param title of event
+     * @param title            of event
      * @param associatedMember of event
-     * @param associatedEmail of event
-     * @param eventDate of event
-     * @param fundGoal of event
-     * @param currentFunds of event
-     * @param description of event
-     * @param bitmap of event
+     * @param associatedEmail  of event
+     * @param eventDate        of event
+     * @param fundGoal         of event
+     * @param currentFunds     of event
+     * @param description      of event
+     * @param type             of event
+     * @param imageURL         of event
      */
     public Event(String title,
                  String associatedMember,
@@ -50,6 +52,7 @@ public class Event implements Serializable {
         this.description = description;
         this.type = type;
     }
+
     public Event(String title,
                  String associatedMember,
                  String associatedEmail,
@@ -58,7 +61,7 @@ public class Event implements Serializable {
                  double currentFunds,
                  String description,
                  String type,
-                 Bitmap bitmap) {
+                 String imageURL) {
         super();
         this.title = title;
         this.associatedMember = associatedMember;
@@ -68,119 +71,128 @@ public class Event implements Serializable {
         this.currentFunds = currentFunds;
         this.description = description;
         this.type = type;
-        this.bitmap = bitmap;
+        this.imageURL = imageURL;
     }
+
     /**
      * @return the title
      */
     public String getTitle() {
         return title;
     }
+
     /**
      * @param title the title to set
      */
     public void setTitle(String title) {
         this.title = title;
     }
+
     /**
      * @return the associatedMember
      */
     public String getAssociatedMember() {
         return associatedMember;
     }
+
     /**
      * @param associatedMember the associatedMember to set
      */
     public void setAssociatedMember(String associatedMember) {
         this.associatedMember = associatedMember;
     }
+
     public void setAssociatedEmail(String associatedEmail) {
         this.associatedEmail = associatedEmail;
     }
+
     /**
      * @return the eventDate
      */
     public String getEventDate() {
         return eventDate;
     }
+
     /**
      * @param eventDate the eventDate to set
      */
     public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
+
     /**
      * @return the fundGoal
      */
     public double getFundGoal() {
         return fundGoal;
     }
+
     /**
      * @param fundGoal the fundGoal to set
      */
     public void setFundGoal(double fundGoal) {
         this.fundGoal = fundGoal;
     }
+
     /**
      * @return the currentFunds
      */
-    public String getAssociatedEmail() {return associatedEmail;}
+    public String getAssociatedEmail() {
+        return associatedEmail;
+    }
 
     public double getCurrentFunds() {
         return currentFunds;
     }
+
     /**
      * @param currentFunds the currentFunds to set
      */
     public void setCurrentFunds(double currentFunds) {
         this.currentFunds = currentFunds;
     }
+
     /**
      * @return the description
      */
     public String getDescription() {
         return description;
     }
+
     /**
      * Set the description
+     *
      * @param description
      */
     public void setDescription(String description) {
         this.description = description;
     }
+
     /**
      * @return the title
      */
     public String getType() {
         return type;
     }
+
     /**
      * @param type the title to set
      */
     public void setType(String type) {
         this.type = type;
     }
+
     /**
      * Get a JSONObject representation of Event
+     *
      * @return JSONObject of an event
      */
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    private String imageToString(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] imgBytes = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(imgBytes, Base64.DEFAULT);
-    }
-
-    private Bitmap stringToBitmap(String image) {
-        byte[] imageAsBytes = Base64.decode(image.getBytes(),0);
-        return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public JSONObject toJson() throws JSONException {
@@ -193,11 +205,13 @@ public class Event implements Serializable {
         JsonObj.put("currentFunds", currentFunds);
         JsonObj.put("description", description);
         JsonObj.put("type", type);
-//        JsonObj.put("image", imageToString(getBitmap()));
+        JsonObj.put("imageURL", imageURL);
         return JsonObj;
     }
+
     /**
      * Constructor with JSON Object.
+     *
      * @param jsonObject of an event
      */
     public Event(JSONObject jsonObject) throws JSONException {
@@ -209,6 +223,6 @@ public class Event implements Serializable {
         this.currentFunds = jsonObject.getDouble("currentFunds");
         this.description = jsonObject.getString("description");
         this.type = jsonObject.getString("type");
-//        this.bitmap = stringToBitmap(jsonObject.getString("image"));
+        this.imageURL = jsonObject.getString("imageURL");
     }
 }

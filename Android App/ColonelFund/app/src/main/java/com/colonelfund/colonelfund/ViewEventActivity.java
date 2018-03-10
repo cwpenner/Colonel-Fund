@@ -1,12 +1,14 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -15,12 +17,16 @@ import com.facebook.login.LoginManager;
 /**
  * Activity for Member Viewing an Event.
  */
-public class ViewEventActivity extends AppCompatActivity {
+public class ViewEventActivity extends AppCompatActivity implements ImageDownloader.ImageDownloadDelegate {
+
+    private ImageView imageView;
+
     /**
      * Paints event info to screen.
      *
      * @param savedInstanceState
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +52,10 @@ public class ViewEventActivity extends AppCompatActivity {
         text.setText(String.valueOf(selectedEvent.getCurrentFunds()));
         text = (TextView) findViewById(R.id.textView2);
         text.setText(String.valueOf(selectedEvent.getDescription()));
+
+        imageView = (ImageView) findViewById(R.id.imageView);
+        ImageDownloader imageDownloader = new ImageDownloader(this);
+        imageDownloader.execute(selectedEvent.getImageURL());
 
         Button donateButton = findViewById(R.id.button);
         donateButton.setOnClickListener(new View.OnClickListener() {
@@ -86,5 +96,10 @@ public class ViewEventActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void imageDownloaded(Bitmap bitmap) {
+        imageView.setImageBitmap(bitmap);
     }
 }

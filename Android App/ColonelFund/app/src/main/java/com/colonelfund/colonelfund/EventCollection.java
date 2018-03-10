@@ -2,9 +2,6 @@ package com.colonelfund.colonelfund;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -81,7 +78,7 @@ public class EventCollection {
                                 Double.parseDouble(jObj.getString("currentFunds")),
                                 jObj.getString("description"),
                                 jObj.getString("type"),
-                                stringToBitmap(jObj.getString("image")));
+                                jObj.getString("imageURL"));
 
                         outputObj.put(jObj.getString("title"), aEvent.toJson());
                     }
@@ -99,11 +96,6 @@ public class EventCollection {
         // Adding request to request queue
         strReq.setTag(appContext);
         appContext.addToRequestQueue(strReq, cancel_req_tag);
-    }
-
-    private Bitmap stringToBitmap(String image) {
-        byte[] imageAsBytes = Base64.decode(image.getBytes(),0);
-        return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
     }
 
     /**

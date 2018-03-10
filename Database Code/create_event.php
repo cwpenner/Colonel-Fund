@@ -27,7 +27,9 @@ if (isset($_POST['title']) &&
     $type = $_POST['type'];
     $image = $_POST['image'];
     $rand = rand(1000,9999);
-    $imageURL = "https://wesll.com/colonelfund/events_images/$associatedMember-$rand.jpeg";
+    $imageName = "$associatedMember-$rand.jpeg";
+    $imagePath = "events_images/$imageName";
+    $imageURL = "https://wesll.com/colonelfund/$imagePath";
 
     // check if event is already existed with the same title
     if ($db->checkExistingEvent($title)) {
@@ -37,7 +39,7 @@ if (isset($_POST['title']) &&
         echo json_encode($response);
     } else {
         // put event image in file system
-        file_put_contents("$imageURL", base64_decode($image));
+        file_put_contents("$imagePath", base64_decode($image));
 
         // create a new event
         $event = $db->storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imageURL);
