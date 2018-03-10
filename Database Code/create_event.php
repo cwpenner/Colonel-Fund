@@ -4,6 +4,7 @@ require_once 'update_event.php';
 
 $db = new update_event();
 
+
 // json response array
 $response = array("error" => FALSE);
 
@@ -14,8 +15,7 @@ if (isset($_POST['title']) &&
     isset($_POST['currentFunds']) &&
     isset($_POST['description']) &&
     isset($_POST['type']) &&
-    isset($_POST['imagePath']) &&
-    isset($_POST['imageName'])) {
+    isset($_POST['image'])) {
 
     // receiving the post params
     $title = $_POST['title'];
@@ -25,8 +25,9 @@ if (isset($_POST['title']) &&
     $currentFunds = $_POST['currentFunds'];
     $description = $_POST['description'];
     $type = $_POST['type'];
-    $imagePath = $_POST['imagePath'];
-    $imageName = $_POST['imageName'];
+    $image = $_POST['image'];
+    $rand = rand(1000,9999);
+    $imagePath = "events_images/$associatedMember-$rand.jpeg";
 
     // check if event is already existed with the same title
     if ($db->checkExistingEvent($title)) {
@@ -35,8 +36,11 @@ if (isset($_POST['title']) &&
         $response["error_msg"] = "Event already exists with " . $title;
         echo json_encode($response);
     } else {
+        // put event image in file system
+        file_put_contents($imagePath, base64_decode($image));
+
         // create a new event
-        $event = $db->storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imagePath, $imageName);
+        $event = $db->storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imagePath);
         if ($event) {
             // user stored successfully
             $response["error"] = FALSE;
@@ -48,7 +52,6 @@ if (isset($_POST['title']) &&
             $response["event"]["description"] = $event["description"];
             $response["event"]["type"] = $event["type"];
             $response["event"]["imagePath"] = $event["imagePath"];
-            $response["event"]["imageName"] = $event["imageName"];
             echo json_encode($response);
         } else {
             // user failed to store
@@ -59,7 +62,7 @@ if (isset($_POST['title']) &&
     }
 } else {
     $response["error"] = TRUE;
-    $response["error_msg"] = "Required parameters (title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imagePath, imageName) is missing!";
+    $response["error_msg"] = "Required parameters (title, associatedMember, eventDate, fundGoal, currentFunds, description, type, image) is missing!";
     echo json_encode($response);
 }
 ?>

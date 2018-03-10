@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import com.facebook.login.LoginManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -46,6 +48,7 @@ public class CreateEventActivity extends AppCompatActivity {
     private final String URL_FOR_CREATE_EVENT = "https://wesll.com/colonelfund/create_event.php";
     private ImageView imageView;
     ProgressDialog progressDialog;
+    Bitmap bitmap;
     private static final int PICK_IMAGE = 100;
 
     /**
@@ -99,18 +102,22 @@ public class CreateEventActivity extends AppCompatActivity {
                     hideDialog();
                 } else {
                     createEvent(strEventTitle, strEventMember, strEventDate, strEventGoal,
-                            strEventDescription, strEventType, imageView);
+                            strEventDescription, strEventType);
                 }
             }
         });
     }
 
+    private String imageToString(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] imgBytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+    }
+
     private void createEvent(final String eventTitle, final String eventMember,
                              final String eventDate, final String eventGoal,
-                             final String eventDescription, final String eventType,
-                             final ImageView imageView) {
-
-        // https://androidjson.com/android-upload-image-server-using-php-mysql/
+                             final String eventDescription, final String eventType) {
 
         String cancel_event_tag = "register";
 
@@ -166,8 +173,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 params.put("currentFunds", "0");
                 params.put("description", eventDescription);
                 params.put("type", eventType);
-//                params.put("imagePath", imagePath);
-//                params.put("imageName", imageName);
+                params.put("image", imageToString(bitmap));
                 return params;
             }
         };
@@ -217,7 +223,7 @@ public class CreateEventActivity extends AppCompatActivity {
             Uri imageUri = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
 //                Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, 0, 0, imageView.getWidth(), imageView.getHeight());
                 bitmap = Bitmap.createScaledBitmap(bitmap, imageView.getWidth(), imageView.getHeight(), true);
                 imageView.setImageBitmap(bitmap);
