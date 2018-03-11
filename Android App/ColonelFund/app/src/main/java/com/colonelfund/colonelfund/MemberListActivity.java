@@ -6,12 +6,15 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -132,5 +135,90 @@ public class MemberListActivity extends AppCompatActivity {
                     temp.getUserID(), firstName, lastName));
         }
         return models;
+    }
+}
+
+/**
+ * Member list Item Model class.
+ */
+class MemberListModel {
+    private String userID;
+    private String initials;
+    private String firstName;
+    private String lastName;
+
+    /**
+     * Constructor for Initials circle.
+     * @param initials
+     * @param userID
+     */
+    public MemberListModel(String initials, String userID, String firstName, String lastName) {
+        super();
+        this.initials = initials;
+        this.userID = userID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public String getInitials() {
+        return initials;
+    }
+    public String getUserID() {
+        return userID;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+}
+
+/**
+ * Member list adapter class.
+ */
+class MemberListAdapter extends ArrayAdapter<MemberListModel> {
+
+    private final Context context;
+    private final ArrayList<MemberListModel> modelsArrayList;
+
+    /**
+     * Constructor for member list item adapter.
+     * @param context
+     * @param modelsArrayList
+     */
+    public MemberListAdapter(Context context, ArrayList<MemberListModel> modelsArrayList) {
+        super(context, R.layout.member_list_item, modelsArrayList);
+        this.context = context;
+        this.modelsArrayList = modelsArrayList;
+    }
+
+    /**
+     * Gets View for Member List Item.
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View rowView = null;
+        rowView = inflater.inflate(R.layout.member_list_item, parent, false);
+
+        TextView memberInitials = (TextView) rowView.findViewById(R.id.member_initials);
+        TextView memberName = (TextView) rowView.findViewById(R.id.memberName);
+        TextView memberID = (TextView) rowView.findViewById(R.id.userID);
+
+        memberInitials.setText(modelsArrayList.get(position).getInitials());
+        memberName.setText(modelsArrayList.get(position).getFullName());
+        memberID.setText(modelsArrayList.get(position).getUserID());
+
+        return rowView;
     }
 }
