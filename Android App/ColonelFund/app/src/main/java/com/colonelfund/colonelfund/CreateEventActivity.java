@@ -110,9 +110,14 @@ public class CreateEventActivity extends AppCompatActivity {
 
     private String imageToString(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] imgBytes = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+        try {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] imgBytes = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "default";
+        }
     }
 
     private void createEvent(final String eventTitle, final String eventMember,
@@ -224,7 +229,6 @@ public class CreateEventActivity extends AppCompatActivity {
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-//                Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, 0, 0, imageView.getWidth(), imageView.getHeight());
                 bitmap = Bitmap.createScaledBitmap(bitmap, imageView.getWidth(), imageView.getHeight(), true);
                 imageView.setImageBitmap(bitmap);
 
