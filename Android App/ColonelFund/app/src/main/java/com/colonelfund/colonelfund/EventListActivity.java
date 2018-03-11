@@ -229,7 +229,7 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         }
         // view holders for information
         TextView eventName = (TextView) holder.eventView.findViewById(R.id.memberName);
-        TextView eventMember = (TextView) holder.eventView.findViewById(R.id.eventUser);
+        TextView eventMember = (TextView) holder.eventView.findViewById(R.id.userID);
         ProgressBar goalProgress = (ProgressBar) holder.eventView.findViewById(R.id.goalProgress);
         ImageView eventType = (ImageView) holder.eventView.findViewById(R.id.member_initials);
         TextView eventDay = (TextView) holder.eventView.findViewById(R.id.event_day_box);
