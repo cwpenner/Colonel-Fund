@@ -45,9 +45,7 @@ public class MemberListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_member_list);
         searchBar = (EditText) findViewById(R.id.editText);
         lv = (ListView) findViewById(R.id.memberListView);
-
         final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
-
         final MemberCollection mcf = new MemberCollection(getApplicationContext());
         Collection<Member> memberList = mcf.getMembersList();
 
@@ -70,11 +68,20 @@ public class MemberListActivity extends AppCompatActivity {
                 },3000);
             }
         });
-
         //make array adapter
         arrayAdapter = new MemberListAdapter(this, generateData(memberList));
         lv.setAdapter(arrayAdapter);
-
+        // Add listeners for each list item.
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MemberListModel item = (MemberListModel) lv.getItemAtPosition(position);
+                String myItem = item.getUserID();
+                Intent intent = new Intent(MemberListActivity.this, ViewMemberActivity.class);
+                intent.putExtra("SelectedMember", mcf.get(myItem));
+                startActivity(intent);
+            }
+        });
         lv.setTextFilterEnabled(true);
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,17 +97,7 @@ public class MemberListActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        // Add listeners for each list item.
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MemberListModel item = (MemberListModel) lv.getItemAtPosition(position);
-                String myItem = item.getUserID();
-                Intent intent = new Intent(MemberListActivity.this, ViewMemberActivity.class);
-                intent.putExtra("SelectedMember", mcf.get(myItem));
-                startActivity(intent);
-            }
-        });
+
     }
 
     /**

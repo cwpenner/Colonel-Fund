@@ -48,6 +48,7 @@
         android:text="User ID"
         android:textSize="14dp" />
 
+    <!-- Testing removal for clickable member
     <ToggleButton
         android:id="@+id/memberFavorite"
         style="@android:style/Widget.CompoundButton.Star"
@@ -60,5 +61,6 @@
         android:gravity="center"
         android:textOff=""
         android:textOn="" />
+        -->
 
 </RelativeLayout>
