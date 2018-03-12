@@ -79,6 +79,7 @@ public class EventListActivity extends AppCompatActivity {
                         Collection<Event> newEventList = newEcf.getEventsList();
                         arrayAdapter = new EventListAdapter(ctx, generateData(newEventList));
                         lv.setAdapter(arrayAdapter);
+                        arrayAdapter.getFilter().filter(searchBar.getText());
                     }
                 },3000);
             }
@@ -239,7 +240,7 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         }
         // view holders for information
         TextView eventName = (TextView) holder.eventView.findViewById(R.id.memberName);
-        TextView eventMember = (TextView) holder.eventView.findViewById(R.id.eventUser);
+        TextView eventMember = (TextView) holder.eventView.findViewById(R.id.userID);
         ProgressBar goalProgress = (ProgressBar) holder.eventView.findViewById(R.id.goalProgress);
         ImageView eventType = (ImageView) holder.eventView.findViewById(R.id.member_initials);
         TextView eventDay = (TextView) holder.eventView.findViewById(R.id.event_day_box);
@@ -453,4 +454,5 @@ class EventListModel {
     public String getEventDesc() {
         return eventDescription;
     }
+
 }

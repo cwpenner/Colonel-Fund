@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#F3F3F3">
@@ -25,12 +26,41 @@
         android:id="@+id/memberName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/member_initials"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="0dp"
-        android:layout_toEndOf="@+id/member_initials"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/member_initials"
         android:layout_toRightOf="@+id/member_initials"
+        android:gravity="left"
+        android:text="Member Name"
         android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/userID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/memberName"
+        android:layout_alignTop="@id/memberName"
+        android:layout_below="@+id/memberName"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:gravity="left"
+        android:text="User ID"
+        android:textSize="14dp" />
+
+    <!-- Testing removal for clickable member
+    <ToggleButton
+        android:id="@+id/memberFavorite"
+        style="@android:style/Widget.CompoundButton.Star"
+        android:layout_width="34dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:textOff=""
+        android:textOn="" />
+        -->
 
 </RelativeLayout>
