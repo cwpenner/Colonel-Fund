@@ -64,6 +64,7 @@ public class MemberListActivity extends AppCompatActivity {
                         Collection<Member> newMemberList = newMcf.getMembersList();
                         arrayAdapter = new MemberListAdapter(ctx, generateData(newMemberList));
                         lv.setAdapter(arrayAdapter);
+                        arrayAdapter.getFilter().filter(searchBar.getText());
                     }
                 },3000);
             }
@@ -150,7 +151,7 @@ public class MemberListActivity extends AppCompatActivity {
             String firstName = temp.getFirstName();
             String lastName = temp.getLastName();
             models.add(new MemberListModel(firstName.substring(0, 1) + lastName.substring(0, 1),
-                    temp.getUserID(), firstName, lastName));
+                    temp.getUserID(), firstName, lastName, temp.getEmailAddress()));
         }
         return models;
     }
@@ -206,7 +207,7 @@ class MemberListAdapter extends ArrayAdapter<MemberListModel> implements Filtera
 
         memberInitials.setText(filteredModelsArrayList.get(position).getInitials());
         memberName.setText(filteredModelsArrayList.get(position).getFullName());
-        memberID.setText(filteredModelsArrayList.get(position).getUserID());
+        memberID.setText(filteredModelsArrayList.get(position).getEmail());
         return holder.memberView;
     }
 
@@ -251,6 +252,9 @@ class MemberListAdapter extends ArrayAdapter<MemberListModel> implements Filtera
                     nlist.add(filterableModel);
                     System.out.println("Added Member: " + filterableModel.getFullName());
                 } else if (filterableModel.getUserID().toLowerCase().contains(filterString)) {
+                    nlist.add(filterableModel);
+                    System.out.println("Added Member: " + filterableModel.getFullName());
+                } else if (filterableModel.getEmail().toLowerCase().contains(filterString)) {
                     nlist.add(filterableModel);
                     System.out.println("Added Member: " + filterableModel.getFullName());
                 }
@@ -320,18 +324,20 @@ class MemberListModel {
     private String initials;
     private String firstName;
     private String lastName;
+    private String associatedEmail;
 
     /**
      * Constructor for Initials circle.
      * @param initials
      * @param userID
      */
-    public MemberListModel(String initials, String userID, String firstName, String lastName) {
+    public MemberListModel(String initials, String userID, String firstName, String lastName, String associatedEmail) {
         super();
         this.initials = initials;
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.associatedEmail = associatedEmail;
     }
 
     public String getInitials() {
@@ -348,6 +354,9 @@ class MemberListModel {
     }
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+    public String getEmail() {
+        return associatedEmail;
     }
 }
 

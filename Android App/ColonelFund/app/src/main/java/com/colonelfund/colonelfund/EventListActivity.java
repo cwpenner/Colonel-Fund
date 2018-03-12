@@ -71,6 +71,7 @@ public class EventListActivity extends AppCompatActivity {
                         Collection<Event> newEventList = newEcf.getEventsList();
                         arrayAdapter = new EventListAdapter(ctx, generateData(newEventList));
                         lv.setAdapter(arrayAdapter);
+                        arrayAdapter.getFilter().filter(searchBar.getText());
                     }
                 },3000);
             }
@@ -443,4 +444,5 @@ class EventListModel {
     public String getEventDesc() {
         return eventDescription;
     }
+
 }
