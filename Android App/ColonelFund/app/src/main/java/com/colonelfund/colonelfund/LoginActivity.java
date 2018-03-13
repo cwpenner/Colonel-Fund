@@ -61,6 +61,13 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin, btnRegister;
     AppSingleton appContext;
 
+    // Current User Properties
+    private String firstName;
+    private String lastName;
+    private String emailAddress;
+    private String profilePicURL;
+    private String facebookID;
+    private String googleID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,8 +159,28 @@ public class LoginActivity extends AppCompatActivity {
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
                             Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            Log.d("login", "Facebook object:" + object.toString());
+                            if (object.getString("first_name") != null) {
+                                firstName = object.getString("first_name");
+                            }
+                            if (object.getString("last_name") != null) {
+                                lastName = object.getString("last_name");
+                            }
+                            if (object.getString("email") != null) {
+                                emailAddress = object.getString("email");
+                            }
+                            if (object.getString("picture") != null) {
+                                profilePicURL = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                            }
+                            if (object.getString("id") != null) {
+                                facebookID = object.getString("id");
+                            }
+                            Member member = new Member("", firstName, lastName, emailAddress, "");
+                            member.setProfilePicURL(profilePicURL);
+                            member.setFacebookID(facebookID);
+                            User.setCurrentUser(member);
+                            Toast.makeText(LoginActivity.this, User.currentUser.getFormattedFullName() + " signed in successfully", Toast.LENGTH_LONG).show();
                             startActivity(MainIntent);
-                            Toast.makeText(LoginActivity.this, object.getString("name") + " Signed in successfully", Toast.LENGTH_LONG).show();
 
                         } catch (JSONException ex) {
                             ex.printStackTrace();
@@ -162,14 +189,9 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, name, email, gender, birthday");
+                parameters.putString("fields", "id, first_name, last_name, email, gender, birthday, picture");
                 req.setParameters(parameters);
                 req.executeAsync();
-                //Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
-                //startActivity(MainIntent);
-                //Log.d("login", accessToken. );
-
-                Toast.makeText(LoginActivity.this, accessToken.getUserId() + "Signed in successfully", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -208,13 +230,13 @@ public class LoginActivity extends AppCompatActivity {
                     boolean error = jObj.getBoolean("error");
 
                     if (!error) {
-                        String user = jObj.getJSONObject("user").getString("firstName");
+                        Member member = new Member(jObj.getJSONObject("user"));
+                        User.setCurrentUser(member);
 
                         // Launch User activity
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("username", user);
                         startActivity(intent);
-                        Toast.makeText(getApplicationContext(), "Signed in successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), User.currentUser.getFormattedFullName() + " signed in successfully", Toast.LENGTH_LONG).show();
                         finish();
                     } else {
 
@@ -283,12 +305,29 @@ public class LoginActivity extends AppCompatActivity {
       }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
+            GoogleSignInAccount googleAccount = completedTask.getResult(ApiException.class);
             Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
+            if (googleAccount.getGivenName() != null) {
+                firstName = googleAccount.getGivenName();
+            }
+            if (googleAccount.getFamilyName() != null) {
+                lastName = googleAccount.getFamilyName();
+            }
+            if (googleAccount.getEmail() != null) {
+                emailAddress = googleAccount.getEmail();
+            }
+            if (googleAccount.getPhotoUrl() != null) {
+                profilePicURL = googleAccount.getPhotoUrl().toString();
+            }
+            if (googleAccount.getId() != null) {
+                googleID = googleAccount.getId();
+            }
+            Member member = new Member("", firstName, lastName, emailAddress, "");
+            member.setProfilePicURL(profilePicURL);
+            member.setGoogleID(googleID);
+            User.setCurrentUser(member);
+            Toast.makeText(LoginActivity.this, User.currentUser.getFormattedFullName() + " signed in successfully", Toast.LENGTH_LONG).show();
             startActivity(MainIntent);
-            Toast.makeText(LoginActivity.this, account.getGivenName() + " Signed in successfully",Toast.LENGTH_LONG).show();
-
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.

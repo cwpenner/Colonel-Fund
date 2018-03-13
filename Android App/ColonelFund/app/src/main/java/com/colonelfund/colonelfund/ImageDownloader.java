@@ -72,4 +72,5 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 
         return stream;
     }
+
 }

@@ -19,7 +19,6 @@
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
-    />
 
     <!-- title -->
     <TextView
@@ -35,7 +34,7 @@
         android:textSize="18dp" />
 
     <TextView
-        android:id="@+id/userID"
+        android:id="@+id/memberEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/memberName"
