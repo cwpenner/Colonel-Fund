@@ -1,13 +1,17 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,11 +25,16 @@ import com.google.firebase.auth.FirebaseAuth;
 /**
  * Activity for Member Viewing an Event.
  */
-public class ViewEventActivity extends AppCompatActivity {
+public class ViewEventActivity extends AppCompatActivity implements ImageDownloader.ImageDownloadDelegate {
+
+    private ImageView imageView;
+
     /**
      * Paints event info to screen.
+     *
      * @param savedInstanceState
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +44,9 @@ public class ViewEventActivity extends AppCompatActivity {
         if ((Event) intent.getSerializableExtra("SelectedEvent") != null) {
             aEvent = (Event) intent.getSerializableExtra("SelectedEvent");
         } else {
-            aEvent = new Event ("Error", "Error", "Error",0.0,0.0, "Error", "Error");
+            aEvent = new Event("Error", "Error", "Error", 0.0, 0.0, "Error", "Error");
         }
-        final Event selectedEvent =  aEvent;
+        final Event selectedEvent = aEvent;
         setContentView(R.layout.activity_view_event);
         TextView text = (TextView) findViewById(R.id.textView3);
         text.setText(selectedEvent.getTitle());
@@ -51,6 +60,10 @@ public class ViewEventActivity extends AppCompatActivity {
         text.setText(String.valueOf(selectedEvent.getCurrentFunds()));
         text = (TextView) findViewById(R.id.textView2);
         text.setText(String.valueOf(selectedEvent.getDescription()));
+
+        imageView = (ImageView) findViewById(R.id.imageView);
+        ImageDownloader imageDownloader = new ImageDownloader(this);
+        imageDownloader.execute(selectedEvent.getImageURL());
 
         Button donateButton = findViewById(R.id.button);
         donateButton.setOnClickListener(new View.OnClickListener() {
@@ -81,8 +94,9 @@ public class ViewEventActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
+
             //TODO: Add Google logout code
-            if(token != null) {
+            if (token != null) {
                 LoginManager.getInstance().logOut();
             }
             User.logout();
@@ -93,5 +107,10 @@ public class ViewEventActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void imageDownloaded(Bitmap bitmap) {
+        imageView.setImageBitmap(bitmap);
     }
 }

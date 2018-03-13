@@ -10,10 +10,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-/**
- * Created by Penner on 3/7/18.
- */
-
 public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
     public interface ImageDownloadDelegate {
         void imageDownloaded(Bitmap bitmap);
@@ -76,4 +72,5 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 
         return stream;
     }
+
 }

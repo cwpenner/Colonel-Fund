@@ -2,6 +2,12 @@ package com.colonelfund.colonelfund;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -28,6 +35,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,10 +50,13 @@ public class CreateEventActivity extends AppCompatActivity {
     private EditText txtEventDescription, txtEventTitle, txtEventGoal;
     private EditText txtEventMember, txtEventDate, txtEventType;
     private Button btnCreateEvent;
+    private ImageButton imageButton;
     private final String TAG = "CreateEventActivity";
     private final String URL_FOR_CREATE_EVENT = "https://wesll.com/colonelfund/create_event.php";
     private ImageView imageView;
     ProgressDialog progressDialog;
+    Bitmap bitmap;
+    private static final int PICK_IMAGE = 100;
 
     /**
      * Sets information for creating event.
@@ -68,8 +80,16 @@ public class CreateEventActivity extends AppCompatActivity {
         txtEventDescription = (EditText) findViewById(R.id.txtEventDescription);
 
         imageView = (ImageView) findViewById(R.id.imageView);
-        btnCreateEvent = (Button) findViewById(R.id.btnCreateEvent);
+        imageButton = (ImageButton) findViewById(R.id.imageButton);
 
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
+        btnCreateEvent = (Button) findViewById(R.id.btnCreateEvent);
         btnCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,16 +109,27 @@ public class CreateEventActivity extends AppCompatActivity {
                     hideDialog();
                 } else {
                     createEvent(strEventTitle, strEventMember, strEventDate, strEventGoal,
-                            strEventDescription, strEventType, imageView);
+                            strEventDescription, strEventType);
                 }
             }
         });
     }
 
+    private String imageToString(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            byte[] imgBytes = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "default";
+        }
+    }
+
     private void createEvent(final String eventTitle, final String eventMember,
                              final String eventDate, final String eventGoal,
-                             final String eventDescription, final String eventType,
-                             final ImageView imageView) {
+                             final String eventDescription, final String eventType) {
 
         String cancel_event_tag = "register";
 
@@ -154,6 +185,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 params.put("currentFunds", "0");
                 params.put("description", eventDescription);
                 params.put("type", eventType);
+                params.put("image", imageToString(bitmap));
                 return params;
             }
         };
@@ -191,6 +223,28 @@ public class CreateEventActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            Uri imageUri = data.getData();
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                bitmap = Bitmap.createScaledBitmap(bitmap, imageView.getWidth(), imageView.getHeight(), true);
+                imageView.setImageBitmap(bitmap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void showDialog() {

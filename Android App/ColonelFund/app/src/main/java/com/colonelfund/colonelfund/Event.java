@@ -1,7 +1,13 @@
 package com.colonelfund.colonelfund;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 /**
@@ -17,14 +23,18 @@ public class Event implements Serializable {
     private double currentFunds;
     private String description;
     private String type;
+    private String imageURL;
 
     /**
-     * @param title of event
+     * @param title            of event
      * @param associatedMember of event
-     * @param eventDate of event
-     * @param fundGoal of event
-     * @param currentFunds of event
-     * @param description of event
+     * @param associatedEmail  of event
+     * @param eventDate        of event
+     * @param fundGoal         of event
+     * @param currentFunds     of event
+     * @param description      of event
+     * @param type             of event
+     * @param imageURL         of event
      */
     public Event(String title,
                  String associatedMember,
@@ -43,15 +53,6 @@ public class Event implements Serializable {
         this.type = type;
     }
 
-    /**
-     * @param title of event
-     * @param associatedMember of event
-     * @param associatedEmail of event
-     * @param eventDate of event
-     * @param fundGoal of event
-     * @param currentFunds of event
-     * @param description of event
-     */
     public Event(String title,
                  String associatedMember,
                  String associatedEmail,
@@ -59,7 +60,8 @@ public class Event implements Serializable {
                  double fundGoal,
                  double currentFunds,
                  String description,
-                 String type) {
+                 String type,
+                 String imageURL) {
         super();
         this.title = title;
         this.associatedMember = associatedMember;
@@ -69,115 +71,147 @@ public class Event implements Serializable {
         this.currentFunds = currentFunds;
         this.description = description;
         this.type = type;
+        this.imageURL = imageURL;
     }
+
     /**
      * @return the title
      */
     public String getTitle() {
         return title;
     }
+
     /**
      * @param title the title to set
      */
     public void setTitle(String title) {
         this.title = title;
     }
+
     /**
      * @return the associatedMember
      */
     public String getAssociatedMember() {
         return associatedMember;
     }
+
     /**
      * @param associatedMember the associatedMember to set
      */
     public void setAssociatedMember(String associatedMember) {
         this.associatedMember = associatedMember;
     }
+
     public void setAssociatedEmail(String associatedEmail) {
         this.associatedEmail = associatedEmail;
     }
+
     /**
      * @return the eventDate
      */
     public String getEventDate() {
         return eventDate;
     }
+
     /**
      * @param eventDate the eventDate to set
      */
     public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
+
     /**
      * @return the fundGoal
      */
     public double getFundGoal() {
         return fundGoal;
     }
+
     /**
      * @param fundGoal the fundGoal to set
      */
     public void setFundGoal(double fundGoal) {
         this.fundGoal = fundGoal;
     }
+
     /**
      * @return the currentFunds
      */
-    public String getAssociatedEmail() {return associatedEmail;}
+    public String getAssociatedEmail() {
+        return associatedEmail;
+    }
 
     public double getCurrentFunds() {
         return currentFunds;
     }
+
     /**
      * @param currentFunds the currentFunds to set
      */
     public void setCurrentFunds(double currentFunds) {
         this.currentFunds = currentFunds;
     }
+
     /**
      * @return the description
      */
     public String getDescription() {
         return description;
     }
+
     /**
      * Set the description
+     *
      * @param description
      */
     public void setDescription(String description) {
         this.description = description;
     }
+
     /**
      * @return the title
      */
     public String getType() {
         return type;
     }
+
     /**
      * @param type the title to set
      */
     public void setType(String type) {
         this.type = type;
     }
+
     /**
      * Get a JSONObject representation of Event
+     *
      * @return JSONObject of an event
      */
-    public JSONObject toJson() throws JSONException {
-        JSONObject jsonObj = new JSONObject();
-        jsonObj.put("title", title);
-        jsonObj.put("associatedMember", associatedMember);
-        jsonObj.put("associatedEmail", associatedEmail);
-        jsonObj.put("eventDate", eventDate);
-        jsonObj.put("fundGoal", fundGoal);
-        jsonObj.put("currentFunds", currentFunds);
-        jsonObj.put("description", description);
-        jsonObj.put("type", type);
-        return jsonObj;
+    public String getImageURL() {
+        return imageURL;
     }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public JSONObject toJson() throws JSONException {
+        JSONObject JsonObj = new JSONObject();
+        JsonObj.put("title", title);
+        JsonObj.put("associatedMember", associatedMember);
+        JsonObj.put("associatedEmail", associatedEmail);
+        JsonObj.put("eventDate", eventDate);
+        JsonObj.put("fundGoal", fundGoal);
+        JsonObj.put("currentFunds", currentFunds);
+        JsonObj.put("description", description);
+        JsonObj.put("type", type);
+        JsonObj.put("imageURL", imageURL);
+        return JsonObj;
+    }
+
     /**
      * Constructor with JSON Object.
+     *
      * @param jsonObject of an event
      */
     public Event(JSONObject jsonObject) throws JSONException {
@@ -189,5 +223,6 @@ public class Event implements Serializable {
         this.currentFunds = jsonObject.getDouble("currentFunds");
         this.description = jsonObject.getString("description");
         this.type = jsonObject.getString("type");
+        this.imageURL = jsonObject.getString("imageURL");
     }
 }

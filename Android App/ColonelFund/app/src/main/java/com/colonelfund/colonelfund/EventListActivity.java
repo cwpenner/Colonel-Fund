@@ -81,7 +81,7 @@ public class EventListActivity extends AppCompatActivity {
                         lv.setAdapter(arrayAdapter);
                         arrayAdapter.getFilter().filter(searchBar.getText());
                     }
-                },3000);
+                }, 3000);
             }
         });
 
@@ -108,10 +108,12 @@ public class EventListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
@@ -435,7 +437,9 @@ class EventListModel {
      * @return eventDate
      */
 
-    public String getAssociatedEmail() {return associatedEmail;}
+    public String getAssociatedEmail() {
+        return associatedEmail;
+    }
 
     public String getEventDate() {
         return eventDate;
