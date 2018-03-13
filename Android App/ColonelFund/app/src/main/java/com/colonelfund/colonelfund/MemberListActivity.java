@@ -125,9 +125,11 @@ public class MemberListActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
+            //TODO: Add Google logout code
             if(token != null) {
                 LoginManager.getInstance().logOut();
             }
+            User.logout();
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
         } else if (id == android.R.id.home) {
@@ -203,11 +205,11 @@ class MemberListAdapter extends ArrayAdapter<MemberListModel> implements Filtera
         // view holders for information
         TextView memberInitials = (TextView) holder.memberView.findViewById(R.id.member_initials);
         TextView memberName = (TextView) holder.memberView.findViewById(R.id.memberName);
-        TextView memberID = (TextView) holder.memberView.findViewById(R.id.userID);
+        TextView memberEmail = (TextView) holder.memberView.findViewById(R.id.memberEmail);
 
         memberInitials.setText(filteredModelsArrayList.get(position).getInitials());
         memberName.setText(filteredModelsArrayList.get(position).getFullName());
-        memberID.setText(filteredModelsArrayList.get(position).getEmail());
+        memberEmail.setText(filteredModelsArrayList.get(position).getEmail());
         return holder.memberView;
     }
 

@@ -17,10 +17,10 @@ public class Event implements Serializable {
     private double currentFunds;
     private String description;
     private String type;
+
     /**
      * @param title of event
      * @param associatedMember of event
-     * @param associatedEmail of event
      * @param eventDate of event
      * @param fundGoal of event
      * @param currentFunds of event
@@ -42,6 +42,16 @@ public class Event implements Serializable {
         this.description = description;
         this.type = type;
     }
+
+    /**
+     * @param title of event
+     * @param associatedMember of event
+     * @param associatedEmail of event
+     * @param eventDate of event
+     * @param fundGoal of event
+     * @param currentFunds of event
+     * @param description of event
+     */
     public Event(String title,
                  String associatedMember,
                  String associatedEmail,
@@ -155,16 +165,16 @@ public class Event implements Serializable {
      * @return JSONObject of an event
      */
     public JSONObject toJson() throws JSONException {
-        JSONObject JsonObj = new JSONObject();
-        JsonObj.put("title", title);
-        JsonObj.put("associatedMember", associatedMember);
-        JsonObj.put("associatedEmail", associatedEmail);
-        JsonObj.put("eventDate", eventDate);
-        JsonObj.put("fundGoal", fundGoal);
-        JsonObj.put("currentFunds", currentFunds);
-        JsonObj.put("description", description);
-        JsonObj.put("type", type);
-        return JsonObj;
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("title", title);
+        jsonObj.put("associatedMember", associatedMember);
+        jsonObj.put("associatedEmail", associatedEmail);
+        jsonObj.put("eventDate", eventDate);
+        jsonObj.put("fundGoal", fundGoal);
+        jsonObj.put("currentFunds", currentFunds);
+        jsonObj.put("description", description);
+        jsonObj.put("type", type);
+        return jsonObj;
     }
     /**
      * Constructor with JSON Object.

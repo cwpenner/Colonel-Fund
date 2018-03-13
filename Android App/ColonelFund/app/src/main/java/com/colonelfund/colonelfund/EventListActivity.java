@@ -2,6 +2,7 @@ package com.colonelfund.colonelfund;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -22,9 +23,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -136,9 +144,11 @@ public class EventListActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
-            if (token != null) {
+            //TODO: Add Google logout code
+            if(token != null) {
                 LoginManager.getInstance().logOut();
             }
+            User.logout();
             Intent loginIntent = new Intent(this, LoginActivity.class);
             startActivity(loginIntent);
         } else if (id == android.R.id.home) {
