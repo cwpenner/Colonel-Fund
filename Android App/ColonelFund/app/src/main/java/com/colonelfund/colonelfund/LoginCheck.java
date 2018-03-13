@@ -41,7 +41,6 @@ public class LoginCheck extends AppCompatActivity {
 
         AccessToken fbToken = AccessToken.getCurrentAccessToken();
         GoogleSignInAccount googleAccount = GoogleSignIn.getLastSignedInAccount(this);
-        Log.d("loginCheck", "GoogleSignInLastAccount: " + googleAccount.getDisplayName());
         if(fbToken == null && googleAccount == null){
             //Not logged in. Go to Login Activity
             Log.d("loginCheck", "Not logged in. Go to Login Activity");
