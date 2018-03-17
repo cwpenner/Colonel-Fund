@@ -3,7 +3,11 @@ package com.colonelfund.colonelfund;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 // TODO: 12/22/2017 Tie in "Logout" button to terminate users session
 public class MainActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
+    private DrawerLayout mDrawerLayout;
 
     /**
      * @param savedInstanceState
@@ -31,9 +36,68 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //ActionBar actionbar = getSupportActionBar();
+        //actionbar.setDisplayHomeAsUpEnabled(true);
+        //actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
         updateLocalStorage();
+
+        //set listeners for slide out
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        // close drawer when item is tapped
+                        mDrawerLayout.closeDrawers();
+
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+                        int id = menuItem.getItemId();
+                        if (id == R.id.nav_account) {
+                            Intent intent = new Intent(MainActivity.this, ViewProfileActivity.class);
+                            startActivity(intent);
+                        } else if (id == R.id.nav_history) {
+                            Intent intent = new Intent(MainActivity.this, MyHistoryEventsActivity.class);
+                            startActivity(intent);
+                        } else if (id == R.id.nav_logout) {
+                            AccessToken token = AccessToken.getCurrentAccessToken();
+                            FirebaseAuth.getInstance().signOut();
+                            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                                    new ResultCallback<Status>() {
+                                        @Override
+                                        public void onResult(@NonNull Status status) {
+                                            Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                            );
+                            if(token != null) {
+                                LoginManager.getInstance().logOut();
+                            }
+                            User.logout();
+                            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(loginIntent);
+                        } else if (id == R.id.nav_members) {
+                            Intent intent = new Intent(MainActivity.this, MemberListActivity.class);
+                            startActivity(intent);
+                        } else if (id == R.id.nav_events) {
+                            Intent intent = new Intent(MainActivity.this, EventListActivity.class);
+                            startActivity(intent);
+                        } else if (id == R.id.nav_create_event) {
+                            Intent intent = new Intent(MainActivity.this, CreateEventActivity.class);
+                            startActivity(intent);
+                        }
+                        return MainActivity.this.onOptionsItemSelected(menuItem);
+
+                        //return true;
+                    }
+                });
 
         //Logout Button code here must be copied to each Activity, as the menu in the top right contains a logout button
         Button logoutButton = (Button) findViewById(R.id.logout_button);
