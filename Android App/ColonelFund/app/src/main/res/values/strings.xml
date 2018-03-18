@@ -37,6 +37,7 @@
     <string name="summaryContinueButton">Continue</string>
     <string name="account">Account</string>
     <string name="about">About</string>
+    <string name="main">Main</string>
 
     <!-- Strings related to login -->
     <string name="facebook_app_id">861301034038497</string>

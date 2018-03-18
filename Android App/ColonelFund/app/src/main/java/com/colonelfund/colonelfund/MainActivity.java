@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
-                        menuItem.setChecked(true);
+                        //menuItem.setChecked(true); //removed for now until we fragment code.
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
 
@@ -92,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
                         } else if (id == R.id.nav_create_event) {
                             Intent intent = new Intent(MainActivity.this, CreateEventActivity.class);
                             startActivity(intent);
+                        } else if (id == R.id.nav_main) {
+                            //Intent intent = new Intent(AcotvityName.this, MainActivity.this);
+                            //startActivity(intent);
+                            //removed for main screen for now.
                         }
                         return MainActivity.this.onOptionsItemSelected(menuItem);
 
