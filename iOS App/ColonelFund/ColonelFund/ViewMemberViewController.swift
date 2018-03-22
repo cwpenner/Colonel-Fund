@@ -13,7 +13,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     //EventCollectionProtocol
     //This has a EventCollection delegate reload the table when the data is finished being loaded
     func eventDataDownloaded() {
-        member.setAssociatedEvents(eventList: ec.getEvents())
+        member.setAssociatedEvents()
         associatedEventList = member.getAssociatedEvents()
         if self.refresher.isRefreshing
         {
@@ -31,13 +31,12 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var associatedEventsTableView: UITableView!
     
     var member: Member! = nil
-    let ec = EventCollection()
     var associatedEventList: [Event] = []
     var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ec.delegate = self
+        EventCollection.sharedInstance.delegate = self
         associatedEventList = member.getAssociatedEvents()
         
         nameLabel.text = member.getFormattedFullName()
@@ -66,7 +65,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc private func refreshEventList(_ sender: Any) {
-        self.ec.updateFromRemote()
+        EventCollection.sharedInstance.updateFromRemote()
     }
     
     // MARK: - Table view data source

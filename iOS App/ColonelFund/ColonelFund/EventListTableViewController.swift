@@ -19,7 +19,6 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     //EventCollectionProtocol
     //This has a EventCollection delegate reload the table when the data is finished being loaded
     func eventDataDownloaded() {
-        eventList = ec.getEvents()
         if self.refresher.isRefreshing
         {
             self.refresher.endRefreshing()
@@ -29,9 +28,6 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     
     //MARK: Properties
     @IBOutlet var eventListTableView: UITableView!
-    let ec = EventCollection()
-    var eventList: [Event] = []
-    let mc = MemberCollection()
     var refresher: UIRefreshControl!
     let searchController = UISearchController(searchResultsController: nil)
     let months: [String] = ["J\nA\nN",
@@ -50,10 +46,9 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ec.delegate = self
-        mc.delegate = self
-        
-        eventList = ec.getEvents()
+
+        EventCollection.sharedInstance.delegate = self
+        MemberCollection.sharedInstance.delegate = self
         
         //Pull to Refresh
         self.refresher = UIRefreshControl()
@@ -79,7 +74,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     }
     
     @objc private func refreshEventList(_ sender: Any) {
-        self.ec.updateFromRemote()
+        EventCollection.sharedInstance.updateFromRemote()
     }
     
     // MARK: - Table view data source
@@ -93,7 +88,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
             return filteredEvents.count
         }
         
-        return eventList.count
+        return EventCollection.sharedInstance.eventArray.count
     }
     
     
@@ -109,7 +104,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
         if isFiltering() {
             event = filteredEvents[indexPath.row]
         } else {
-            event = eventList[indexPath.row]
+            event = EventCollection.sharedInstance.eventArray[indexPath.row]
         }
         
         let eventType = event.getEventType().lowercased()
@@ -148,7 +143,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
             cell.eventIconImageView.image = UIImage(named: "unknown")
         }
         
-        let member = mc.getMember(userID: event.getAssociatedMember())
+        let member = MemberCollection.sharedInstance.getMember(userID: event.getAssociatedMember())
         cell.memberLabel.text = member?.getFormattedFullName()
         
         
@@ -198,7 +193,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredEvents = eventList.filter({(event : Event) -> Bool in
+        filteredEvents = EventCollection.sharedInstance.eventArray.filter({(event : Event) -> Bool in
             let doesEventTypeMatch = (scope == "All") || (event.getEventType() == scope)
             let title = event.getTitle().lowercased().contains(searchText.lowercased())
             let member = event.getAssociatedMember().lowercased().contains(searchText.lowercased())
@@ -242,7 +237,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
             if isFiltering() {
                 eventViewController.event = filteredEvents[indexPath.row]
             } else {
-                eventViewController.event = eventList[indexPath.row]
+                eventViewController.event = EventCollection.sharedInstance.eventArray[indexPath.row]
             }
             
         default:

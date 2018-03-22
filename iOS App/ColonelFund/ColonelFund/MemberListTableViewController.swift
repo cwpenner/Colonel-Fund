@@ -13,7 +13,6 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     //MemberCollectionProtocol
     //This has a MemberCollection delegate reload the table when the data is finished being loaded
     func memberDataDownloaded() {
-        memberList = mc.getMembers()
         if self.refresher.isRefreshing
         {
             self.refresher.endRefreshing()
@@ -23,16 +22,13 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     
     //MARK: Properties
     @IBOutlet var memberListTableView: UITableView!
-    let mc = MemberCollection()
-    var memberList: [Member] = []
     var refresher: UIRefreshControl!
     let searchController = UISearchController(searchResultsController: nil)
     var filteredMembers = [Member]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mc.delegate = self
-        memberList = mc.getMembers()
+        MemberCollection.sharedInstance.delegate = self
         
         //Pull to Refresh
         self.refresher = UIRefreshControl()
@@ -54,7 +50,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     }
     
     @objc private func refreshMemberList(_ sender: Any) {
-        self.mc.updateFromRemote()
+        MemberCollection.sharedInstance.updateFromRemote()
     }
     
     
@@ -69,7 +65,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
             return filteredMembers.count
         }
         
-        return memberList.count
+        return MemberCollection.sharedInstance.memberArray.count
     }
 
     
@@ -85,7 +81,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         if isFiltering() {
             member = filteredMembers[indexPath.row]
         } else {
-            member = memberList[indexPath.row]
+            member = MemberCollection.sharedInstance.memberArray[indexPath.row]
         }
         
         cell.nameLabel.text = member.getFormattedFullName()
@@ -171,7 +167,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredMembers = memberList.filter({(member : Member) -> Bool in
+        filteredMembers = MemberCollection.sharedInstance.memberArray.filter({(member : Member) -> Bool in
             let userID = member.getUserID().lowercased().contains(searchText.lowercased())
             let name = member.getFormattedFullName().lowercased().contains(searchText.lowercased())
             let userName = member.getUserName().lowercased().contains(searchText.lowercased())
@@ -213,7 +209,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
             if isFiltering() {
                 memberViewController.member = filteredMembers[indexPath.row]
             } else {
-                memberViewController.member = memberList[indexPath.row]
+                memberViewController.member = MemberCollection.sharedInstance.memberArray[indexPath.row]
             }
             
         default:

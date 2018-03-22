@@ -8,16 +8,17 @@
 
 import Foundation
 
-protocol MemberCollectionProtocol {
+protocol MemberCollectionProtocol: class {
     func memberDataDownloaded()
 }
 
 class MemberCollection: NSObject, URLSessionDelegate {
-    var delegate: MemberCollectionProtocol!
-    let jsonFileName = "members"
-    let URL_FOR_NAMES = "https://wesll.com/colonelfund/members.php"
+    weak var delegate: MemberCollectionProtocol?
+    private let jsonFileName = "members"
+    private let URL_FOR_NAMES = "https://wesll.com/colonelfund/members.php"
     var memberMap: [String: Member] = [:]
     var memberArray: [Member] = []
+    static let sharedInstance = MemberCollection()
     
     override init() {
         super.init()
@@ -79,45 +80,28 @@ class MemberCollection: NSObject, URLSessionDelegate {
                     jsonData = try Data(contentsOf: url!)
                     saveJSONLocal(jsonData: jsonData!, fileName: fileName)
                 }
-                let object = try JSONSerialization.jsonObject(with: jsonData!, options: .allowFragments)
-                if let dict = object as? [String: AnyObject] {
-                    for (key, value) in dict {
-                        let userID = key
-                        let firstName = value["firstName"] as! String
-                        let lastName = value["lastName"] as! String
-                        let userName = firstName.lowercased() + lastName.lowercased()
-                        let emailAddress = value["emailAddress"] as! String
-                        let phoneNumber = value["phoneNumber"] as! String
-                        let newMember = Member(userID: userID, firstName: firstName, lastName: lastName, userName: userName, emailAddress: emailAddress, phoneNumber: phoneNumber)
-                        memberMap[userID.lowercased()] = newMember
-                    }
-                } else if let jsonArray = object as? [AnyObject] {
-                    for item in jsonArray {
-                        let newMember = try Member(json: item as! [String : AnyObject])
-                        memberMap[newMember.getUserID()] = newMember
-                    }
+                let memberArray = try JSONDecoder().decode([Member].self, from: jsonData!)
+                for newMember in memberArray {
+                    memberMap[newMember.getUserID()] = newMember
                 }
+                getMembers()
                 DispatchQueue.main.async(execute: { () -> Void in
-                    self.delegate.memberDataDownloaded()
+                    self.delegate!.memberDataDownloaded()
                 })
                 return true
             } catch {
                 print("Error! Unable to parse \(fileName).json")
                 DispatchQueue.main.async(execute: { () -> Void in
-                    self.delegate.memberDataDownloaded()
+                    self.delegate!.memberDataDownloaded()
                 })
             }
         }
         return false
     }
     
-    func count() -> Int {
-        return memberMap.count
-    }
-    
     func getMembers() -> [Member] {
         memberArray.removeAll()
-        for (key, value) in memberMap {
+        for (_, value) in memberMap {
             memberArray.append(value)
         }
         memberArray = memberArray.sorted(by: {$0.getLastName() < $1.getLastName()})
