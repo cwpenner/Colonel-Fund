@@ -82,6 +82,7 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
         let url = URL(string: URL_FOR_CREATE_EVENT)!
         var request = URLRequest(url: url)
         request.httpBody = try? JSONEncoder().encode(event)
+        print("http request string: \(String(data: request.httpBody!, encoding: .utf8)!)")
         request.httpMethod = "POST"
         
         URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
@@ -100,7 +101,7 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
             print("Event created successfully!")
             }.resume()
 
-        self.performSegue(withIdentifier: "ShowEventList", sender: self)
+        self.performSegue(withIdentifier: "ShowMainScreen", sender: self)
     }
     
     func displayAlert(alertTitle: String, alertMessage: String) {

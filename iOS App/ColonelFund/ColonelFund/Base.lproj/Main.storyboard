@@ -613,7 +613,7 @@ Mesa AZ 85212</string>
                         <outlet property="createEventTitleTextField" destination="i1a-Oh-IeE" id="zN2-4t-UH9"/>
                         <outlet property="createEventTypeTextField" destination="s10-KR-OYr" id="KD6-pV-10C"/>
                         <outlet property="scrollView" destination="IsM-AY-hoa" id="2gS-v0-xhr"/>
-                        <segue destination="WGt-0W-T80" kind="show" identifier="ShowEventList" id="UWZ-Qf-5dd"/>
+                        <segue destination="seU-oj-fUu" kind="presentation" identifier="ShowMainScreen" id="7w5-GZ-1MU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3S-7x-2d5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1505,10 +1505,9 @@ Mesa AZ 85212</string>
         <image name="img_placeholder" width="1920" height="1090"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fLt-8f-ESz"/>
+        <segue reference="7w5-GZ-1MU"/>
         <segue reference="Rea-bV-mxh"/>
         <segue reference="pnZ-iL-tL5"/>
-        <segue reference="tHA-4H-kH6"/>
-        <segue reference="UWZ-Qf-5dd"/>
+        <segue reference="7Iq-as-Ab7"/>
     </inferredMetricsTieBreakers>
 </document>
