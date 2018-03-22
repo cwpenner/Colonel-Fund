@@ -14,6 +14,10 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         />
+    <fragment android:name="com.colonelfund.colonelfund.EventListActivity"
+        android:id="@+id/viewer"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView

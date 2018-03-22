@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private DrawerLayout mDrawerLayout;
 
+
     /**
      * @param savedInstanceState
      */
@@ -42,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
         //actionbar.setDisplayHomeAsUpEnabled(true);
         //actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment newFragment = new EventListActivity();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.viewer, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
 
         updateLocalStorage();
 
