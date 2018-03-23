@@ -36,6 +36,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        EventCollection.sharedInstance.updateFromRemote()
         EventCollection.sharedInstance.delegate = self
         associatedEventList = member.getAssociatedEvents()
         

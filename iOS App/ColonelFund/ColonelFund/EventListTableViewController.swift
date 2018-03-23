@@ -49,6 +49,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
 
         EventCollection.sharedInstance.delegate = self
         MemberCollection.sharedInstance.delegate = self
+        EventCollection.sharedInstance.updateFromRemote()
         
         //Pull to Refresh
         self.refresher = UIRefreshControl()

@@ -14,7 +14,15 @@ import FirebaseGoogleAuthUI
 import GoogleSignIn
 
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, MemberCollectionProtocol, EventCollectionProtocol {
+    func memberDataDownloaded() {
+        //Preload MemberCollection
+    }
+    
+    func eventDataDownloaded() {
+        //Preload EventCollection
+    }
+    
     //MARK: - Properties
     @IBAction func logoutButtonPressed(_ sender: Any) {
         print("You have been logged out")
@@ -31,6 +39,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        MemberCollection.sharedInstance.delegate = self
+        EventCollection.sharedInstance.delegate = self
         
         print(User.currentUser.getUserID())
         print(User.currentUser.getUserName())

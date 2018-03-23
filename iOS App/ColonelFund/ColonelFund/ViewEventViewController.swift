@@ -11,7 +11,7 @@ import UIKit
 class ViewEventViewController: UIViewController, MemberCollectionProtocol {
     
     //MemberCollectionProtocol
-    //This has a MemberCollection delegate reload the table when the data is finished being loaded
+    //This has a MemberCollection delegate reload the view when the data is finished being loaded
     func memberDataDownloaded() {
         let member = MemberCollection.sharedInstance.getMember(userID: event.getAssociatedMember())
         eventMemberLabel.text = member?.getFormattedFullName()
@@ -30,6 +30,7 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        MemberCollection.sharedInstance.updateFromRemote()
         MemberCollection.sharedInstance.delegate = self
 
         eventTitleLabel.text = event.getTitle()
@@ -37,7 +38,7 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
         eventFundGoalLabel.text = "$" + String(event.getFundGoal())
         eventCurrentFundsLabel.text = "$" + String(event.getCurrentFunds())
         eventDescriptionLabel.text = event.getEventDescription()
-        
+        print(event.getEventPicURL())
         if !event.getEventPicURL().isEmpty {
             loadImageFromURL(url: event.getEventPicURL())
         }
@@ -54,7 +55,9 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
             let imageData = try Data(contentsOf: imageURL!)
             eventImageView.image = UIImage(data: imageData)
         } catch {
-            print("Error processing profile pic: \(error.localizedDescription)")
+            print("Error processing Event pic: \(error.localizedDescription)")
+            eventImageView.image = UIImage(named: "img_placeholder")
+            
         }
     }
     

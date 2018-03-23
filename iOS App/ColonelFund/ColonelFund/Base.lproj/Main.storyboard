@@ -480,7 +480,7 @@ Mesa AZ 85212</string>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="street-address"/>
                                                 <dataDetectorType key="dataDetectorTypes" address="YES"/>
                                             </textView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Title" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="i1a-Oh-IeE">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Title" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="i1a-Oh-IeE">
                                                 <rect key="frame" x="20" y="255" width="374" height="36"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
@@ -601,6 +601,13 @@ Mesa AZ 85212</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cop-rG-vdG"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Create Event" id="YUE-tB-np8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="1s3-SE-vpy">
+                            <connections>
+                                <action selector="photoButtonPressed:" destination="Vim-aI-keX" id="caY-sp-e6c"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <size key="freeformSize" width="414" height="1000"/>
                     <connections>
                         <outlet property="createEventAddressTextView" destination="FXj-cs-tDH" id="TXJ-e6-DHs"/>
@@ -635,7 +642,7 @@ Mesa AZ 85212</string>
                                     <constraint firstAttribute="width" secondItem="nSP-jP-qYA" secondAttribute="height" multiplier="125:71" id="IoW-J9-bKJ"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNt-T1-ZjN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNt-T1-ZjN">
                                 <rect key="frame" x="20" y="319" width="374" height="31.666666666666686"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <nil key="textColor"/>

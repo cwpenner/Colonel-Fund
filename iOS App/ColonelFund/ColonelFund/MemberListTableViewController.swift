@@ -29,6 +29,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
     override func viewDidLoad() {
         super.viewDidLoad()
         MemberCollection.sharedInstance.delegate = self
+        MemberCollection.sharedInstance.updateFromRemote()
         
         //Pull to Refresh
         self.refresher = UIRefreshControl()

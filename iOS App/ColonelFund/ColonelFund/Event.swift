@@ -16,8 +16,11 @@ class Event: NSObject, Codable {
     private var fundGoal: Double
     private var currentFunds: Double
     private var eventPicURL: String
+    private var eventPicData: String
     private var associatedMember: String
     private var eventType: String
+    private var eventTime: String
+    private var address: String
     private var associatedEmail: String //delete
     
     init(title: String) {
@@ -27,8 +30,11 @@ class Event: NSObject, Codable {
         self.fundGoal = 0
         self.currentFunds = 0
         self.eventPicURL = ""
+        self.eventPicData = "default"
         self.associatedMember = ""
         self.eventType = ""
+        self.eventTime = ""
+        self.address = ""
         self.associatedEmail = "" //delete
     }
     
@@ -39,9 +45,12 @@ class Event: NSObject, Codable {
         self.fundGoal = fundGoal
         self.currentFunds = currentFunds
         self.eventPicURL = ""
+        self.eventPicData = "default"
         self.associatedMember = associatedMember
         self.eventType = eventType
-        self.associatedEmail = (MemberCollection.sharedInstance.getMember(userID: associatedMember)?.getEmailAddress())! //delete
+        self.eventTime = ""
+        self.address = ""
+        self.associatedEmail = "" //delete
     }
     
     init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicURL: String, associatedMember: String, eventType: String) {
@@ -51,9 +60,27 @@ class Event: NSObject, Codable {
         self.fundGoal = fundGoal
         self.currentFunds = currentFunds
         self.eventPicURL = eventPicURL
+        self.eventPicData = "default"
         self.associatedMember = associatedMember
         self.eventType = eventType
-        self.associatedEmail = (MemberCollection.sharedInstance.getMember(userID: associatedMember)?.getEmailAddress())! //delete
+        self.eventTime = ""
+        self.address = ""
+        self.associatedEmail = "" //delete
+    }
+    
+    init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicData: String, associatedMember: String, eventType: String, eventTime: String, address: String) {
+        self.title = title
+        self.eventDate = eventDate
+        self.eventDescription = eventDescription
+        self.fundGoal = fundGoal
+        self.currentFunds = currentFunds
+        self.eventPicURL = ""
+        self.eventPicData = eventPicData
+        self.associatedMember = associatedMember
+        self.eventType = eventType
+        self.eventTime = eventTime
+        self.address = address
+        self.associatedEmail = "" //delete
     }
     
     required init(from decoder: Decoder) throws {
@@ -67,6 +94,9 @@ class Event: NSObject, Codable {
         associatedMember = try values.decode(String.self, forKey: .associatedMember)
         eventType = try values.decode(String.self, forKey: .eventType)
         associatedEmail = try values.decode(String.self, forKey: .associatedEmail) //delete
+        self.eventPicData = "default"
+        self.eventTime = ""
+        self.address = ""
     }
     
     func getTitle() -> String {
@@ -140,10 +170,16 @@ class Event: NSObject, Codable {
         try container.encode(eventDescription, forKey: .eventDescription)
         try container.encode(String(fundGoal), forKey: .fundGoal)
         try container.encode(String(currentFunds), forKey: .currentFunds)
-        try container.encode(eventPicURL, forKey: .eventPicURL)
+        try container.encode(eventPicData, forKey: .eventPicData)
         try container.encode(associatedMember, forKey: .associatedMember)
         try container.encode(eventType, forKey: .eventType)
-        try container.encode(associatedEmail, forKey: .associatedEmail) //delete
+//        try container.encode(eventTime, forKey: .eventTime)
+//        try container.encode(address, forKey: .address)
+        //try container.encode(associatedEmail, forKey: .associatedEmail) //delete
+    }
+    
+    func toFormEncoded() -> String {
+        return "title=\(self.title)&associatedMember=\(self.associatedMember)&eventDate=\(self.eventDate)&fundGoal=\(self.fundGoal)&currentFunds=\(self.currentFunds)&description=\(self.eventDescription)&type=\(self.eventType)&image=\(self.eventPicData)"
     }
     
     enum CodingKeys: String, CodingKey {
@@ -153,8 +189,11 @@ class Event: NSObject, Codable {
         case fundGoal
         case currentFunds
         case eventPicURL = "imageURL"
+        case eventPicData = "image"
         case associatedMember
         case eventType = "type"
+        case eventTime
+        case address
         case associatedEmail //delete
     }
 }
