@@ -8,16 +8,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.view.View.OnClickListener;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -93,8 +87,6 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         super.onActivityCreated(savedInstanceState);
         ctx = getActivity();
         createEventView = getView();
-        //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_create_event);
 
         // Progress dialog
         progressDialog = new ProgressDialog(ctx);
@@ -108,8 +100,6 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         txtEventDescription = (EditText) createEventView.findViewById(R.id.txtEventDescription);
 
         imageView = (ImageView) createEventView.findViewById(R.id.imageView);
-
-
 
     }
 
@@ -217,39 +207,6 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         // Adding request to request queue
         new AppSingleton(ctx).getInstance(ctx).addToRequestQueue(strReq, cancel_event_tag);
     }
-
-    /**
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.about_you) {
-            Intent intent = new Intent(getActivity(), ViewProfileActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.your_history_events) {
-            Intent intent = new Intent(getActivity(), MyHistoryEventsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.logout_item) {
-            AccessToken token = AccessToken.getCurrentAccessToken();
-            //TODO: Add Google logout code
-            if(token != null) {
-                LoginManager.getInstance().logOut();
-            }
-            User.logout();
-            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(loginIntent);
-        } else if (id == android.R.id.home) {
-            getActivity().onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    **/
 
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);

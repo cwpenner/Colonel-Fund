@@ -8,14 +8,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -33,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private DrawerLayout mDrawerLayout;
     Fragment newFragment;
-
+    private NavigationView navigationView;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+    private int currentMenuItem;
 
     /**
      * @param savedInstanceState
@@ -49,44 +48,35 @@ public class MainActivity extends AppCompatActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        //ActionBar actionbar = getSupportActionBar();
-        //actionbar.setDisplayHomeAsUpEnabled(true);
-        //actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
 
         updateLocalStorage();
 
+        fragmentManager = getSupportFragmentManager();
+
         //set listeners for slide out
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        //menuItem.setChecked(true); //removed for now until we fragment code.
-                        // close drawer when item is tapped
+                        menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
+                        // Selection of UI fragment here
                         int id = menuItem.getItemId();
                         if (id == R.id.nav_account) {
                             newFragment = new ViewProfileActivity();
-                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.viewer, newFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.viewer, newFragment);
+                            fragmentTransaction.addToBackStack(null);
                         } else if (id == R.id.nav_history) {
                             newFragment = new MyHistoryEventsActivity();
-                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.viewer, newFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.viewer, newFragment);
+                            fragmentTransaction.addToBackStack(null);
                         } else if (id == R.id.nav_logout) {
                             AccessToken token = AccessToken.getCurrentAccessToken();
                             FirebaseAuth.getInstance().signOut();
@@ -106,98 +96,59 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(loginIntent);
                         } else if (id == R.id.nav_members) {
                             newFragment = new MemberListActivity();
-                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.viewer, newFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.viewer, newFragment);
+                            fragmentTransaction.addToBackStack(null);
                         } else if (id == R.id.nav_events) {
                             newFragment = new EventListActivity();
-                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.viewer, newFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
-                            //Intent intent = new Intent(MainActivity.this, EventListActivity.class);
-                            //startActivity(intent);
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.viewer, newFragment);
+                            fragmentTransaction.addToBackStack(null);
                         } else if (id == R.id.nav_create_event) {
                             newFragment = new CreateEventActivity();
-                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.viewer, newFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.viewer, newFragment);
+                            fragmentTransaction.addToBackStack(null);
                         } else if (id == R.id.nav_main) {
-                            //Intent intent = new Intent(AcotvityName.this, MainActivity.this);
-                            //startActivity(intent);
-                            //removed for main screen for now.
+                            //toDo for main Screen
+                            return true;
                         }
-                        //return MainActivity.this.onOptionsItemSelected(menuItem);
-
+                        fragmentTransaction.commit();
                         return true;
                     }
                 });
-
-        /**
-        //Logout Button code here must be copied to each Activity, as the menu in the top right contains a logout button
-        Button logoutButton = (Button) findViewById(R.id.logout_button);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AccessToken token = AccessToken.getCurrentAccessToken();
-                FirebaseAuth.getInstance().signOut();
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                        new ResultCallback<Status>() {
-                            @Override
-                            public void onResult(@NonNull Status status) {
-                                Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
-                            }
+        this.getSupportFragmentManager().addOnBackStackChangedListener(
+                new FragmentManager.OnBackStackChangedListener() {
+                    public void onBackStackChanged() {
+                        Fragment current = getCurrentFragment();
+                            Fragment f = getSupportFragmentManager().findFragmentById(R.id.nav_view);
+                            if (current instanceof MemberListActivity) {
+                                navigationView.setCheckedItem(R.id.nav_members);
+                                System.out.println ("Nav members Back Detect");
+                            } else if (current instanceof CreateEventActivity) {
+                                navigationView.setCheckedItem(R.id.nav_create_event);
+                                System.out.println ("Nav create Back Detect");
+                            } else if (current instanceof EventListActivity) {
+                                navigationView.setCheckedItem(R.id.nav_events);
+                                System.out.println ("Nav events Back Detect");
+                            } else if (current instanceof MyHistoryEventsActivity) {
+                                navigationView.setCheckedItem(R.id.nav_history);
+                                System.out.println ("Nav history Back Detect");
+                            } else if (current instanceof ViewProfileActivity) {
+                                navigationView.setCheckedItem(R.id.nav_account);
+                                System.out.println ("Nav Account Back Detect");
+                            } //todo for main screen
                         }
-                );
-                if(token != null) {
-                    LoginManager.getInstance().logOut();
-                }
-                User.logout();
-                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-            }
-        });
-         **/
+                });
     }
 
-    //@Override
-    //public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    //inflater.inflate(R.menu.main_menu, menu);
-    //super.onCreateOptionsMenu(menu,inflater);
-    //}
+    public Fragment getCurrentFragment() {
+        return this.getSupportFragmentManager().findFragmentById(R.id.viewer);
+    }
 
-    //@Override
-    //public boolean onOptionsItemSelected(MenuItem item) {
-        //int id = item.getItemId();
-        //if (id == R.id.about_you) {
-            //Intent intent = new Intent(this, ViewProfileActivity.class);
-            //startActivity(intent);
-        //} else if (id == R.id.your_history_events) {
-            //Intent intent = new Intent(this, MyHistoryEventsActivity.class);
-            //startActivity(intent);
-        //} else if (id == R.id.logout_item) {
-            //AccessToken token = AccessToken.getCurrentAccessToken();
-            //FirebaseAuth.getInstance().signOut();
-            //Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                    //new ResultCallback<Status>() {
-                        //@Override
-                        //public void onResult(@NonNull Status status) {
-                            //Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
-                        //}
-                    //}
-            //);
-            //if(token != null) {
-                //LoginManager.getInstance().logOut();
-            //}
-            //User.logout();
-            //Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            //startActivity(loginIntent);
-        //}
-        //return super.onOptionsItemSelected(item);
-    //}
-
+    /**
+     * OnStart override for google authentication
+     */
     @Override
     protected void onStart() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -216,34 +167,18 @@ public class MainActivity extends AppCompatActivity {
     public void updateLocalStorage() {
         MemberCollection mc = new MemberCollection(getApplicationContext());
         mc.updateFromRemote();
-
         EventCollection ec = new EventCollection(getApplicationContext());
         ec.updateFromRemote();
     }
 
-
-    /** removing for now
-     * @param view
-
-    public void viewMemberList(View view) {
-        Intent intent = new Intent(this, MemberListActivity.class);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            super.onBackPressed();
+        }
+        else {
+            getSupportFragmentManager().popBackStack();
+        }
     }
-
-    /**
-     * @param view
-
-    public void viewEventList(View view) {
-        Intent intent = new Intent(this, EventListActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * @param view
-
-    public void createEvent(View view) {
-        Intent intent = new Intent(this, CreateEventActivity.class);
-        startActivity(intent);
-    }
-    */
 }

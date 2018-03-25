@@ -7,13 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,9 +21,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -58,7 +51,6 @@ public class EventListActivity extends Fragment {
         getActivity().setTitle("Event List");
         return inflater.inflate(R.layout.activity_event_list, container, false);
     }
-
 
     /**
      * Overrides on create in order to draw event list and sets listeners for buttons and search.
@@ -131,50 +123,6 @@ public class EventListActivity extends Fragment {
             }
         });
     }
-
-    /**
-     * Inflates the main menu bar.
-     *
-     * @param
-     * @return true
-
-    //@Override
-    //public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    //inflater.inflate(R.menu.main_menu, menu);
-    //super.onCreateOptionsMenu(menu,inflater);
-    //}
-
-    /**
-     * Gets the information on buttons selected and takes the appropriate action.
-     *
-     * @param item
-     * @return selectedItem
-     //
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.about_you) {
-            Intent intent = new Intent(getActivity(), ViewProfileActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.your_history_events) {
-            Intent intent = new Intent(getActivity(), MyHistoryEventsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.logout_item) {
-            AccessToken token = AccessToken.getCurrentAccessToken();
-            //TODO: Add Google logout code
-            if(token != null) {
-                LoginManager.getInstance().logOut();
-            }
-            User.logout();
-            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(loginIntent);
-        } else if (id == android.R.id.home) {
-            getActivity().onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-     */
 
     /**
      * Generates Initials and User Name for Event List.

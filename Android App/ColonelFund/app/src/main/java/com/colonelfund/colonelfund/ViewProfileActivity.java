@@ -1,14 +1,10 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -57,39 +53,6 @@ public class ViewProfileActivity extends Fragment implements ImageDownloader.Ima
         imageDownloader.execute(User.currentUser.getProfilePicURL());
 
     }
-
-    /**
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.about_you) {
-            Intent intent = new Intent(getActivity(), ViewProfileActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.your_history_events) {
-            Intent intent = new Intent(getActivity(), MyHistoryEventsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.logout_item) {
-            AccessToken token = AccessToken.getCurrentAccessToken();
-            //TODO: Add Google logout code
-            if(token != null) {
-                LoginManager.getInstance().logOut();
-            }
-            User.logout();
-            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(loginIntent);
-        } else if (id == android.R.id.home) {
-            getActivity().onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    **/
 
     private void addUserInfoLine(String leftText, String rightText) {
         View layout2 = LayoutInflater.from(getActivity()).inflate(R.layout.about_you_list_item, aboutYouLayout, false);
