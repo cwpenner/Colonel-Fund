@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.view.View.OnClickListener;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -51,7 +52,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Activity for creating an event
  */
-public class CreateEventActivity extends Fragment {
+public class CreateEventActivity extends Fragment implements View.OnClickListener {
     Calendar myCalendar = Calendar.getInstance();
 
     private EditText txtEventDescription, txtEventTitle, txtEventGoal;
@@ -71,7 +72,14 @@ public class CreateEventActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.activity_event_list, container, false);
+
+        View rootView = (ViewGroup) inflater.inflate(R.layout.activity_create_event, container, false);
+        imageButton = (ImageButton) rootView.findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(this);
+        btnCreateEvent = (Button) rootView.findViewById(R.id.btnCreateEvent);
+        btnCreateEvent.setOnClickListener(this);
+
+        return rootView;
     }
 
     /**
@@ -99,27 +107,21 @@ public class CreateEventActivity extends Fragment {
         txtEventDescription = (EditText) createEventView.findViewById(R.id.txtEventDescription);
 
         imageView = (ImageView) createEventView.findViewById(R.id.imageView);
-        imageButton = (ImageButton) createEventView.findViewById(R.id.imageButton);
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
 
-        btnCreateEvent = (Button) createEventView.findViewById(R.id.btnCreateEvent);
-        btnCreateEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnCreateEvent: {
                 String strEventTitle = txtEventTitle.getText().toString();
                 String strEventMember = txtEventMember.getText().toString();
                 String strEventDate = txtEventDate.getText().toString();
                 String strEventGoal = txtEventGoal.getText().toString();
                 String strEventDescription = txtEventDescription.getText().toString();
                 String strEventType = txtEventType.getText().toString();
-
                 if (strEventTitle.isEmpty() || strEventMember.isEmpty() ||
                         strEventDate.isEmpty() || strEventGoal.isEmpty() ||
                         strEventDescription.isEmpty() || strEventType.isEmpty()) {
@@ -131,7 +133,10 @@ public class CreateEventActivity extends Fragment {
                             strEventDescription, strEventType);
                 }
             }
-        });
+            case R.id.imageButton: {
+                openGallery();
+            }
+        }
     }
 
     private String imageToString(Bitmap bitmap) {
@@ -245,7 +250,7 @@ public class CreateEventActivity extends Fragment {
 
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
+        getActivity().startActivityForResult(gallery, PICK_IMAGE);
     }
 
     @Override
