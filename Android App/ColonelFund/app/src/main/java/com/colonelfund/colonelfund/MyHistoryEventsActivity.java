@@ -32,6 +32,7 @@ public class MyHistoryEventsActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        getActivity().setTitle("My History/Events");
         return inflater.inflate(R.layout.activity_my_history_events, container, false);
     }
 
@@ -106,6 +107,7 @@ public class MyHistoryEventsActivity extends Fragment {
         viewToAdd.addView(tableBorder);
     }
 
+    /**
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
@@ -136,4 +138,5 @@ public class MyHistoryEventsActivity extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+    **/
 }

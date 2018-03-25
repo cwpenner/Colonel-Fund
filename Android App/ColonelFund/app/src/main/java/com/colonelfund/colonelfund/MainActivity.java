@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -41,8 +42,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
         //ActionBar actionbar = getSupportActionBar();
         //actionbar.setDisplayHomeAsUpEnabled(true);
         //actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -156,42 +162,42 @@ public class MainActivity extends AppCompatActivity {
          **/
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
+    //@Override
+    //public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    //inflater.inflate(R.menu.main_menu, menu);
+    //super.onCreateOptionsMenu(menu,inflater);
+    //}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.about_you) {
-            Intent intent = new Intent(this, ViewProfileActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.your_history_events) {
-            Intent intent = new Intent(this, MyHistoryEventsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.logout_item) {
-            AccessToken token = AccessToken.getCurrentAccessToken();
-            FirebaseAuth.getInstance().signOut();
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                    new ResultCallback<Status>() {
-                        @Override
-                        public void onResult(@NonNull Status status) {
-                            Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-            );
-            if(token != null) {
-                LoginManager.getInstance().logOut();
-            }
-            User.logout();
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(loginIntent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    //@Override
+    //public boolean onOptionsItemSelected(MenuItem item) {
+        //int id = item.getItemId();
+        //if (id == R.id.about_you) {
+            //Intent intent = new Intent(this, ViewProfileActivity.class);
+            //startActivity(intent);
+        //} else if (id == R.id.your_history_events) {
+            //Intent intent = new Intent(this, MyHistoryEventsActivity.class);
+            //startActivity(intent);
+        //} else if (id == R.id.logout_item) {
+            //AccessToken token = AccessToken.getCurrentAccessToken();
+            //FirebaseAuth.getInstance().signOut();
+            //Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    //new ResultCallback<Status>() {
+                        //@Override
+                        //public void onResult(@NonNull Status status) {
+                            //Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
+                        //}
+                    //}
+            //);
+            //if(token != null) {
+                //LoginManager.getInstance().logOut();
+            //}
+            //User.logout();
+            //Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            //startActivity(loginIntent);
+        //}
+        //return super.onOptionsItemSelected(item);
+    //}
+
     @Override
     protected void onStart() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

@@ -30,6 +30,7 @@ public class ViewProfileActivity extends Fragment implements ImageDownloader.Ima
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        getActivity().setTitle("My Account");
         return inflater.inflate(R.layout.activity_view_profile, container, false);
     }
 
@@ -57,6 +58,7 @@ public class ViewProfileActivity extends Fragment implements ImageDownloader.Ima
 
     }
 
+    /**
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
@@ -87,6 +89,7 @@ public class ViewProfileActivity extends Fragment implements ImageDownloader.Ima
         }
         return super.onOptionsItemSelected(item);
     }
+    **/
 
     private void addUserInfoLine(String leftText, String rightText) {
         View layout2 = LayoutInflater.from(getActivity()).inflate(R.layout.about_you_list_item, aboutYouLayout, false);

@@ -55,6 +55,7 @@ public class EventListActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        getActivity().setTitle("Event List");
         return inflater.inflate(R.layout.activity_event_list, container, false);
     }
 
@@ -134,21 +135,21 @@ public class EventListActivity extends Fragment {
     /**
      * Inflates the main menu bar.
      *
-     * @param menu
+     * @param
      * @return true
-     */
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
+
+    //@Override
+    //public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    //inflater.inflate(R.menu.main_menu, menu);
+    //super.onCreateOptionsMenu(menu,inflater);
+    //}
 
     /**
      * Gets the information on buttons selected and takes the appropriate action.
      *
      * @param item
      * @return selectedItem
-     */
+     //
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -173,6 +174,7 @@ public class EventListActivity extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+     */
 
     /**
      * Generates Initials and User Name for Event List.

@@ -45,6 +45,7 @@ public class MemberListActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        getActivity().setTitle("Member List");
         return inflater.inflate(R.layout.activity_member_list, container, false);
     }
 
@@ -117,13 +118,13 @@ public class MemberListActivity extends Fragment {
     /**
      * Inflates the main menu bar.
      *
-     * @param menu
+     * @param
      * @return true
-     */
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+    inflater.inflate(R.menu.main_menu, menu);
+    super.onCreateOptionsMenu(menu,inflater);
     }
 
     @Override
@@ -150,6 +151,7 @@ public class MemberListActivity extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+     */
 
     /**
      * Generates Initials and User Name for memberlist.

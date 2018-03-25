@@ -78,6 +78,7 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         imageButton.setOnClickListener(this);
         btnCreateEvent = (Button) rootView.findViewById(R.id.btnCreateEvent);
         btnCreateEvent.setOnClickListener(this);
+        getActivity().setTitle("Create Event");
 
         return rootView;
     }
@@ -217,6 +218,7 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         new AppSingleton(ctx).getInstance(ctx).addToRequestQueue(strReq, cancel_event_tag);
     }
 
+    /**
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
@@ -247,6 +249,7 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         }
         return super.onOptionsItemSelected(item);
     }
+    **/
 
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
