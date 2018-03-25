@@ -250,7 +250,7 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
 
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        getActivity().startActivityForResult(gallery, PICK_IMAGE);
+        startActivityForResult(gallery, PICK_IMAGE);
     }
 
     @Override
