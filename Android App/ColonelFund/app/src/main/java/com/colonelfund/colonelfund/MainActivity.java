@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private DrawerLayout mDrawerLayout;
+    Fragment newFragment;
 
 
     /**
@@ -49,11 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment newFragment = new EventListActivity();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.viewer, newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+
 
         updateLocalStorage();
 
@@ -73,11 +70,17 @@ public class MainActivity extends AppCompatActivity {
                         // For example, swap UI fragments here
                         int id = menuItem.getItemId();
                         if (id == R.id.nav_account) {
-                            Intent intent = new Intent(MainActivity.this, ViewProfileActivity.class);
-                            startActivity(intent);
+                            newFragment = new ViewProfileActivity();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.viewer, newFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                         } else if (id == R.id.nav_history) {
-                            Intent intent = new Intent(MainActivity.this, MyHistoryEventsActivity.class);
-                            startActivity(intent);
+                            newFragment = new MyHistoryEventsActivity();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.viewer, newFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                         } else if (id == R.id.nav_logout) {
                             AccessToken token = AccessToken.getCurrentAccessToken();
                             FirebaseAuth.getInstance().signOut();
@@ -96,25 +99,37 @@ public class MainActivity extends AppCompatActivity {
                             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                             startActivity(loginIntent);
                         } else if (id == R.id.nav_members) {
-                            Intent intent = new Intent(MainActivity.this, MemberListActivity.class);
-                            startActivity(intent);
+                            newFragment = new MemberListActivity();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.viewer, newFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                         } else if (id == R.id.nav_events) {
-                            Intent intent = new Intent(MainActivity.this, EventListActivity.class);
-                            startActivity(intent);
+                            newFragment = new EventListActivity();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.viewer, newFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            //Intent intent = new Intent(MainActivity.this, EventListActivity.class);
+                            //startActivity(intent);
                         } else if (id == R.id.nav_create_event) {
-                            Intent intent = new Intent(MainActivity.this, CreateEventActivity.class);
-                            startActivity(intent);
+                            newFragment = new CreateEventActivity();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.viewer, newFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
                         } else if (id == R.id.nav_main) {
                             //Intent intent = new Intent(AcotvityName.this, MainActivity.this);
                             //startActivity(intent);
                             //removed for main screen for now.
                         }
-                        return MainActivity.this.onOptionsItemSelected(menuItem);
+                        //return MainActivity.this.onOptionsItemSelected(menuItem);
 
-                        //return true;
+                        return true;
                     }
                 });
 
+        /**
         //Logout Button code here must be copied to each Activity, as the menu in the top right contains a logout button
         Button logoutButton = (Button) findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(loginIntent);
             }
         });
+         **/
     }
 
     @Override
@@ -200,9 +216,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
+    /** removing for now
      * @param view
-     */
+
     public void viewMemberList(View view) {
         Intent intent = new Intent(this, MemberListActivity.class);
         startActivity(intent);
@@ -210,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * @param view
-     */
+
     public void viewEventList(View view) {
         Intent intent = new Intent(this, EventListActivity.class);
         startActivity(intent);
@@ -218,9 +234,10 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * @param view
-     */
+
     public void createEvent(View view) {
         Intent intent = new Intent(this, CreateEventActivity.class);
         startActivity(intent);
     }
+    */
 }

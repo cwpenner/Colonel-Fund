@@ -48,14 +48,16 @@ public class EventListActivity extends Fragment {
     private ArrayAdapter arrayAdapter = null;
     private EditText searchBar = null;
     Context ctx;
-    private static final String TAG = "MyActivity";
+    View eventListView;
+    private static final String TAG = "EventListActivity";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.activity_main, container, false);
+        return inflater.inflate(R.layout.activity_event_list, container, false);
     }
+
 
     /**
      * Overrides on create in order to draw event list and sets listeners for buttons and search.
@@ -64,22 +66,22 @@ public class EventListActivity extends Fragment {
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         super.onActivityCreated(savedInstanceState);
-
+        //super.onCreate(savedInstanceState);
         ctx = getActivity();
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // not working with fragment conversion. Play with later.
-        getActivity().setContentView(R.layout.activity_event_list);
-        searchBar = (EditText) getView().findViewById(R.id.editText);
-        final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) getView().findViewById(R.id.swiperefresh);
-        lv = (ListView) getView().findViewById(R.id.eventListView);
-        final EventCollection ecf = new EventCollection(getActivity().getApplicationContext());
+        eventListView = getView();
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //setContentView(R.layout.activity_event_list);
+        searchBar = (EditText) eventListView.findViewById(R.id.editText);
+        final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) eventListView.findViewById(R.id.swiperefresh);
+        lv = (ListView) eventListView.findViewById(R.id.eventListView);
+        final EventCollection ecf = new EventCollection(ctx);
         Collection<Event> eventList = ecf.getEventsList();
 
         swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                EventCollection ec = new EventCollection(getActivity().getApplicationContext());
+                EventCollection ec = new EventCollection(ctx);
                 ec.updateFromRemote();
                 swiperefresh.setRefreshing(true);
 
@@ -87,7 +89,7 @@ public class EventListActivity extends Fragment {
                     @Override
                     public void run() {
                         swiperefresh.setRefreshing(false);
-                        EventCollection newEcf = new EventCollection(getActivity().getApplicationContext());
+                        EventCollection newEcf = new EventCollection(ctx);
                         Collection<Event> newEventList = newEcf.getEventsList();
                         arrayAdapter = new EventListAdapter(ctx, generateData(newEventList));
                         lv.setAdapter(arrayAdapter);
@@ -98,7 +100,7 @@ public class EventListActivity extends Fragment {
         });
 
         //make array adapter
-        arrayAdapter = new EventListAdapter(getActivity(), generateData(eventList));
+        arrayAdapter = new EventListAdapter(ctx, generateData(eventList));
         lv.setAdapter(arrayAdapter);
         // set listener for each item
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,7 +108,7 @@ public class EventListActivity extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 EventListModel item = (EventListModel) lv.getItemAtPosition(position);
                 String myItem = item.getTitle();
-                Intent intent = new Intent(getActivity(), ViewEventActivity.class);
+                Intent intent = new Intent(ctx, ViewEventActivity.class);
                 intent.putExtra("SelectedEvent", ecf.get(myItem));
                 startActivity(intent);
             }
@@ -140,13 +142,6 @@ public class EventListActivity extends Fragment {
         inflater.inflate(R.menu.main_menu, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
-    /**
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-    **/
 
     /**
      * Gets the information on buttons selected and takes the appropriate action.
