@@ -20,7 +20,7 @@ class Event: NSObject, Codable {
     private var associatedMember: String
     private var eventType: String
     private var eventTime: String
-    private var address: String
+    private var address: Address
     private var associatedEmail: String //delete
     
     init(title: String) {
@@ -34,7 +34,7 @@ class Event: NSObject, Codable {
         self.associatedMember = ""
         self.eventType = ""
         self.eventTime = ""
-        self.address = ""
+        self.address = Address()
         self.associatedEmail = "" //delete
     }
     
@@ -49,7 +49,7 @@ class Event: NSObject, Codable {
         self.associatedMember = associatedMember
         self.eventType = eventType
         self.eventTime = ""
-        self.address = ""
+        self.address = Address()
         self.associatedEmail = "" //delete
     }
     
@@ -64,11 +64,11 @@ class Event: NSObject, Codable {
         self.associatedMember = associatedMember
         self.eventType = eventType
         self.eventTime = ""
-        self.address = ""
+        self.address = Address()
         self.associatedEmail = "" //delete
     }
     
-    init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicData: String, associatedMember: String, eventType: String, eventTime: String, address: String) {
+    init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicData: String, associatedMember: String, eventType: String, eventTime: String, address: Address) {
         self.title = title
         self.eventDate = eventDate
         self.eventDescription = eventDescription
@@ -96,7 +96,7 @@ class Event: NSObject, Codable {
         associatedEmail = try values.decode(String.self, forKey: .associatedEmail) //delete
         self.eventPicData = "default"
         self.eventTime = ""
-        self.address = ""
+        self.address = Address()
     }
     
     func getTitle() -> String {

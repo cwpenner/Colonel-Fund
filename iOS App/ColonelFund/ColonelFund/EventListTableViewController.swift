@@ -92,6 +92,9 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
         return EventCollection.sharedInstance.eventArray.count
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

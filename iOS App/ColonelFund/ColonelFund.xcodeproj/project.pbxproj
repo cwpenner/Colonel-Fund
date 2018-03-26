@@ -49,6 +49,7 @@
 		5F995DF61F9286D700F8E459 /* ColonelFundUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F995DF51F9286D700F8E459 /* ColonelFundUITests.swift */; };
 		5FB066D01FF7064F00FCF659 /* Braintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB066D11FF7064F00FCF659 /* Braintree.framework */; };
 		5FB066D21FF7065300FCF659 /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB066D31FF7065300FCF659 /* BraintreeDropIn.framework */; };
+		5FBD421A20697F1300FE1FC5 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBD421920697F1300FE1FC5 /* Address.swift */; };
 		866382152041B5D3003F2DE9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 866382142041B5D3003F2DE9 /* GoogleService-Info.plist */; };
 		DAFE769E0EABF81414A3D1B4 /* Pods_ColonelFund.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B3F85F0CD37838ACE633B6 /* Pods_ColonelFund.framework */; };
 		FBD42D9F42E7DF6A273C7D38 /* Pods_ColonelFundTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BE0B8B54E0CB317F88435 /* Pods_ColonelFundTests.framework */; };
@@ -139,6 +140,7 @@
 		5FB066CF1FF702FF00FCF659 /* ColonelFund.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColonelFund.entitlements; sourceTree = "<group>"; };
 		5FB066D11FF7064F00FCF659 /* Braintree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Braintree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FB066D31FF7065300FCF659 /* BraintreeDropIn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BraintreeDropIn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FBD421920697F1300FE1FC5 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		866382142041B5D3003F2DE9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9F6BE0B8B54E0CB317F88435 /* Pods_ColonelFundTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColonelFundTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6E3F394D4DC866E93014003 /* Pods-ColonelFundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColonelFundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColonelFundTests/Pods-ColonelFundTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				5F54767A20224F9E00C91A2B /* MemberCollection.swift */,
 				5F54767120211D4E00C91A2B /* Event.swift */,
 				5F638A872022A71500A9CACA /* User.swift */,
+				5FBD421920697F1300FE1FC5 /* Address.swift */,
 				5F547681202287D900C91A2B /* EventCollection.swift */,
 				5F54766D2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift */,
 				5F54766B2020F15100C91A2B /* MyEventsTableViewCell.swift */,
@@ -644,6 +647,7 @@
 			files = (
 				5F995DD51F9286D700F8E459 /* MainViewController.swift in Sources */,
 				5F54767B20224F9E00C91A2B /* MemberCollection.swift in Sources */,
+				5FBD421A20697F1300FE1FC5 /* Address.swift in Sources */,
 				5F5A49D81FFC1647006E211B /* BraintreeViewController.swift in Sources */,
 				5F5779E71FB01805000667FC /* ViewMemberViewController.swift in Sources */,
 				5F8717FE1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift in Sources */,

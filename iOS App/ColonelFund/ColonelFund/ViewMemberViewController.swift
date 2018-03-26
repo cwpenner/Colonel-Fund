@@ -79,6 +79,9 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         return member.getAssociatedEvents().count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
