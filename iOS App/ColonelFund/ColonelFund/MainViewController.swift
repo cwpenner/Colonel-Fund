@@ -14,12 +14,18 @@ import FirebaseGoogleAuthUI
 import GoogleSignIn
 
 
-class MainViewController: UIViewController {
-    //TODO: - Show logged in user profile
+class MainViewController: UIViewController, MemberCollectionProtocol, EventCollectionProtocol {
+    func memberDataDownloaded() {
+        //Preload MemberCollection
+    }
+    
+    func eventDataDownloaded() {
+        //Preload EventCollection
+    }
+    
     //MARK: - Properties
     @IBAction func logoutButtonPressed(_ sender: Any) {
         print("You have been logged out")
-        //TODO: perform logout activities
         if let accessToken = FBSDKAccessToken.current(){
             LoginManager().logOut()
         }
@@ -33,6 +39,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        MemberCollection.sharedInstance.delegate = self
+        EventCollection.sharedInstance.delegate = self
         
         print(User.currentUser.getUserID())
         print(User.currentUser.getUserName())
@@ -51,4 +59,3 @@ class MainViewController: UIViewController {
 
 
 }
-

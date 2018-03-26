@@ -80,28 +80,19 @@ class Member: NSObject, Codable {
         self.userID = self.userName
     }
     
-    init(json: [String: AnyObject]) throws {
-        guard let userID = json["userID"] as? String else {
-            throw SerializationError.missing("userID")
-        }
-        guard let firstName = json["firstName"] as? String else {
-            throw SerializationError.missing("firstName")
-        }
-        guard let lastName = json["lastName"] as? String else {
-            throw SerializationError.missing("lastName")
-        }
-        guard let emailAddress = json["emailAddress"] as? String else {
-            throw SerializationError.missing("emailAddress")
-        }
-        guard let phoneNumber = json["phoneNumber"] as? String else {
-            throw SerializationError.missing("phoneNumber")
-        }
-        self.userID = userID
-        self.firstName = firstName.capitalized
-        self.lastName = lastName.capitalized
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        userID = try values.decode(String.self, forKey: .userID)
+        firstName = try values.decode(String.self, forKey: .firstName)
+        lastName = try values.decode(String.self, forKey: .lastName)
+        emailAddress = try values.decode(String.self, forKey: .emailAddress)
+        phoneNumber = try values.decode(String.self, forKey: .phoneNumber)
+        //TODO: The following will need to be added to the database
+//        userName = try values.decode(String.self, forKey: .userName)
+//        profilePicURL = try values.decode(String.self, forKey: .profilePicURL)
+//        facebookID = try values.decode(String.self, forKey: .facebookID)
+//        googleID = try values.decode(String.self, forKey: .googleID)
         self.userName = firstName.lowercased() + lastName.lowercased()
-        self.emailAddress = emailAddress
-        self.phoneNumber = phoneNumber
         self.profilePicURL = ""
         self.facebookID = ""
         self.googleID = ""
@@ -176,9 +167,9 @@ class Member: NSObject, Codable {
         return self.associatedEvents
     }
     
-    func setAssociatedEvents(eventList: [Event]) {
+    func setAssociatedEvents() {
         self.associatedEvents.removeAll()
-        for (item) in eventList {
+        for (item) in EventCollection.sharedInstance.eventArray {
             if (item.getAssociatedMember() == self.userID) {
                 associatedEvents.append(item)
             }
@@ -193,20 +184,30 @@ class Member: NSObject, Codable {
         self.userName = self.firstName.lowercased() + self.lastName.lowercased()
     }
     
-    func toJSON() -> Data {
-//        let dict = ["userID": self.userID,
-//                    "firstName": self.firstName,
-//                    "lastName": self.lastName,
-//                    "emailAddress": self.emailAddress,
-//                    "phoneNumber": self.phoneNumber]
-        let encoder = JSONEncoder()
-        let jsonData = try? encoder.encode(self) //change to dict if this contains too much data
-        return jsonData!
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(userID, forKey: .userID)
+        try container.encode(firstName, forKey: .firstName)
+        try container.encode(lastName, forKey: .lastName)
+        try container.encode(emailAddress, forKey: .emailAddress)
+        try container.encode(phoneNumber, forKey: .phoneNumber)
+        //TODO: The following will need to be added to the database
+//        try container.encode(userName, forKey: .userName)
+//        try container.encode(profilePicURL, forKey: .profilePicURL)
+//        try container.encode(facebookID, forKey: .facebookID)
+//        try container.encode(googleID, forKey: .googleID)
     }
     
-    enum SerializationError: Error {
-        case missing(String)
-        case invalid(String, Any)
+    enum CodingKeys: String, CodingKey {
+        case userID
+        case firstName
+        case lastName
+        case userName
+        case emailAddress
+        case phoneNumber
+        case profilePicURL
+        case facebookID
+        case googleID
+        case associatedEvents
     }
-    
 }

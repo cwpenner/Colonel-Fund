@@ -174,29 +174,16 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
     
     func databaseLoginController(jsonData: Data) -> Bool {
         var loginMessage = ""
-        let error: Bool
         do {
-            let object = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
-            print("LoginData: \(object)")
-            if let dict = object as? [String: AnyObject] {
-                error = dict["error"] as! Bool
-                if (error) {
-                    loginMessage = dict["error_msg"] as! String
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: false)
-                    })
-                } else {
-                    let user = dict["user"] as? [String : AnyObject]
-                    let member = try Member(json: user!)
-                    User.setCurrentUser(currentUser: member)
-                    loginMessage = "Successfully logged in as \(User.currentUser.getFormattedFullName())"
-                    print(loginMessage)
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: true)
-                    })
-                    return true
-                }
-            }
+            let loginData = try JSONDecoder().decode(LoginData.self, from: jsonData)
+            let member = loginData.user
+            User.setCurrentUser(currentUser: member)
+            loginMessage = "Successfully logged in as \(User.currentUser.getFormattedFullName())"
+            print(loginMessage)
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.loginRequestComplete(loginMessage: loginMessage, loginSuccessful: true)
+            })
+            return true
         } catch {
             loginMessage = "Error! Unable to login"
             print(loginMessage)
@@ -261,4 +248,9 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
 //    }
  
     
+}
+
+struct LoginData: Decodable {
+    let error: Bool
+    let user: Member
 }

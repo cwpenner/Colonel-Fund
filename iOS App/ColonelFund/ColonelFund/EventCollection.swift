@@ -8,20 +8,21 @@
 
 import Foundation
 
-protocol EventCollectionProtocol {
+protocol EventCollectionProtocol: class {
     func eventDataDownloaded()
 }
 
 class EventCollection: NSObject, URLSessionDelegate {
-    var delegate: EventCollectionProtocol!
-    let jsonFileName = "events"
-    let URL_FOR_EVENTS = "https://wesll.com/colonelfund/events.php"
+    weak var delegate: EventCollectionProtocol?
+    private let jsonFileName = "events"
+    private let URL_FOR_EVENTS = "https://wesll.com/colonelfund/events.php"
     var eventMap: [String: Event] = [:]
     var eventArray: [Event] = []
+    static let sharedInstance = EventCollection()
     
     override init() {
         super.init()
-        updateFromRemote()
+        self.updateFromRemote()
     }
     
     func updateFromRemote() {
@@ -79,54 +80,28 @@ class EventCollection: NSObject, URLSessionDelegate {
                     jsonData = try Data(contentsOf: url!)
                     saveJSONLocal(jsonData: jsonData!, fileName: fileName)
                 }
-                let object = try JSONSerialization.jsonObject(with: jsonData!, options: .allowFragments)
-                print("Object: \(object)")
-                if let dict = object as? [String: AnyObject] {
-                    for (key, value) in dict {
-                        let title = value["title"] as! String
-                        let eventDate = value["eventDate"] as! String
-                        let eventDescription = value["description"] as! String
-                        let fundGoal = value["fundGoal"] as! Double
-                        let currentFunds = value["currentFunds"] as! Double
-                        let associatedMember = value["associatedMember"] as! String
-                        let eventType = value["type"] as! String
-                        let newEvent = Event(title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: fundGoal, currentFunds: currentFunds, associatedMember: associatedMember, eventType: eventType)
-                        eventMap[title.lowercased()] = newEvent
-                    }
-                } else if let jsonArray = object as? [AnyObject] {
-                    for item in jsonArray {
-                        let title = item["title"] as! String
-                        let eventDate = item["eventDate"] as! String
-                        let eventDescription = item["description"] as! String
-                        let fundGoal = Double(item["fundGoal"] as! String)!
-                        let currentFunds = Double(item["currentFunds"] as! String)!
-                        let associatedMember = item["associatedMember"] as! String
-                        let eventType = item["type"] as! String
-                        let newEvent = Event(title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: fundGoal, currentFunds: currentFunds, associatedMember: associatedMember, eventType: eventType)
-                        eventMap[title.lowercased()] = newEvent
-                    }
+                let eventArray = try JSONDecoder().decode([Event].self, from: jsonData!)
+                for newEvent in eventArray {
+                    eventMap[newEvent.getTitle().lowercased()] = newEvent
                 }
+                getEvents()
                 DispatchQueue.main.async(execute: { () -> Void in
-                    self.delegate.eventDataDownloaded()
+                    self.delegate!.eventDataDownloaded()
                 })
                 return true
             } catch {
                 print("Error! Unable to parse \(fileName).json")
                 DispatchQueue.main.async(execute: { () -> Void in
-                    self.delegate.eventDataDownloaded()
+                    self.delegate!.eventDataDownloaded()
                 })
             }
         }
         return false
     }
     
-    func count() -> Int {
-        return eventMap.count
-    }
-    
     func getEvents() -> [Event] {
         eventArray.removeAll()
-        for (key, value) in eventMap {
+        for (_, value) in eventMap {
             eventArray.append(value)
         }
         eventArray = eventArray.sorted(by: {$0.getEventDate() < $1.getEventDate()})

@@ -13,7 +13,7 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     //EventCollectionProtocol
     //This has a EventCollection delegate reload the table when the data is finished being loaded
     func eventDataDownloaded() {
-        member.setAssociatedEvents(eventList: ec.getEvents())
+        member.setAssociatedEvents()
         associatedEventList = member.getAssociatedEvents()
         if self.refresher.isRefreshing
         {
@@ -27,13 +27,12 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var myEventsTableView: UITableView!
     
     var member: Member! = User.getCurrentUser()
-    let ec = EventCollection()
     var associatedEventList: [Event] = []
     var refresher: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ec.delegate = self
+        EventCollection.sharedInstance.delegate = self
         associatedEventList = member.getAssociatedEvents()
         
         myDonationHistoryTableView.delegate = self
@@ -54,7 +53,7 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc private func refreshEventList(_ sender: Any) {
-        self.ec.updateFromRemote()
+        EventCollection.sharedInstance.updateFromRemote()
     }
     
     // MARK: - Table view data source

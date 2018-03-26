@@ -11,9 +11,9 @@ import UIKit
 class ViewEventViewController: UIViewController, MemberCollectionProtocol {
     
     //MemberCollectionProtocol
-    //This has a MemberCollection delegate reload the table when the data is finished being loaded
+    //This has a MemberCollection delegate reload the view when the data is finished being loaded
     func memberDataDownloaded() {
-        let member = mc.getMember(userID: event.getAssociatedMember())
+        let member = MemberCollection.sharedInstance.getMember(userID: event.getAssociatedMember())
         eventMemberLabel.text = member?.getFormattedFullName()
     }
     
@@ -27,23 +27,38 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
     @IBOutlet weak var eventDescriptionLabel: UILabel!
     
     var event: Event! = nil
-    let mc = MemberCollection()
-    var memberList: [Member] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mc.delegate = self
+        MemberCollection.sharedInstance.updateFromRemote()
+        MemberCollection.sharedInstance.delegate = self
 
         eventTitleLabel.text = event.getTitle()
         eventDateLabel.text = event.getEventDate()
         eventFundGoalLabel.text = "$" + String(event.getFundGoal())
         eventCurrentFundsLabel.text = "$" + String(event.getCurrentFunds())
         eventDescriptionLabel.text = event.getEventDescription()
+        print(event.getEventPicURL())
+        if !event.getEventPicURL().isEmpty {
+            loadImageFromURL(url: event.getEventPicURL())
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func loadImageFromURL(url: String) {
+        let imageURL = URL(string: url)
+        do {
+            let imageData = try Data(contentsOf: imageURL!)
+            eventImageView.image = UIImage(data: imageData)
+        } catch {
+            print("Error processing Event pic: \(error.localizedDescription)")
+            eventImageView.image = UIImage(named: "img_placeholder")
+            
+        }
     }
     
 

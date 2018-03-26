@@ -16,8 +16,12 @@ class Event: NSObject, Codable {
     private var fundGoal: Double
     private var currentFunds: Double
     private var eventPicURL: String
+    private var eventPicData: String
     private var associatedMember: String
     private var eventType: String
+    private var eventTime: String
+    private var address: String
+    private var associatedEmail: String //delete
     
     init(title: String) {
         self.title = title
@@ -26,8 +30,12 @@ class Event: NSObject, Codable {
         self.fundGoal = 0
         self.currentFunds = 0
         self.eventPicURL = ""
+        self.eventPicData = "default"
         self.associatedMember = ""
         self.eventType = ""
+        self.eventTime = ""
+        self.address = ""
+        self.associatedEmail = "" //delete
     }
     
     init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, associatedMember: String, eventType: String) {
@@ -37,8 +45,12 @@ class Event: NSObject, Codable {
         self.fundGoal = fundGoal
         self.currentFunds = currentFunds
         self.eventPicURL = ""
+        self.eventPicData = "default"
         self.associatedMember = associatedMember
         self.eventType = eventType
+        self.eventTime = ""
+        self.address = ""
+        self.associatedEmail = "" //delete
     }
     
     init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicURL: String, associatedMember: String, eventType: String) {
@@ -48,41 +60,43 @@ class Event: NSObject, Codable {
         self.fundGoal = fundGoal
         self.currentFunds = currentFunds
         self.eventPicURL = eventPicURL
+        self.eventPicData = "default"
         self.associatedMember = associatedMember
         self.eventType = eventType
+        self.eventTime = ""
+        self.address = ""
+        self.associatedEmail = "" //delete
     }
     
-    init(json: [String: Any]) throws {
-        guard let title = json["title"] as? String else {
-            throw SerializationError.missing("title")
-        }
-        guard let eventDate = json["eventDate"] as? String else {
-            throw SerializationError.missing("eventDate")
-        }
-        guard let eventDescription = json["description"] as? String else {
-            throw SerializationError.missing("description")
-        }
-        guard let fundGoal = json["fundGoal"] as? Double else {
-            throw SerializationError.missing("fundGoal")
-        }
-        guard let currentFunds = json["currentFunds"] as? Double else {
-            throw SerializationError.missing("currentFunds")
-        }
-        guard let associatedMember = json["associatedMember"] as? String else {
-            throw SerializationError.missing("associatedMember")
-        }
-        guard let eventType = json["type"] as? String else {
-            throw SerializationError.missing("type")
-        }
-        
+    init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicData: String, associatedMember: String, eventType: String, eventTime: String, address: String) {
         self.title = title
         self.eventDate = eventDate
         self.eventDescription = eventDescription
         self.fundGoal = fundGoal
         self.currentFunds = currentFunds
         self.eventPicURL = ""
+        self.eventPicData = eventPicData
         self.associatedMember = associatedMember
         self.eventType = eventType
+        self.eventTime = eventTime
+        self.address = address
+        self.associatedEmail = "" //delete
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        title = try values.decode(String.self, forKey: .title)
+        eventDate = try values.decode(String.self, forKey: .eventDate)
+        eventDescription = try values.decode(String.self, forKey: .eventDescription)
+        fundGoal = (try Double(values.decode(String.self, forKey: .fundGoal)))!
+        currentFunds = (try Double(values.decode(String.self, forKey: .currentFunds)))!
+        eventPicURL = try values.decode(String.self, forKey: .eventPicURL)
+        associatedMember = try values.decode(String.self, forKey: .associatedMember)
+        eventType = try values.decode(String.self, forKey: .eventType)
+        associatedEmail = try values.decode(String.self, forKey: .associatedEmail) //delete
+        self.eventPicData = "default"
+        self.eventTime = ""
+        self.address = ""
     }
     
     func getTitle() -> String {
@@ -149,21 +163,37 @@ class Event: NSObject, Codable {
         self.eventType = eventType
     }
     
-    func toJSON() -> Data {
-        //        let dict = ["title": self.title,
-        //                    "eventDate": self.eventDate,
-        //                    "description": self.eventDescription,
-        //                    "fundGoal": self.fundGoal,
-        //                    "currentFunds": self.currentFunds,
-        //                    "associatedMember": self.memberString,
-        //                    "type": self.eventType]
-        let encoder = JSONEncoder()
-        let jsonData = try? encoder.encode(self) //change to dict if this contains too much data
-        return jsonData!
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .title)
+        try container.encode(eventDate, forKey: .eventDate)
+        try container.encode(eventDescription, forKey: .eventDescription)
+        try container.encode(String(fundGoal), forKey: .fundGoal)
+        try container.encode(String(currentFunds), forKey: .currentFunds)
+        try container.encode(eventPicData, forKey: .eventPicData)
+        try container.encode(associatedMember, forKey: .associatedMember)
+        try container.encode(eventType, forKey: .eventType)
+//        try container.encode(eventTime, forKey: .eventTime)
+//        try container.encode(address, forKey: .address)
+        //try container.encode(associatedEmail, forKey: .associatedEmail) //delete
     }
     
-    enum SerializationError: Error {
-        case missing(String)
-        case invalid(String, Any)
+    func toFormEncoded() -> String {
+        return "title=\(self.title)&associatedMember=\(self.associatedMember)&eventDate=\(self.eventDate)&fundGoal=\(self.fundGoal)&currentFunds=\(self.currentFunds)&description=\(self.eventDescription)&type=\(self.eventType)&image=\(self.eventPicData)"
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case eventDate
+        case eventDescription = "description"
+        case fundGoal
+        case currentFunds
+        case eventPicURL = "imageURL"
+        case eventPicData = "image"
+        case associatedMember
+        case eventType = "type"
+        case eventTime
+        case address
+        case associatedEmail //delete
     }
 }
