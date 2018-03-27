@@ -25,9 +25,9 @@ android {
 
 
 dependencies {
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    compile 'com.android.volley:volley:1.0.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    implementation 'com.android.volley:volley:1.0.0'
     implementation 'com.android.support:design:27.1.0'
     implementation 'com.facebook.android:facebook-android-sdk:4.29.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -42,9 +42,9 @@ dependencies {
     implementation 'com.braintreepayments.api:braintree:2.8.1'
     implementation 'com.braintreepayments.api:drop-in:3.2.0'
     implementation 'com.loopj.android:android-async-http:1.4.9'
-    implementation 'com.google.android.gms:play-services-wallet:11.8.0'
-    compile 'com.google.android.gms:play-services-auth:11.8.0'
-    compile 'com.google.firebase:firebase-auth:11.8.0'
+    implementation 'com.google.android.gms:play-services-wallet:12.0.0'
+    implementation 'com.google.android.gms:play-services-auth:12.0.0'
+    implementation 'com.google.firebase:firebase-auth:12.0.0'
 }
 apply plugin: 'com.google.gms.google-services'
 
