@@ -14,20 +14,21 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
     //This has a MemberCollection delegate reload the view when the data is finished being loaded
     func memberDataDownloaded() {
         member = MemberCollection.sharedInstance.getMember(userID: event.getAssociatedMember())
-        eventMemberLabel.text = member.getFormattedFullName()
+        eventMemberTextView.text = member.getFormattedFullName()
     }
     
     //MARK: Properties
     @IBOutlet weak var eventImageView: UIImageView!
     @IBOutlet weak var eventTitleLabel: UILabel!
-    @IBOutlet weak var eventDateLabel: UILabel!
-    @IBOutlet weak var eventTimeLabel: UILabel!
-    @IBOutlet weak var eventAddressLabel: UILabel!
-    @IBOutlet weak var eventTypeLabel: UILabel!
-    @IBOutlet weak var eventMemberLabel: UILabel!
-    @IBOutlet weak var eventFundGoalLabel: UILabel!
-    @IBOutlet weak var eventCurrentFundsLabel: UILabel!
+    @IBOutlet weak var eventDateTextView: UITextView!
+    @IBOutlet weak var eventTimeTextView: UITextView!
+    @IBOutlet weak var eventAddressTextView: UITextView!
+    @IBOutlet weak var eventTypeTextView: UITextView!
+    @IBOutlet weak var eventMemberTextView: UITextView!
+    @IBOutlet weak var eventFundGoalTextView: UITextView!
+    @IBOutlet weak var eventCurrentFundsTextView: UITextView!
     @IBOutlet weak var eventDescriptionLabel: UILabel!
+    @IBOutlet weak var eventProgressView: UIProgressView!
     
     var event: Event! = nil
     var member: Member! = nil
@@ -38,20 +39,32 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
         MemberCollection.sharedInstance.delegate = self
         
         member = MemberCollection.sharedInstance.getMember(userID: event.getAssociatedMember())
-        eventMemberLabel.text = member.getFormattedFullName()
+        eventMemberTextView.text = member.getFormattedFullName()
 
         eventTitleLabel.text = event.getTitle()
-        eventDateLabel.text = event.getEventDate()
-        eventTimeLabel.text = event.getEventTime()
-        eventAddressLabel.text = event.getAddress().toString()
-        eventTypeLabel.text = event.getEventType()
-        eventFundGoalLabel.text = "$" + String(event.getFundGoal())
-        eventCurrentFundsLabel.text = "$" + String(event.getCurrentFunds())
+        eventDateTextView.text = event.getEventDate()
+        eventTimeTextView.text = event.getEventTime()
+        eventAddressTextView.text = event.getAddress().toString()
+        eventTypeTextView.text = event.getEventType()
+        eventFundGoalTextView.text = "$" + String(event.getFundGoal())
+        eventCurrentFundsTextView.text = "$" + String(event.getCurrentFunds())
         eventDescriptionLabel.text = event.getEventDescription()
         print(event.getEventPicURL())
         if !event.getEventPicURL().isEmpty {
             loadImageFromURL(url: event.getEventPicURL())
         }
+        
+        var progress = Float(event.getCurrentFunds() / event.getFundGoal())
+        if (progress < 0.5) {
+            eventProgressView.progressTintColor = UIColor.red
+        } else if (progress > 0.5 && progress < 1.0) {
+            eventProgressView.progressTintColor = UIColor.yellow
+        } else if (progress >= 1.0) {
+            progress = 1.0
+            eventProgressView.progressTintColor = UIColor.green
+        }
+
+        eventProgressView.setProgress(progress, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,7 +100,7 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
             }
             
             donateToEventViewController.donateEvent = event
-            donateToEventViewController.tempMemberText = eventMemberLabel.text!
+            donateToEventViewController.tempMemberText = eventMemberTextView.text!
             
         case "ShowMember":
             guard let memberViewController = segue.destination as? ViewMemberViewController else {

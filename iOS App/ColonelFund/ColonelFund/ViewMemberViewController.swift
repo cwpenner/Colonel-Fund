@@ -25,8 +25,8 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
     //MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var emailTextView: UITextView!
+    @IBOutlet weak var phoneTextView: UITextView!
     @IBOutlet weak var profilePicImageView: UIImageView!
     @IBOutlet weak var associatedEventsTableView: UITableView!
     
@@ -42,8 +42,8 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         
         nameLabel.text = member.getFormattedFullName()
         usernameLabel.text = member.getUserName()
-        emailLabel.text = member.getEmailAddress()
-        phoneLabel.text = member.getPhoneNumber()
+        emailTextView.text = member.getEmailAddress()
+        phoneTextView.text = member.getPhoneNumber()
         
         associatedEventsTableView.delegate = self
         associatedEventsTableView.dataSource = self
