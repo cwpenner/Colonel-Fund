@@ -163,6 +163,22 @@ class Event: NSObject, Codable {
         self.eventType = eventType
     }
     
+    func getEventTime() -> String {
+        return eventTime
+    }
+    
+    func setEventTime(eventTime: String) {
+        self.eventTime = eventTime
+    }
+    
+    func getAddress() -> Address {
+        return address
+    }
+    
+    func setAddress(address: Address) {
+        self.address = address
+    }
+    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(title, forKey: .title)

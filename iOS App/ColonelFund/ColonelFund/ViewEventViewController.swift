@@ -13,28 +13,38 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
     //MemberCollectionProtocol
     //This has a MemberCollection delegate reload the view when the data is finished being loaded
     func memberDataDownloaded() {
-        let member = MemberCollection.sharedInstance.getMember(userID: event.getAssociatedMember())
-        eventMemberLabel.text = member?.getFormattedFullName()
+        member = MemberCollection.sharedInstance.getMember(userID: event.getAssociatedMember())
+        eventMemberLabel.text = member.getFormattedFullName()
     }
     
     //MARK: Properties
     @IBOutlet weak var eventImageView: UIImageView!
     @IBOutlet weak var eventTitleLabel: UILabel!
     @IBOutlet weak var eventDateLabel: UILabel!
+    @IBOutlet weak var eventTimeLabel: UILabel!
+    @IBOutlet weak var eventAddressLabel: UILabel!
+    @IBOutlet weak var eventTypeLabel: UILabel!
     @IBOutlet weak var eventMemberLabel: UILabel!
     @IBOutlet weak var eventFundGoalLabel: UILabel!
     @IBOutlet weak var eventCurrentFundsLabel: UILabel!
     @IBOutlet weak var eventDescriptionLabel: UILabel!
     
     var event: Event! = nil
+    var member: Member! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         MemberCollection.sharedInstance.updateFromRemote()
         MemberCollection.sharedInstance.delegate = self
+        
+        member = MemberCollection.sharedInstance.getMember(userID: event.getAssociatedMember())
+        eventMemberLabel.text = member.getFormattedFullName()
 
         eventTitleLabel.text = event.getTitle()
         eventDateLabel.text = event.getEventDate()
+        eventTimeLabel.text = event.getEventTime()
+        eventAddressLabel.text = event.getAddress().toString()
+        eventTypeLabel.text = event.getEventType()
         eventFundGoalLabel.text = "$" + String(event.getFundGoal())
         eventCurrentFundsLabel.text = "$" + String(event.getCurrentFunds())
         eventDescriptionLabel.text = event.getEventDescription()
@@ -61,7 +71,10 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
         }
     }
     
-
+    @IBAction func memberDetailButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "ShowMember", sender: sender)
+    }
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -76,6 +89,12 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
             donateToEventViewController.donateEvent = event
             donateToEventViewController.tempMemberText = eventMemberLabel.text!
             
+        case "ShowMember":
+            guard let memberViewController = segue.destination as? ViewMemberViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            memberViewController.member = member
         default:
             fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
