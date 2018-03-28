@@ -33,7 +33,9 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".MainActivity"
-            android:label="Main" />
+            android:label="Main"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!-- Removing for fragment conversion
         <activity
             android:name=".MemberListActivity"
             android:label="Member List"
@@ -59,20 +61,36 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".ViewEventActivity"
-            android:label="View Event"
-            android:parentActivityName=".EventListActivity">
+            android:name=".ViewProfileActivity"
+            android:label="@string/title_activity_view_profile"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".EventListActivity" />
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".MyHistoryEventsActivity"
+            android:label="@string/title_activity_view_history"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" /></activity>
+        -->
+        <activity
+            android:name=".ViewEventActivity"
+            android:label="View Event"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".ViewMemberActivity"
             android:label="View Member"
-            android:parentActivityName=".MemberListActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MemberListActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".DonateToEventActivity"
@@ -125,21 +143,6 @@
         </activity>
         <activity android:name=".BraintreeActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity
-            android:name=".ViewProfileActivity"
-            android:label="@string/title_activity_view_profile"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
-            android:name=".MyHistoryEventsActivity"
-            android:label="@string/title_activity_view_history"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" /></activity>
         <activity android:name=".TransactionSummaryActivity"></activity>
     </application>
 

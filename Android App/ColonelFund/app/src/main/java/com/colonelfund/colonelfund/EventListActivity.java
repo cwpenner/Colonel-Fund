@@ -5,13 +5,11 @@ import android.content.Intent;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,9 +21,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -41,11 +36,21 @@ import java.util.Iterator;
 /**
  * Event list view class.
  */
-public class EventListActivity extends AppCompatActivity {
+public class EventListActivity extends Fragment {
     private ListView lv = null;
     private ArrayAdapter arrayAdapter = null;
     private EditText searchBar = null;
     Context ctx;
+    View eventListView;
+    private static final String TAG = "EventListActivity";
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        getActivity().setTitle("Event List");
+        return inflater.inflate(R.layout.activity_event_list, container, false);
+    }
 
     /**
      * Overrides on create in order to draw event list and sets listeners for buttons and search.
@@ -53,21 +58,23 @@ public class EventListActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ctx = this;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_event_list);
-        searchBar = (EditText) findViewById(R.id.editText);
-        final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
-        lv = (ListView) findViewById(R.id.eventListView);
-        final EventCollection ecf = new EventCollection(getApplicationContext());
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //super.onCreate(savedInstanceState);
+        ctx = getActivity();
+        eventListView = getView();
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //setContentView(R.layout.activity_event_list);
+        searchBar = (EditText) eventListView.findViewById(R.id.editText);
+        final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) eventListView.findViewById(R.id.swiperefresh);
+        lv = (ListView) eventListView.findViewById(R.id.eventListView);
+        final EventCollection ecf = new EventCollection(ctx);
         Collection<Event> eventList = ecf.getEventsList();
 
         swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                EventCollection ec = new EventCollection(getApplicationContext());
+                EventCollection ec = new EventCollection(ctx);
                 ec.updateFromRemote();
                 swiperefresh.setRefreshing(true);
 
@@ -75,7 +82,7 @@ public class EventListActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         swiperefresh.setRefreshing(false);
-                        EventCollection newEcf = new EventCollection(getApplicationContext());
+                        EventCollection newEcf = new EventCollection(ctx);
                         Collection<Event> newEventList = newEcf.getEventsList();
                         arrayAdapter = new EventListAdapter(ctx, generateData(newEventList));
                         lv.setAdapter(arrayAdapter);
@@ -86,7 +93,7 @@ public class EventListActivity extends AppCompatActivity {
         });
 
         //make array adapter
-        arrayAdapter = new EventListAdapter(this, generateData(eventList));
+        arrayAdapter = new EventListAdapter(ctx, generateData(eventList));
         lv.setAdapter(arrayAdapter);
         // set listener for each item
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -94,7 +101,7 @@ public class EventListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 EventListModel item = (EventListModel) lv.getItemAtPosition(position);
                 String myItem = item.getTitle();
-                Intent intent = new Intent(EventListActivity.this, ViewEventActivity.class);
+                Intent intent = new Intent(ctx, ViewEventActivity.class);
                 intent.putExtra("SelectedEvent", ecf.get(myItem));
                 startActivity(intent);
             }
@@ -115,49 +122,6 @@ public class EventListActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-    }
-
-    /**
-     * Inflates the main menu bar.
-     *
-     * @param menu
-     * @return true
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    /**
-     * Gets the information on buttons selected and takes the appropriate action.
-     *
-     * @param item
-     * @return selectedItem
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.about_you) {
-            Intent intent = new Intent(this, ViewProfileActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.your_history_events) {
-            Intent intent = new Intent(this, MyHistoryEventsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.logout_item) {
-            AccessToken token = AccessToken.getCurrentAccessToken();
-            //TODO: Add Google logout code
-            if(token != null) {
-                LoginManager.getInstance().logOut();
-            }
-            User.logout();
-            Intent loginIntent = new Intent(this, LoginActivity.class);
-            startActivity(loginIntent);
-        } else if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     /**
