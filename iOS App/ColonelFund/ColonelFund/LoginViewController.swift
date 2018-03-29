@@ -23,7 +23,42 @@ protocol LoginProtocol {
     func loginRequestComplete(loginMessage: String, loginSuccessful: Bool)
 }
 
-class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDelegate, GIDSignInDelegate, LoginProtocol {
+class LoginViewController: UIViewController, URLSessionDelegate, FBSDKLoginButtonDelegate, GIDSignInUIDelegate, GIDSignInDelegate, LoginProtocol {
+    
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil{
+            print(error)
+            return
+        }
+        print("Successfully logged in to Facebook FBSDK")
+        guard let accessToken = FBSDKAccessToken.current() else {
+            print("Failed to get access token")
+            return
+        }
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+        
+        
+        
+        Auth.auth().signIn(with: credential, completion:{(user, error) in
+            if let error = error {
+                print("Facebook authentication with Firebase error: ", error)
+                return
+            }
+            print("User signed in with FB to Firebase!")
+            self.getFBUserData()
+            // Present main view
+        })
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("User Logged out of Facebook")
+    }
+    
+
+    
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if (user != nil) {
             print(user.authentication)
@@ -49,7 +84,6 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
-
     @IBOutlet weak var googleLoginButton: GIDSignInButton!
     
     
@@ -61,6 +95,8 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loginMessageLabel.isHidden = true
+        fbLoginButton.delegate = self
+        fbLoginButton.readPermissions = ["email","public_profile"]
 
         GIDSignIn.sharedInstance().clientID = "955648583908-18fsgss07paoie7hs3f22g23vbude6n1.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -69,8 +105,11 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        configureFBLoginButton()
-        isGoogleLoggedIn()
+        if Auth.auth().currentUser != nil{
+            getFIRUserData()
+        }
+        //configureFBLoginButton()
+        //isGoogleLoggedIn()
     }
    
     
@@ -79,19 +118,8 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
     }
     
     @IBAction func fbLoginButtonPressed(_ sender: Any) {
-        //Test ID: testy_ckbaqld_mctesterson@tfbnw.net
-        //Test Pass: testp@ss
-        let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [ .publicProfile, .email ], viewController: self) { loginResult in
-            switch loginResult {
-            case .failed(let error):
-                print(error)
-            case .cancelled:
-                print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                self.getFBUserData()
-            }
-        }
+
+        print("FB LOGIN BUTTON PRESSED")
     }
     
     @IBAction func googleLoginButtonPressed(_ sender: Any){
@@ -99,10 +127,9 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
         GIDSignIn.sharedInstance().signIn()
     }
     
-    func configureFBLoginButton() {
-        //Check if logged in
-        if let accessToken = FBSDKAccessToken.current(){
-            getFBUserData()
+   func configureFBLoginButton() {
+    if((FBSDKAccessToken.current()) != nil){
+        performSegue(withIdentifier: "ShowMain", sender: self)
         }
     }
     
@@ -118,12 +145,15 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
                     let nameSplit = name.split(separator: " ", maxSplits: 1).map(String.init)
                     let firstName = nameSplit[0]
                     let lastName = nameSplit[1]
-                    //let emailAddress = self.dict["email"] as! String //FacebookSDK no longer returns email address
+
+                    let emailAddress = self.dict["email"] as! String  //FacebookSDK no longer returns email address
+                    //Auth.auth().currentUser?.updateEmail(to: emailAddress)
+                    print("FB EMAIL IS", Auth.auth().currentUser?.email)
                     let profilePic = self.dict["picture"] as! [String : AnyObject]
                     let profilePicData = profilePic["data"] as! [String : AnyObject]
                     let profilePicURL = profilePicData["url"] as! String
                     let facebookID = self.dict["id"] as! String
-                    let member = Member(facebookID: facebookID, firstName: firstName, lastName: lastName, profilePicURL: profilePicURL)
+                    let member = Member(facebookID: facebookID, emailAddress: emailAddress, firstName: firstName, lastName: lastName, profilePicURL: profilePicURL)
                     User.setCurrentUser(currentUser: member)
                     self.performSegue(withIdentifier: "ShowMain", sender: self)
                 }
@@ -223,19 +253,33 @@ class LoginViewController: UIViewController, URLSessionDelegate, GIDSignInUIDele
             }else {
                 print(user?.email)
                 print(user?.displayName)
-                let name = user?.displayName
-                let nameSplit = name?.split(separator: " ", maxSplits: 1).map(String.init)
-                let firstName = nameSplit?[0]
-                let lastName = nameSplit?[1]
-                let emailAddress = user?.email
-                let profilePicURL = user?.photoURL?.absoluteString
-                let googleID = user?.uid
-                let member = Member(googleID: googleID!, emailAddress: emailAddress!, firstName: firstName!, lastName: lastName!, profilePicURL: profilePicURL!)
-                User.setCurrentUser(currentUser: member)
-                self.performSegue(withIdentifier: "ShowMain", sender: self)
+                self.getFIRUserData()
             }
         })
     }
+    func getFIRUserData(){
+        let user = Auth.auth().currentUser
+        let name = user?.displayName
+        let nameSplit = name?.split(separator: " ", maxSplits: 1).map(String.init)
+        let firstName = nameSplit?[0]
+        let lastName = nameSplit?[1]
+        let emailAddress = user?.email
+        let profilePicURL = user?.photoURL?.absoluteString
+        let firID = user?.uid
+        // TEMPORARY
+        if emailAddress == nil {
+            print("EMPTY EMAIL")
+            let member = Member(facebookID: firID!,emailAddress: emailAddress!, firstName: firstName!, lastName: lastName!, profilePicURL: profilePicURL!)
+            User.setCurrentUser(currentUser: member)
+        }
+        else{
+            let member = Member(googleID: firID!, emailAddress: emailAddress!, firstName: firstName!, lastName: lastName!, profilePicURL: profilePicURL!)
+            User.setCurrentUser(currentUser: member)
+        }
+
+        self.performSegue(withIdentifier: "ShowMain", sender: self)
+    }
+
     
     
     

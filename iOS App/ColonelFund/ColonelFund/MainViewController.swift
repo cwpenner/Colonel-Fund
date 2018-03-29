@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
         if GIDSignIn.sharedInstance().currentUser != nil {
             GIDSignIn.sharedInstance().signOut()
         }
+        try! Auth.auth().signOut()
         User.logout()
         performSegue(withIdentifier: "ShowLogin", sender: self)
     }
@@ -38,7 +39,7 @@ class MainViewController: UIViewController {
         print(User.currentUser.getUserName())
         print(User.currentUser.getFirstName())
         print(User.currentUser.getLastName())
-        print(User.currentUser.getEmailAddress())
+        print("EMAIL when on main screen", User.currentUser.getEmailAddress())
         print(User.currentUser.getProfilePicURL())
         print(User.currentUser.getFacebookID())
         // Do any additional setup after loading the view, typically from a nib.

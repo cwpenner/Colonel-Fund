@@ -11,8 +11,11 @@ target 'ColonelFund' do
   pod 'FacebookShare'
   
   #FirebaseSDK
+  pod 'FirebaseUI'
   pod 'FirebaseUI/Auth'
+  pod 'Firebase/Core'
   pod 'FirebaseUI/Google'
+  pod 'FirebaseUI/Facebook'
   pod 'GoogleSignIn'
   
   # BraintreeSDK

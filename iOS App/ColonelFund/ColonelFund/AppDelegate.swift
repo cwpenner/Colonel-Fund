@@ -26,10 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+       // let authUI = FUIAuth.defaultAuthUI()
+        // You need to adopt a FUIAuthDelegate protocol to receive callback
+        //authUI?.delegate = self as! FUIAuthDelegate
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         BTAppSwitch.setReturnURLScheme("com.ColonelFund.ColonelFund.payments")
-        FirebaseApp.configure()
-
+        
         return true
     }
 
@@ -62,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Required for Facebook and Braintree
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print(url)
+        
         //Facebook Login
         if url.scheme?.localizedCaseInsensitiveCompare("fb861301034038497") == .orderedSame {
             return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
