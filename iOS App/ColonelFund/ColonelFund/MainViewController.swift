@@ -41,7 +41,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var topContributor2Label: UILabel!
     @IBOutlet weak var topContributor3Label: UILabel!
     
-    var upcomingEventsList: [Event] = []
+    var upcomingEventsList = [Event]()
     var refresher: UIRefreshControl!
     let months: [String] = ["J\nA\nN",
                             "F\nE\nB",
@@ -62,23 +62,24 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         MemberCollection.sharedInstance.delegate = self
         EventCollection.sharedInstance.delegate = self
         
+        EventCollection.sharedInstance.updateFromRemote()
+        MemberCollection.sharedInstance.updateFromRemote()
+        
+        self.setUpcomingEvents()
+        self.setTopContributors()
+        
         upcomingEventsTableView.delegate = self
         upcomingEventsTableView.dataSource = self
-        
         
         //Pull to Refresh
         self.refresher = UIRefreshControl()
         self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
         self.upcomingEventsTableView?.addSubview(refresher!)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        EventCollection.sharedInstance.updateFromRemote()
-        MemberCollection.sharedInstance.updateFromRemote()
     }
 
     override func didReceiveMemoryWarning() {
