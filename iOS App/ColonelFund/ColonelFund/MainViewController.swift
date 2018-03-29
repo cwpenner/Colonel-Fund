@@ -76,7 +76,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.upcomingEventsTableView?.addSubview(refresher!)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         EventCollection.sharedInstance.updateFromRemote()
         MemberCollection.sharedInstance.updateFromRemote()
     }
@@ -88,6 +88,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc private func refreshEventList(_ sender: Any) {
         EventCollection.sharedInstance.updateFromRemote()
+        MemberCollection.sharedInstance.updateFromRemote()
     }
     
     //For displaying the 3 Events Ending Soon
