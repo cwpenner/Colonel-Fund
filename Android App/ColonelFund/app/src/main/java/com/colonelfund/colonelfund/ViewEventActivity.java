@@ -86,13 +86,7 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.about_you) {
-            Intent intent = new Intent(this, ViewProfileActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.your_history_events) {
-            Intent intent = new Intent(this, MyHistoryEventsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.logout_item) {
+        if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
 
             //TODO: Add Google logout code
