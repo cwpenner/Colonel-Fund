@@ -64,8 +64,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         MemberCollection.sharedInstance.delegate = self
         EventCollection.sharedInstance.delegate = self
-        EventCollection.sharedInstance.updateFromRemote()
-        MemberCollection.sharedInstance.updateFromRemote()
         
         upcomingEventsTableView.delegate = self
         upcomingEventsTableView.dataSource = self
@@ -76,6 +74,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
         self.upcomingEventsTableView?.addSubview(refresher!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        EventCollection.sharedInstance.updateFromRemote()
+        MemberCollection.sharedInstance.updateFromRemote()
     }
 
     override func didReceiveMemoryWarning() {
