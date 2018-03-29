@@ -20,6 +20,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     //This has a MemberCollection delegate reload the table when the data is finished being loaded
     func memberDataDownloaded() {
         self.upcomingEventsTableView.reloadData()
+        self.setTopContributors()
     }
     
     //EventCollectionProtocol
@@ -36,10 +37,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //MARK: - Properties
     @IBOutlet weak var upcomingEventsTableView: UITableView!
+    @IBOutlet weak var topContributor1Label: UILabel!
+    @IBOutlet weak var topContributor2Label: UILabel!
+    @IBOutlet weak var topContributor3Label: UILabel!
     
     var upcomingEventsList: [Event] = []
     var refresher: UIRefreshControl!
-    let searchController = UISearchController(searchResultsController: nil)
     let months: [String] = ["J\nA\nN",
                             "F\nE\nB",
                             "M\nA\nR",
@@ -52,7 +55,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                             "O\nC\nT",
                             "N\nO\nV",
                             "D\nE\nC"]
-    var filteredEvents = [Event]()
+    var topContributor1: Member?
+    var topContributor2: Member?
+    var topContributor3: Member?
+    var segueMem: Member?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,17 +75,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
         self.upcomingEventsTableView?.addSubview(refresher!)
-        
-        //Search Controller
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Events"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
-        
-        //Scope Bar
-        searchController.searchBar.scopeButtonTitles = ["All", "BBQ", "Emergency", "Medical", "Party", "Unknown"]
-        searchController.searchBar.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -91,21 +86,48 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         EventCollection.sharedInstance.updateFromRemote()
     }
     
+    //For displaying the 3 Events Ending Soon
     func setUpcomingEvents() {
         upcomingEventsList.removeAll()
         let temp = EventCollection.sharedInstance.eventArray
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let calendar = Calendar.current
         let today = Date()
-        let futureDate = calendar.date(byAdding: .month, value: 1, to: Date())
+        //let calendar = Calendar.current
+        //let futureDate = calendar.date(byAdding: .month, value: 1, to: Date())
         for event in temp {
             let eventDate = dateFormatter.date(from: event.getEventDate())
-            if (eventDate! >= today && eventDate! <= futureDate!) {
+            if (eventDate! >= today && upcomingEventsList.count < 3) {
                 upcomingEventsList.append(event)
                 print("Event Title: \(event.getTitle())")
             }
         }
+    }
+    
+    //For displaying the 3 Top Contributors
+    func setTopContributors() {
+        topContributor1 = MemberCollection.sharedInstance.getMember(userID: "666")
+        topContributor2 = MemberCollection.sharedInstance.getMember(userID: "76194")
+        topContributor3 = MemberCollection.sharedInstance.getMember(userID: "9351")
+        
+        topContributor1Label.text = topContributor1?.getFormattedFullName()
+        topContributor2Label.text = topContributor2?.getFormattedFullName()
+        topContributor3Label.text = topContributor3?.getFormattedFullName()
+    }
+    
+    @IBAction func topContributor1ButtonPressed(_ sender: Any) {
+        segueMem = topContributor1
+        self.performSegue(withIdentifier: "ShowMember", sender: self)
+    }
+    
+    @IBAction func topContributor2ButtonPressed(_ sender: Any) {
+        segueMem = topContributor2
+        self.performSegue(withIdentifier: "ShowMember", sender: self)
+    }
+    
+    @IBAction func topContributor3ButtonPressed(_ sender: Any) {
+        segueMem = topContributor3
+        self.performSegue(withIdentifier: "ShowMember", sender: self)
     }
     
     // MARK: - Table view data source
@@ -115,10 +137,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering() {
-            return filteredEvents.count
-        }
-        
         return upcomingEventsList.count
     }
     
@@ -134,13 +152,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             fatalError("The dequeued cell is not an instance of \(cellIdentifier).")
         }
         
-        let event : Event
-        if isFiltering() {
-            event = filteredEvents[indexPath.row]
-        } else {
-            event = upcomingEventsList[indexPath.row]
-        }
-        
+        let event = upcomingEventsList[indexPath.row]
         let eventType = event.getEventType().lowercased()
         let eventDate = event.getEventDate()
         let dayIndex = eventDate.index(eventDate.endIndex, offsetBy: -2)
@@ -184,34 +196,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-    // MARK: - Search Controller
-    func searchBarIsEmpty() -> Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-    
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredEvents = upcomingEventsList.filter({(event : Event) -> Bool in
-            let doesEventTypeMatch = (scope == "All") || (event.getEventType() == scope)
-            let title = event.getTitle().lowercased().contains(searchText.lowercased())
-            let member = event.getAssociatedMember().lowercased().contains(searchText.lowercased())
-            let description = event.getEventDescription().lowercased().contains(searchText.lowercased())
-            let type = event.getEventType().lowercased().contains(searchText.lowercased())
-            let date = event.getEventDate().lowercased().contains(searchText.lowercased())
-            
-            if searchBarIsEmpty() {
-                return doesEventTypeMatch
-            } else {
-                return doesEventTypeMatch && (title || member || description || type || date)
-            }
-        })
-        upcomingEventsTableView.reloadData()
-    }
-    
-    func isFiltering() -> Bool {
-        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
-    }
-    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -233,25 +217,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             eventViewController.event = upcomingEventsList[indexPath.row]
             
+        case "ShowMember":
+            guard let contributorViewController = segue.destination as? ViewMemberViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            contributorViewController.member = segueMem
+            
         default:
             fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
     }
 
-}
-
-extension MainViewController: UISearchResultsUpdating {
-    // MARK: - UISearchResultsUpdatingDelegate
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
-    }
-}
-
-extension MainViewController: UISearchBarDelegate {
-    // MARK: - UISearchBarDelegate
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-    }
 }
