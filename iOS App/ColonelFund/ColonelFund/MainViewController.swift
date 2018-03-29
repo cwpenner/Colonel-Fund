@@ -36,10 +36,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     //MARK: - Properties
+    @IBOutlet weak var announcementsTextView: UITextView!
     @IBOutlet weak var upcomingEventsTableView: UITableView!
     @IBOutlet weak var topContributor1Label: UILabel!
     @IBOutlet weak var topContributor2Label: UILabel!
     @IBOutlet weak var topContributor3Label: UILabel!
+    @IBOutlet weak var topContributorsView: UIView!
     
     var upcomingEventsList = [Event]()
     var refresher: UIRefreshControl!
@@ -75,6 +77,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         upcomingEventsTableView.delegate = self
         upcomingEventsTableView.dataSource = self
         
+        self.addViewShadow(view: announcementsTextView)
+        self.addViewShadow(view: topContributorsView)
+        self.addViewShadow(view: upcomingEventsTableView)
+        
         //Pull to Refresh
         self.refresher = UIRefreshControl()
         self.refresher?.attributedTitle = NSAttributedString(string: "Pull to refresh")
@@ -90,6 +96,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc private func refreshEventList(_ sender: Any) {
         EventCollection.sharedInstance.updateFromRemote()
         MemberCollection.sharedInstance.updateFromRemote()
+    }
+    
+    func addViewShadow(view: UIView) {
+        view.layer.cornerRadius = 2
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0.5, height: 4.0)
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 5.0
+        view.layer.masksToBounds = false
     }
     
     //For displaying the 3 Events Ending Soon
