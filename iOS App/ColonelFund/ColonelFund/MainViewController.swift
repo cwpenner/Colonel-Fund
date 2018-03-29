@@ -65,6 +65,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         MemberCollection.sharedInstance.delegate = self
         EventCollection.sharedInstance.delegate = self
         EventCollection.sharedInstance.updateFromRemote()
+        MemberCollection.sharedInstance.updateFromRemote()
         
         upcomingEventsTableView.delegate = self
         upcomingEventsTableView.dataSource = self
