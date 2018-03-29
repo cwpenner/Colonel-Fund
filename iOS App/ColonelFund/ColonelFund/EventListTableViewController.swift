@@ -243,7 +243,10 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
             } else {
                 eventViewController.event = EventCollection.sharedInstance.eventArray[indexPath.row]
             }
-            
+        case "ShowCreateEvent":
+            guard let createEventViewController = segue.destination as? CreateEventViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
         default:
             fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }

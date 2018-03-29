@@ -36,6 +36,7 @@
 		5F5A49D31FF70CED006E211B /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5A49D41FF70CED006E211B /* FacebookShare.framework */; };
 		5F5A49D81FFC1647006E211B /* BraintreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */; };
 		5F638A882022A71500A9CACA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F638A872022A71500A9CACA /* User.swift */; };
+		5F774DAA206C540800CF5587 /* UpcomingEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F774DA9206C540800CF5587 /* UpcomingEventsTableViewCell.swift */; };
 		5F8717FC1FC547C60091B13A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8717FB1FC547C60091B13A /* LoginViewController.swift */; };
 		5F8717FE1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */; };
 		5F87180B1FC5FA0A0091B13A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8718091FC5F9FD0091B13A /* Bolts.framework */; };
@@ -116,6 +117,7 @@
 		5F5A49D41FF70CED006E211B /* FacebookShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeViewController.swift; sourceTree = "<group>"; };
 		5F638A872022A71500A9CACA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5F774DA9206C540800CF5587 /* UpcomingEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsTableViewCell.swift; sourceTree = "<group>"; };
 		5F8717FB1FC547C60091B13A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedEventsTableViewCell.swift; sourceTree = "<group>"; };
 		5F8718071FC5F9FD0091B13A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				5F995DD41F9286D700F8E459 /* MainViewController.swift */,
 				5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */,
 				5F995DD61F9286D700F8E459 /* Main.storyboard */,
+				5F774DA9206C540800CF5587 /* UpcomingEventsTableViewCell.swift */,
 				5F54766F20211D4000C91A2B /* Member.swift */,
 				5F54767A20224F9E00C91A2B /* MemberCollection.swift */,
 				5F54767120211D4E00C91A2B /* Event.swift */,
@@ -657,6 +660,7 @@
 				5F5779D91FAFE6CB000667FC /* DonateToMemberViewController.swift in Sources */,
 				5F54767020211D4000C91A2B /* Member.swift in Sources */,
 				5F5779E51FB017D3000667FC /* EventListTableViewCell.swift in Sources */,
+				5F774DAA206C540800CF5587 /* UpcomingEventsTableViewCell.swift in Sources */,
 				5F5779E91FB01BDD000667FC /* DonateToEventViewController.swift in Sources */,
 				5F54767220211D4E00C91A2B /* Event.swift in Sources */,
 				5F54766E2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift in Sources */,
