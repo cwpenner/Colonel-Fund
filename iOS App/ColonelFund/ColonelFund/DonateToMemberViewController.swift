@@ -15,7 +15,7 @@ class DonateToMemberViewController: BraintreeViewController {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var memberDonationTextField: UITextField!
     @IBOutlet weak var profilePicImageView: UIImageView!
-    @IBOutlet weak var memberDonateButton: UIBarButtonItem!
+    @IBOutlet weak var memberDonateButton: UIButton!
     @IBOutlet weak var memberPaymentDescriptionLabel: UILabel!
     @IBOutlet weak var memberSelectPaymentButton: UIButton!
     @IBOutlet weak var memberPaymentImageView: UIImageView!

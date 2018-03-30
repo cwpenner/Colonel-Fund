@@ -12,7 +12,7 @@ import Braintree
 
 class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentAuthorizationViewControllerDelegate {
     //Constructor
-    func BraintreeViewController(donationTextField: UITextField, donateButton: UIBarButtonItem, paymentDescriptionLabel: UILabel, selectPaymentButton: UIButton, paymentIconView: UIImageView, donationType: AnyObject) {
+    func BraintreeViewController(donationTextField: UITextField, donateButton: UIButton, paymentDescriptionLabel: UILabel, selectPaymentButton: UIButton, paymentIconView: UIImageView, donationType: AnyObject) {
         self.donationTextField = donationTextField
         self.donateButton = donateButton
         self.paymentDescriptionLabel = paymentDescriptionLabel
@@ -52,7 +52,7 @@ class BraintreeViewController: UIViewController, UITextFieldDelegate, PKPaymentA
     
     //MARK: IBOutlets
     var donationTextField: UITextField!
-    var donateButton: UIBarButtonItem!
+    var donateButton: UIButton!
     var paymentDescriptionLabel: UILabel!
     var selectPaymentButton: UIButton!
     var paymentIconView: UIImageView!
