@@ -84,7 +84,7 @@ class MemberCollection: NSObject, URLSessionDelegate {
                 for newMember in memberArray {
                     memberMap[newMember.getUserID()] = newMember
                 }
-                getMembers()
+                self.getMembers()
                 DispatchQueue.main.async(execute: { () -> Void in
                     self.delegate!.memberDataDownloaded()
                 })
@@ -105,6 +105,7 @@ class MemberCollection: NSObject, URLSessionDelegate {
             memberArray.append(value)
         }
         memberArray = memberArray.sorted(by: {$0.getLastName() < $1.getLastName()})
+        print("memberArray count: \(memberArray.count)")
         return memberArray
     }
     

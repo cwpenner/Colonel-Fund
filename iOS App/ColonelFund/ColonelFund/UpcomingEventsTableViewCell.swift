@@ -1,14 +1,14 @@
 //
-//  AssociatedEventsTableViewCell.swift
+//  UpcomingEventsTableViewCell.swift
 //  ColonelFund
 //
-//  Created by Chris Penner on 11/22/17.
-//  Copyright © 2017 PennerTech. All rights reserved.
+//  Created by Chris Penner on 3/28/18.
+//  Copyright © 2018 PennerTech. All rights reserved.
 //
 
 import UIKit
 
-class AssociatedEventsTableViewCell: UITableViewCell {
+class UpcomingEventsTableViewCell: UITableViewCell {
     
     //MARK: Properties
     @IBOutlet var nameLabel: UILabel!
@@ -17,7 +17,6 @@ class AssociatedEventsTableViewCell: UITableViewCell {
     @IBOutlet var progressBar: UIProgressView!
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var monthLabel: UILabel!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

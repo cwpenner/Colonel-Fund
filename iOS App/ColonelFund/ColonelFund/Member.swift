@@ -60,7 +60,7 @@ class Member: NSObject, Codable {
         super.init()
         
         makeUserName()
-        self.userID = self.userName
+        self.userID = "01" //TODO: change once we have usernames figured out
     }
     
     init(googleID: String, emailAddress: String, firstName: String, lastName: String, profilePicURL: String) {
@@ -77,7 +77,7 @@ class Member: NSObject, Codable {
         super.init()
         
         makeUserName()
-        self.userID = self.userName
+        self.userID = "01" //TODO: change once we have usernames figured out
     }
     
     required init(from decoder: Decoder) throws {

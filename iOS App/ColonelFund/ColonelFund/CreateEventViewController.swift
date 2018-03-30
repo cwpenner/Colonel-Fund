@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     //MARK: Properties
     @IBOutlet weak var scrollView: UIScrollView!
@@ -16,29 +16,46 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
     @IBOutlet weak var createEventTitleTextField: UITextField!
     @IBOutlet weak var createEventDateTextField: UITextField!
     @IBOutlet weak var createEventTimeTextField: UITextField!
-    @IBOutlet weak var createEventAddressTextView: UITextView!
+    @IBOutlet weak var createEventAddressLine1TextField: UITextField!
+    @IBOutlet weak var createEventAddressLine2TextField: UITextField!
+    @IBOutlet weak var createEventCityTextField: UITextField!
+    @IBOutlet weak var createEventStateTextField: UITextField!
+    @IBOutlet weak var createEventZipCodeTextField: UITextField!
     @IBOutlet weak var createEventTypeTextField: UITextField!
-    @IBOutlet weak var createEventMemberTextField: UITextField!
     @IBOutlet weak var createEventFundGoalTextField: UITextField!
     @IBOutlet weak var createEventDescriptionTextView: UITextView!
+    @IBOutlet weak var createEventButton: UIButton!
     
     var event: Event! = nil
     let URL_FOR_CREATE_EVENT = "https://wesll.com/colonelfund/create_event.php"
     var activeView: UITextView?
     var activeField: UITextField?
     var eventPicData = "default"
+    let eventTypePicker = UIPickerView()
+    let eventTypePickerData = ["BBQ", "Emergency", "Medical", "Party", "Unknown"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        eventTypePicker.delegate = self
+        
         createEventTitleTextField.delegate = self
         createEventDateTextField.delegate = self
         createEventTimeTextField.delegate = self
+        createEventAddressLine1TextField.delegate = self
+        createEventAddressLine2TextField.delegate = self
+        createEventCityTextField.delegate = self
+        createEventStateTextField.delegate = self
+        createEventZipCodeTextField.delegate = self
         createEventTypeTextField.delegate = self
-        createEventMemberTextField.delegate = self
         createEventFundGoalTextField.delegate = self
-        createEventAddressTextView.delegate = self
         createEventDescriptionTextView.delegate = self
+        
+        createEventDescriptionTextView.text = "Description of event"
+        createEventDescriptionTextView.textColor = UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) //to match textField color
+        createEventDescriptionTextView.layer.borderColor = UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0).cgColor //to match textField color
+        createEventDescriptionTextView.layer.borderWidth = 0.5
+        createEventDescriptionTextView.layer.cornerRadius = 5.0
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         self.registerForKeyboardNotifications()
@@ -47,6 +64,10 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.view.endEditing(true)
     }
     
     @IBAction func photoButtonPressed(_ sender: Any) {
@@ -58,28 +79,34 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
     }
     
     @IBAction func createEventButtonPressed(_ sender: Any) {
-        self.view.endEditing(true)
         let title = createEventTitleTextField.text!
         let eventDescription = createEventDescriptionTextView.text!
         let eventDate = createEventDateTextField.text!
         let eventTime = createEventTimeTextField.text!
-        let eventAddress = createEventAddressTextView.text!
+        let addressLine1 = createEventAddressLine1TextField.text!
+        let addressLine2 = createEventAddressLine2TextField.text!
+        let city = createEventCityTextField.text!
+        let state = createEventStateTextField.text!
+        let zipCode = createEventZipCodeTextField.text!
         let eventType = createEventTypeTextField.text!
-        let associatedMember = createEventMemberTextField.text!
+        let associatedMember = User.currentUser.getUserID() //TODO: current set in Member class to be "01" if userID doesn't exist
         let fundGoal = createEventFundGoalTextField.text!
         
-        //TODO: date picker, time picker, event type picker, member search selector
-        
+        let eventAddress = Address(addressLine1: addressLine1, addressLine2: addressLine2, city: city, state: state, zipCode: zipCode)
+                
         //TODO: update Event class with address, time properties
-        if (!(createEventTitleTextField.text?.isEmpty)! &&
-            !(createEventDescriptionTextView.text?.isEmpty)! &&
-            !(createEventDateTextField.text?.isEmpty)! &&
-            !(createEventTimeTextField.text?.isEmpty)! &&
-            !(createEventAddressTextView.text?.isEmpty)! &&
-            !(createEventTypeTextField.text?.isEmpty)! &&
-            !(createEventMemberTextField.text?.isEmpty)! &&
-            !(createEventFundGoalTextField.text?.isEmpty)! &&
-            !(createEventTitleTextField.text?.isEmpty)!) {
+        if (!createEventTitleTextField.text!.isEmpty &&
+            !createEventDateTextField.text!.isEmpty &&
+            !createEventTimeTextField.text!.isEmpty &&
+            !createEventAddressLine1TextField.text!.isEmpty &&
+            !createEventAddressLine2TextField.text!.isEmpty &&
+            !createEventCityTextField.text!.isEmpty &&
+            !createEventStateTextField.text!.isEmpty &&
+            !createEventZipCodeTextField.text!.isEmpty &&
+            !createEventTypeTextField.text!.isEmpty &&
+            !createEventFundGoalTextField.text!.isEmpty &&
+            createEventDescriptionTextView.textColor != UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) &&
+            !createEventDescriptionTextView.text!.isEmpty) {
             event = Event(title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: Double(fundGoal)!, currentFunds: 0.0, eventPicData: eventPicData, associatedMember: associatedMember, eventType: eventType, eventTime: eventTime, address: eventAddress)
             createEvent(event: event)
         } else {
@@ -95,7 +122,7 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
         
         let croppedImage = createEventImage.image!.crop(cropSize: CGSize(width: viewWidth, height: viewHeight))
 
-        let imageData = UIImageJPEGRepresentation(croppedImage, 0.5)
+        let imageData = UIImageJPEGRepresentation(croppedImage, 0.4)
         print("cropped size: \(imageData!.count) bytes")
         print("cropped width: \(croppedImage.size.width) cropped height: \(croppedImage.size.height)")
 
@@ -136,14 +163,11 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
             
             print("data: \(String(data: data, encoding: .utf8)!)")
             
-            
             guard let result = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let error = result?["error"] as? Bool, error == false else {
                 print("Error creating event. Please try again.")
-                
                 self.displayAlert(alertTitle: "Error Creating Event", alertMessage: "The event could not be created. Error from server.", segue: false)
                 return
             }
-            
             
             print("Event created successfully!")
             self.displayAlert(alertTitle: "Success", alertMessage: "The event has been successfully created", segue: true)
@@ -179,8 +203,6 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
             scrollView.scrollRectToVisible(activeField!.frame, animated: true)
         } else if (createEventDescriptionTextView.isFirstResponder) {
             scrollView.scrollRectToVisible(createEventDescriptionTextView.frame, animated: true)
-        } else if (createEventAddressTextView.isFirstResponder) {
-            scrollView.scrollRectToVisible(createEventAddressTextView.frame, animated: true)
         }
     }
     
@@ -190,21 +212,154 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
         scrollView.scrollIndicatorInsets = contentInsets
     }
     
+    //MARK: Text Field Input Control
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField.text!.isEmpty) {
+            self.createEventButton.isEnabled = false
+        }
+        if (textField == createEventFundGoalTextField) {
+            if string.isEmpty {
+                return true
+            } else if (Double(string) != 0) {
+                shouldEnableCreateEventButton()
+            }
+            
+            // Build the full current string: TextField right now only contains the
+            // previous valid value. Use provided info to build up the new version.
+            // Can't just concat the two strings because the user might've moved the
+            // cursor and delete something in the middle.
+            let currentText = textField.text ?? ""
+            let replacementText = (currentText as NSString).replacingCharacters(in: range, with: string)
+            
+            
+            // Use custom string extension to check if the string is valid double with specified amount of decimal places
+            return replacementText.isValidDouble(maxDecimalPlaces: 2)
+        } else if (textField == createEventTypeTextField) {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         activeView = textView
+        if (textView.textColor == UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0)) {
+            textView.text = nil
+            textView.textColor = UIColor.black
+            self.createEventButton.isEnabled = false
+        }
+        shouldEnableCreateEventButton()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         activeView = nil
+        if (textView.text.isEmpty) {
+            textView.textColor = UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0)
+            if (textView == createEventDescriptionTextView) {
+                textView.text = "Description of event"
+                self.createEventButton.isEnabled = false
+            }
+        }
+        shouldEnableCreateEventButton()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeField = textField
+        if (textField == self.createEventDateTextField) {
+            showDatePicker()
+        } else if (textField == self.createEventTimeTextField) {
+            showTimePicker()
+        } else if (textField == self.createEventTypeTextField) {
+            showEventTypePicker()
+        }
+        shouldEnableCreateEventButton()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         activeField = nil
+        shouldEnableCreateEventButton()
     }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        shouldEnableCreateEventButton()
+        return true
+    }
+    
+    func shouldEnableCreateEventButton() {
+        if (createEventTitleTextField.text!.isEmpty ||
+            createEventDateTextField.text!.isEmpty ||
+            createEventTimeTextField.text!.isEmpty ||
+            createEventAddressLine1TextField.text!.isEmpty ||
+            createEventAddressLine2TextField.text!.isEmpty ||
+            createEventCityTextField.text!.isEmpty ||
+            createEventStateTextField.text!.isEmpty ||
+            createEventZipCodeTextField.text!.isEmpty ||
+            createEventTypeTextField.text!.isEmpty ||
+            createEventFundGoalTextField.text!.isEmpty ||
+            createEventDescriptionTextView.textColor == UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) ||
+            createEventDescriptionTextView.text!.isEmpty) {
+            self.createEventButton.isEnabled = false
+        } else {
+            self.createEventButton.isEnabled = true
+        }
+    }
+    
+    func showDatePicker() {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = UIDatePickerMode.date
+        createEventDateTextField.inputView = datePicker
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        createEventDateTextField.text = dateFormatter.string(from: Date())
+        datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: UIControlEvents.valueChanged)
+    }
+    
+    @objc func datePickerValueChanged(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        createEventDateTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    func showTimePicker() {
+        let timePicker = UIDatePicker()
+        timePicker.datePickerMode = UIDatePickerMode.time
+        createEventTimeTextField.inputView = timePicker
+        let timeFormatter = DateFormatter()
+        timeFormatter.timeStyle = .short
+        
+        createEventTimeTextField.text = timeFormatter.string(from: Date())
+        timePicker.addTarget(self, action: #selector(timePickerValueChanged(_:)), for: UIControlEvents.valueChanged)
+    }
+    
+    @objc func timePickerValueChanged(_ sender: UIDatePicker) {
+        let timeFormatter = DateFormatter()
+        timeFormatter.timeStyle = .short
+
+        createEventTimeTextField.text = timeFormatter.string(from: sender.date)
+    }
+    
+    func showEventTypePicker() {
+        createEventTypeTextField.inputView = eventTypePicker
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return eventTypePickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return eventTypePickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.createEventTypeTextField.text = eventTypePickerData[row]
+    }
+
     
     /*
     // MARK: - Navigation
@@ -222,7 +377,6 @@ extension UIImage {
     func crop(cropSize: CGSize) -> UIImage {
         guard let cgimage = self.cgImage else {
             return self
-            
         }
         
         let contextImage: UIImage = UIImage(cgImage: cgimage)

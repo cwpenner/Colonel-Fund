@@ -84,7 +84,7 @@ class EventCollection: NSObject, URLSessionDelegate {
                 for newEvent in eventArray {
                     eventMap[newEvent.getTitle().lowercased()] = newEvent
                 }
-                getEvents()
+                self.getEvents()
                 DispatchQueue.main.async(execute: { () -> Void in
                     self.delegate!.eventDataDownloaded()
                 })
@@ -105,6 +105,7 @@ class EventCollection: NSObject, URLSessionDelegate {
             eventArray.append(value)
         }
         eventArray = eventArray.sorted(by: {$0.getEventDate() < $1.getEventDate()})
+        print("eventArray count: \(eventArray.count)")
         return eventArray
     }
     

@@ -16,8 +16,8 @@ class MyProfileViewController: UIViewController {
     //MARK: Properties
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var emailTextView: UITextView!
+    @IBOutlet weak var phoneTextView: UITextView!
     @IBOutlet weak var profilePicImageView: UIImageView!
     
     
@@ -28,9 +28,9 @@ class MyProfileViewController: UIViewController {
         
         nameLabel.text = member.getFormattedFullName()
         usernameLabel.text = member.getUserName()
-        emailLabel.text = member.getEmailAddress()
+        emailTextView.text = member.getEmailAddress()
         print(member.getEmailAddress())
-        phoneLabel.text = member.getPhoneNumber()
+        phoneTextView.text = member.getPhoneNumber()
         
         if member.getProfilePicURL().isEmpty {
             placeholderProfilePic(member: member)

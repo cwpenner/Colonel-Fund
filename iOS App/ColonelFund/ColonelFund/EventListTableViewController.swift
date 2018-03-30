@@ -92,6 +92,9 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
         return EventCollection.sharedInstance.eventArray.count
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -240,7 +243,10 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
             } else {
                 eventViewController.event = EventCollection.sharedInstance.eventArray[indexPath.row]
             }
-            
+        case "ShowCreateEvent":
+            guard let createEventViewController = segue.destination as? CreateEventViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
         default:
             fatalError("Unexpected Segue Identifier: \(String(describing: segue.identifier))")
         }
