@@ -1283,7 +1283,7 @@ Mesa AZ 85212</string>
                                 <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GOZ-gh-KCD">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="476"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="425.66666666666669"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nwn-Xm-arw">
                                                 <rect key="frame" x="20" y="20" width="374" height="31.666666666666671"/>
@@ -1370,13 +1370,6 @@ Mesa AZ 85212</string>
                                                     <action selector="eventSelectPaymentMethodButtonPressed:" destination="F1e-gF-vgk" eventType="touchUpInside" id="iuo-Mt-bfA"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlW-cC-Agn">
-                                                <rect key="frame" x="20" y="425.66666666666669" width="374" height="30"/>
-                                                <state key="normal" title="Donate"/>
-                                                <connections>
-                                                    <action selector="eventDonateButtonPressed:" destination="F1e-gF-vgk" eventType="touchUpInside" id="oJH-Gr-92D"/>
-                                                </connections>
-                                            </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HZw-o3-sO5">
                                                 <rect key="frame" x="20" y="326.66666666666669" width="45" height="29"/>
                                                 <constraints>
@@ -1393,10 +1386,10 @@ Mesa AZ 85212</string>
                                             <constraint firstItem="Eqq-8o-Q3P" firstAttribute="leading" secondItem="WCL-2a-1EO" secondAttribute="leading" constant="20" id="8ZZ-qU-NNh"/>
                                             <constraint firstItem="WCL-2a-1EO" firstAttribute="trailing" secondItem="tfJ-oz-z9z" secondAttribute="trailing" constant="20" id="8d3-jC-zAa"/>
                                             <constraint firstItem="eaF-I8-BFb" firstAttribute="leading" secondItem="WCL-2a-1EO" secondAttribute="leading" constant="20" id="9xC-9M-dHB"/>
-                                            <constraint firstItem="hlW-cC-Agn" firstAttribute="top" secondItem="tfJ-oz-z9z" secondAttribute="bottom" constant="20" id="BbL-Vw-8jV"/>
                                             <constraint firstItem="K09-yv-3D9" firstAttribute="centerY" secondItem="Ctx-qe-FFO" secondAttribute="centerY" id="CD9-n1-GN7"/>
                                             <constraint firstItem="6TY-TW-wwc" firstAttribute="leading" secondItem="2oZ-1h-dBT" secondAttribute="leading" id="EoR-9l-Thp"/>
                                             <constraint firstItem="WCL-2a-1EO" firstAttribute="trailing" secondItem="Nwn-Xm-arw" secondAttribute="trailing" constant="20" id="Eyf-6c-aMW"/>
+                                            <constraint firstItem="WCL-2a-1EO" firstAttribute="bottom" secondItem="tfJ-oz-z9z" secondAttribute="bottom" constant="20" id="FpB-nA-Kt1"/>
                                             <constraint firstItem="2oZ-1h-dBT" firstAttribute="centerY" secondItem="Eqq-8o-Q3P" secondAttribute="centerY" id="GZz-Mq-DgO"/>
                                             <constraint firstItem="65P-MM-O5a" firstAttribute="leading" secondItem="eaF-I8-BFb" secondAttribute="trailing" constant="20" id="Jms-W2-Wfj"/>
                                             <constraint firstItem="Nwn-Xm-arw" firstAttribute="top" secondItem="WCL-2a-1EO" secondAttribute="top" constant="20" id="K2o-BK-Bio"/>
@@ -1407,7 +1400,6 @@ Mesa AZ 85212</string>
                                             <constraint firstItem="HZw-o3-sO5" firstAttribute="leading" secondItem="WCL-2a-1EO" secondAttribute="leading" constant="20" id="OQW-c4-6eg"/>
                                             <constraint firstItem="2oZ-1h-dBT" firstAttribute="leading" secondItem="Eqq-8o-Q3P" secondAttribute="trailing" constant="20" id="ORE-dL-f5k"/>
                                             <constraint firstItem="oyd-fT-Xwb" firstAttribute="leading" secondItem="WCL-2a-1EO" secondAttribute="leading" constant="20" id="QuQ-8y-wNg"/>
-                                            <constraint firstItem="WCL-2a-1EO" firstAttribute="bottom" secondItem="hlW-cC-Agn" secondAttribute="bottom" constant="20" id="SW4-Gz-y2Q"/>
                                             <constraint firstItem="m4M-A2-7Wt" firstAttribute="leading" secondItem="HZw-o3-sO5" secondAttribute="trailing" constant="20" id="VEw-CK-89K"/>
                                             <constraint firstItem="65P-MM-O5a" firstAttribute="baseline" secondItem="eaF-I8-BFb" secondAttribute="baseline" id="Yti-zR-bSM"/>
                                             <constraint firstItem="yDh-Eo-7IT" firstAttribute="centerY" secondItem="oyd-fT-Xwb" secondAttribute="centerY" id="bHA-5V-Vt2"/>
@@ -1416,14 +1408,12 @@ Mesa AZ 85212</string>
                                             <constraint firstItem="HZw-o3-sO5" firstAttribute="top" secondItem="g1C-c7-t4M" secondAttribute="bottom" constant="20" id="cEW-n8-Ubo"/>
                                             <constraint firstItem="WCL-2a-1EO" firstAttribute="trailing" secondItem="2oZ-1h-dBT" secondAttribute="trailing" constant="20" id="d6y-BO-3Wn"/>
                                             <constraint firstItem="yDh-Eo-7IT" firstAttribute="leading" secondItem="2oZ-1h-dBT" secondAttribute="leading" id="hc3-UT-4WS"/>
-                                            <constraint firstItem="hlW-cC-Agn" firstAttribute="leading" secondItem="WCL-2a-1EO" secondAttribute="leading" constant="20" id="j5C-nw-A7K"/>
                                             <constraint firstItem="6TY-TW-wwc" firstAttribute="centerY" secondItem="0jm-wX-6hZ" secondAttribute="centerY" id="jWa-0e-HyR"/>
                                             <constraint firstItem="WCL-2a-1EO" firstAttribute="trailing" secondItem="g1C-c7-t4M" secondAttribute="trailing" constant="20" id="kT9-9K-nad"/>
                                             <constraint firstItem="tfJ-oz-z9z" firstAttribute="leading" secondItem="WCL-2a-1EO" secondAttribute="leading" constant="20" id="oH1-d9-pMl"/>
                                             <constraint firstItem="g1C-c7-t4M" firstAttribute="leading" secondItem="65P-MM-O5a" secondAttribute="trailing" constant="8" id="pow-Jv-sho"/>
                                             <constraint firstItem="Ctx-qe-FFO" firstAttribute="leading" secondItem="WCL-2a-1EO" secondAttribute="leading" constant="20" id="qEh-3O-D4r"/>
                                             <constraint firstItem="WCL-2a-1EO" firstAttribute="trailing" secondItem="6TY-TW-wwc" secondAttribute="trailing" constant="20" id="rR0-q5-VHd"/>
-                                            <constraint firstItem="WCL-2a-1EO" firstAttribute="trailing" secondItem="hlW-cC-Agn" secondAttribute="trailing" constant="20" id="sj6-e7-glL"/>
                                             <constraint firstItem="0jm-wX-6hZ" firstAttribute="leading" secondItem="WCL-2a-1EO" secondAttribute="leading" constant="20" id="tLo-e5-b1I"/>
                                             <constraint firstItem="g1C-c7-t4M" firstAttribute="baseline" secondItem="eaF-I8-BFb" secondAttribute="baseline" id="uXC-6W-Tle"/>
                                             <constraint firstItem="m4M-A2-7Wt" firstAttribute="centerY" secondItem="HZw-o3-sO5" secondAttribute="centerY" id="v0f-p7-a3Z"/>
@@ -1452,10 +1442,17 @@ Mesa AZ 85212</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3o6-7S-VtV"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Donate to Event" id="bXX-oP-dA3">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Donate" id="ZKy-Bm-EVs">
+                            <connections>
+                                <action selector="eventDonateButtonPressed:" destination="F1e-gF-vgk" id="dhw-5s-3gq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="eventCurrentFundsLabel" destination="2oZ-1h-dBT" id="YeO-1L-f92"/>
                         <outlet property="eventDateLabel" destination="6TY-TW-wwc" id="htS-dk-S1K"/>
-                        <outlet property="eventDonateButton" destination="hlW-cC-Agn" id="ZEP-Hx-xGN"/>
+                        <outlet property="eventDonateButton" destination="ZKy-Bm-EVs" id="o7R-KC-jzV"/>
                         <outlet property="eventDonationTextField" destination="g1C-c7-t4M" id="TRk-7V-Nga"/>
                         <outlet property="eventFundGoalLabel" destination="K09-yv-3D9" id="5ES-O7-8zC"/>
                         <outlet property="eventMemberLabel" destination="yDh-Eo-7IT" id="MgY-gb-PLg"/>
@@ -1798,7 +1795,7 @@ Mesa AZ 85212</string>
                                 <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wyp-Bn-9yX">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="307"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="257"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Member Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ges-8G-Hdb">
                                                 <rect key="frame" x="20" y="20" width="177.33333333333334" height="31.666666666666671"/>
@@ -1818,13 +1815,6 @@ Mesa AZ 85212</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad"/>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BXe-fa-Q0F">
-                                                <rect key="frame" x="20" y="257" width="374" height="30"/>
-                                                <state key="normal" title="Donate"/>
-                                                <connections>
-                                                    <action selector="memberDonateButtonPressed:" destination="pTf-aG-xnl" eventType="touchUpInside" id="gt0-c9-Gdd"/>
-                                                </connections>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A38-DL-Wgr">
                                                 <rect key="frame" x="20" y="53.666666666666671" width="70.333333333333329" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -1867,15 +1857,14 @@ Mesa AZ 85212</string>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="miY-hq-JnT" firstAttribute="bottom" secondItem="Jxr-JP-PcT" secondAttribute="bottom" constant="20" id="3oX-Kc-TNk"/>
                                             <constraint firstItem="A38-DL-Wgr" firstAttribute="leading" secondItem="miY-hq-JnT" secondAttribute="leading" constant="20" id="7cP-5C-8g8"/>
                                             <constraint firstItem="prG-Ie-pZy" firstAttribute="centerY" secondItem="8CA-AM-uIe" secondAttribute="centerY" id="BPO-bv-7XP"/>
                                             <constraint firstItem="l4m-TV-uVu" firstAttribute="baseline" secondItem="QmZ-5Y-w5P" secondAttribute="baseline" id="BfB-Y4-Ihx"/>
-                                            <constraint firstItem="miY-hq-JnT" firstAttribute="bottom" secondItem="BXe-fa-Q0F" secondAttribute="bottom" constant="20" id="DOy-G7-NZi"/>
                                             <constraint firstItem="ges-8G-Hdb" firstAttribute="leading" secondItem="miY-hq-JnT" secondAttribute="leading" constant="20" id="DhZ-P2-Znn"/>
                                             <constraint firstItem="ges-8G-Hdb" firstAttribute="top" secondItem="miY-hq-JnT" secondAttribute="top" constant="20" id="HJ7-ZS-YVH"/>
                                             <constraint firstItem="Kyf-za-HGX" firstAttribute="top" secondItem="miY-hq-JnT" secondAttribute="top" id="KkM-Nm-ieb"/>
                                             <constraint firstItem="miY-hq-JnT" firstAttribute="trailing" secondItem="Kyf-za-HGX" secondAttribute="trailing" constant="20" id="Oh4-TF-zmB"/>
-                                            <constraint firstItem="miY-hq-JnT" firstAttribute="trailing" secondItem="BXe-fa-Q0F" secondAttribute="trailing" constant="20" id="QEf-g9-R6F"/>
                                             <constraint firstItem="miY-hq-JnT" firstAttribute="trailing" secondItem="QmZ-5Y-w5P" secondAttribute="trailing" constant="20" id="S3M-eq-3lz"/>
                                             <constraint firstItem="QmZ-5Y-w5P" firstAttribute="leading" secondItem="l4m-TV-uVu" secondAttribute="trailing" constant="8" id="UWt-id-yZu"/>
                                             <constraint firstItem="l4m-TV-uVu" firstAttribute="leading" secondItem="MRQ-6h-PDc" secondAttribute="trailing" constant="20" id="V2Q-jo-d4f"/>
@@ -1890,8 +1879,6 @@ Mesa AZ 85212</string>
                                             <constraint firstItem="miY-hq-JnT" firstAttribute="trailing" secondItem="Jxr-JP-PcT" secondAttribute="trailing" constant="20" id="i0E-h9-M91"/>
                                             <constraint firstItem="8CA-AM-uIe" firstAttribute="top" secondItem="QmZ-5Y-w5P" secondAttribute="bottom" constant="20" id="ibg-El-K4u"/>
                                             <constraint firstItem="prG-Ie-pZy" firstAttribute="leading" secondItem="8CA-AM-uIe" secondAttribute="trailing" constant="20" id="sVr-B5-AfK"/>
-                                            <constraint firstItem="BXe-fa-Q0F" firstAttribute="leading" secondItem="miY-hq-JnT" secondAttribute="leading" constant="20" id="upF-sR-sfJ"/>
-                                            <constraint firstItem="BXe-fa-Q0F" firstAttribute="top" secondItem="Jxr-JP-PcT" secondAttribute="bottom" constant="20" id="yZh-tq-7ip"/>
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="miY-hq-JnT"/>
                                     </view>
@@ -1915,8 +1902,16 @@ Mesa AZ 85212</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fKo-de-22j"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Donate to Member" id="tBW-fM-Myg">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Donate" id="Al5-XA-arY">
+                            <connections>
+                                <action selector="memberDonateButtonPressed:" destination="pTf-aG-xnl" id="sei-dM-9U1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="memberDonateButton" destination="BXe-fa-Q0F" id="Qb6-Al-VvU"/>
+                        <outlet property="memberDonateBarButton" destination="Al5-XA-arY" id="27Z-Jc-ZrS"/>
+                        <outlet property="memberDonateButton" destination="Al5-XA-arY" id="lyH-d1-WHf"/>
                         <outlet property="memberDonationTextField" destination="QmZ-5Y-w5P" id="zyG-Ch-1Zg"/>
                         <outlet property="memberPaymentDescriptionLabel" destination="prG-Ie-pZy" id="xnX-j9-7ID"/>
                         <outlet property="memberPaymentImageView" destination="8CA-AM-uIe" id="HxI-MC-SBs"/>
@@ -2281,7 +2276,7 @@ Mesa AZ 85212</string>
     <inferredMetricsTieBreakers>
         <segue reference="kej-l8-faC"/>
         <segue reference="d4R-8W-x6f"/>
-        <segue reference="UZe-sw-oe2"/>
+        <segue reference="Efq-4a-Hah"/>
         <segue reference="YNw-ih-aZn"/>
     </inferredMetricsTieBreakers>
 </document>

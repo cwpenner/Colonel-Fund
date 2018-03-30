@@ -19,7 +19,7 @@ class DonateToEventViewController: BraintreeViewController {
     @IBOutlet weak var eventFundGoalLabel: UILabel!
     @IBOutlet weak var eventCurrentFundsLabel: UILabel!
     @IBOutlet weak var eventDonationTextField: UITextField!
-    @IBOutlet weak var eventDonateButton: UIButton!
+    @IBOutlet weak var eventDonateButton: UIBarButtonItem!
     @IBOutlet weak var eventPaymentDescriptionLabel: UILabel!
     @IBOutlet weak var eventSelectPaymentButton: UIButton!
     @IBOutlet weak var eventPaymentImageView: UIImageView!
