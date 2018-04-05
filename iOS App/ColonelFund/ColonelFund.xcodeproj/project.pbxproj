@@ -36,6 +36,7 @@
 		5F5A49D31FF70CED006E211B /* FacebookShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F5A49D41FF70CED006E211B /* FacebookShare.framework */; };
 		5F5A49D81FFC1647006E211B /* BraintreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */; };
 		5F638A882022A71500A9CACA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F638A872022A71500A9CACA /* User.swift */; };
+		5F774DAA206C540800CF5587 /* UpcomingEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F774DA9206C540800CF5587 /* UpcomingEventsTableViewCell.swift */; };
 		5F8717FC1FC547C60091B13A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8717FB1FC547C60091B13A /* LoginViewController.swift */; };
 		5F8717FE1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */; };
 		5F87180B1FC5FA0A0091B13A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F8718091FC5F9FD0091B13A /* Bolts.framework */; };
@@ -49,6 +50,7 @@
 		5F995DF61F9286D700F8E459 /* ColonelFundUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F995DF51F9286D700F8E459 /* ColonelFundUITests.swift */; };
 		5FB066D01FF7064F00FCF659 /* Braintree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB066D11FF7064F00FCF659 /* Braintree.framework */; };
 		5FB066D21FF7065300FCF659 /* BraintreeDropIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB066D31FF7065300FCF659 /* BraintreeDropIn.framework */; };
+		5FBD421A20697F1300FE1FC5 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBD421920697F1300FE1FC5 /* Address.swift */; };
 		866382152041B5D3003F2DE9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 866382142041B5D3003F2DE9 /* GoogleService-Info.plist */; };
 		DAFE769E0EABF81414A3D1B4 /* Pods_ColonelFund.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B3F85F0CD37838ACE633B6 /* Pods_ColonelFund.framework */; };
 		FBD42D9F42E7DF6A273C7D38 /* Pods_ColonelFundTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BE0B8B54E0CB317F88435 /* Pods_ColonelFundTests.framework */; };
@@ -115,6 +117,7 @@
 		5F5A49D41FF70CED006E211B /* FacebookShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FacebookShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5A49D71FFC1647006E211B /* BraintreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BraintreeViewController.swift; sourceTree = "<group>"; };
 		5F638A872022A71500A9CACA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5F774DA9206C540800CF5587 /* UpcomingEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsTableViewCell.swift; sourceTree = "<group>"; };
 		5F8717FB1FC547C60091B13A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5F8717FD1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssociatedEventsTableViewCell.swift; sourceTree = "<group>"; };
 		5F8718071FC5F9FD0091B13A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -139,6 +142,7 @@
 		5FB066CF1FF702FF00FCF659 /* ColonelFund.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColonelFund.entitlements; sourceTree = "<group>"; };
 		5FB066D11FF7064F00FCF659 /* Braintree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Braintree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FB066D31FF7065300FCF659 /* BraintreeDropIn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BraintreeDropIn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FBD421920697F1300FE1FC5 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		866382142041B5D3003F2DE9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9F6BE0B8B54E0CB317F88435 /* Pods_ColonelFundTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColonelFundTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6E3F394D4DC866E93014003 /* Pods-ColonelFundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColonelFundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColonelFundTests/Pods-ColonelFundTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -258,10 +262,12 @@
 				5F995DD41F9286D700F8E459 /* MainViewController.swift */,
 				5F0713A81FAFD23C00AA623A /* MemberListTableViewController.swift */,
 				5F995DD61F9286D700F8E459 /* Main.storyboard */,
+				5F774DA9206C540800CF5587 /* UpcomingEventsTableViewCell.swift */,
 				5F54766F20211D4000C91A2B /* Member.swift */,
 				5F54767A20224F9E00C91A2B /* MemberCollection.swift */,
 				5F54767120211D4E00C91A2B /* Event.swift */,
 				5F638A872022A71500A9CACA /* User.swift */,
+				5FBD421920697F1300FE1FC5 /* Address.swift */,
 				5F547681202287D900C91A2B /* EventCollection.swift */,
 				5F54766D2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift */,
 				5F54766B2020F15100C91A2B /* MyEventsTableViewCell.swift */,
@@ -387,6 +393,9 @@
 								enabled = 1;
 							};
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -641,6 +650,7 @@
 			files = (
 				5F995DD51F9286D700F8E459 /* MainViewController.swift in Sources */,
 				5F54767B20224F9E00C91A2B /* MemberCollection.swift in Sources */,
+				5FBD421A20697F1300FE1FC5 /* Address.swift in Sources */,
 				5F5A49D81FFC1647006E211B /* BraintreeViewController.swift in Sources */,
 				5F5779E71FB01805000667FC /* ViewMemberViewController.swift in Sources */,
 				5F8717FE1FC5EB8E0091B13A /* AssociatedEventsTableViewCell.swift in Sources */,
@@ -650,6 +660,7 @@
 				5F5779D91FAFE6CB000667FC /* DonateToMemberViewController.swift in Sources */,
 				5F54767020211D4000C91A2B /* Member.swift in Sources */,
 				5F5779E51FB017D3000667FC /* EventListTableViewCell.swift in Sources */,
+				5F774DAA206C540800CF5587 /* UpcomingEventsTableViewCell.swift in Sources */,
 				5F5779E91FB01BDD000667FC /* DonateToEventViewController.swift in Sources */,
 				5F54767220211D4E00C91A2B /* Event.swift in Sources */,
 				5F54766E2020F30000C91A2B /* MyDonationHistoryTableViewCell.swift in Sources */,
@@ -832,7 +843,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ColonelFund/ColonelFund.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = F29UMC73E8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -854,7 +865,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ColonelFund/ColonelFund.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = F29UMC73E8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

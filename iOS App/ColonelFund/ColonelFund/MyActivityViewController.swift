@@ -13,7 +13,7 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     //EventCollectionProtocol
     //This has a EventCollection delegate reload the table when the data is finished being loaded
     func eventDataDownloaded() {
-        member.setAssociatedEvents(eventList: ec.getEvents())
+        member.setAssociatedEvents()
         associatedEventList = member.getAssociatedEvents()
         if self.refresher.isRefreshing
         {
@@ -27,13 +27,25 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var myEventsTableView: UITableView!
     
     var member: Member! = User.getCurrentUser()
-    let ec = EventCollection()
     var associatedEventList: [Event] = []
     var refresher: UIRefreshControl!
+    let months: [String] = ["J\nA\nN",
+                            "F\nE\nB",
+                            "M\nA\nR",
+                            "A\nP\nR",
+                            "M\nA\nY",
+                            "J\nU\nN",
+                            "J\nU\nL",
+                            "A\nU\nG",
+                            "S\nE\nP",
+                            "O\nC\nT",
+                            "N\nO\nV",
+                            "D\nE\nC"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ec.delegate = self
+        EventCollection.sharedInstance.delegate = self
+        member.setAssociatedEvents()
         associatedEventList = member.getAssociatedEvents()
         
         myDonationHistoryTableView.delegate = self
@@ -54,7 +66,7 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc private func refreshEventList(_ sender: Any) {
-        self.ec.updateFromRemote()
+        EventCollection.sharedInstance.updateFromRemote()
     }
     
     // MARK: - Table view data source
@@ -85,6 +97,9 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
         return num
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
@@ -105,7 +120,45 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
             let event = associatedEventList[indexPath.row]
-            cell.eventNameLabel?.text = event.getTitle()
+            let eventType = event.getEventType().lowercased()
+            let eventDate = event.getEventDate()
+            let dayIndex = eventDate.index(eventDate.endIndex, offsetBy: -2)
+            let dayString = String(eventDate[dayIndex...])
+            let monthStartIndex = eventDate.index(eventDate.endIndex, offsetBy: -5)
+            let monthEndIndex = eventDate.index(eventDate.endIndex, offsetBy: -3)
+            let monthString = String(eventDate[monthStartIndex..<monthEndIndex])
+            var progress = Float(event.getCurrentFunds() / event.getFundGoal())
+            if (progress < 0.5) {
+                cell.progressBar.progressTintColor = UIColor.red
+            } else if (progress > 0.5 && progress < 1.0) {
+                cell.progressBar.progressTintColor = UIColor.yellow
+            } else if (progress >= 1.0) {
+                progress = 1.0
+                cell.progressBar.progressTintColor = UIColor.green
+            }
+            cell.nameLabel.text = event.getTitle()
+            cell.dayLabel.text = String(Int(dayString)!)
+            cell.monthLabel.text = months[Int(monthString)! - 1]
+            cell.progressBar.setProgress(progress, animated: true)
+            
+            switch eventType {
+            case "bbq":
+                cell.eventIconImageView.image = UIImage(named: "bbq")
+            case "emergency":
+                cell.eventIconImageView.image = UIImage(named: "emergency")
+            case "medical":
+                cell.eventIconImageView.image = UIImage(named: "medical")
+            case "party":
+                cell.eventIconImageView.image = UIImage(named: "party")
+            case "unknown":
+                cell.eventIconImageView.image = UIImage(named: "unknown")
+            default:
+                cell.eventIconImageView.image = UIImage(named: "unknown")
+            }
+            
+            cell.memberLabel.text = member?.getFormattedFullName()
+            
+            
             return cell
         default:
             let cellIdentifier = "MyEventsTableViewCell"
@@ -116,7 +169,7 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
             return cell
         }
     }
-    
+
 
     
     // MARK: - Navigation
