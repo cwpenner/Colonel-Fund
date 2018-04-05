@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                             User.logout();
                             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                             startActivity(loginIntent);
+                            return true;
                         } else if (id == R.id.nav_members) {
                             newFragment = new MemberListActivity();
                             fragmentTransaction = fragmentManager.beginTransaction();
