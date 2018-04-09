@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +24,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,14 +39,14 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Activity for creating an event
  */
-public class CreateEventActivity extends Fragment implements View.OnClickListener {
+public class CreateEventFragment extends Fragment implements View.OnClickListener {
     Calendar myCalendar = Calendar.getInstance();
 
     private EditText txtEventDescription, txtEventTitle, txtEventGoal;
     private EditText txtEventMember, txtEventDate, txtEventType;
     private Button btnCreateEvent;
     private ImageButton imageButton;
-    private final String TAG = "CreateEventActivity";
+    private final String TAG = "CreateEventFragment";
     private final String URL_FOR_CREATE_EVENT = "https://wesll.com/colonelfund/create_event.php";
     private ImageView imageView;
     ProgressDialog progressDialog;
@@ -67,7 +60,7 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
-        View rootView = (ViewGroup) inflater.inflate(R.layout.activity_create_event, container, false);
+        View rootView = (ViewGroup) inflater.inflate(R.layout.fragment_create_event, container, false);
         imageButton = (ImageButton) rootView.findViewById(R.id.imageButton);
         imageButton.setOnClickListener(this);
         btnCreateEvent = (Button) rootView.findViewById(R.id.btnCreateEvent);

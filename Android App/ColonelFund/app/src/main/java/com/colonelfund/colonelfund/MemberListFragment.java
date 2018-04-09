@@ -19,9 +19,6 @@ import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -29,20 +26,20 @@ import java.util.Iterator;
 /**
  * Activity for Member list creation.
  */
-public class MemberListActivity extends Fragment {
+public class MemberListFragment extends Fragment {
     private ListView lv;
     private ArrayAdapter arrayAdapter = null;
     private EditText searchBar = null;
     Context ctx;
     View memberListView;
-    private static final String TAG = "MemberListActivity";
+    private static final String TAG = "MemberListFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         getActivity().setTitle("Member List");
-        return inflater.inflate(R.layout.activity_member_list, container, false);
+        return inflater.inflate(R.layout.fragment_member_list, container, false);
     }
 
     @Override
@@ -51,7 +48,7 @@ public class MemberListActivity extends Fragment {
         ctx = getActivity();
         memberListView = getView();
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //setContentView(R.layout.activity_member_list);
+        //setContentView(R.layout.fragment_member_list);
         searchBar = (EditText) memberListView.findViewById(R.id.editText);
         lv = (ListView) memberListView.findViewById(R.id.memberListView);
         final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) memberListView.findViewById(R.id.swiperefresh);
@@ -126,10 +123,10 @@ public class MemberListActivity extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.about_you) {
-            Intent intent = new Intent(getActivity(), ViewProfileActivity.class);
+            Intent intent = new Intent(getActivity(), ViewProfileFragment.class);
             startActivity(intent);
         } else if (id == R.id.your_history_events) {
-            Intent intent = new Intent(getActivity(), MyHistoryEventsActivity.class);
+            Intent intent = new Intent(getActivity(), MyHistoryEventsFragment.class);
             startActivity(intent);
         } else if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();

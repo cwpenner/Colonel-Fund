@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    private int currentMenuItem;
 
     /**
      * @param savedInstanceState
@@ -68,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
                         // Selection of UI fragment here
                         int id = menuItem.getItemId();
                         if (id == R.id.nav_account) {
-                            newFragment = new ViewProfileActivity();
+                            newFragment = new ViewProfileFragment();
                             fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.viewer, newFragment);
                             fragmentTransaction.addToBackStack(null);
                         } else if (id == R.id.nav_history) {
-                            newFragment = new MyHistoryEventsActivity();
+                            newFragment = new MyHistoryEventsFragment();
                             fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.viewer, newFragment);
                             fragmentTransaction.addToBackStack(null);
@@ -94,18 +93,19 @@ public class MainActivity extends AppCompatActivity {
                             User.logout();
                             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                             startActivity(loginIntent);
+                            return true;
                         } else if (id == R.id.nav_members) {
-                            newFragment = new MemberListActivity();
+                            newFragment = new MemberListFragment();
                             fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.viewer, newFragment);
                             fragmentTransaction.addToBackStack(null);
                         } else if (id == R.id.nav_events) {
-                            newFragment = new EventListActivity();
+                            newFragment = new EventListFragment();
                             fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.viewer, newFragment);
                             fragmentTransaction.addToBackStack(null);
                         } else if (id == R.id.nav_create_event) {
-                            newFragment = new CreateEventActivity();
+                            newFragment = new CreateEventFragment();
                             fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.viewer, newFragment);
                             fragmentTransaction.addToBackStack(null);
@@ -122,19 +122,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onBackStackChanged() {
                         Fragment current = getCurrentFragment();
                             Fragment f = getSupportFragmentManager().findFragmentById(R.id.nav_view);
-                            if (current instanceof MemberListActivity) {
+                            if (current instanceof MemberListFragment) {
                                 navigationView.setCheckedItem(R.id.nav_members);
                                 System.out.println ("Nav members Back Detect");
-                            } else if (current instanceof CreateEventActivity) {
+                            } else if (current instanceof CreateEventFragment) {
                                 navigationView.setCheckedItem(R.id.nav_create_event);
                                 System.out.println ("Nav create Back Detect");
-                            } else if (current instanceof EventListActivity) {
+                            } else if (current instanceof EventListFragment) {
                                 navigationView.setCheckedItem(R.id.nav_events);
                                 System.out.println ("Nav events Back Detect");
-                            } else if (current instanceof MyHistoryEventsActivity) {
+                            } else if (current instanceof MyHistoryEventsFragment) {
                                 navigationView.setCheckedItem(R.id.nav_history);
                                 System.out.println ("Nav history Back Detect");
-                            } else if (current instanceof ViewProfileActivity) {
+                            } else if (current instanceof ViewProfileFragment) {
                                 navigationView.setCheckedItem(R.id.nav_account);
                                 System.out.println ("Nav Account Back Detect");
                             } //todo for main screen

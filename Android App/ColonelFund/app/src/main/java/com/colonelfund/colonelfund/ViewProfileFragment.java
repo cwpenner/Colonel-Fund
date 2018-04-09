@@ -10,30 +10,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
 
-
-public class ViewProfileActivity extends Fragment implements ImageDownloader.ImageDownloadDelegate {
+public class ViewProfileFragment extends Fragment implements ImageDownloader.ImageDownloadDelegate {
 
     private ViewGroup aboutYouLayout;
     private ImageView profilePicImage;
     Context ctx;
     View profileAcivityView;
-    private static final String TAG = "ViewProfileActivity";
+    private static final String TAG = "ViewProfileFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         getActivity().setTitle("My Account");
-        return inflater.inflate(R.layout.activity_view_profile, container, false);
+        return inflater.inflate(R.layout.fragment_view_profile, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //setContentView(R.layout.activity_view_profile);
+        //setContentView(R.layout.fragment_view_profile);
         ctx = getActivity();
         profileAcivityView = getView();
 

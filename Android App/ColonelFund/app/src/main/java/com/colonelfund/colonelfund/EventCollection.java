@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class EventCollection {
     private static final String jsonFileName = "events.json";
-    private final String TAG = "EventListActivity";
+    private final String TAG = "EventListFragment";
     private final String URL_FOR_NAMES = "https://wesll.com/colonelfund/events.php";
     public Map<String, Event> eventMap = null;
     AssetManager am = null;

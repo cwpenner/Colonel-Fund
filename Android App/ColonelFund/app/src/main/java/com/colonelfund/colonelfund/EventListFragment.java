@@ -22,13 +22,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -36,20 +29,20 @@ import java.util.Iterator;
 /**
  * Event list view class.
  */
-public class EventListActivity extends Fragment {
+public class EventListFragment extends Fragment {
     private ListView lv = null;
     private ArrayAdapter arrayAdapter = null;
     private EditText searchBar = null;
     Context ctx;
     View eventListView;
-    private static final String TAG = "EventListActivity";
+    private static final String TAG = "EventListFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         getActivity().setTitle("Event List");
-        return inflater.inflate(R.layout.activity_event_list, container, false);
+        return inflater.inflate(R.layout.fragment_event_list, container, false);
     }
 
     /**
@@ -64,7 +57,7 @@ public class EventListActivity extends Fragment {
         ctx = getActivity();
         eventListView = getView();
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //setContentView(R.layout.activity_event_list);
+        //setContentView(R.layout.fragment_event_list);
         searchBar = (EditText) eventListView.findViewById(R.id.editText);
         final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) eventListView.findViewById(R.id.swiperefresh);
         lv = (ListView) eventListView.findViewById(R.id.eventListView);

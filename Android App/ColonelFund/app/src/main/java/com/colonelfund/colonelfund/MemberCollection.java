@@ -34,7 +34,7 @@ import java.util.Map;
  */
 public class MemberCollection {
     private static final String jsonFileName = "members.json";
-    private final String TAG = "MemberListActivity";
+    private final String TAG = "MemberListFragment";
     private final String URL_FOR_NAMES = "https://wesll.com/colonelfund/members.php";
     public Map<String, Member> memberMap = null;
     AssetManager am = null;

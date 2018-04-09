@@ -12,12 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-
 import java.util.ArrayList;
 
-public class MyHistoryEventsActivity extends Fragment {
+public class MyHistoryEventsFragment extends Fragment {
 
     private ViewGroup donationInfoLayout;
     private ListView lv;
@@ -30,7 +27,7 @@ public class MyHistoryEventsActivity extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         getActivity().setTitle("My History/Events");
-        return inflater.inflate(R.layout.activity_my_history_events, container, false);
+        return inflater.inflate(R.layout.fragment_my_history_events, container, false);
     }
 
     @Override

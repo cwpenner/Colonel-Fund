@@ -4,22 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.colonelfund.colonelfund.MyHistoryEventsActivity">
+    tools:context="com.colonelfund.colonelfund.ViewProfileFragment">
 
     <TextView
-        android:id="@+id/textView_dona_hist"
+        android:id="@+id/textView_about_you"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/donation_history"
+        android:text="@string/about_you"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/profilePicImageView"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/history_table"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/about_you_table"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -30,34 +28,31 @@
         android:background="@drawable/about_you_table"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_dona_hist">
+        app:layout_constraintTop_toBottomOf="@+id/textView_about_you">
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView_associated_events"
+    <Button
+        android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Associated Events"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/history_table" />
-
-    <ListView
-        android:id="@+id/associated_events_table"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:text="Link Your Account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_associated_events"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/about_you_table" />
+
+    <ImageView
+        android:id="@+id/profilePicImageView"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
+
 </android.support.constraint.ConstraintLayout>

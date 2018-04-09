@@ -37,7 +37,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <!-- Removing for fragment conversion
         <activity
-            android:name=".MemberListActivity"
+            android:name=".MemberListFragment"
             android:label="Member List"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -45,7 +45,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".CreateEventActivity"
+            android:name=".CreateEventFragment"
             android:label="Create Event"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -53,7 +53,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".EventListActivity"
+            android:name=".EventListFragment"
             android:label="Event List"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -61,7 +61,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".ViewProfileActivity"
+            android:name=".ViewProfileFragment"
             android:label="@string/title_activity_view_profile"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -69,7 +69,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".MyHistoryEventsActivity"
+            android:name=".MyHistoryEventsFragment"
             android:label="@string/title_activity_view_history"
             android:parentActivityName=".MainActivity">
             <meta-data
