@@ -56,10 +56,12 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
     private InputStream getHttpConnection(String urlString) throws IOException {
         InputStream stream = null;
         URL url = new URL(urlString);
+        HttpURLConnection httpConnection;
+        URLConnection connection;
 
         try {
-            URLConnection connection = url.openConnection();
-            HttpURLConnection httpConnection = (HttpURLConnection) connection;
+            connection = url.openConnection();
+            httpConnection = (HttpURLConnection) connection;
             httpConnection.setRequestMethod("GET");
             httpConnection.connect();
 
