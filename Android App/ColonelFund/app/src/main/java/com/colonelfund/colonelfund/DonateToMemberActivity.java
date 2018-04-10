@@ -37,7 +37,6 @@ public class DonateToMemberActivity extends BraintreeActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_donate_to_member);
@@ -48,6 +47,8 @@ public class DonateToMemberActivity extends BraintreeActivity {
         memberSelectPaymentButton = findViewById(R.id.memberSelectPaymentMethodButton);
         memberPaymentIconView = findViewById(R.id.memberPaymentMethodImage);
         BraintreeActivityInitializer(memberDonationTextField, memberDonateButton, memberPaymentDescriptionLabel, memberSelectPaymentButton, memberPaymentIconView);
+        super.onCreate(savedInstanceState);
+
         selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
         TextView fullNameText = (TextView) findViewById(R.id.donateViewMemberName);
         fullNameText.setText(selectedMember.getFormattedFullName());

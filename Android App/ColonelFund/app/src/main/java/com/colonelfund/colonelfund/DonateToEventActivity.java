@@ -37,7 +37,6 @@ public class DonateToEventActivity extends BraintreeActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate_to_event);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
@@ -49,6 +48,7 @@ public class DonateToEventActivity extends BraintreeActivity {
         eventSelectPaymentButton = findViewById(R.id.eventSelectPaymentMethodButton);
         eventPaymentIconView = findViewById(R.id.eventPaymentMethodImage);
         BraintreeActivityInitializer(eventDonationTextField, eventDonateButton, eventPaymentDescriptionLabel, eventSelectPaymentButton, eventPaymentIconView);
+        super.onCreate(savedInstanceState);
 
         TextView text = findViewById(R.id.textView3);
         text.setText(selectedEvent.getTitle());
