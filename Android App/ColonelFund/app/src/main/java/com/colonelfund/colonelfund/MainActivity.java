@@ -1,6 +1,7 @@
 package com.colonelfund.colonelfund;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,8 +13,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -24,17 +27,23 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Main activity that holds fragments for all main activities and a nav drawer.
+ */
 // TODO: 12/22/2017 Tie in "Logout" button to terminate users session
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ImageDownloader.ImageDownloadDelegate {
     private GoogleApiClient mGoogleApiClient;
     private DrawerLayout mDrawerLayout;
     Fragment newFragment;
     private NavigationView navigationView;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    private ImageView profilePicImage;
 
     /**
-     * @param savedInstanceState
+     * Overrides on create to set variables to proper values.
+     *
+     * @param savedInstanceState of activity.
      */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -48,15 +57,12 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         FacebookSdk.sdkInitialize(this.getApplicationContext());
-
         updateLocalStorage();
-
-        fragmentManager = getSupportFragmentManager();
 
         //set listeners for slide out
         mDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-
+        fragmentManager = getSupportFragmentManager();
         newFragment = new MainPageFragment();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.viewer, newFragment);
@@ -151,8 +157,23 @@ public class MainActivity extends AppCompatActivity {
                             }
                     }
                 });
+
+        //fill in user info in nav header
+        View navHeader = navigationView.getHeaderView(0);
+        profilePicImage = navHeader.findViewById(R.id.nav_profilePicture);
+        ImageDownloader imageDownloader = new ImageDownloader(this);
+        imageDownloader.execute(User.getCurrentUser().getProfilePicURL());
+        TextView navUserName = navHeader.findViewById(R.id.nav_userName);
+        navUserName.setText(User.getCurrentUser().getFormattedFullName());
+        TextView navUserEmail = navHeader.findViewById(R.id.nav_userEmail);
+        navUserEmail.setText(User.getCurrentUser().getEmailAddress());
     }
 
+    /**
+     * Fragment handler.
+     *
+     * @return current fragment.
+     */
     public Fragment getCurrentFragment() {
         return this.getSupportFragmentManager().findFragmentById(R.id.viewer);
     }
@@ -182,6 +203,9 @@ public class MainActivity extends AppCompatActivity {
         ec.updateFromRemote();
     }
 
+    /**
+     * Overrides on back pressed for fragment navigation.
+     */
     @Override
     public void onBackPressed() {
         int count = getSupportFragmentManager().getBackStackEntryCount();
@@ -191,5 +215,16 @@ public class MainActivity extends AppCompatActivity {
         else {
             getSupportFragmentManager().popBackStack();
         }
+    }
+
+    /**
+     * Sets profile picture to users value.
+     *
+     * @param bitmap of user profile picture
+     */
+    @Override
+    public void imageDownloaded(Bitmap bitmap) {
+        if (bitmap != null)
+            profilePicImage.setImageBitmap(bitmap);
     }
 }

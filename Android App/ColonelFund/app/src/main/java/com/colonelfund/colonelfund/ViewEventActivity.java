@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +12,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,15 +24,14 @@ import com.google.firebase.auth.FirebaseAuth;
  * Activity for Member Viewing an Event.
  */
 public class ViewEventActivity extends AppCompatActivity implements ImageDownloader.ImageDownloadDelegate {
-
+    private GoogleApiClient mGoogleApiClient; // need to implement
     private ImageView imageView;
 
     /**
      * Paints event info to screen.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState of activity.
      */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +58,7 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
         text = (TextView) findViewById(R.id.textView2);
         text.setText(String.valueOf(selectedEvent.getDescription()));
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.nav_profilePicture);
         ImageDownloader imageDownloader = new ImageDownloader(this);
         imageDownloader.execute(selectedEvent.getImageURL());
 
@@ -76,6 +73,12 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
         });
     }
 
+    /**
+     * inflates the menu options in top right.
+     *
+     * @param menu of options.
+     * @return boolean.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -83,19 +86,36 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
         return true;
     }
 
+    /**
+     * Action on menu option selected.
+     *
+     * @param item menu item
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
-
-            //TODO: Add Google logout code
-            if (token != null) {
+            FirebaseAuth.getInstance().signOut();
+            //check for google connection (remove once implemented globally)
+            if (mGoogleApiClient != null) {
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(@NonNull Status status) {
+                                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
+            }
+            if(token != null) {
                 LoginManager.getInstance().logOut();
             }
             User.logout();
-            Intent loginIntent = new Intent(this, LoginActivity.class);
+            Intent loginIntent = new Intent(ViewEventActivity.this, LoginActivity.class);
             startActivity(loginIntent);
+            return true;
         } else if (id == android.R.id.home) {
             onBackPressed();
             return true;
@@ -103,6 +123,11 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Sets user profile picture at finish of download.
+     *
+     * @param bitmap of user profile picture
+     */
     @Override
     public void imageDownloaded(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);

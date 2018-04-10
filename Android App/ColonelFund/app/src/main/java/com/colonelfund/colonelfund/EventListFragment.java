@@ -2,7 +2,6 @@ package com.colonelfund.colonelfund;
 
 import android.content.Context;
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -21,13 +20,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * Event list view class.
+ * Fragment that allows a user to view current events. Instantiated in Main Activity.
  */
 public class EventListFragment extends Fragment {
     private ListView lv = null;
@@ -37,6 +35,13 @@ public class EventListFragment extends Fragment {
     View eventListView;
     private static final String TAG = "EventListFragment";
 
+    /**
+     * Overrides on create to initialize variables for page.
+     * @param inflater inflater for fragment views
+     * @param container view group for fragment.
+     * @param savedInstanceState saved state of fragment.
+     * @return view of fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,17 +52,13 @@ public class EventListFragment extends Fragment {
 
     /**
      * Overrides on create in order to draw event list and sets listeners for buttons and search.
-     *
-     * @param savedInstanceState
+     * @param savedInstanceState saved state of fragment.
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //super.onCreate(savedInstanceState);
         ctx = getActivity();
         eventListView = getView();
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //setContentView(R.layout.fragment_event_list);
         searchBar = (EditText) eventListView.findViewById(R.id.editText);
         final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) eventListView.findViewById(R.id.swiperefresh);
         lv = (ListView) eventListView.findViewById(R.id.eventListView);
@@ -166,8 +167,8 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
     /**
      * Constructor for member list item adapter.
      *
-     * @param context
-     * @param data
+     * @param context for fragment
+     * @param data for event list
      */
     public EventListAdapter(Context context, ArrayList<EventListModel> data) {
         super(context, R.layout.event_list_item, data);
@@ -179,9 +180,9 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
     /**
      * Gets View for Event List Item.
      *
-     * @param position
-     * @param convertView
-     * @param parent
+     * @param position of line item
+     * @param convertView for event list item
+     * @param parent of event list
      * @return EventListView
      */
     @Override
@@ -285,8 +286,8 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         /**
          * Override filters publish results for array list
          *
-         * @param constraint
-         * @param results
+         * @param constraint for filter
+         * @param results of filter
          */
         @SuppressWarnings("unchecked")
         @Override
@@ -393,7 +394,6 @@ class EventListModel {
     /**
      * @return eventDate
      */
-
     public String getAssociatedEmail() {
         return associatedEmail;
     }
@@ -415,5 +415,4 @@ class EventListModel {
     public String getEventDesc() {
         return eventDescription;
     }
-
 }

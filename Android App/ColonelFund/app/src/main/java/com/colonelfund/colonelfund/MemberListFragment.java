@@ -18,13 +18,12 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * Activity for Member list creation.
+ * Fragment that allows a user to view current members. Instantiated in Main Activity.
  */
 public class MemberListFragment extends Fragment {
     private ListView lv;
@@ -34,6 +33,14 @@ public class MemberListFragment extends Fragment {
     View memberListView;
     private static final String TAG = "MemberListFragment";
 
+    /**
+     * Overrides on create to initialize variables for page.
+     *
+     * @param inflater inflater for fragment views
+     * @param container view group for fragment.
+     * @param savedInstanceState saved state of fragment.
+     * @return view of fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,13 +49,16 @@ public class MemberListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_member_list, container, false);
     }
 
+    /**
+     * overrides on-create for fragment to initialize values for view.
+     *
+     * @param savedInstanceState saved state of fragment.
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ctx = getActivity();
         memberListView = getView();
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //setContentView(R.layout.fragment_member_list);
         searchBar = (EditText) memberListView.findViewById(R.id.editText);
         lv = (ListView) memberListView.findViewById(R.id.memberListView);
         final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) memberListView.findViewById(R.id.swiperefresh);
@@ -96,10 +106,8 @@ public class MemberListFragment extends Fragment {
                 System.out.println("Text [" + s + "]");
                 arrayAdapter.getFilter().filter(s.toString());
             }
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
             @Override
             public void afterTextChanged(Editable s) {}
         });
@@ -108,48 +116,10 @@ public class MemberListFragment extends Fragment {
     }
 
     /**
-     * Inflates the main menu bar.
+     * Generates Initials and User Name for member list.
      *
-     * @param
-     * @return true
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    inflater.inflate(R.menu.main_menu, menu);
-    super.onCreateOptionsMenu(menu,inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.about_you) {
-            Intent intent = new Intent(getActivity(), ViewProfileFragment.class);
-            startActivity(intent);
-        } else if (id == R.id.your_history_events) {
-            Intent intent = new Intent(getActivity(), MyHistoryEventsFragment.class);
-            startActivity(intent);
-        } else if (id == R.id.logout_item) {
-            AccessToken token = AccessToken.getCurrentAccessToken();
-            //TODO: Add Google logout code
-            if(token != null) {
-                LoginManager.getInstance().logOut();
-            }
-            User.logout();
-            Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(loginIntent);
-        } else if (id == android.R.id.home) {
-            getActivity().onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-     */
-
-    /**
-     * Generates Initials and User Name for memberlist.
-     *
-     * @param memberList
-     * @return
+     * @param memberList collection of members
+     * @return array list of models for member list
      */
     private ArrayList<MemberListModel> generateData(Collection memberList) {
         ArrayList<MemberListModel> models = new ArrayList<MemberListModel>();
@@ -177,8 +147,8 @@ class MemberListAdapter extends ArrayAdapter<MemberListModel> implements Filtera
     /**
      * Constructor for member list item adapter.
      *
-     * @param context
-     * @param data
+     * @param context context of fragment
+     * @param data array list of members
      */
     public MemberListAdapter(Context context, ArrayList<MemberListModel> data) {
         super(context, R.layout.member_list_item, data);
@@ -190,9 +160,9 @@ class MemberListAdapter extends ArrayAdapter<MemberListModel> implements Filtera
     /**
      * Gets View for Member List Item.
      *
-     * @param position
-     * @param convertView
-     * @param parent
+     * @param position position of view
+     * @param convertView view to convert
+     * @param parent parent view group
      * @return MemberListView
      */
     @Override
@@ -275,8 +245,8 @@ class MemberListAdapter extends ArrayAdapter<MemberListModel> implements Filtera
         /**
          * Override filters publish results for array list
          *
-         * @param constraint
-         * @param results
+         * @param constraint character sequence of filter.
+         * @param results filter result of search.
          */
         @SuppressWarnings("unchecked")
         @Override
@@ -305,7 +275,7 @@ class MemberListAdapter extends ArrayAdapter<MemberListModel> implements Filtera
         /**
          * Get a filterable items position
          *
-         * @param position
+         * @param position position of item
          * @return itemPosition
          */
         public MemberListModel getItem(int position) {
@@ -315,7 +285,7 @@ class MemberListAdapter extends ArrayAdapter<MemberListModel> implements Filtera
         /**
          * Get a filterable items ID
          *
-         * @param position
+         * @param position position of filtered item
          * @return itemID
          */
         public long getItemId(int position) {
@@ -336,8 +306,9 @@ class MemberListModel {
 
     /**
      * Constructor for Initials circle.
-     * @param initials
-     * @param userID
+     *
+     * @param initials user initials
+     * @param userID user id
      */
     public MemberListModel(String initials, String userID, String firstName, String lastName, String associatedEmail) {
         super();
@@ -348,21 +319,44 @@ class MemberListModel {
         this.associatedEmail = associatedEmail;
     }
 
+    /**
+     * @return String for initials
+     */
     public String getInitials() {
         return initials;
     }
+
+    /**
+     * @return String for user id
+     */
     public String getUserID() {
         return userID;
     }
+
+    /**
+     * @return string for first name
+     */
     public String getFirstName() {
         return firstName;
     }
+
+    /**
+     * @return string for last name
+     */
     public String getLastName() {
         return lastName;
     }
+
+    /**
+     * @return string for full name
+     */
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
+    /**
+     * @return string for email
+     */
     public String getEmail() {
         return associatedEmail;
     }
