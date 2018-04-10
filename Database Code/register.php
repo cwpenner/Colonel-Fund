@@ -6,9 +6,17 @@ $db = new update_user_info();
 // json response array
 $response = array("error" => FALSE);
 
-//if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['gender']) && isset($_POST['age'])) {
-
-if (isset($_POST['userID']) && isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emailAddress']) && isset($_POST['password']) && isset($_POST['phoneNumber'])) {
+if (isset($_POST['userID']) &&
+    isset($_POST['firstName']) &&
+    isset($_POST['lastName']) &&
+    isset($_POST['emailAddress']) &&
+    isset($_POST['password']) &&
+    isset($_POST['phoneNumber']) &&
+    isset($_POST['username']) &&
+    isset($_POST['profilePicURL']) &&
+    isset($_POST['facebookID']) &&
+    isset($_POST['googleID']) &&
+    isset($_POST['firebaseID'])) {
 
     // receiving the post params
     $userID = $_POST['userID'];
@@ -17,6 +25,11 @@ if (isset($_POST['userID']) && isset($_POST['firstName']) && isset($_POST['lastN
     $emailAddress = $_POST['emailAddress'];
     $password = $_POST['password'];
     $phoneNumber = $_POST['phoneNumber'];
+    $username = $_POST['username'];
+    $profilePicURL = $_POST['profilePicURL'];
+    $facebookID = $_POST['facebookID'];
+    $googleID = $_POST['googleID'];
+    $firebaseID = $_POST['firebaseID'];
 
     // check if user is already existed with the same email
     if ($db->CheckExistingUser($emailAddress)) {
@@ -26,7 +39,10 @@ if (isset($_POST['userID']) && isset($_POST['firstName']) && isset($_POST['lastN
         echo json_encode($response);
     } else {
         // create a new user
-        $user = $db->StoreUserInfo($userID, $firstName, $lastName, $emailAddress, $password, $phoneNumber);
+        $user = $db->StoreUserInfo(
+            $userID, $firstName, $lastName, $emailAddress, $password,
+            $phoneNumber, $username, $profilePicURL, $facebookID, $googleID, $firebaseID);
+
         if ($user) {
             // user stored successfully
             $response["error"] = FALSE;
@@ -35,6 +51,11 @@ if (isset($_POST['userID']) && isset($_POST['firstName']) && isset($_POST['lastN
             $response["user"]["lastName"] = $user["lastName"];
             $response["user"]["emailAddress"] = $user["emailAddress"];
             $response["user"]["phoneNumber"] = $user["phoneNumber"];
+            $response["user"]["username"] = $user["username"];
+            $response["user"]["profilePicURL"] = $user["profilePicURL"];
+            $response["user"]["facebookID"] = $user["facebookID"];
+            $response["user"]["googleID"] = $user["googleID"];
+            $response["user"]["firebaseID"] = $user["firebaseID"];
             echo json_encode($response);
         } else {
             // user failed to store
@@ -45,7 +66,9 @@ if (isset($_POST['userID']) && isset($_POST['firstName']) && isset($_POST['lastN
     }
 } else {
     $response["error"] = TRUE;
-    $response["error_msg"] = "Required parameters (userID, firstName, lastName, emailAddress, password, phoneNumber) is missing!";
+    $response["error_msg"] = "Required parameters (userID, firstName, lastName, 
+                                emailAddress, password, phoneNumber, username, 
+                                profilePicURL, facebookID, googleID, firebaseID) is missing!";
     echo json_encode($response);
 }
 ?>

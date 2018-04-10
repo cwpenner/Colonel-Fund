@@ -75,8 +75,3 @@ if (isset($_POST['title']) &&
     echo json_encode($response);
 }
 ?>
-
-
-
-
-
