@@ -48,6 +48,7 @@ public class DonateToEventActivity extends BraintreeActivity {
         eventSelectPaymentButton = findViewById(R.id.eventSelectPaymentMethodButton);
         eventPaymentIconView = findViewById(R.id.eventPaymentMethodImage);
         BraintreeActivityInitializer(eventDonationTextField, eventDonateButton, eventPaymentDescriptionLabel, eventSelectPaymentButton, eventPaymentIconView);
+        //must be called after brain tree initializer or will call braintree null.
         super.onCreate(savedInstanceState);
 
         TextView text = findViewById(R.id.textView3);

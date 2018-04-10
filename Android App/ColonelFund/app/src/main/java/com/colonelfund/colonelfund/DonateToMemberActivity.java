@@ -47,6 +47,7 @@ public class DonateToMemberActivity extends BraintreeActivity {
         memberSelectPaymentButton = findViewById(R.id.memberSelectPaymentMethodButton);
         memberPaymentIconView = findViewById(R.id.memberPaymentMethodImage);
         BraintreeActivityInitializer(memberDonationTextField, memberDonateButton, memberPaymentDescriptionLabel, memberSelectPaymentButton, memberPaymentIconView);
+        //must be called after brain tree initializer or will call braintree null.
         super.onCreate(savedInstanceState);
 
         selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
