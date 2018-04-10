@@ -70,6 +70,7 @@ public class ViewProfileFragment extends Fragment implements ImageDownloader.Ima
 
     @Override
     public void imageDownloaded(Bitmap bitmap) {
-        profilePicImage.setImageBitmap(bitmap);
+        if (bitmap != null)
+            profilePicImage.setImageBitmap(bitmap);
     }
 }
