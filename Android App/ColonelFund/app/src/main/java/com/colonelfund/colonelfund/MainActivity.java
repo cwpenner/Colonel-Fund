@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
+        newFragment = new MainPageFragment();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.viewer, newFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -110,8 +116,10 @@ public class MainActivity extends AppCompatActivity {
                             fragmentTransaction.replace(R.id.viewer, newFragment);
                             fragmentTransaction.addToBackStack(null);
                         } else if (id == R.id.nav_main) {
-                            //toDo for main Screen
-                            return true;
+                            newFragment = new MainPageFragment();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.viewer, newFragment);
+                            fragmentTransaction.addToBackStack(null);
                         }
                         fragmentTransaction.commit();
                         return true;
@@ -137,8 +145,11 @@ public class MainActivity extends AppCompatActivity {
                             } else if (current instanceof ViewProfileFragment) {
                                 navigationView.setCheckedItem(R.id.nav_account);
                                 System.out.println ("Nav Account Back Detect");
-                            } //todo for main screen
-                        }
+                            } else if (current instanceof MainPageFragment) {
+                                navigationView.setCheckedItem(R.id.nav_main);
+                                System.out.println ("Nav Main Back Detect");
+                            }
+                    }
                 });
     }
 
