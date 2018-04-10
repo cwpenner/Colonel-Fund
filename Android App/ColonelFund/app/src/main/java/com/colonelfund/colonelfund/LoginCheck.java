@@ -68,7 +68,7 @@ public class LoginCheck extends AppCompatActivity {
                     if (object.getString("id") != null) {
                         facebookID = object.getString("id");
                     }
-                    Member member = new Member("", firstName, lastName, emailAddress, "");
+                    Member member = new Member("", firstName, lastName, emailAddress, "", "", "", "", "", "");
                     member.setProfilePicURL(profilePicURL);
                     member.setFacebookID(facebookID);
                     User.setCurrentUser(member);
@@ -105,9 +105,7 @@ public class LoginCheck extends AppCompatActivity {
             if (googleAccount.getId() != null) {
                 googleID = googleAccount.getId();
             }
-            Member member = new Member("", firstName, lastName, emailAddress, "");
-            member.setProfilePicURL(profilePicURL);
-            member.setGoogleID(googleID);
+            Member member = new Member("", firstName, lastName, emailAddress, "", "", profilePicURL, "", googleID, "");
             User.setCurrentUser(member);
             Toast.makeText(LoginCheck.this, User.currentUser.getFormattedFullName() + " signed in successfully", Toast.LENGTH_LONG).show();
             startActivity(MainIntent);

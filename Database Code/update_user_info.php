@@ -15,9 +15,7 @@ class update_user_info
     }
 
     // destructor
-    function __destruct()
-    {
-    }
+    function __destruct() { }
 
     /**
      * Storing new user

@@ -2,8 +2,8 @@ package com.colonelfund.colonelfund;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
 
 import java.util.ArrayList;
 
@@ -50,7 +47,7 @@ public class MyHistoryEventsActivity extends Fragment {
          * Event Info load
          */
         Member aMember;
-        aMember = new Member("93471", "Test", "Event", "test@gmail.com", "987-654-3210");
+        aMember = new Member("93471", "Test", "Event", "test@gmail.com", "987-654-3210", "tester", "", "", "", "");
         final Member selectedMember = aMember;
         lv = (ListView) historyEventsView.findViewById(R.id.associated_events_table);
 

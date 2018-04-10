@@ -75,9 +75,7 @@ public class MemberCollection {
                     JSONObject jObj;
                     for (int i = 0; i < jArray.length(); i++) {
                         jObj = (JSONObject) jArray.get(i);
-                        Member aMember = new Member(jObj.getString("userID"),
-                                fixName(jObj.getString("firstName")), fixName(jObj.getString("lastName")),
-                                jObj.getString("emailAddress"), jObj.getString("phoneNumber"));
+                        Member aMember = new Member(jObj.getString("userID"), fixName(jObj.getString("firstName")), fixName(jObj.getString("lastName")), jObj.getString("emailAddress"), jObj.getString("phoneNumber"), jObj.getString("username"), jObj.getString("profilePicURL"), jObj.getString("facebookID"), jObj.getString("googleID"), jObj.getString("firebaseID"));
                         outputObj.put(jObj.getString("userID"), aMember.toJson());
                     }
 

@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-
 
 public class ViewProfileActivity extends Fragment implements ImageDownloader.ImageDownloadDelegate {
 
@@ -39,6 +36,8 @@ public class ViewProfileActivity extends Fragment implements ImageDownloader.Ima
 
         aboutYouLayout = (ViewGroup) profileAcivityView.findViewById(R.id.about_you_table);
 
+        addUserInfoLine("UserName:", User.currentUser.getUsername());
+        addBorder(aboutYouLayout);
         addUserInfoLine("Name:", User.currentUser.getFormattedFullName());
         addBorder(aboutYouLayout);
         addUserInfoLine("User ID:", User.currentUser.getUserID());
