@@ -11,28 +11,39 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-
 import java.util.ArrayList;
 
-public class MyHistoryEventsActivity extends Fragment {
-
+/**
+ * Fragment that allows a user to view their history. Instantiated in Main Activity.
+ */
+public class MyHistoryEventsFragment extends Fragment {
     private ViewGroup donationInfoLayout;
     private ListView lv;
     Context ctx;
     View historyEventsView;
     private static final String TAG = "MyHistoryActivity";
 
+    /**
+     * Overrides on create to initialize variables for page.
+     *
+     * @param inflater inflater for fragment views
+     * @param container view group for fragment.
+     * @param savedInstanceState saved state of fragment.
+     * @return view of fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         getActivity().setTitle("My History/Events");
-        return inflater.inflate(R.layout.activity_my_history_events, container, false);
+        return inflater.inflate(R.layout.fragment_my_history_events, container, false);
     }
 
+    /**
+     * overrides on-create for fragment to initialize values for view.
+     *
+     * @param savedInstanceState saved state of fragment.
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -46,9 +57,7 @@ public class MyHistoryEventsActivity extends Fragment {
         addBorder(donationInfoLayout);
         addDonationInfoLine("Example Event Title 2", "$1.02");
 
-        /**
-         * Event Info load
-         */
+        //loads info for member
         Member aMember;
         aMember = new Member("93471", "Test", "Event", "test@gmail.com", "987-654-3210");
         final Member selectedMember = aMember;
@@ -84,6 +93,12 @@ public class MyHistoryEventsActivity extends Fragment {
         }
     }
 
+    /**
+     * Adds text to donation line of table.
+     *
+     * @param leftText text for left side of table.
+     * @param rightText text for right side of table.
+     */
     private void addDonationInfoLine(String leftText, String rightText) {
         View layout3 = LayoutInflater.from(getActivity()).inflate(R.layout.about_you_list_item, donationInfoLayout, false);
 
@@ -96,9 +111,13 @@ public class MyHistoryEventsActivity extends Fragment {
         donationInfoLayout.addView(layout3);
     }
 
+    /**
+     * Adds border to view group.
+     *
+     * @param viewToAdd view group to add.
+     */
     private void addBorder(ViewGroup viewToAdd) {
         View tableBorder = LayoutInflater.from(getActivity()).inflate(R.layout.table_separator, viewToAdd, false);
         viewToAdd.addView(tableBorder);
     }
-
 }

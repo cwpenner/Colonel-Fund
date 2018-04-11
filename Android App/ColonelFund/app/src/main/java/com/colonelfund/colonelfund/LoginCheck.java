@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +19,6 @@ import org.json.JSONObject;
  * already logged in upon app launch.
  */
 public class LoginCheck extends AppCompatActivity {
-
     // Current User Properties
     private String firstName = "";
     private String lastName = "";
@@ -30,12 +27,15 @@ public class LoginCheck extends AppCompatActivity {
     private String facebookID = "";
     private String googleID = "";
 
+    /**
+     * Overrides on create to set variables to current values.
+     *
+     * @param savedInstanceState of activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
-
         AccessToken fbToken = AccessToken.getCurrentAccessToken();
         GoogleSignInAccount googleAccount = GoogleSignIn.getLastSignedInAccount(this);
         if(fbToken == null && googleAccount == null){
@@ -113,8 +113,5 @@ public class LoginCheck extends AppCompatActivity {
             startActivity(MainIntent);
             LoginCheck.this.finish();
         }
-
-
     }
-
 }

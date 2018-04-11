@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,13 +27,13 @@ import java.util.ArrayList;
  * Activity for Member Viewing a member.
  */
 public class ViewMemberActivity extends AppCompatActivity {
-
+    private GoogleApiClient mGoogleApiClient; // need to implement
     private ListView lv;
 
     /**
      * Creates member view and gets/adds related activities.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState saved state of activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +49,7 @@ public class ViewMemberActivity extends AppCompatActivity {
         final Member selectedMember = aMember;
         setContentView(R.layout.activity_view_member);
 
-        /**
-         * Member info Load
-         */
+        // lead member information
         TextView text = (TextView) findViewById(R.id.textView3);
         text.setText(selectedMember.getUserID());
         text = (TextView) findViewById(R.id.textView12);
@@ -63,9 +61,7 @@ public class ViewMemberActivity extends AppCompatActivity {
         text = (TextView) findViewById(R.id.textView15);
         text.setText(selectedMember.getFirstName().substring(0, 1) + selectedMember.getLastName().substring(0, 1));
 
-        /**
-         * Event Info load
-         */
+        // lead event information
         lv = (ListView) findViewById(R.id.eventListView);
 
         //event array
@@ -108,7 +104,6 @@ public class ViewMemberActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(ViewMemberActivity.this, DonateToMemberActivity.class);
                 intent2.putExtra("SelectedMember", selectedMember);
                 startActivity(intent2);
-//                startActivityForResult(intent2,0);
             }
         });
     }
@@ -116,8 +111,8 @@ public class ViewMemberActivity extends AppCompatActivity {
     /**
      * Added for back button pre API 16
      *
-     * @param menu
-     * @return
+     * @param menu menu for logout
+     * @return boolean
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,33 +120,36 @@ public class ViewMemberActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-/*
+
     /**
-     * For back button at top left of screen, pass back intent params
-     * https://developer.android.com/training/basics/intents/result.html
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * options menu selector check
+     * @param item menu item
+     * @return boolean
      */
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.logout_item) {
             AccessToken token = AccessToken.getCurrentAccessToken();
-            //TODO: Add Google logout code
+            FirebaseAuth.getInstance().signOut();
+            //check for google connection (remove once implemented globally)
+            if (mGoogleApiClient != null) {
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(@NonNull Status status) {
+                                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
+            }
             if(token != null) {
                 LoginManager.getInstance().logOut();
             }
             User.logout();
-            Intent loginIntent = new Intent(this, LoginActivity.class);
+            Intent loginIntent = new Intent(ViewMemberActivity.this, LoginActivity.class);
             startActivity(loginIntent);
+            return true;
         } else if (id == android.R.id.home) {
             onBackPressed();
             return true;

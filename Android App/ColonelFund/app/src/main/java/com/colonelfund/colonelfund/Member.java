@@ -20,7 +20,9 @@ public class Member implements Serializable {
     private String googleID;
 
     /**
-     * @param userID
+     * Constructor with just user id
+     *
+     * @param userID of a member.
      */
     public Member(String userID) {
         super();
@@ -28,11 +30,13 @@ public class Member implements Serializable {
     }
 
     /**
-     * @param userID
-     * @param firstName
-     * @param lastName
-     * @param emailAddress
-     * @param phoneNumber
+     * Full constructor for member.
+     *
+     * @param userID of a member.
+     * @param firstName of a member.
+     * @param lastName of a member.
+     * @param emailAddress of a member.
+     * @param phoneNumber of a member.
      */
     public Member(String userID, String firstName, String lastName, String emailAddress, String phoneNumber) {
         super();
@@ -44,31 +48,34 @@ public class Member implements Serializable {
         makeUserName();
     }
 
-
     /**
      * @return the userID
      */
     public String getUserID() {
         return userID;
     }
+
     /**
      * @param userID the userID to set
      */
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
     /**
      * @return the firstName
      */
     public String getFirstName() {
         return firstName;
     }
+
     /**
      * @param firstName the firstName to set
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
     /**
      * @return the lastName
      */
@@ -91,72 +98,84 @@ public class Member implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     /**
      * @return the userName
      */
     public String getUserName() {
         return userName;
     }
+
     /**
      * @param userName the userName to set
      */
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
     /**
      * @return the emailAddress
      */
     public String getEmailAddress() {
         return emailAddress;
     }
+
     /**
      * @param emailAddress the emailAddress to set
      */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
+
     /**
      * @return the phoneNumber
      */
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     /**
      * @param phoneNumber the phoneNumber to set
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
     /**
      * @return the profilePicURL
      */
     public String getProfilePicURL() {
         return profilePicURL;
     }
+
     /**
      * @param profilePicURL the profilePicURL to set
      */
     public void setProfilePicURL(String profilePicURL) {
         this.profilePicURL = profilePicURL;
     }
+
     /**
      * @return the facebookID
      */
     public String getFacebookID() {
         return facebookID;
     }
+
     /**
      * @param facebookID the facebookID to set
      */
     public void setFacebookID(String facebookID) {
         this.facebookID = facebookID;
     }
+
     /**
      * @return the googleID
      */
     public String getGoogleID() {
         return googleID;
     }
+
     /**
      * @param googleID the googleID to set
      */
@@ -165,13 +184,15 @@ public class Member implements Serializable {
     }
 
     /**
-     *
+     * Creates a user name from first/last
      */
     private void makeUserName() {
         this.userName = this.firstName.toLowerCase() + this.lastName.toLowerCase();
     }
+
     /**
      * Get a JSONObject representation of Member
+     *
      * @return JSONObject
      */
     public JSONObject toJson() throws JSONException {
@@ -185,8 +206,10 @@ public class Member implements Serializable {
         jsonObj.put("googleID", googleID);
         return jsonObj;
     }
+
     /**
      * Constructor with JSON Object.
+     *
      * @param jsonObject
      */
     public Member(JSONObject jsonObject) throws JSONException {
@@ -196,7 +219,6 @@ public class Member implements Serializable {
         this.emailAddress = jsonObject.getString("emailAddress");
         this.phoneNumber = jsonObject.getString("phoneNumber");
         //TODO: update with FacebookID and GoogleID once it gets added to member table in database
-
     }
 
 }

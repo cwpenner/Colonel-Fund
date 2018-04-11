@@ -1,13 +1,7 @@
 package com.colonelfund.colonelfund;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
-
 import org.json.JSONObject;
 import org.json.JSONException;
-
-import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 /**
@@ -26,15 +20,15 @@ public class Event implements Serializable {
     private String imageURL;
 
     /**
-     * @param title            of event
-     * @param associatedMember of event
-     * @param associatedEmail  of event
-     * @param eventDate        of event
-     * @param fundGoal         of event
-     * @param currentFunds     of event
-     * @param description      of event
-     * @param type             of event
-     * @param imageURL         of event
+     * Event object constructor.
+     *
+     * @param title of an event.
+     * @param associatedMember of an event.
+     * @param eventDate of an event.
+     * @param fundGoal of an event.
+     * @param currentFunds of an event.
+     * @param description of an event.
+     * @param type of an event.
      */
     public Event(String title,
                  String associatedMember,
@@ -53,6 +47,19 @@ public class Event implements Serializable {
         this.type = type;
     }
 
+    /**
+     * Event object constructor.
+     *
+     * @param title of an event.
+     * @param associatedMember of an event.
+     * @param associatedEmail of an event.
+     * @param eventDate of an event.
+     * @param fundGoal of an event.
+     * @param currentFunds of an event.
+     * @param description of an event.
+     * @param type of an event.
+     * @param imageURL of an event.
+     */
     public Event(String title,
                  String associatedMember,
                  String associatedEmail,
@@ -102,6 +109,9 @@ public class Event implements Serializable {
         this.associatedMember = associatedMember;
     }
 
+    /**
+     * @param associatedEmail of an event. .
+     */
     public void setAssociatedEmail(String associatedEmail) {
         this.associatedEmail = associatedEmail;
     }
@@ -141,6 +151,9 @@ public class Event implements Serializable {
         return associatedEmail;
     }
 
+    /**
+     * @return current funds of an event.
+     */
     public double getCurrentFunds() {
         return currentFunds;
     }
@@ -160,8 +173,6 @@ public class Event implements Serializable {
     }
 
     /**
-     * Set the description
-     *
      * @param description
      */
     public void setDescription(String description) {
@@ -191,10 +202,17 @@ public class Event implements Serializable {
         return imageURL;
     }
 
+    /**
+     * @param imageURL of an event.
+     */
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
 
+    /**
+     * @return an event json.
+     * @throws JSONException for event json creation.
+     */
     public JSONObject toJson() throws JSONException {
         JSONObject JsonObj = new JSONObject();
         JsonObj.put("title", title);

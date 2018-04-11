@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
-
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,40 +18,29 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.firebase.auth.FirebaseAuth;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-
 import static android.app.Activity.RESULT_OK;
 
 /**
- * Activity for creating an event
+ * Fragment that allows a user to create an activity. Instantiated in Main Activity.
  */
-public class CreateEventActivity extends Fragment implements View.OnClickListener {
+public class CreateEventFragment extends Fragment implements View.OnClickListener {
     Calendar myCalendar = Calendar.getInstance();
-
     private EditText txtEventDescription, txtEventTitle, txtEventGoal;
     private EditText txtEventMember, txtEventDate, txtEventType;
     private Button btnCreateEvent;
     private ImageButton imageButton;
-    private final String TAG = "CreateEventActivity";
+    private final String TAG = "CreateEventFragment";
     private final String URL_FOR_CREATE_EVENT = "https://wesll.com/colonelfund/create_event.php";
     private ImageView imageView;
     ProgressDialog progressDialog;
@@ -62,12 +49,19 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
     Context ctx;
     View createEventView;
 
+    /**
+     * Overrides on create to initialize variables for page.
+     * @param inflater inflater for fragment views
+     * @param container view group for fragment.
+     * @param savedInstanceState saved state of fragment.
+     * @return view of fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
-        View rootView = (ViewGroup) inflater.inflate(R.layout.activity_create_event, container, false);
+        View rootView = (ViewGroup) inflater.inflate(R.layout.fragment_create_event, container, false);
         imageButton = (ImageButton) rootView.findViewById(R.id.imageButton);
         imageButton.setOnClickListener(this);
         btnCreateEvent = (Button) rootView.findViewById(R.id.btnCreateEvent);
@@ -79,8 +73,7 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
 
     /**
      * Sets information for creating event.
-     *
-     * @param savedInstanceState
+     * @param savedInstanceState saved state of fragment.
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -92,17 +85,20 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         progressDialog = new ProgressDialog(ctx);
         progressDialog.setCancelable(false);
 
+        //sets view info
         txtEventTitle = (EditText) createEventView.findViewById(R.id.txtEventTitle);
         txtEventMember = (EditText) createEventView.findViewById(R.id.txtEventMember);
         txtEventDate = (EditText) createEventView.findViewById(R.id.txtEventDate);
         txtEventType = (EditText) createEventView.findViewById(R.id.txtEventType);
         txtEventGoal = (EditText) createEventView.findViewById(R.id.txtEventGoal);
         txtEventDescription = (EditText) createEventView.findViewById(R.id.txtEventDescription);
-
-        imageView = (ImageView) createEventView.findViewById(R.id.imageView);
-
+        imageView = (ImageView) createEventView.findViewById(R.id.nav_profilePicture);
     }
 
+    /**
+     * On click listener for creating an event.
+     * @param v current create event view
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -130,6 +126,11 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * Converts a bitmap image as string.
+     * @param bitmap image for event
+     * @return string of event picture
+     */
     private String imageToString(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
@@ -142,12 +143,20 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     *  Creates an event from provided variables.
+     * @param eventTitle event title
+     * @param eventMember event member
+     * @param eventDate event date
+     * @param eventGoal event goal $
+     * @param eventDescription event description
+     * @param eventType event type
+     */
     private void createEvent(final String eventTitle, final String eventMember,
                              final String eventDate, final String eventGoal,
                              final String eventDescription, final String eventType) {
 
         String cancel_event_tag = "register";
-
         progressDialog.setMessage("Creating Event...");
         showDialog();
 
@@ -208,11 +217,20 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         new AppSingleton(ctx).getInstance(ctx).addToRequestQueue(strReq, cancel_event_tag);
     }
 
+    /**
+     * Opens gallery for image selection.
+     */
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(gallery, PICK_IMAGE);
     }
 
+    /**
+     * Listener for activity result progress.
+     * @param requestCode request code
+     * @param resultCode result code
+     * @param data data for request
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -230,12 +248,18 @@ public class CreateEventActivity extends Fragment implements View.OnClickListene
         }
     }
 
+    /**
+     * Shows progress diag
+     */
     private void showDialog() {
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
     }
 
+    /**
+     * Hides progress diag
+     */
     private void hideDialog() {
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();

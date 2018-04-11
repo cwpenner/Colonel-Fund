@@ -9,20 +9,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Activity for registration of user.
+ */
 public class RegisterActivity extends AppCompatActivity {
-
     private EditText txtRegUserID, txtRegFirstName, txtRegLastName, txtRegEmail, txtRegPhoneNumber, txtRegPassword;
     private View register_progress, register_form;
     private Button btnSubmitRegister;
@@ -30,6 +29,11 @@ public class RegisterActivity extends AppCompatActivity {
     private final String URL_FOR_REGISTRATION = "https://wesll.com/colonelfund/register.php";
     ProgressDialog progressDialog;
 
+    /**
+     * Creates member view and gets/adds related activities.
+     *
+     * @param savedInstanceState of activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +42,14 @@ public class RegisterActivity extends AppCompatActivity {
         // Progress dialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-
         register_form = findViewById(R.id.register_form);
         register_progress = findViewById(R.id.register_progress);
-
         txtRegUserID = (EditText) findViewById(R.id.txtRegUserID);
         txtRegFirstName = (EditText) findViewById(R.id.txtRegFirstName);
         txtRegLastName = (EditText) findViewById(R.id.txtRegLastName);
         txtRegEmail = (EditText) findViewById(R.id.txtRegEmail);
         txtRegPassword = (EditText) findViewById(R.id.txtRegPassword);
         txtRegPhoneNumber = (EditText) findViewById(R.id.txtRegPhoneNumber);
-
         btnSubmitRegister = (Button) findViewById(R.id.btnSubmitRegister);
 
         btnSubmitRegister.setOnClickListener(new View.OnClickListener() {
@@ -61,19 +62,31 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Registers a new user with server.
+     *
+     * @param userID of a new user
+     * @param firstName of a new user
+     * @param lastName of a new user
+     * @param emailAddress of a new user
+     * @param password of a new user
+     * @param phoneNumber of a new user
+     */
     private void registerUser(final String userID, final String firstName,
                               final String lastName, final String emailAddress,
                               final String password, final String phoneNumber) {
-
         // Tag used to cancel the request
         String cancel_req_tag = "register";
-
         progressDialog.setMessage("Adding you ...");
         showDialog();
-
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 URL_FOR_REGISTRATION, new Response.Listener<String>() {
 
+            /**
+             * overrides response finish for request to register.
+             *
+             * @param response for request
+             */
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Register Response: " + response);
@@ -106,6 +119,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }, new Response.ErrorListener() {
 
+            /**
+             * overrides response error for request to register.
+             *
+             * @param error for request.
+             */
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "Registration Error: " + error.getMessage());
@@ -114,6 +132,11 @@ public class RegisterActivity extends AppCompatActivity {
                 hideDialog();
             }
         }) {
+            /**
+             * Sets map for user registration.
+             *
+             * @return map of parameters to register.
+             */
             @Override
             protected Map<String, String> getParams() {
                 // Posting params to register url
@@ -132,12 +155,18 @@ public class RegisterActivity extends AppCompatActivity {
         new AppSingleton(getApplicationContext()).getInstance(getApplicationContext()).addToRequestQueue(strReq, cancel_req_tag);
     }
 
+    /**
+     * Shows dialogue of request.
+     */
     private void showDialog() {
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
     }
 
+    /**
+     * Hides dialogue of request.
+     */
     private void hideDialog() {
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
