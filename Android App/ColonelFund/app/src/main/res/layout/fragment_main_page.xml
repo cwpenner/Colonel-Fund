@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topContributorsBox" />
 
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/featuredEventsBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,14 +89,17 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:ems="10"
-        android:text="@string/featured_events_box"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/featuredEventsText" />
+        app:layout_constraintTop_toBottomOf="@+id/featuredEventsText">
 
+        <ListView
+            android:id="@+id/eventListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>

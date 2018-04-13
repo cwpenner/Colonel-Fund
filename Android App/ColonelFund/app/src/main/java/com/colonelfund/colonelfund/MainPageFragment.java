@@ -6,12 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * Fragment that allows a user to view current main information. Instantiated in Main Activity.
  */
 public class MainPageFragment extends Fragment {
     private static final String TAG = "MainPageFragment";
+    private ListView lv = null;
+    private ArrayAdapter arrayAdapter = null;
     Context ctx;
     View mainView;
 
