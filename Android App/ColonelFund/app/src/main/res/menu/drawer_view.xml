@@ -4,35 +4,35 @@
     <group android:id="@+id/grp1" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_main"
-            android:icon="@drawable/circle"
+            android:icon="@drawable/if_home"
             android:title="@string/main" />
         <item
             android:id="@+id/nav_members"
-            android:icon="@drawable/circle"
+            android:icon="@drawable/if_members"
             android:title="@string/button_member_list" />
         <item
             android:id="@+id/nav_events"
-            android:icon="@drawable/circle"
+            android:icon="@drawable/if_events"
             android:title="@string/button_event_list" />
         <item
             android:id="@+id/nav_create_event"
-            android:icon="@drawable/circle"
+            android:icon="@drawable/if_create"
             android:title="@string/button_create_event" />
     </group>
     <group android:id="@+id/grp2" android:checkableBehavior="single" >
-    <item
+        <item
             android:id="@+id/nav_account"
-            android:icon="@drawable/circle"
+            android:icon="@drawable/if_profile"
             android:title="@string/account" />
         <item
             android:id="@+id/nav_history"
-            android:icon="@drawable/circle"
+            android:icon="@drawable/if_history"
             android:title="@string/your_history_events" />
     </group>
     <group android:id="@+id/grp3" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/circle"
+            android:icon="@drawable/if_logout"
             android:title="@string/logout_item" />
     </group>
 </menu>
