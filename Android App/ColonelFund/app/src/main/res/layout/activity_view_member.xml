@@ -41,7 +41,7 @@
         android:layout_marginRight="8dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nav_userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -80,8 +80,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="(555) 555-5555"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/nav_userEmail"
+        app:layout_constraintStart_toEndOf="@+id/nav_userEmail"
         android:layout_marginLeft="16dp" />
 
     <ListView
@@ -106,7 +106,7 @@
         android:text="Associated Events"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/nav_userEmail"
         android:layout_marginLeft="8dp" />
 
     <TextView

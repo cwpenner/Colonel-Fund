@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.braintreepayments.api.BraintreeFragment;
 import com.braintreepayments.api.GooglePayment;
 import com.braintreepayments.api.dropin.DropInActivity;
@@ -32,13 +31,10 @@ import com.braintreepayments.api.models.CardNonce;
 import com.braintreepayments.api.models.GooglePaymentCardNonce;
 import com.braintreepayments.api.models.GooglePaymentRequest;
 import com.braintreepayments.api.models.PaymentMethodNonce;
-
 import com.google.android.gms.wallet.TransactionInfo;
 import com.google.android.gms.wallet.WalletConstants;
 import com.loopj.android.http.*;
-
 import java.math.BigDecimal;
-
 import cz.msebera.android.httpclient.Header;
 
 public class BraintreeActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback,

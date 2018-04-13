@@ -3,16 +3,13 @@ package com.colonelfund.colonelfund;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -34,7 +31,7 @@ import java.util.Map;
  */
 public class MemberCollection {
     private static final String jsonFileName = "members.json";
-    private final String TAG = "MemberListActivity";
+    private final String TAG = "MemberListFragment";
     private final String URL_FOR_NAMES = "https://wesll.com/colonelfund/members.php";
     public Map<String, Member> memberMap = null;
     AssetManager am = null;
@@ -44,7 +41,8 @@ public class MemberCollection {
     /**
      * Default Constructor. will attempt to read a library file that has been saved
      *      locally and takes in Context for later use.
-     * @param myContext
+     *
+     * @param myContext for activity.
      */
     public MemberCollection(Context myContext) {
         this.am = myContext.getAssets();
@@ -97,7 +95,8 @@ public class MemberCollection {
     }
 
     /**
-     *  Capitalizes the first letters of a members name.
+     * Capitalizes the first letters of a members name.
+     *
      * @param name a members name
      * @return returns the fixed string.
      */
@@ -106,10 +105,11 @@ public class MemberCollection {
     }
 
     /**
+     * Saves json to local file.
      *
-     * @param jObj
-     * @param ctx
-     * @return
+     * @param jObj of library
+     * @param ctx of activity.
+     * @return boolean
      */
     public boolean saveJsonLocal(JSONObject jObj, Context ctx) {
         FileOutputStream outputStream;
@@ -125,7 +125,8 @@ public class MemberCollection {
     }
 
     /**
-     *  Restores member JSON objects from local storage.
+     * Restores member JSON objects from local storage.
+     *
      * @param ctx application context for permission to access local storage
      * @return true/false for success in reading from local storage.
      */
@@ -180,8 +181,9 @@ public class MemberCollection {
 
     /**
      * A method to add a new video to the library. True is returned when the request is successful.
-     * @param aMember
-     * @return
+     *
+     * @param aMember for a user.
+     * @return boolean
      */
     public boolean add(Member aMember) {
         if (memberMap.containsKey(aMember.getUserID().toLowerCase())) {
@@ -195,8 +197,9 @@ public class MemberCollection {
 
     /**
      * A method to remove the named Member from the library.
-     * @param aMember
-     * @return
+     *
+     * @param aMember for a user.
+     * @return boolean
      */
     public boolean remove(String aMember) {
         if (memberMap.containsKey(aMember.toLowerCase())) {
@@ -210,8 +213,9 @@ public class MemberCollection {
 
     /**
      * Returns the member with member aMember.
-     * @param aMember
-     * @return
+     *
+     * @param aMember for a user
+     * @return boolean
      */
     public Member get(String aMember) {
         if (memberMap.containsKey(aMember.toLowerCase())) {
@@ -224,7 +228,8 @@ public class MemberCollection {
 
     /**
      * Returns an array of strings, which are all of the members in the library.
-     * @return
+     *
+     * @return array of strings of users.
      */
     public String[] getMembers() {
         if (memberMap.size() > 0) {
@@ -242,7 +247,8 @@ public class MemberCollection {
 
     /**
      * Returns a string of all Members.
-     * @return
+     *
+     * @return string of all users.
      */
     public String toString() {
         String toString = "";
@@ -257,11 +263,11 @@ public class MemberCollection {
     }
 
     /**
-     * Gets membermap values.
-     * @return
+     * Gets member map values.
+     *
+     * @return collection of members.
      */
     public Collection<Member> getMembersList() {
         return memberMap.values();
     }
-
 }

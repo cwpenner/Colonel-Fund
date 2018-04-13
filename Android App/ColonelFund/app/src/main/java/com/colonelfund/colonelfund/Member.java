@@ -48,7 +48,9 @@ public class Member implements Serializable {
     }
 
     /**
-     * @param userID
+     * Constructor with just user id
+     *
+     * @param userID of a member.
      */
     public Member(String userID) {
         super();
@@ -56,11 +58,13 @@ public class Member implements Serializable {
     }
 
     /**
-     * @param userID
-     * @param firstName
-     * @param lastName
-     * @param emailAddress
-     * @param phoneNumber
+     * Full constructor for member.
+     *
+     * @param userID of a member.
+     * @param firstName of a member.
+     * @param lastName of a member.
+     * @param emailAddress of a member.
+     * @param phoneNumber of a member.
      */
 //    public Member(String userID, String firstName, String lastName, String emailAddress, String phoneNumber) {
 //        super();
@@ -224,7 +228,7 @@ public class Member implements Serializable {
     }
 
     /**
-     *
+     * Creates a user name from first/last
      */
     private void makeUserName() {
         this.username = this.firstName.toLowerCase() + this.lastName.toLowerCase();
@@ -262,13 +266,11 @@ public class Member implements Serializable {
         this.lastName = jsonObject.getString("lastName");
         this.emailAddress = jsonObject.getString("emailAddress");
         this.phoneNumber = jsonObject.getString("phoneNumber");
-
         this.username = jsonObject.getString("username");
         this.profilePicURL = jsonObject.getString("profilePicURL");
         this.facebookID = jsonObject.getString("facebookID");
         this.googleID = jsonObject.getString("googleID");
         this.firebaseID = jsonObject.getString("firebaseID");
-
     }
 
 }

@@ -3,16 +3,13 @@ package com.colonelfund.colonelfund;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,7 +28,7 @@ import java.util.Map;
  */
 public class EventCollection {
     private static final String jsonFileName = "events.json";
-    private final String TAG = "EventListActivity";
+    private final String TAG = "EventListFragment";
     private final String URL_FOR_NAMES = "https://wesll.com/colonelfund/events.php";
     public Map<String, Event> eventMap = null;
     AssetManager am = null;
@@ -102,7 +99,7 @@ public class EventCollection {
      * Attempts to take a event library, convert it to a json object, then save it to the
      * provided filename.
      *
-     * @return false
+     * @return boolean
      */
     public boolean saveJsonLocal(JSONObject jObj, Context ctx) {
         FileOutputStream outputStream;
@@ -175,7 +172,7 @@ public class EventCollection {
     /**
      * A method to add a new video to the library. True is returned when the request is successful.
      *
-     * @param aEvent
+     * @param aEvent an event.
      * @return boolean
      */
     public boolean add(Event aEvent) {
@@ -191,7 +188,7 @@ public class EventCollection {
     /**
      * A method to remove the named Event from the library.
      *
-     * @param aEvent
+     * @param aEvent an event.
      * @return boolean
      */
     public boolean remove(String aEvent) {
@@ -207,8 +204,8 @@ public class EventCollection {
     /**
      * Returns the video's description with title aTitle.
      *
-     * @param aEvent
-     * @return
+     * @param aEvent string of an event.
+     * @return an event object.
      */
     public Event get(String aEvent) {
         if (eventMap.containsKey(aEvent)) {
@@ -222,7 +219,7 @@ public class EventCollection {
     /**
      * Returns an array of strings, which are all of the titles in the library.
      *
-     * @return
+     * @return array of titles.
      */
     public String[] getTitles() {
         if (eventMap.size() > 0)
@@ -234,7 +231,7 @@ public class EventCollection {
     /**
      * Returns a string of all Event.
      *
-     * @return
+     * @return string of all events.
      */
     public String toString() {
         String toString = "";
@@ -251,7 +248,7 @@ public class EventCollection {
     /**
      * Returns an array of associated events.
      *
-     * @return
+     * @return array list of all events.
      */
     public ArrayList<String> getAssociatedEvents(String aMemberId) {
         ArrayList<String> associatedEvents = new ArrayList<String>();
@@ -274,7 +271,7 @@ public class EventCollection {
     /**
      * Gets eventMap values.
      *
-     * @return
+     * @return collection of all events.
      */
     public Collection<Event> getEventsList() {
         return eventMap.values();

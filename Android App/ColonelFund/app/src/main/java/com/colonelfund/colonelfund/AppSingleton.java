@@ -12,15 +12,31 @@ class AppSingleton {
     private RequestQueue mRequestQueue;
     private Context mContext;
 
+    /**
+     * Basic constructor
+     *
+     * @param context of activity.
+     */
     AppSingleton(Context context) {
         mContext = context;
         mRequestQueue = getRequestQueue();
     }
 
+    /**
+     * Get instance of app.
+     *
+     * @param context of activity.
+     * @return app singleton.
+     */
     synchronized AppSingleton getInstance(Context context) {
         return new AppSingleton(context);
     }
 
+    /**
+     * Request queue for app.
+     *
+     * @return request queue.
+     */
     private RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
@@ -35,18 +51,23 @@ class AppSingleton {
         return mRequestQueue;
     }
 
+    /**
+     * Adds request to queue
+     *
+     * @param req of request.
+     * @param tag of request.
+     * @param <T> of request.
+     */
     <T> void addToRequestQueue(Request<T> req, String tag) {
         req.setTag(tag);
         getRequestQueue().add(req);
     }
 
+    /**
+     * Cancels all requests in queue.
+     */
     public void cancelAll() {
         mRequestQueue.cancelAll(mRequestQueue);
         mRequestQueue.cancelAll(getRequestQueue());
-
-
-
     }
-
-
 }

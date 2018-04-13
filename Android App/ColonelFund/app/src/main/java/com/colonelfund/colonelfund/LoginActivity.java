@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,10 +30,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,9 +39,7 @@ import java.util.Map;
  * A login screen that offers login via userName/password.
  */
 public class LoginActivity extends AppCompatActivity {
-
     private final String URL_FOR_LOGIN = "https://wesll.com/colonelfund/login.php";
-
     // UI references.
     private EditText txtLoginEmail;
     private EditText txtPassword;
@@ -60,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton btnFacebookLogin;
     private Button btnLogin, btnRegister;
     AppSingleton appContext;
-
     // Current User Properties
     private String firstName;
     private String lastName;
@@ -72,52 +66,38 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         appContext = new AppSingleton(this.getApplicationContext());
-
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
         // Configure sign-in to request the user's ID, email address, and basic
-// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
         AppEventsLogger.activateApp(this);
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-
         AppEventsLogger.activateApp(getApplicationContext());
-
         callbackManager = CallbackManager.Factory.create();
         //logger.logPurchase(BigDecimal.valueOf(4.32), Currency.getInstance("USD"));
-
         // Set up the login form.
         txtLoginEmail = (EditText) findViewById(R.id.txtLoginEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
-
-
         btnLogin = (Button) findViewById(R.id.btnLogin);
-
         //fb login
         btnFacebookLogin = (LoginButton) findViewById(R.id.btnFacebookLogin);
-
         //google login
         mGoogleButton = (SignInButton) findViewById(R.id.sign_in_button);
-
         mGoogleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signIn();
             }
         });
-
         txtLoginEmail = (EditText) findViewById(R.id.txtLoginEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);

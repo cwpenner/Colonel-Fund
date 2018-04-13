@@ -7,17 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.braintreepayments.api.dropin.utils.PaymentMethodType;
 
 public class TransactionSummaryActivity extends AppCompatActivity {
-
     private String name = "";
     private String amount = "";
     private String paymentDescription = "";
     private String paymentMethodImageType = "";
     private String transactionID = "";
-
     public TextView nameTextView;
     public TextView amountTextView;
     public TextView paymentDescriptionTextView;
@@ -25,6 +22,11 @@ public class TransactionSummaryActivity extends AppCompatActivity {
     public TextView transactionIDTextView;
     public Button continueButton;
 
+    /**
+     * overrides on-create for activity.
+     *
+     * @param savedInstanceState instance state for activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,9 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         transactionIDTextView.setText(transactionID);
     }
 
+    /**
+     * Gets intent extras from transaction.
+     */
     public void getIntentData() {
         Bundle extras = getIntent().getExtras();
         if(extras == null) {
@@ -70,6 +75,11 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         System.out.println("transactionID: " + transactionID);
     }
 
+    /**
+     * Forwards you to current main screen.
+     *
+     * @param view of activity.
+     */
     public void returnToMainScreen(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
