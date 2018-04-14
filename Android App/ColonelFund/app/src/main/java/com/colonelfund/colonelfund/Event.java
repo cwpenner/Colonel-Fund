@@ -18,6 +18,7 @@ public class Event implements Serializable {
     private String description;
     private String type;
     private String imageURL;
+    private String eventTime;
     private Address address;
 
     /**
@@ -71,6 +72,7 @@ public class Event implements Serializable {
                  String description,
                  String type,
                  String imageURL,
+                 String eventTime,
                  Address address) {
         super();
         this.title = title;
@@ -82,6 +84,7 @@ public class Event implements Serializable {
         this.description = description;
         this.type = type;
         this.imageURL = imageURL;
+        this.eventTime = eventTime;
         this.address = address;
     }
 
@@ -207,10 +210,42 @@ public class Event implements Serializable {
     }
 
     /**
-     * @param imageURL of an event.
+     * @param imageURL of an event to set
      */
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    /**
+     *
+     * @return the time of the event
+     */
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    /**
+     *
+     * @param eventTime of the event to set
+     */
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    /**
+     *
+     * @return address of event location
+     */
+    public Address getAddress() {
+        return address;
+    }
+
+    /**
+     *
+     * @param address of event location to set
+     */
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     /**
@@ -228,6 +263,7 @@ public class Event implements Serializable {
         jsonObj.put("description", description);
         jsonObj.put("type", type);
         jsonObj.put("imageURL", imageURL);
+        jsonObj.put("eventTime", eventTime);
         jsonObj.put("address",address.toJson());
         return jsonObj;
     }
@@ -247,6 +283,7 @@ public class Event implements Serializable {
         this.description = jsonObject.getString("description");
         this.type = jsonObject.getString("type");
         this.imageURL = jsonObject.getString("imageURL");
+        this.eventTime = jsonObject.getString("eventTime");
         this.address = new Address(jsonObject.getJSONObject("address"));
     }
 }
