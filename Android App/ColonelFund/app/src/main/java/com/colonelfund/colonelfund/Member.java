@@ -2,6 +2,7 @@ package com.colonelfund.colonelfund;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -12,12 +13,39 @@ public class Member implements Serializable {
     private String userID;
     private String firstName;
     private String lastName;
-    private String userName;
     private String emailAddress;
     private String phoneNumber;
+
+    private String username;
     private String profilePicURL;
     private String facebookID;
     private String googleID;
+    private String firebaseID;
+
+    /**
+     * @param userID
+     * @param firstName
+     * @param lastName
+     * @param username
+     * @param emailAddress
+     * @param phoneNumber
+     * @param profilePicURL
+     * @param facebookID
+     * @param googleID
+     */
+    public Member(String userID, String firstName, String lastName, String emailAddress, String phoneNumber, String username, String profilePicURL, String facebookID, String googleID, String firebaseID) {
+        this.userID = userID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+        this.username = username;
+        this.profilePicURL = profilePicURL;
+        this.facebookID = facebookID;
+        this.googleID = googleID;
+        this.firebaseID = firebaseID;
+        makeUserName();
+    }
 
     /**
      * Constructor with just user id
@@ -38,14 +66,30 @@ public class Member implements Serializable {
      * @param emailAddress of a member.
      * @param phoneNumber of a member.
      */
-    public Member(String userID, String firstName, String lastName, String emailAddress, String phoneNumber) {
-        super();
-        this.userID = userID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.phoneNumber = phoneNumber;
-        makeUserName();
+//    public Member(String userID, String firstName, String lastName, String emailAddress, String phoneNumber) {
+//        super();
+//        this.userID = userID;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.emailAddress = emailAddress;
+//        this.phoneNumber = phoneNumber;
+//        makeUserName();
+//    }
+
+    /**
+     *
+     * @return the firebaseID
+     */
+    public String getFirebaseID() {
+        return firebaseID;
+    }
+
+    /**
+     *
+     * @param firebaseID the firebaseID to set
+     */
+    public void setFirebaseID(String firebaseID) {
+        this.firebaseID = firebaseID;
     }
 
     /**
@@ -88,8 +132,8 @@ public class Member implements Serializable {
      * proper capitalization and a space between the names.
      */
     public String getFormattedFullName() {
-        return (firstName.substring(0,1).toUpperCase() + firstName.substring(1) +
-                " " + lastName.substring(0,1).toUpperCase() + lastName.substring(1));
+        return (firstName.substring(0, 1).toUpperCase() + firstName.substring(1) +
+                " " + lastName.substring(0, 1).toUpperCase() + lastName.substring(1));
     }
 
     /**
@@ -100,17 +144,17 @@ public class Member implements Serializable {
     }
 
     /**
-     * @return the userName
+     * @return the username
      */
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     /**
-     * @param userName the userName to set
+     * @param username the username to set
      */
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -187,7 +231,7 @@ public class Member implements Serializable {
      * Creates a user name from first/last
      */
     private void makeUserName() {
-        this.userName = this.firstName.toLowerCase() + this.lastName.toLowerCase();
+        this.username = this.firstName.toLowerCase() + this.lastName.toLowerCase();
     }
 
     /**
@@ -202,8 +246,12 @@ public class Member implements Serializable {
         jsonObj.put("lastName", lastName);
         jsonObj.put("emailAddress", emailAddress);
         jsonObj.put("phoneNumber", phoneNumber);
+
+        jsonObj.put("username", username);
+        jsonObj.put("profilePicURL", profilePicURL);
         jsonObj.put("facebookID", facebookID);
         jsonObj.put("googleID", googleID);
+        jsonObj.put("firebaseID", firebaseID);
         return jsonObj;
     }
 
@@ -218,7 +266,11 @@ public class Member implements Serializable {
         this.lastName = jsonObject.getString("lastName");
         this.emailAddress = jsonObject.getString("emailAddress");
         this.phoneNumber = jsonObject.getString("phoneNumber");
-        //TODO: update with FacebookID and GoogleID once it gets added to member table in database
+        this.username = jsonObject.getString("username");
+        this.profilePicURL = jsonObject.getString("profilePicURL");
+        this.facebookID = jsonObject.getString("facebookID");
+        this.googleID = jsonObject.getString("googleID");
+        this.firebaseID = jsonObject.getString("firebaseID");
     }
 
 }

@@ -13,7 +13,7 @@ function __construct() {
     return $conn;
 }
 
-$query = "SELECT userID, firstName, lastName, emailAddress, phoneNumber FROM members";
+$query = "SELECT userID, firstName, lastName, emailAddress, phoneNumber, username, profilePicURL, facebookID, googleID, firebaseID FROM members";
 $response = mysqli_query($conn,$query) or die("Couldn't execute query.");
 
 $rows = array();
