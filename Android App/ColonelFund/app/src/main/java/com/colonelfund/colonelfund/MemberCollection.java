@@ -290,4 +290,24 @@ public class MemberCollection {
         }
         return models;
     }
+
+    /**
+     * Generates Initials and User Name for member list.
+     *
+     * @return array list of models for member list
+     */
+    public ArrayList<MemberListModel> generateTop3ListData() {
+        ArrayList<MemberListModel> models = new ArrayList<MemberListModel>();
+        Iterator<Member> memberIter = memberMap.values().iterator();
+        int i = 0;
+        while (memberIter.hasNext() && i < 3) {
+            Member temp = memberIter.next();
+            String firstName = temp.getFirstName();
+            String lastName = temp.getLastName();
+            models.add(new MemberListModel(firstName.substring(0, 1) + lastName.substring(0, 1),
+                    temp.getUserID(), firstName, lastName, temp.getEmailAddress()));
+            i++;
+        }
+        return models;
+    }
 }
