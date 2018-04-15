@@ -46,6 +46,8 @@ public class DonateToEventActivity extends BraintreeActivity {
         Intent intent = getIntent();
 
         final Event selectedEvent =  (Event) intent.getSerializableExtra("SelectedEvent");
+        MemberCollection mc = new MemberCollection(this);
+        Member associatedMember = mc.get(selectedEvent.getAssociatedMember());
 
         eventDonationTextField = findViewById(R.id.eventDonationAmount);
         eventDonateButton = findViewById(R.id.eventDonateButton);
@@ -60,11 +62,11 @@ public class DonateToEventActivity extends BraintreeActivity {
         text = findViewById(R.id.textView11);
         text.setText(selectedEvent.getEventDate());
         text = findViewById(R.id.textView9);
-        text.setText(selectedEvent.getAssociatedMember());
+        text.setText(associatedMember.getFormattedFullName());
         text = findViewById(R.id.textView5);
-        text.setText(String.valueOf(selectedEvent.getFundGoal()));
+        text.setText("$" + String.valueOf(selectedEvent.getFundGoal()));
         text = findViewById(R.id.textView7);
-        text.setText(String.valueOf(selectedEvent.getCurrentFunds()));
+        text.setText("$" + String.valueOf(selectedEvent.getCurrentFunds()));
     }
 
     /**

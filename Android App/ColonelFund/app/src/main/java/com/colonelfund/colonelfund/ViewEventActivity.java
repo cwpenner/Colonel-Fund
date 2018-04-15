@@ -44,17 +44,20 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
             aEvent = new Event("Error", "Error", "Error", 0.0, 0.0, "Error", "Error");
         }
         final Event selectedEvent = aEvent;
+        MemberCollection mc = new MemberCollection(this);
+        Member associatedMember = mc.get(selectedEvent.getAssociatedMember());
+
         setContentView(R.layout.activity_view_event);
         TextView text = (TextView) findViewById(R.id.textView3);
         text.setText(selectedEvent.getTitle());
         text = (TextView) findViewById(R.id.textView11);
         text.setText(selectedEvent.getEventDate());
         text = (TextView) findViewById(R.id.textView9);
-        text.setText(selectedEvent.getAssociatedEmail());
+        text.setText(associatedMember.getFormattedFullName());
         text = (TextView) findViewById(R.id.textView5);
-        text.setText(String.valueOf(selectedEvent.getFundGoal()));
+        text.setText("$" + String.valueOf(selectedEvent.getFundGoal()));
         text = (TextView) findViewById(R.id.textView7);
-        text.setText(String.valueOf(selectedEvent.getCurrentFunds()));
+        text.setText("$" + String.valueOf(selectedEvent.getCurrentFunds()));
         text = (TextView) findViewById(R.id.textView2);
         text.setText(String.valueOf(selectedEvent.getDescription()));
 

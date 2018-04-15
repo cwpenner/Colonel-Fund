@@ -10,31 +10,89 @@
         android:id="@+id/donateViewMemberName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="John Smith"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Full Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/memberUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/username"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/donateViewMemberName" />
+
+    <TextView
+        android:id="@+id/donateEmailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/email"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/memberUsername" />
 
     <TextView
         android:id="@+id/donateViewMemberEmail"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:text="johnsmith@email.com"
+        app:layout_constraintBaseline_toBaselineOf="@+id/donateEmailLabel"
+        app:layout_constraintStart_toEndOf="@+id/donateEmailLabel"
+        android:layout_marginLeft="16dp" />
+
+    <TextView
+        android:id="@+id/donatePhoneLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/phone"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/donateEmailLabel"
+        android:layout_marginLeft="16dp" />
+
+    <TextView
+        android:id="@+id/donateViewMemberPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="(555) 555-5555"
+        app:layout_constraintBaseline_toBaselineOf="@+id/donatePhoneLabel"
+        app:layout_constraintStart_toEndOf="@+id/donatePhoneLabel"
+        android:layout_marginLeft="16dp" />
+
+    <TextView
+        android:id="@+id/donateInitials"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="John.Smith@gmail.com"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="14sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/donateViewMemberName" />
+        android:layout_marginTop="8dp"
+        android:background="@drawable/circle"
+        android:gravity="center"
+        android:text="FN"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/intColor"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView22"
