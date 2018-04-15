@@ -18,8 +18,10 @@ import android.widget.ListView;
  */
 public class MainPageFragment extends Fragment {
     private static final String TAG = "MainPageFragment";
-    private ListView lv = null;
-    private ArrayAdapter arrayAdapter = null;
+    private ListView eventListView = null;
+    private ListView memberListView = null;
+    private ArrayAdapter eventArrayAdapter = null;
+    private ArrayAdapter memberArrayAdapter = null;
     Context ctx;
     View mainView;
 
@@ -47,40 +49,74 @@ public class MainPageFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ctx = getActivity();
         mainView = getView();
-        final SwipeRefreshLayout swipeRefresh = mainView.findViewById(R.id.featuredEventsBox);
-        lv = mainView.findViewById(R.id.eventListView);
+        final SwipeRefreshLayout eventSwipeRefresh = mainView.findViewById(R.id.featuredEventsBox);
+        eventListView = mainView.findViewById(R.id.eventListView);
         final EventCollection ecf = new EventCollection(ctx);
-
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        eventSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 EventCollection ec = new EventCollection(ctx);
                 ec.updateFromRemote();
-                swipeRefresh.setRefreshing(true);
+                eventSwipeRefresh.setRefreshing(true);
 
                 (new Handler()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        swipeRefresh.setRefreshing(false);
+                        eventSwipeRefresh.setRefreshing(false);
                         EventCollection newEcf = new EventCollection(ctx);
-                        arrayAdapter = new EventListAdapter(ctx, newEcf.generateTop3ListData());
-                        lv.setAdapter(arrayAdapter);
+                        eventArrayAdapter = new EventListAdapter(ctx, newEcf.generateTop3ListData());
+                        eventListView.setAdapter(eventArrayAdapter);
                     }
                 }, 3000);
             }
         });
-
         //make array adapter
-        arrayAdapter = new EventListAdapter(ctx, ecf.generateTop3ListData());
-        lv.setAdapter(arrayAdapter);
+        eventArrayAdapter = new EventListAdapter(ctx, ecf.generateTop3ListData());
+        eventListView.setAdapter(eventArrayAdapter);
         // set listener for each item
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        eventListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EventListModel item = (EventListModel) lv.getItemAtPosition(position);
+                EventListModel item = (EventListModel) eventListView.getItemAtPosition(position);
                 String myItem = item.getTitle();
                 Intent intent = new Intent(ctx, ViewEventActivity.class);
                 intent.putExtra("SelectedEvent", ecf.get(myItem));
+                startActivity(intent);
+            }
+        });
+
+        final SwipeRefreshLayout memberSwipeRefresh = mainView.findViewById(R.id.topContributorsBox);
+        memberListView = mainView.findViewById(R.id.memberListView);
+        final MemberCollection mcf = new MemberCollection(ctx);
+        memberSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MemberCollection mc = new MemberCollection(ctx);
+                mc.updateFromRemote();
+                memberSwipeRefresh.setRefreshing(true);
+
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        memberSwipeRefresh.setRefreshing(false);
+                        MemberCollection newMcf = new MemberCollection(ctx);
+                        eventArrayAdapter = new MemberListAdapter(ctx, newMcf.generateTop3ListData());
+                        memberListView.setAdapter(memberArrayAdapter);
+                    }
+                }, 3000);
+            }
+        });
+        //make array adapter
+        memberArrayAdapter = new MemberListAdapter(ctx, mcf.generateTop3ListData());
+        memberListView.setAdapter(memberArrayAdapter);
+        // set listener for each item
+        memberListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MemberListModel item = (MemberListModel) memberListView.getItemAtPosition(position);
+                String myItem = item.getUserID();
+                Intent intent = new Intent(ctx, ViewMemberActivity.class);
+                intent.putExtra("SelectedMember", mcf.get(myItem));
                 startActivity(intent);
             }
         });

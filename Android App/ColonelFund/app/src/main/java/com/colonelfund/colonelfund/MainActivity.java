@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements ImageDownloader.I
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-
                         // Selection of UI fragment here
                         int id = menuItem.getItemId();
                         if (id == R.id.nav_account) {
@@ -161,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements ImageDownloader.I
                             }
                     }
                 });
-
         //fill in user info in nav header
         View navHeader = navigationView.getHeaderView(0);
         profilePicImage = navHeader.findViewById(R.id.nav_profilePicture);
