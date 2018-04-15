@@ -63,7 +63,11 @@ public class MainActivity extends AppCompatActivity implements ImageDownloader.I
         mDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         fragmentManager = getSupportFragmentManager();
-        newFragment = new MainPageFragment();
+        if (getCurrentFragment() != null) {
+            newFragment = getCurrentFragment();
+        } else {
+            newFragment = new MainPageFragment();
+        }
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.viewer, newFragment);
         fragmentTransaction.addToBackStack(null);
