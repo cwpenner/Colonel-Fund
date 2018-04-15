@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (object.getString("id") != null) {
                                 facebookID = object.getString("id");
                             }
-                            Member member = new Member("", firstName, lastName, emailAddress, "");
+                            Member member = new Member("", firstName, lastName, emailAddress, "", "", "", "", "", "");
                             member.setProfilePicURL(profilePicURL);
                             member.setFacebookID(facebookID);
                             User.setCurrentUser(member);
@@ -263,7 +263,6 @@ public class LoginActivity extends AppCompatActivity {
 //        Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
 //        startActivity(i);
 //    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -273,19 +272,21 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-            Task <GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
 
-      }
-      private void signIn(){
+    }
+
+    private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-      }
+    }
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount googleAccount = completedTask.getResult(ApiException.class);
-            Intent MainIntent = new Intent (LoginActivity.this,MainActivity.class);
+            Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
             if (googleAccount.getGivenName() != null) {
                 firstName = googleAccount.getGivenName();
             }
@@ -301,7 +302,7 @@ public class LoginActivity extends AppCompatActivity {
             if (googleAccount.getId() != null) {
                 googleID = googleAccount.getId();
             }
-            Member member = new Member("", firstName, lastName, emailAddress, "");
+            Member member = new Member("", firstName, lastName, emailAddress, "", "", "", "", "", "");
             member.setProfilePicURL(profilePicURL);
             member.setGoogleID(googleID);
             User.setCurrentUser(member);

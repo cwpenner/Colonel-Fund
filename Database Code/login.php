@@ -22,6 +22,11 @@ if (isset($_POST['emailAddress']) && isset($_POST['password'])) {
         $response["user"]["lastName"] = $user["lastName"];
         $response["user"]["emailAddress"] = $user["emailAddress"];
         $response["user"]["phoneNumber"] = $user["phoneNumber"];
+        $response["user"]["username"] = $user["username"];
+        $response["user"]["profilePicURL"] = $user["profilePicURL"];
+        $response["user"]["facebookID"] = $user["facebookID"];
+        $response["user"]["googleID"] = $user["googleID"];
+        $response["user"]["firebaseID"] = $user["firebaseID"];
         echo json_encode($response);
     } else {
         // user is not found with the credentials
@@ -36,3 +41,4 @@ if (isset($_POST['emailAddress']) && isset($_POST['password'])) {
     echo json_encode($response);
 }
 ?>
+

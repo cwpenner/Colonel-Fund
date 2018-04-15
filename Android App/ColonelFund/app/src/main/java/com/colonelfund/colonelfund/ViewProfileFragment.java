@@ -14,6 +14,7 @@ import android.widget.TextView;
  * Fragment that allows a user to view their profile. Instantiated in Main Activity.
  */
 public class ViewProfileFragment extends Fragment implements ImageDownloader.ImageDownloadDelegate {
+
     private ViewGroup aboutYouLayout;
     private ImageView profilePicImage;
     Context ctx;
@@ -49,6 +50,8 @@ public class ViewProfileFragment extends Fragment implements ImageDownloader.Ima
 
         aboutYouLayout = (ViewGroup) profileActivityView.findViewById(R.id.about_you_table);
 
+        addUserInfoLine("UserName:", User.currentUser.getUsername());
+        addBorder(aboutYouLayout);
         addUserInfoLine("Name:", User.currentUser.getFormattedFullName());
         addBorder(aboutYouLayout);
         addUserInfoLine("User ID:", User.currentUser.getUserID());
