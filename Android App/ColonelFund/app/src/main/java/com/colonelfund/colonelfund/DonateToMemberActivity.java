@@ -29,33 +29,36 @@ public class DonateToMemberActivity extends BraintreeActivity {
     public TextView memberPaymentDescriptionLabel;
     public Button memberSelectPaymentButton;
     public ImageView memberPaymentIconView;
-    Member selectedMember;
 
     /**
      * Sets Member Information
+     *
      * @param savedInstanceState for activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Intent intent = getIntent();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //In activities extending the BraintreeActivity class, setContentView needs to be the first line, in order for corresponding labels, images, and buttons to be properly manipulated by BraintreeActivity.
+        //Respective labels, images, and buttons must then be initialized using findViewById
+        //Finally, BraintreeActivityInitializer needs to be called
+        //All of this needs to be done **BEFORE** super.onCreate is called to ensure null references aren't passed
         setContentView(R.layout.activity_donate_to_member);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
+
+        final Member selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
 
         memberDonationTextField = findViewById(R.id.memberDonationAmount);
         memberDonateButton = findViewById(R.id.memberDonateButton);
         memberPaymentDescriptionLabel = findViewById(R.id.memberPaymentMethodDescription);
         memberSelectPaymentButton = findViewById(R.id.memberSelectPaymentMethodButton);
         memberPaymentIconView = findViewById(R.id.memberPaymentMethodImage);
-        BraintreeActivityInitializer(memberDonationTextField, memberDonateButton, memberPaymentDescriptionLabel, memberSelectPaymentButton, memberPaymentIconView);
-        //must be called after brain tree initializer or will call braintree null.
+        BraintreeActivityInitializer(memberDonationTextField, memberDonateButton, memberPaymentDescriptionLabel, memberSelectPaymentButton, memberPaymentIconView, selectedMember);
         super.onCreate(savedInstanceState);
 
-        selectedMember =  (Member) intent.getSerializableExtra("SelectedMember");
         TextView fullNameText = (TextView) findViewById(R.id.donateViewMemberName);
         fullNameText.setText(selectedMember.getFormattedFullName());
         TextView emailText = (TextView) findViewById(R.id.donateViewMemberEmail);
         emailText.setText(selectedMember.getEmailAddress());
-        super.setMemberName(selectedMember.getFirstName() + " " + selectedMember.getLastName());
     }
 
     /**
@@ -67,7 +70,6 @@ public class DonateToMemberActivity extends BraintreeActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
     }
 

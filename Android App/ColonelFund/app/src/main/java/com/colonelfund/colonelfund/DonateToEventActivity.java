@@ -37,9 +37,14 @@ public class DonateToEventActivity extends BraintreeActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //In activities extending the BraintreeActivity class, setContentView needs to be the first line, in order for corresponding labels, images, and buttons to be properly manipulated by BraintreeActivity.
+        //Respective labels, images, and buttons must then be initialized using findViewById
+        //Finally, BraintreeActivityInitializer needs to be called
+        //All of this needs to be done **BEFORE** super.onCreate is called to ensure null references aren't passed
         setContentView(R.layout.activity_donate_to_event);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
+
         final Event selectedEvent =  (Event) intent.getSerializableExtra("SelectedEvent");
 
         eventDonationTextField = findViewById(R.id.eventDonationAmount);
@@ -47,8 +52,7 @@ public class DonateToEventActivity extends BraintreeActivity {
         eventPaymentDescriptionLabel = findViewById(R.id.eventPaymentMethodDescription);
         eventSelectPaymentButton = findViewById(R.id.eventSelectPaymentMethodButton);
         eventPaymentIconView = findViewById(R.id.eventPaymentMethodImage);
-        BraintreeActivityInitializer(eventDonationTextField, eventDonateButton, eventPaymentDescriptionLabel, eventSelectPaymentButton, eventPaymentIconView);
-        //must be called after brain tree initializer or will call braintree null.
+        BraintreeActivityInitializer(eventDonationTextField, eventDonateButton, eventPaymentDescriptionLabel, eventSelectPaymentButton, eventPaymentIconView, selectedEvent);
         super.onCreate(savedInstanceState);
 
         TextView text = findViewById(R.id.textView3);
@@ -61,8 +65,18 @@ public class DonateToEventActivity extends BraintreeActivity {
         text.setText(String.valueOf(selectedEvent.getFundGoal()));
         text = findViewById(R.id.textView7);
         text.setText(String.valueOf(selectedEvent.getCurrentFunds()));
+    }
 
-        super.setEventTitle(selectedEvent.getTitle());
+    /**
+     * For back button at top left of screen, pass back intent params
+     * https://developer.android.com/training/basics/intents/result.html
+     * @param requestCode for request.
+     * @param resultCode for request.
+     * @param data for request.
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**

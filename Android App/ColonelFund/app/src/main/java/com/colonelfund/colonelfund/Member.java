@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 /**
- * Basic Member Object
+ * Basic Member Object that holds all the information for a member.
  */
 public class Member implements Serializable {
     private static final long serialVersionUID = 2628890352033932835L;
@@ -23,15 +23,17 @@ public class Member implements Serializable {
     private String firebaseID;
 
     /**
-     * @param userID
-     * @param firstName
-     * @param lastName
-     * @param username
-     * @param emailAddress
-     * @param phoneNumber
-     * @param profilePicURL
-     * @param facebookID
-     * @param googleID
+     * Full constructor for member.
+     *
+     * @param userID of a member.
+     * @param firstName of a member.
+     * @param lastName of a member.
+     * @param username of a member.
+     * @param emailAddress of a member.
+     * @param phoneNumber of a member.
+     * @param profilePicURL of a member.
+     * @param facebookID of a member.
+     * @param googleID of a member.
      */
     public Member(String userID, String firstName, String lastName, String emailAddress, String phoneNumber, String username, String profilePicURL, String facebookID, String googleID, String firebaseID) {
         this.userID = userID;
@@ -44,7 +46,9 @@ public class Member implements Serializable {
         this.facebookID = facebookID;
         this.googleID = googleID;
         this.firebaseID = firebaseID;
-        makeUserName();
+        if (userID == "") {
+            this.userID = "01"; //TODO: change once we have usernames figured out
+        }
     }
 
     /**
@@ -56,25 +60,6 @@ public class Member implements Serializable {
         super();
         this.userID = userID;
     }
-
-    /**
-     * Full constructor for member.
-     *
-     * @param userID of a member.
-     * @param firstName of a member.
-     * @param lastName of a member.
-     * @param emailAddress of a member.
-     * @param phoneNumber of a member.
-     */
-//    public Member(String userID, String firstName, String lastName, String emailAddress, String phoneNumber) {
-//        super();
-//        this.userID = userID;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.emailAddress = emailAddress;
-//        this.phoneNumber = phoneNumber;
-//        makeUserName();
-//    }
 
     /**
      *

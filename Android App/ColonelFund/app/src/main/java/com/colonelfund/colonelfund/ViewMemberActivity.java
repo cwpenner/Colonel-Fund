@@ -52,7 +52,7 @@ public class ViewMemberActivity extends AppCompatActivity {
 
         // lead member information
         TextView text = (TextView) findViewById(R.id.textView3);
-        text.setText(selectedMember.getUserID());
+        text.setText(selectedMember.getUsername());
         text = (TextView) findViewById(R.id.textView12);
         text.setText(selectedMember.getEmailAddress());
         text = (TextView) findViewById(R.id.textView13);

@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/member_initials"
         android:layout_toRightOf="@+id/member_initials"
         android:gravity="left"
@@ -40,11 +40,11 @@
         android:layout_alignLeft="@id/memberName"
         android:layout_alignTop="@id/memberName"
         android:layout_below="@+id/memberName"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="18dp"
         android:gravity="left"
-        android:text="User ID"
+        android:text="@string/email_address"
         android:textSize="14dp" />
 
     <!-- Testing removal for clickable member

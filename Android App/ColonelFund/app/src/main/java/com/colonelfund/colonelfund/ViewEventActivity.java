@@ -58,7 +58,7 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
         text = (TextView) findViewById(R.id.textView2);
         text.setText(String.valueOf(selectedEvent.getDescription()));
 
-        imageView = (ImageView) findViewById(R.id.nav_profilePicture);
+        imageView = (ImageView) findViewById(R.id.viewEventImage);
         ImageDownloader imageDownloader = new ImageDownloader(this);
         imageDownloader.execute(selectedEvent.getImageURL());
 
