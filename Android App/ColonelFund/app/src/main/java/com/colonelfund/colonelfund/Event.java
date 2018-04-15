@@ -61,6 +61,7 @@ public class Event implements Serializable {
      * @param description of an event.
      * @param type of an event.
      * @param imageURL of an event.
+     * @param eventTime of event.
      * @param address of an event.
      */
     public Event(String title,
@@ -283,7 +284,11 @@ public class Event implements Serializable {
         this.description = jsonObject.getString("description");
         this.type = jsonObject.getString("type");
         this.imageURL = jsonObject.getString("imageURL");
-        this.eventTime = jsonObject.getString("eventTime");
-        this.address = new Address(jsonObject.getJSONObject("address"));
+        //TODO: uncomment once database is updated with eventTime and address
+//        this.eventTime = jsonObject.getString("eventTime");
+//        this.address = new Address(jsonObject.getJSONObject("address"));
+        //TODO: delete below once database is updated with eventTime and address
+        this.eventTime = "";
+        this.address = new Address();
     }
 }
