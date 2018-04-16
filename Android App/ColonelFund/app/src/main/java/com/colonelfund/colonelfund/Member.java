@@ -49,6 +49,10 @@ public class Member implements Serializable {
         if (userID == "") {
             this.userID = "01"; //TODO: change once we have usernames figured out
         }
+
+        if (username.equals("")) {
+            makeUserName();
+        }
     }
 
     /**
@@ -59,6 +63,10 @@ public class Member implements Serializable {
     public Member(String userID) {
         super();
         this.userID = userID;
+
+        if (this.username.equals("")) {
+            makeUserName();
+        }
     }
 
     /**

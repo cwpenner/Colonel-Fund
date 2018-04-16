@@ -95,6 +95,12 @@
     <string name="top_contributors_box">This is a placeholder for top contributors!</string>
     <string name="featured_events">Featured Events</string>
     <string name="featured_events_box">This is a placeholder for featured events!</string>
+    <string name="link_your_account">Link Your Account</string>
+    <string name="associated_events">Associated Events</string>
+    <string name="johnsmith_email_com">johnsmith@email.com</string>
+    <string name="full_name">Full Name</string>
+    <string name="phoneHint">(555) 555-5555</string>
+    <string name="fn">FN</string>
 
     <!-- Event Types -->
     <string-array name="eventTypes">
