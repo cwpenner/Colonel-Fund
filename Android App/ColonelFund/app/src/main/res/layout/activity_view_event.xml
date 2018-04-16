@@ -7,14 +7,9 @@
     tools:context="com.colonelfund.colonelfund.ViewEventActivity">
 
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,25 +19,28 @@
                 android:id="@+id/viewEventImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
                 android:scaleType="fitCenter"
+                app:layout_constraintBottom_toTopOf="@+id/txtEventTitle"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside"
                 app:srcCompat="@drawable/img_placeholder" />
 
             <TextView
                 android:id="@+id/txtEventTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/eventTitleHint"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintBottom_toTopOf="@+id/txtEventDate"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewEventImage" />
@@ -52,80 +50,88 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:text="@string/event_date"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/txtEventDate"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtEventTitle" />
+                app:layout_constraintTop_toTopOf="@+id/txtEventDate"
+                android:layout_marginStart="16dp" />
 
             <EditText
                 android:id="@+id/txtEventDate"
                 style="?android:attr/textViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:inputType="date"
-                android:text="@string/event_date_hint"
-                android:textSize="14sp"
+                android:layout_marginTop="16dp"
                 android:background="@null"
-                android:textColor="@null"
                 android:clickable="false"
                 android:focusable="false"
-                app:layout_constraintBaseline_toBaselineOf="@+id/eventDateLabel"
+                android:inputType="date"
+                android:text="@string/event_date_hint"
+                android:textColor="@null"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/txtEventTime"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds" />
+                app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds"
+                app:layout_constraintTop_toBottomOf="@+id/txtEventTitle" />
 
             <TextView
                 android:id="@+id/eventTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:text="@string/event_time"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/txtEventTime"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventDateLabel" />
+                app:layout_constraintTop_toTopOf="@+id/txtEventTime"
+                android:layout_marginStart="16dp" />
 
             <EditText
                 android:id="@+id/txtEventTime"
                 style="?android:attr/textViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:inputType="time"
-                android:text="@string/event_time_hint"
-                android:textSize="14sp"
+                android:layout_marginTop="16dp"
                 android:background="@null"
-                android:textColor="@null"
                 android:clickable="false"
                 android:focusable="false"
-                app:layout_constraintBaseline_toBaselineOf="@+id/eventTimeLabel"
+                android:inputType="time"
+                android:text="@string/event_time_hint"
+                android:textColor="@null"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/txtAddress"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds" />
+                app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds"
+                app:layout_constraintTop_toBottomOf="@+id/txtEventDate" />
 
             <TextView
                 android:id="@+id/addressLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:text="@string/address"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/txtAddress"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventTimeLabel" />
+                app:layout_constraintTop_toTopOf="@+id/txtAddress"
+                android:layout_marginStart="16dp" />
 
             <EditText
                 android:id="@+id/txtAddress"
                 style="?android:attr/textViewStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:autoLink="map"
                 android:background="@null"
                 android:clickable="false"
@@ -135,16 +141,17 @@
                 android:text="@string/address1Hint"
                 android:textColor="@null"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@+id/addressLabel"
+                app:layout_constraintBottom_toTopOf="@+id/txtEventType"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds"
-                app:layout_constraintTop_toTopOf="@+id/addressLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/txtEventTime" />
 
             <TextView
                 android:id="@+id/eventTypeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/eventTypeLabel"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/txtEventType"
@@ -155,10 +162,12 @@
                 android:id="@+id/txtEventType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/eventTypeHint"
+                app:layout_constraintBottom_toTopOf="@+id/txtEventMember"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds"
                 app:layout_constraintTop_toBottomOf="@+id/txtAddress" />
@@ -167,24 +176,29 @@
                 android:id="@+id/eventMemberLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/member"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/txtEventMember"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventTypeLabel" />
+                app:layout_constraintTop_toTopOf="@+id/txtEventMember" />
 
             <TextView
                 android:id="@+id/txtEventMember"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/member"
-                app:layout_constraintBaseline_toBaselineOf="@+id/eventMemberLabel"
+                app:layout_constraintBottom_toTopOf="@+id/txtEventGoal"
                 app:layout_constraintEnd_toStartOf="@+id/viewMemberButton"
-                app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds" />
+                app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds"
+                app:layout_constraintTop_toBottomOf="@+id/txtEventType" />
 
             <ImageView
                 android:id="@+id/viewMemberButton"
@@ -202,75 +216,86 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:text="@string/fund_goal"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/txtEventGoal"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventMemberLabel" />
+                app:layout_constraintTop_toTopOf="@+id/txtEventGoal"
+                android:layout_marginStart="16dp" />
 
             <TextView
                 android:id="@+id/txtEventGoal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/fundGoalHint"
-                app:layout_constraintBaseline_toBaselineOf="@+id/fundGoalLabel"
+                app:layout_constraintBottom_toTopOf="@+id/viewEventProgressBar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds" />
+                app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds"
+                app:layout_constraintTop_toBottomOf="@+id/txtEventMember" />
 
             <ProgressBar
                 android:id="@+id/viewEventProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtEventCurrentFunds"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fundGoalLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/txtEventGoal" />
 
             <TextView
                 android:id="@+id/currentFundsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
                 android:text="@string/current_funds"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/txtEventCurrentFunds"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewEventProgressBar" />
+                app:layout_constraintTop_toTopOf="@+id/txtEventCurrentFunds"
+                android:layout_marginStart="16dp" />
 
             <TextView
                 android:id="@+id/txtEventCurrentFunds"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/fundGoalHint"
-                app:layout_constraintBaseline_toBaselineOf="@+id/currentFundsLabel"
+                app:layout_constraintBottom_toTopOf="@+id/txtEventDescription"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/currentFundsLabel" />
+                app:layout_constraintStart_toEndOf="@+id/currentFundsLabel"
+                app:layout_constraintTop_toBottomOf="@+id/viewEventProgressBar" />
 
             <TextView
                 android:id="@+id/txtEventDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
                 android:autoLink="all"
                 android:text="@string/eventDescriptionHint"
                 android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@+id/donateButton"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/currentFundsLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/txtEventCurrentFunds" />
 
             <Button
                 android:id="@+id/donateButton"
@@ -285,6 +310,7 @@
                 android:text="@string/button_donate"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtEventDescription" />
