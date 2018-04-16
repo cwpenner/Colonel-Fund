@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.AccessToken;
@@ -45,27 +46,33 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
         }
         final Event selectedEvent = aEvent;
         MemberCollection mc = new MemberCollection(this);
-        Member associatedMember = mc.get(selectedEvent.getAssociatedMember());
+        final Member associatedMember = mc.get(selectedEvent.getAssociatedMember());
 
         setContentView(R.layout.activity_view_event);
-        TextView text = (TextView) findViewById(R.id.textView3);
+        TextView text = (TextView) findViewById(R.id.txtEventTitle);
         text.setText(selectedEvent.getTitle());
-        text = (TextView) findViewById(R.id.textView11);
+        text = (TextView) findViewById(R.id.txtEventDate);
         text.setText(selectedEvent.getEventDate());
-        text = (TextView) findViewById(R.id.textView9);
+        text = (TextView) findViewById(R.id.txtEventTime);
+        text.setText(selectedEvent.getEventTime());
+        text = (TextView) findViewById(R.id.txtAddress);
+        text.setText(selectedEvent.getAddress().toString());
+        text = (TextView) findViewById(R.id.txtEventType);
+        text.setText(selectedEvent.getType());
+        text = (TextView) findViewById(R.id.txtEventMember);
         text.setText(associatedMember.getFormattedFullName());
-        text = (TextView) findViewById(R.id.textView5);
+        text = (TextView) findViewById(R.id.txtEventGoal);
         text.setText("$" + String.valueOf(selectedEvent.getFundGoal()));
-        text = (TextView) findViewById(R.id.textView7);
+        text = (TextView) findViewById(R.id.txtEventCurrentFunds);
         text.setText("$" + String.valueOf(selectedEvent.getCurrentFunds()));
-        text = (TextView) findViewById(R.id.textView2);
+        text = (TextView) findViewById(R.id.txtEventDescription);
         text.setText(String.valueOf(selectedEvent.getDescription()));
 
         imageView = (ImageView) findViewById(R.id.viewEventImage);
         ImageDownloader imageDownloader = new ImageDownloader(this);
         imageDownloader.execute(selectedEvent.getImageURL());
 
-        Button donateButton = findViewById(R.id.button);
+        Button donateButton = findViewById(R.id.donateButton);
         donateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +81,20 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
                 startActivity(intent2);
             }
         });
+
+        ImageView viewMemberButton = findViewById(R.id.viewMemberButton);
+        viewMemberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(ViewEventActivity.this, ViewMemberActivity.class);
+                intent2.putExtra("SelectedMember", associatedMember);
+                startActivity(intent2);
+            }
+        });
+
+        ProgressBar viewEventProgressBar = findViewById(R.id.viewEventProgressBar);
+        int progress = (int) (aEvent.getCurrentFunds() / aEvent.getFundGoal() * 100);
+        viewEventProgressBar.setProgress(progress);
     }
 
     /**

@@ -57,10 +57,6 @@ public class DonateToMemberActivity extends BraintreeActivity {
 
         TextView fullNameText = findViewById(R.id.donateViewMemberName);
         fullNameText.setText(selectedMember.getFormattedFullName());
-        TextView emailText = findViewById(R.id.donateViewMemberEmail);
-        emailText.setText(selectedMember.getEmailAddress());
-        TextView phoneText = findViewById(R.id.donateViewMemberPhone);
-        phoneText.setText(selectedMember.getPhoneNumber());
         TextView usernameText = findViewById(R.id.memberUsername);
         usernameText.setText(selectedMember.getUsername());
         TextView initialsText = findViewById(R.id.donateInitials);
