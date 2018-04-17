@@ -25,6 +25,10 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     //MARK: Properties
     @IBOutlet var myDonationHistoryTableView: UITableView!
     @IBOutlet var myEventsTableView: UITableView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var myDonationsView: UIView!
+    @IBOutlet weak var myEventsView: UIView!
     
     var member: Member! = User.getCurrentUser()
     var associatedEventList: [Event] = []
@@ -63,12 +67,36 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        myDonationsView.isHidden = true
+        myEventsView.isHidden = true
+        
+        self.segmentSwap()
+        
         if let selectedRow: IndexPath = myDonationHistoryTableView.indexPathForSelectedRow {
             myDonationHistoryTableView.deselectRow(at: selectedRow, animated: animated)
         }
         
         if let selectedRow: IndexPath = myEventsTableView.indexPathForSelectedRow {
             myEventsTableView.deselectRow(at: selectedRow, animated: animated)
+        }
+    }
+    
+    @IBAction func indexChanged(_ sender: AnyObject) {
+        self.segmentSwap()
+    }
+    
+    func segmentSwap() {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            titleLabel.text = "My Donation History"
+            myDonationsView.isHidden = false
+            myEventsView.isHidden = true
+        case 1:
+            titleLabel.text = "My Events"
+            myDonationsView.isHidden = true
+            myEventsView.isHidden = false
+        default:
+            break
         }
     }
 
