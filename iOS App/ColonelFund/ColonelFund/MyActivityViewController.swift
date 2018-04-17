@@ -59,6 +59,18 @@ class MyActivityViewController: UIViewController, UITableViewDelegate, UITableVi
         self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
         self.myEventsTableView?.addSubview(refresher!)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let selectedRow: IndexPath = myDonationHistoryTableView.indexPathForSelectedRow {
+            myDonationHistoryTableView.deselectRow(at: selectedRow, animated: animated)
+        }
+        
+        if let selectedRow: IndexPath = myEventsTableView.indexPathForSelectedRow {
+            myEventsTableView.deselectRow(at: selectedRow, animated: animated)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
