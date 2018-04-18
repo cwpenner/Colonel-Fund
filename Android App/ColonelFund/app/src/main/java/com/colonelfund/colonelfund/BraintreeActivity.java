@@ -6,7 +6,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -58,12 +57,13 @@ public class BraintreeActivity extends AppCompatActivity implements ActivityComp
     private static final String KEY_NONCE = "nonce";
 
     //Constructor
-    public void BraintreeActivityInitializer(EditText donationTextField, Button donateButton, TextView paymentDescriptionLabel, Button selectPaymentButton, ImageView paymentIconView) {
+    public void BraintreeActivityInitializer(EditText donationTextField, Button donateButton, TextView paymentDescriptionLabel, Button selectPaymentButton, ImageView paymentIconView, Object donationType) {
         this.donationTextField = donationTextField;
         this.donateButton = donateButton;
         this.paymentDescriptionLabel = paymentDescriptionLabel;
         this.selectPaymentButton = selectPaymentButton;
         this.paymentIconView = paymentIconView;
+        this.setDonationType(donationType);
     }
 
     @Override
@@ -82,8 +82,8 @@ public class BraintreeActivity extends AppCompatActivity implements ActivityComp
 
     //Properties
     private double donationAmount = 0.00;
-    private String memberName = ""; //Used for creating description for Google Pay //TODO: consider changing to Member object
-    private String eventTitle = ""; //Used for creating description for Google Pay //TODO: consider changing to Event object
+    private Member member = null; //Used for creating description for Google Pay
+    private Event event = null; //Used for creating description for Google Pay
 
     //API Tokenization Key
     private String token = "sandbox_3swsvvz5_mhbr9s54673smz3g";
@@ -348,20 +348,22 @@ public class BraintreeActivity extends AppCompatActivity implements ActivityComp
 
 
     //Setters for Member Name and Event Title
-    public void setMemberName(String newMemberName) {
-        memberName = newMemberName;
-    }
-
-    public void setEventTitle(String newEventTitle) {
-        eventTitle = newEventTitle;
+    private void setDonationType(Object donationType) {
+        if (donationType.getClass() == Member.class) {
+            member = (Member) donationType;
+        } else if (donationType.getClass() == Event.class) {
+            event = (Event) donationType;
+        } else {
+            Log.d("BraintreeActivity","Whoops! Invalid donation type");
+        }
     }
 
     public void performIntent() {
         Intent intent = new Intent(this, TransactionSummaryActivity.class);
-        if (!memberName.equals("")) {
-            intent.putExtra("name", "Member: " + memberName);
-        } else if (!eventTitle.equals("")) {
-            intent.putExtra("name", "Event: " + eventTitle);
+        if (member != null) {
+            intent.putExtra("name", "Member: " + member.getFormattedFullName());
+        } else if (event != null) {
+            intent.putExtra("name", "Event: " + event.getTitle());
         }
         intent.putExtra("amount", "$" + String.valueOf(donationAmount));
         intent.putExtra("paymentDescription", this.paymentDescriptionLabel.getText());

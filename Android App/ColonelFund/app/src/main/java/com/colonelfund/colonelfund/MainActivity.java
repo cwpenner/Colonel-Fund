@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -162,7 +163,9 @@ public class MainActivity extends AppCompatActivity implements ImageDownloader.I
         View navHeader = navigationView.getHeaderView(0);
         profilePicImage = navHeader.findViewById(R.id.nav_profilePicture);
         ImageDownloader imageDownloader = new ImageDownloader(this);
-        imageDownloader.execute(User.getCurrentUser().getProfilePicURL());
+        if (!User.currentUser.getProfilePicURL().equals("")) {
+            imageDownloader.execute(User.currentUser.getProfilePicURL());
+        }
         TextView navUserName = navHeader.findViewById(R.id.nav_userName);
         navUserName.setText(User.getCurrentUser().getFormattedFullName());
         TextView navUserEmail = navHeader.findViewById(R.id.nav_userEmail);

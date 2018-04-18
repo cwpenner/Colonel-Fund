@@ -75,7 +75,12 @@ public class EventCollection {
                                 Double.parseDouble(jObj.getString("currentFunds")),
                                 jObj.getString("description"),
                                 jObj.getString("type"),
-                                jObj.getString("imageURL"));
+                                jObj.getString("imageURL"),
+                                //TODO: uncomment once database is updated with eventTime and address
+//                                jObj.getString("eventTime"),
+//                                new Address(jObj.getJSONObject("address")));
+                                //TODO: delete below line once database is updated with eventTime and address
+                                "", new Address());
 
                         outputObj.put(jObj.getString("title"), aEvent.toJson());
                     }

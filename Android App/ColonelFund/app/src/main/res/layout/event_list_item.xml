@@ -49,7 +49,6 @@
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold" />
-    />
 
     <!-- title -->
     <TextView
@@ -59,6 +58,7 @@
         android:layout_alignBaseline="@+id/member_initials"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/member_initials"
         android:layout_toLeftOf="@+id/event_month_box"
@@ -81,8 +81,8 @@
         android:layout_toLeftOf="@id/event_month_box"
         android:text="TextView"
         android:textSize="14dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="0dp"
         tools:text="First Last" />
 
     <ProgressBar

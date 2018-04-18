@@ -75,13 +75,13 @@
             <!-- registrationEnable -->
 
             <!--<Button-->
-                <!--android:id="@+id/btnRegister"-->
-                <!--style="?android:textAppearanceSmall"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="16dp"-->
-                <!--android:text="@string/create_an_account"-->
-                <!--android:textStyle="bold"/>-->
+            <!--android:id="@+id/btnRegister"-->
+            <!--style="?android:textAppearanceSmall"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:text="@string/create_an_account"-->
+            <!--android:textStyle="bold"/>-->
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/btnFacebookLogin"
@@ -99,8 +99,6 @@
                 android:layout_marginTop="10dp"/>
 
         </LinearLayout>
-
-
 
     </ScrollView>
 </LinearLayout>
