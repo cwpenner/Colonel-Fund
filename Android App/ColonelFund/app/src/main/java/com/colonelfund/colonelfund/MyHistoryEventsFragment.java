@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Fragment that allows a user to view their history. Instantiated in Main Activity.
@@ -65,29 +67,36 @@ public class MyHistoryEventsFragment extends Fragment {
 
         //event array
         final EventCollection ecf = new EventCollection(ctx);
-        ArrayList<String> eventList = ecf.getAssociatedEvents(selectedMember.getUserID());
+        ArrayList<String> eventListString = ecf.getAssociatedEvents(User.getCurrentUser().getUserID());
+        ArrayList<Event> eventList = new ArrayList<>();
+
+        for (String eventString : eventListString) {
+            Event event = ecf.get(eventString);
+            eventList.add(event);
+        }
 
         //make array adapter
         if (eventList != null && !eventList.isEmpty()) {
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),
-                    android.R.layout.simple_list_item_1, eventList);
+            //make array adapter
+            ArrayAdapter arrayAdapter = new EventListAdapter(ctx, generateData(eventList));
             lv.setAdapter(arrayAdapter);
+            // set listener for each item
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Object item = lv.getItemAtPosition(position);
-                    String myItem = item.toString();
+                    EventListModel item = (EventListModel) lv.getItemAtPosition(position);
+                    String myItem = item.getTitle();
                     Intent intent = new Intent(ctx, ViewEventActivity.class);
                     intent.putExtra("SelectedEvent", ecf.get(myItem));
                     startActivity(intent);
                 }
             });
         } else {
-            eventList.add("You have no associated events.");
+            eventListString.add("This user has no associated events.");
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    getActivity(),
+                    ctx,
                     android.R.layout.simple_list_item_1,
-                    eventList);
+                    eventListString);
             lv.setAdapter(arrayAdapter);
             lv.setEnabled(false);
         }
@@ -119,5 +128,28 @@ public class MyHistoryEventsFragment extends Fragment {
     private void addBorder(ViewGroup viewToAdd) {
         View tableBorder = LayoutInflater.from(getActivity()).inflate(R.layout.table_separator, viewToAdd, false);
         viewToAdd.addView(tableBorder);
+    }
+
+    /**
+     * Generates List Details for Event List.
+     *
+     * @param eventList
+     * @return eventModel
+     */
+    private ArrayList<EventListModel> generateData(Collection eventList) {
+        ArrayList<EventListModel> models = new ArrayList<EventListModel>();
+        Iterator<Event> EventItr = eventList.iterator();
+        while (EventItr.hasNext()) {
+            Event temp = EventItr.next();
+            double goalProgress;
+            if ((temp.getCurrentFunds() / temp.getFundGoal()) < 1) {
+                goalProgress = (temp.getCurrentFunds() / temp.getFundGoal());
+            } else {
+                goalProgress = 1;
+            }
+            models.add(new EventListModel(temp.getTitle(), temp.getType(), temp.getAssociatedMember(),
+                    temp.getAssociatedEmail(), temp.getEventDate(), goalProgress, temp.getDescription()));
+        }
+        return models;
     }
 }

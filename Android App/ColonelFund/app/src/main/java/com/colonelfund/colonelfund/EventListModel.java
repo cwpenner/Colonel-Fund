@@ -3,7 +3,8 @@ package com.colonelfund.colonelfund;
 /**
  * Event list Item Model class.
  */
-public class EventListModel {
+
+class EventListModel {
     private String title;
     private String type;
     private String associatedMember;

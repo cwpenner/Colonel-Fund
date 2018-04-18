@@ -89,7 +89,7 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
         let state = createEventStateTextField.text!
         let zipCode = createEventZipCodeTextField.text!
         let eventType = createEventTypeTextField.text!
-        let associatedMember = User.currentUser.getUserID() //TODO: current set in Member class to be "01" if userID doesn't exist
+        let associatedMember = User.currentUser.getUserID()
         let fundGoal = createEventFundGoalTextField.text!
         
         let eventAddress = Address(addressLine1: addressLine1, addressLine2: addressLine2, city: city, state: state, zipCode: zipCode)
@@ -99,7 +99,6 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
             !createEventDateTextField.text!.isEmpty &&
             !createEventTimeTextField.text!.isEmpty &&
             !createEventAddressLine1TextField.text!.isEmpty &&
-            !createEventAddressLine2TextField.text!.isEmpty &&
             !createEventCityTextField.text!.isEmpty &&
             !createEventStateTextField.text!.isEmpty &&
             !createEventZipCodeTextField.text!.isEmpty &&

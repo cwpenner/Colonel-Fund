@@ -87,6 +87,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.refresher?.addTarget(self, action: #selector(self.refreshEventList(_:)), for: UIControlEvents.valueChanged)
         self.upcomingEventsTableView?.addSubview(refresher!)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let selectedRow: IndexPath = upcomingEventsTableView.indexPathForSelectedRow {
+            upcomingEventsTableView.deselectRow(at: selectedRow, animated: animated)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

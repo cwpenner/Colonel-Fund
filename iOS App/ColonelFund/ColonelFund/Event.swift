@@ -95,6 +95,7 @@ class Event: NSObject, Codable {
         eventType = try values.decode(String.self, forKey: .eventType)
         associatedEmail = try values.decode(String.self, forKey: .associatedEmail) //delete
         self.eventPicData = "default"
+        //TODO: fix below once database updated with eventTime and address
         self.eventTime = ""
         self.address = Address()
     }
@@ -189,6 +190,7 @@ class Event: NSObject, Codable {
         try container.encode(eventPicData, forKey: .eventPicData)
         try container.encode(associatedMember, forKey: .associatedMember)
         try container.encode(eventType, forKey: .eventType)
+        //TODO: uncomment below once database updated with eventTime and address
 //        try container.encode(eventTime, forKey: .eventTime)
 //        try container.encode(address, forKey: .address)
         //try container.encode(associatedEmail, forKey: .associatedEmail) //delete
@@ -196,6 +198,8 @@ class Event: NSObject, Codable {
     
     func toFormEncoded() -> String {
         return "title=\(self.title)&associatedMember=\(self.associatedMember)&eventDate=\(self.eventDate)&fundGoal=\(self.fundGoal)&currentFunds=\(self.currentFunds)&description=\(self.eventDescription)&type=\(self.eventType)&image=\(self.eventPicData)"
+        //TODO: uncomment below once database updated with eventTime and address
+//        return "title=\(self.title)&associatedMember=\(self.associatedMember)&eventDate=\(self.eventDate)&fundGoal=\(self.fundGoal)&currentFunds=\(self.currentFunds)&description=\(self.eventDescription)&type=\(self.eventType)&image=\(self.eventPicData)&eventTime=\(self.eventTime)&address=\(self.address.toString())"
     }
     
     enum CodingKeys: String, CodingKey {

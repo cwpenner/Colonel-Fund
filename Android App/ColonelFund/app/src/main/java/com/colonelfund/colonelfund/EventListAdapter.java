@@ -68,6 +68,10 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         } else {
             holder.eventView = convertView;
         }
+
+
+        MemberCollection mc = new MemberCollection(context);
+        Member member = mc.get(filteredModelsArrayList.get(position).getAssociatedMember());
         // view holders for information
         TextView eventName = (TextView) holder.eventView.findViewById(R.id.memberName);
         TextView eventMember = (TextView) holder.eventView.findViewById(R.id.userID);
@@ -77,7 +81,7 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         TextView eventMonth = (TextView) holder.eventView.findViewById(R.id.event_month_box);
         //set main view to specific view holders
         eventName.setText(filteredModelsArrayList.get(position).getTitle());
-        eventMember.setText(filteredModelsArrayList.get(position).getAssociatedEmail());
+        eventMember.setText(member.getFormattedFullName());
         goalProgress.setProgress(filteredModelsArrayList.get(position).getGoalProgress().intValue());
         String eventDate = filteredModelsArrayList.get(position).getEventDate();
         eventDay.setText(eventDate.substring((eventDate.length() - 2), (eventDate.length())));
@@ -204,3 +208,4 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         }
     }
 }
+

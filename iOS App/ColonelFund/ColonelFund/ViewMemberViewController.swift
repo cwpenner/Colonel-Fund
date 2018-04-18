@@ -72,6 +72,14 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         self.associatedEventsTableView?.addSubview(refresher!)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let selectedRow: IndexPath = associatedEventsTableView.indexPathForSelectedRow {
+            associatedEventsTableView.deselectRow(at: selectedRow, animated: animated)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
