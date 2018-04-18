@@ -15,7 +15,9 @@ if (isset($_POST['title']) &&
     isset($_POST['currentFunds']) &&
     isset($_POST['description']) &&
     isset($_POST['type']) &&
-    isset($_POST['image'])) {
+    isset($_POST['image']) &&
+    isset($_POST['eventTime']) &&
+    isset($_POST['address'])) {
 
     // receiving the post params
     $title = $_POST['title'];
@@ -26,6 +28,8 @@ if (isset($_POST['title']) &&
     $description = $_POST['description'];
     $type = $_POST['type'];
     $image = $_POST['image'];
+    $eventTime = $_POST['eventTime'];
+    $address = $_POST['address'];
 
     // check if event is already existed with the same title
     if ($db->checkExistingEvent($title)) {
@@ -49,7 +53,7 @@ if (isset($_POST['title']) &&
         }
 
         // create a new event
-        $event = $db->storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imageURL);
+        $event = $db->storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imageURL, $eventTime, $address);
         if ($event) {
             // user stored successfully
             $response["error"] = FALSE;
@@ -61,6 +65,8 @@ if (isset($_POST['title']) &&
             $response["event"]["description"] = $event["description"];
             $response["event"]["type"] = $event["type"];
             $response["event"]["imageURL"] = $event["imageURL"];
+            $response["event"]["eventTime"] = $event["eventTime"];
+            $response["event"]["address"] = $event["address"];
             echo json_encode($response);
         } else {
             // user failed to store
@@ -71,7 +77,7 @@ if (isset($_POST['title']) &&
     }
 } else {
     $response["error"] = TRUE;
-    $response["error_msg"] = "Required parameters (title, associatedMember, eventDate, fundGoal, currentFunds, description, type, image) is missing!";
+    $response["error_msg"] = "Required parameters (title, associatedMember, eventDate, fundGoal, currentFunds, description, type, image, eventTime, address) is missing!";
     echo json_encode($response);
 }
 ?>
