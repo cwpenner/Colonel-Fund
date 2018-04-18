@@ -64,7 +64,11 @@ public class MainActivity extends AppCompatActivity implements ImageDownloader.I
         mDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         fragmentManager = getSupportFragmentManager();
-        newFragment = new MainPageFragment();
+        if (getCurrentFragment() != null) {
+            newFragment = getCurrentFragment();
+        } else {
+            newFragment = new MainPageFragment();
+        }
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.viewer, newFragment);
         fragmentTransaction.addToBackStack(null);
@@ -76,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements ImageDownloader.I
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-
                         // Selection of UI fragment here
                         int id = menuItem.getItemId();
                         if (id == R.id.nav_account) {
@@ -158,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements ImageDownloader.I
                             }
                     }
                 });
-
         //fill in user info in nav header
         View navHeader = navigationView.getHeaderView(0);
         profilePicImage = navHeader.findViewById(R.id.nav_profilePicture);

@@ -16,12 +16,18 @@ function __construct() {
     return $conn;
 }
 
-$query = "SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imageURL FROM events";
+$query = "SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imageURL, eventTime, address FROM events";
 $response = mysqli_query($conn,$query) or die("Couldn't execute query.");
 
 $rows = array();
 while($r = mysqli_fetch_assoc($response)) {
+
     $r['associatedEmail'] = $something->returnEmail($r['associatedMember']);
+//    $r['address'] = substr($r['address'],0);
+//    $addressArray = array();
+//    $r['address'] = substr($r['address'], 1, -1);
+//    $r['address'] = $addressArray;
+
     $rows[] = $r;
 }
 
