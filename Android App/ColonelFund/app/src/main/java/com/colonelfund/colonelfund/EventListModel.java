@@ -3,6 +3,7 @@ package com.colonelfund.colonelfund;
 /**
  * Event list Item Model class.
  */
+
 class EventListModel {
     private String title;
     private String type;

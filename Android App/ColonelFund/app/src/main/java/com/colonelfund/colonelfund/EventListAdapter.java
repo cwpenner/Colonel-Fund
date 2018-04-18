@@ -10,7 +10,6 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 /**
@@ -70,9 +69,9 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
             holder.eventView = convertView;
         }
 
+
         MemberCollection mc = new MemberCollection(context);
         Member member = mc.get(filteredModelsArrayList.get(position).getAssociatedMember());
-
         // view holders for information
         TextView eventName = (TextView) holder.eventView.findViewById(R.id.memberName);
         TextView eventMember = (TextView) holder.eventView.findViewById(R.id.userID);
@@ -209,3 +208,4 @@ class EventListAdapter extends ArrayAdapter<EventListModel> implements Filterabl
         }
     }
 }
+

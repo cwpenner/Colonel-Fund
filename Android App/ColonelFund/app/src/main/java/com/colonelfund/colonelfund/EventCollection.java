@@ -30,7 +30,7 @@ public class EventCollection {
     private static final String jsonFileName = "events.json";
     private final String TAG = "EventListFragment";
     private final String URL_FOR_NAMES = "https://wesll.com/colonelfund/events.php";
-    public Map<String, Event> eventMap = null;
+    private Map<String, Event> eventMap = null;
     AssetManager am = null;
     AppSingleton appContext;
     Context context;
@@ -280,5 +280,52 @@ public class EventCollection {
      */
     public Collection<Event> getEventsList() {
         return eventMap.values();
+    }
+
+    /**
+     * Generates Initials and User Name for Event List.
+     *
+     * @return eventModel for an eventList
+     */
+    public ArrayList<EventListModel> generateListData() {
+        ArrayList<EventListModel> models = new ArrayList<EventListModel>();
+        Iterator<Event> EventItr = eventMap.values().iterator();
+        while (EventItr.hasNext()) {
+            Event temp = EventItr.next();
+            double goalProgress;
+            if ((temp.getCurrentFunds() / temp.getFundGoal()) < 1) {
+                goalProgress = (temp.getCurrentFunds() / temp.getFundGoal());
+            } else {
+                goalProgress = 1;
+            }
+            models.add(new EventListModel(temp.getTitle(), temp.getType(), temp.getAssociatedMember(),
+                    temp.getAssociatedEmail(), temp.getEventDate(), goalProgress, temp.getDescription()));
+        }
+        return models;
+    }
+
+    /**
+     * Generates Initials and User Name for Event List.
+     *
+     * @return eventModel for an eventList
+     */
+    //toDo: Create Filter That Fits "Top" Criteria
+    public ArrayList<EventListModel> generateTop3ListData() {
+        ArrayList<EventListModel> models = new ArrayList<EventListModel>();
+        Iterator<Event> EventItr = eventMap.values().iterator();
+        int i = 0;
+        while (EventItr.hasNext() && i < 3) {
+            Event temp = EventItr.next();
+            double goalProgress;
+            if ((temp.getCurrentFunds() / temp.getFundGoal()) < 1) {
+                goalProgress = (temp.getCurrentFunds() / temp.getFundGoal());
+            } else {
+                goalProgress = 1;
+            }
+            models.add(new EventListModel(temp.getTitle(), temp.getType(), temp.getAssociatedMember(),
+                    temp.getAssociatedEmail(), temp.getEventDate(), goalProgress, temp.getDescription()));
+            i++;
+        }
+        return models;
     }
 }
