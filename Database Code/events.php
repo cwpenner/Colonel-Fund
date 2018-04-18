@@ -16,7 +16,7 @@ function __construct() {
     return $conn;
 }
 
-$query = "SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imageURL FROM events";
+$query = "SELECT title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imageURL, eventTime, address FROM events";
 $response = mysqli_query($conn,$query) or die("Couldn't execute query.");
 
 $rows = array();
