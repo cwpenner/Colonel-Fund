@@ -1,5 +1,6 @@
 package com.colonelfund.colonelfund;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Activity for Member Viewing a member.
@@ -34,6 +37,7 @@ import java.util.ArrayList;
 public class ViewMemberActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient; // need to implement
     private ListView lv;
+    Context ctx = null;
 
     /**
      * Creates member view and gets/adds related activities.
@@ -43,6 +47,7 @@ public class ViewMemberActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ctx = this.getBaseContext();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         Member aMember;
@@ -71,32 +76,36 @@ public class ViewMemberActivity extends AppCompatActivity {
 
         //event array
         final EventCollection ecf = new EventCollection(getApplicationContext());
-        ArrayList<String> eventList = ecf.getAssociatedEvents(selectedMember.getUserID());
+        ArrayList<String> eventListString = ecf.getAssociatedEvents(selectedMember.getUserID());
+        ArrayList<Event> eventList = new ArrayList<>();
+
+        for (String eventString : eventListString) {
+            Event event = ecf.get(eventString);
+            eventList.add(event);
+        }
 
         //make array adapter
         if (eventList != null && !eventList.isEmpty()) {
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    eventList);
+            //make array adapter
+            ArrayAdapter arrayAdapter = new EventListAdapter(ctx, generateData(eventList));
             lv.setAdapter(arrayAdapter);
+            // set listener for each item
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position,
-                                        long id) {
-                    Object item = lv.getItemAtPosition(position);
-                    String myItem = item.toString();
-                    Intent intent = new Intent(ViewMemberActivity.this, ViewEventActivity.class);
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    EventListModel item = (EventListModel) lv.getItemAtPosition(position);
+                    String myItem = item.getTitle();
+                    Intent intent = new Intent(ctx, ViewEventActivity.class);
                     intent.putExtra("SelectedEvent", ecf.get(myItem));
                     startActivity(intent);
                 }
             });
         } else {
-            eventList.add("This user has no associated events.");
+            eventListString.add("This user has no associated events.");
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    this,
+                    ctx,
                     android.R.layout.simple_list_item_1,
-                    eventList);
+                    eventListString);
             lv.setAdapter(arrayAdapter);
             lv.setEnabled(false);
         }
@@ -161,4 +170,28 @@ public class ViewMemberActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Generates List Details for Event List.
+     *
+     * @param eventList
+     * @return eventModel
+     */
+    private ArrayList<EventListModel> generateData(Collection eventList) {
+        ArrayList<EventListModel> models = new ArrayList<EventListModel>();
+        Iterator<Event> EventItr = eventList.iterator();
+        while (EventItr.hasNext()) {
+            Event temp = EventItr.next();
+            double goalProgress;
+            if ((temp.getCurrentFunds() / temp.getFundGoal()) < 1) {
+                goalProgress = (temp.getCurrentFunds() / temp.getFundGoal());
+            } else {
+                goalProgress = 1;
+            }
+            models.add(new EventListModel(temp.getTitle(), temp.getType(), temp.getAssociatedMember(),
+                    temp.getAssociatedEmail(), temp.getEventDate(), goalProgress, temp.getDescription()));
+        }
+        return models;
+    }
 }
+
