@@ -20,7 +20,7 @@ class Event: NSObject, Codable {
     private var associatedMember: String
     private var eventType: String
     private var eventTime: String
-    private var address: Address
+    private var address: String
     private var associatedEmail: String //delete
     
     init(title: String) {
@@ -34,7 +34,7 @@ class Event: NSObject, Codable {
         self.associatedMember = ""
         self.eventType = ""
         self.eventTime = ""
-        self.address = Address()
+        self.address = ""
         self.associatedEmail = "" //delete
     }
     
@@ -49,7 +49,7 @@ class Event: NSObject, Codable {
         self.associatedMember = associatedMember
         self.eventType = eventType
         self.eventTime = ""
-        self.address = Address()
+        self.address = ""
         self.associatedEmail = "" //delete
     }
     
@@ -64,11 +64,11 @@ class Event: NSObject, Codable {
         self.associatedMember = associatedMember
         self.eventType = eventType
         self.eventTime = ""
-        self.address = Address()
+        self.address = ""
         self.associatedEmail = "" //delete
     }
     
-    init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicData: String, associatedMember: String, eventType: String, eventTime: String, address: Address) {
+    init(title: String, eventDate: String, eventDescription: String, fundGoal: Double, currentFunds: Double, eventPicData: String, associatedMember: String, eventType: String, eventTime: String, address: String) {
         self.title = title
         self.eventDate = eventDate
         self.eventDescription = eventDescription
@@ -95,9 +95,8 @@ class Event: NSObject, Codable {
         eventType = try values.decode(String.self, forKey: .eventType)
         associatedEmail = try values.decode(String.self, forKey: .associatedEmail) //delete
         self.eventPicData = "default"
-        //TODO: fix below once database updated with eventTime and address
-        self.eventTime = ""
-        self.address = Address()
+        self.eventTime = try values.decode(String.self, forKey: .eventTime)
+        self.address = try values.decode(String.self, forKey: .address)
     }
     
     func getTitle() -> String {
@@ -172,11 +171,11 @@ class Event: NSObject, Codable {
         self.eventTime = eventTime
     }
     
-    func getAddress() -> Address {
+    func getAddress() -> String {
         return address
     }
     
-    func setAddress(address: Address) {
+    func setAddress(address: String) {
         self.address = address
     }
     
@@ -190,16 +189,13 @@ class Event: NSObject, Codable {
         try container.encode(eventPicData, forKey: .eventPicData)
         try container.encode(associatedMember, forKey: .associatedMember)
         try container.encode(eventType, forKey: .eventType)
-        //TODO: uncomment below once database updated with eventTime and address
-//        try container.encode(eventTime, forKey: .eventTime)
-//        try container.encode(address, forKey: .address)
+        try container.encode(eventTime, forKey: .eventTime)
+        try container.encode(address, forKey: .address)
         //try container.encode(associatedEmail, forKey: .associatedEmail) //delete
     }
     
     func toFormEncoded() -> String {
-        return "title=\(self.title)&associatedMember=\(self.associatedMember)&eventDate=\(self.eventDate)&fundGoal=\(self.fundGoal)&currentFunds=\(self.currentFunds)&description=\(self.eventDescription)&type=\(self.eventType)&image=\(self.eventPicData)"
-        //TODO: uncomment below once database updated with eventTime and address
-//        return "title=\(self.title)&associatedMember=\(self.associatedMember)&eventDate=\(self.eventDate)&fundGoal=\(self.fundGoal)&currentFunds=\(self.currentFunds)&description=\(self.eventDescription)&type=\(self.eventType)&image=\(self.eventPicData)&eventTime=\(self.eventTime)&address=\(self.address.toString())"
+        return "title=\(self.title)&associatedMember=\(self.associatedMember)&eventDate=\(self.eventDate)&fundGoal=\(self.fundGoal)&currentFunds=\(self.currentFunds)&description=\(self.eventDescription)&type=\(self.eventType)&image=\(self.eventPicData)&eventTime=\(self.eventTime)&address=\(address)"
     }
     
     enum CodingKeys: String, CodingKey {

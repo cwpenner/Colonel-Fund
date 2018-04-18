@@ -44,7 +44,7 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
         eventTitleLabel.text = event.getTitle()
         eventDateTextView.text = event.getEventDate()
         eventTimeTextView.text = event.getEventTime()
-        eventAddressTextView.text = event.getAddress().toString()
+        eventAddressTextView.text = event.getAddress()
         eventTypeTextView.text = event.getEventType()
         eventFundGoalTextView.text = "$" + String(event.getFundGoal())
         eventCurrentFundsTextView.text = "$" + String(event.getCurrentFunds())
@@ -65,6 +65,13 @@ class ViewEventViewController: UIViewController, MemberCollectionProtocol {
         }
 
         eventProgressView.setProgress(progress, animated: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        eventAddressTextView.isScrollEnabled = false
+        eventAddressTextView.sizeToFit()
+        eventAddressTextView.textContainerInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 10.0, right: 0.0)
+        eventAddressTextView.layoutIfNeeded()
     }
 
     override func didReceiveMemoryWarning() {

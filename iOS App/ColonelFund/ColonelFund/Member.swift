@@ -12,7 +12,7 @@ class Member: NSObject, Codable {
     private var userID: String
     private var firstName: String
     private var lastName: String
-    private var userName: String
+    private var username: String
     private var emailAddress: String
     private var phoneNumber: String
     private var profilePicURL: String
@@ -24,7 +24,7 @@ class Member: NSObject, Codable {
         self.userID = userID
         self.firstName = ""
         self.lastName = ""
-        self.userName = ""
+        self.username = ""
         self.emailAddress = ""
         self.phoneNumber = ""
         self.profilePicURL = ""
@@ -37,7 +37,7 @@ class Member: NSObject, Codable {
         self.userID = userID
         self.firstName = firstName
         self.lastName = lastName
-        self.userName = userName
+        self.username = userName
         self.emailAddress = emailAddress
         self.phoneNumber = phoneNumber
         self.profilePicURL = ""
@@ -50,7 +50,7 @@ class Member: NSObject, Codable {
         self.userID = ""
         self.firstName = firstName
         self.lastName = lastName
-        self.userName = ""
+        self.username = ""
         self.emailAddress = ""
         self.phoneNumber = ""
         self.profilePicURL = profilePicURL
@@ -59,7 +59,7 @@ class Member: NSObject, Codable {
         self.associatedEvents = []
         super.init()
         
-        makeUserName()
+        makeUsername()
         self.userID = "01" //TODO: change once we have usernames figured out
     }
     
@@ -67,7 +67,7 @@ class Member: NSObject, Codable {
         self.userID = ""
         self.firstName = firstName
         self.lastName = lastName
-        self.userName = ""
+        self.username = ""
         self.emailAddress = emailAddress
         self.phoneNumber = ""
         self.profilePicURL = profilePicURL
@@ -76,7 +76,7 @@ class Member: NSObject, Codable {
         self.associatedEvents = []
         super.init()
         
-        makeUserName()
+        makeUsername()
         self.userID = "01" //TODO: change once we have usernames figured out
     }
     
@@ -87,15 +87,11 @@ class Member: NSObject, Codable {
         lastName = try values.decode(String.self, forKey: .lastName)
         emailAddress = try values.decode(String.self, forKey: .emailAddress)
         phoneNumber = try values.decode(String.self, forKey: .phoneNumber)
-        //TODO: The following will need to be added to the database
-//        userName = try values.decode(String.self, forKey: .userName)
-//        profilePicURL = try values.decode(String.self, forKey: .profilePicURL)
-//        facebookID = try values.decode(String.self, forKey: .facebookID)
-//        googleID = try values.decode(String.self, forKey: .googleID)
-        self.userName = firstName.lowercased() + lastName.lowercased()
-        self.profilePicURL = ""
-        self.facebookID = ""
-        self.googleID = ""
+        username = try values.decode(String.self, forKey: .username)
+        profilePicURL = try values.decode(String.self, forKey: .profilePicURL)
+        facebookID = try values.decode(String.self, forKey: .facebookID)
+        googleID = try values.decode(String.self, forKey: .googleID)
+        self.username = firstName.lowercased() + lastName.lowercased()
         self.associatedEvents = []
     }
     
@@ -123,12 +119,12 @@ class Member: NSObject, Codable {
         self.lastName = lastName
     }
     
-    func getUserName() -> String {
-        return self.userName
+    func getUsername() -> String {
+        return self.username
     }
     
-    func setUserName(userName: String) {
-        self.userName = userName
+    func setUsername(username: String) {
+        self.username = username
     }
     
     func getEmailAddress() -> String {
@@ -180,8 +176,8 @@ class Member: NSObject, Codable {
         return self.firstName + " " + self.lastName
     }
     
-    func makeUserName() {
-        self.userName = self.firstName.lowercased() + self.lastName.lowercased()
+    func makeUsername() {
+        self.username = self.firstName.lowercased() + self.lastName.lowercased()
     }
     
     func encode(to encoder: Encoder) throws {
@@ -191,18 +187,17 @@ class Member: NSObject, Codable {
         try container.encode(lastName, forKey: .lastName)
         try container.encode(emailAddress, forKey: .emailAddress)
         try container.encode(phoneNumber, forKey: .phoneNumber)
-        //TODO: The following will need to be added to the database
-//        try container.encode(userName, forKey: .userName)
-//        try container.encode(profilePicURL, forKey: .profilePicURL)
-//        try container.encode(facebookID, forKey: .facebookID)
-//        try container.encode(googleID, forKey: .googleID)
+        try container.encode(username, forKey: .username)
+        try container.encode(profilePicURL, forKey: .profilePicURL)
+        try container.encode(facebookID, forKey: .facebookID)
+        try container.encode(googleID, forKey: .googleID)
     }
     
     enum CodingKeys: String, CodingKey {
         case userID
         case firstName
         case lastName
-        case userName
+        case username
         case emailAddress
         case phoneNumber
         case profilePicURL

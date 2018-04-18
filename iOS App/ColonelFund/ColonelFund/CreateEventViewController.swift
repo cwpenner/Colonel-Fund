@@ -93,8 +93,7 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
         let fundGoal = createEventFundGoalTextField.text!
         
         let eventAddress = Address(addressLine1: addressLine1, addressLine2: addressLine2, city: city, state: state, zipCode: zipCode)
-                
-        //TODO: update Event class with address, time properties
+        
         if (!createEventTitleTextField.text!.isEmpty &&
             !createEventDateTextField.text!.isEmpty &&
             !createEventTimeTextField.text!.isEmpty &&
@@ -106,7 +105,7 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
             !createEventFundGoalTextField.text!.isEmpty &&
             createEventDescriptionTextView.textColor != UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1.0) &&
             !createEventDescriptionTextView.text!.isEmpty) {
-            event = Event(title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: Double(fundGoal)!, currentFunds: 0.0, eventPicData: eventPicData, associatedMember: associatedMember, eventType: eventType, eventTime: eventTime, address: eventAddress)
+            event = Event(title: title, eventDate: eventDate, eventDescription: eventDescription, fundGoal: Double(fundGoal)!, currentFunds: 0.0, eventPicData: eventPicData, associatedMember: associatedMember, eventType: eventType, eventTime: eventTime, address: eventAddress.toString())
             createEvent(event: event)
         } else {
             self.displayAlert(alertTitle: "Missing Info", alertMessage: "At least one of the required fields is empty.\nPlease fill out all fields and try again.", segue: false)
@@ -134,6 +133,7 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
     func createEvent(event: Event) {
         let url = URL(string: URL_FOR_CREATE_EVENT)!
         var request = URLRequest(url: url)
+        //Commented code can be used instead if server is set to accept json instead of form encoded text
 //        request.httpBody = try? JSONEncoder().encode(event)
 //        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 //        request.addValue("application/json", forHTTPHeaderField: "Accept")

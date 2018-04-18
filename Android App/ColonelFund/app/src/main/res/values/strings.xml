@@ -19,6 +19,7 @@
     <string name="eventTitleHint">Event Title</string>
     <string name="eventDescriptionHint">Description of event</string>
     <string name="address">Address:</string>
+    <string name="addressHint">7171 E Sonoran Arroyo Mall\nPeralta Hall 230\nMesa AZ 85212</string>
     <string name="address1Label">Address 1:</string>
     <string name="address1Hint">7171 E Sonoran Arroyo Mall</string>
     <string name="address2Label">Address 2:</string>

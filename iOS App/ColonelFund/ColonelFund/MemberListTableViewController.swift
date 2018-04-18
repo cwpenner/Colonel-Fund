@@ -174,7 +174,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         filteredMembers = MemberCollection.sharedInstance.memberArray.filter({(member : Member) -> Bool in
             let userID = member.getUserID().lowercased().contains(searchText.lowercased())
             let name = member.getFormattedFullName().lowercased().contains(searchText.lowercased())
-            let userName = member.getUserName().lowercased().contains(searchText.lowercased())
+            let userName = member.getUsername().lowercased().contains(searchText.lowercased())
             let phoneNumber = member.getPhoneNumber().lowercased().contains(searchText.lowercased())
             let email = member.getEmailAddress().lowercased().contains(searchText.lowercased())
 

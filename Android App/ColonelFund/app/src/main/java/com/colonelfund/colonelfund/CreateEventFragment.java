@@ -244,9 +244,13 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                     createEvent(strEventTitle, strEventMember, strEventDate, strEventGoal,
                             strEventDescription, strEventType, strEventTime, strAddress1, strAddress2, strCity, strState, strZip);
                 }
+                Intent MainIntent = new Intent(ctx, MainActivity.class);
+                startActivity(MainIntent);
+                break;
             }
             case R.id.imageButton: {
                 openGallery();
+                break;
             }
         }
     }
@@ -289,15 +293,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                              final String eventTime, final String addressLine1,
                              final String addressLine2, final String city,
                              final String state, final String zip) {
-        Address address = new Address(addressLine1, addressLine2, city, state, zip);
-        JSONObject tempAddressJson;
-        try {
-            tempAddressJson = address.toJson();
-        } catch (JSONException e) {
-            e.printStackTrace();
-            tempAddressJson = new JSONObject();
-        }
-        final String addressJson = tempAddressJson.toString();
+        final Address address = new Address(addressLine1, addressLine2, city, state, zip);
 
         String cancel_event_tag = "register";
         progressDialog.setMessage("Creating Event...");
@@ -354,7 +350,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                 params.put("type", eventType);
                 params.put("image", imageToString(bitmap));
                 params.put("eventTime", eventTime);
-                params.put("address", addressJson);
+                params.put("address", address.toString());
                 return params;
             }
         };
