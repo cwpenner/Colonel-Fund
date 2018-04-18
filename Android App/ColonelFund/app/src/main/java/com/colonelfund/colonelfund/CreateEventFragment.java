@@ -130,9 +130,13 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                     createEvent(strEventTitle, strEventMember, strEventDate, strEventGoal,
                             strEventDescription, strEventType, strEventTime, strAddress);
                 }
+                Intent MainIntent = new Intent(ctx, MainActivity.class);
+                startActivity(MainIntent);
+                break;
             }
             case R.id.imageButton: {
                 openGallery();
+                break;
             }
         }
     }
