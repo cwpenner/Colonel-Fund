@@ -2,6 +2,7 @@ package com.colonelfund.colonelfund;
 
 import org.json.JSONObject;
 import org.json.JSONException;
+
 import java.io.Serializable;
 
 /**
@@ -18,17 +19,19 @@ public class Event implements Serializable {
     private String description;
     private String type;
     private String imageURL;
+    private String eventTime;
+    private String address;
 
     /**
      * Event object constructor.
      *
-     * @param title of an event.
+     * @param title            of an event.
      * @param associatedMember of an event.
-     * @param eventDate of an event.
-     * @param fundGoal of an event.
-     * @param currentFunds of an event.
-     * @param description of an event.
-     * @param type of an event.
+     * @param eventDate        of an event.
+     * @param fundGoal         of an event.
+     * @param currentFunds     of an event.
+     * @param description      of an event.
+     * @param type             of an event.
      */
     public Event(String title,
                  String associatedMember,
@@ -50,15 +53,17 @@ public class Event implements Serializable {
     /**
      * Event object constructor.
      *
-     * @param title of an event.
+     * @param title            of an event.
      * @param associatedMember of an event.
-     * @param associatedEmail of an event.
-     * @param eventDate of an event.
-     * @param fundGoal of an event.
-     * @param currentFunds of an event.
-     * @param description of an event.
-     * @param type of an event.
-     * @param imageURL of an event.
+     * @param associatedEmail  of an event.
+     * @param eventDate        of an event.
+     * @param fundGoal         of an event.
+     * @param currentFunds     of an event.
+     * @param description      of an event.
+     * @param type             of an event.
+     * @param imageURL         of an event.
+     * @param eventTime        of an event
+     * @param address          of an event
      */
     public Event(String title,
                  String associatedMember,
@@ -68,7 +73,9 @@ public class Event implements Serializable {
                  double currentFunds,
                  String description,
                  String type,
-                 String imageURL) {
+                 String imageURL,
+                 String eventTime,
+                 String address) {
         super();
         this.title = title;
         this.associatedMember = associatedMember;
@@ -79,6 +86,36 @@ public class Event implements Serializable {
         this.description = description;
         this.type = type;
         this.imageURL = imageURL;
+        this.eventTime = eventTime;
+        this.address = address;
+    }
+
+    /**
+     * @return the eventTime
+     */
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    /**
+     * @param eventTime the eventTime to set
+     */
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    /**
+     * @return the address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     /**
@@ -224,6 +261,8 @@ public class Event implements Serializable {
         JsonObj.put("description", description);
         JsonObj.put("type", type);
         JsonObj.put("imageURL", imageURL);
+        JsonObj.put("eventTime", eventTime);
+        JsonObj.put("address", address);
         return JsonObj;
     }
 
@@ -242,5 +281,7 @@ public class Event implements Serializable {
         this.description = jsonObject.getString("description");
         this.type = jsonObject.getString("type");
         this.imageURL = jsonObject.getString("imageURL");
+        this.eventTime = jsonObject.getString("eventTime");
+        this.address = jsonObject.getString("address");
     }
 }

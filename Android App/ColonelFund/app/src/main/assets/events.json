@@ -7,7 +7,9 @@
     "currentFunds": 1075.63,
     "associatedMember": "JohnSmith",
     "associatedEmail": "",
-    "type": "Medical"
+    "type": "Medical",
+    "eventTime": "14:00",
+    "address": "1234 E Main St, Mesa, AZ 85203"
   },
   "Alzheimer's Research Fund": {
     "eventDate": "2018-01-18",
@@ -17,7 +19,9 @@
     "currentFunds": 750.63,
     "associatedMember": "LiamGallagher",
     "associatedEmail": "",
-    "type": "Medical"
+    "type": "Medical",
+    "eventTime": "14:00",
+    "address": "1234 E Main St, Mesa, AZ 85203"
   },
   "Paul's MS Donations": {
     "eventDate": "2018-05-14",
@@ -27,7 +31,9 @@
     "currentFunds": 7505.63,
     "associatedMember": "PaulMcCartney",
     "associatedEmail": "",
-    "type": "Medical"
+    "type": "Medical",
+    "eventTime": "14:00",
+    "address": "1234 E Main St, Mesa, AZ 85203"
   },
   "Independence Day BBQ": {
     "eventDate": "2018-07-04",
@@ -37,7 +43,9 @@
     "currentFunds": 75.63,
     "associatedMember": "JohnSmith",
     "associatedEmail": "",
-    "type": "BBQ"
+    "type": "BBQ",
+    "eventTime": "14:00",
+    "address": "1234 E Main St, Mesa, AZ 85203"
   },
   "Mrs. Cobain's Widow Help": {
     "eventDate": "2018-02-05",
@@ -47,7 +55,9 @@
     "currentFunds": 2735.63,
     "associatedMember": "CourtneyLove",
     "associatedEmail": "",
-    "type": "Unknown"
+    "type": "Unknown",
+    "eventTime": "14:00",
+    "address": "1234 E Main St, Mesa, AZ 85203"
   },
   "Liam's house fire help": {
     "eventDate": "2018-05-20",
@@ -57,7 +67,9 @@
     "currentFunds": 2735.63,
     "associatedMember": "LiamGallagher",
     "associatedEmail": "",
-    "type": "Emergency"
+    "type": "Emergency",
+    "eventTime": "14:00",
+    "address": "1234 E Main St, Mesa, AZ 85203"
   },
   "Mrs. Cobain's birthday": {
     "eventDate": "2018-05-20",
@@ -67,6 +79,8 @@
     "currentFunds": 25.01,
     "associatedMember": "CourtneyLove",
     "associatedEmail": "",
-    "type": "Party"
+    "type": "Party",
+    "eventTime": "14:00",
+    "address": "1234 E Main St, Mesa, AZ 85203"
   }
 }

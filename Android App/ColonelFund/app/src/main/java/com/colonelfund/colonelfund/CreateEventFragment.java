@@ -18,17 +18,21 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -36,8 +40,8 @@ import static android.app.Activity.RESULT_OK;
  */
 public class CreateEventFragment extends Fragment implements View.OnClickListener {
     Calendar myCalendar = Calendar.getInstance();
-    private EditText txtEventDescription, txtEventTitle, txtEventGoal;
-    private EditText txtEventMember, txtEventDate, txtEventType;
+    private EditText txtEventDescription, txtEventTitle, txtEventGoal, txtEventTime;
+    private EditText txtEventMember, txtEventDate, txtEventType, txtAddress;
     private Button btnCreateEvent;
     private ImageButton imageButton;
     private final String TAG = "CreateEventFragment";
@@ -51,14 +55,14 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
     /**
      * Overrides on create to initialize variables for page.
-     * @param inflater inflater for fragment views
-     * @param container view group for fragment.
+     *
+     * @param inflater           inflater for fragment views
+     * @param container          view group for fragment.
      * @param savedInstanceState saved state of fragment.
      * @return view of fragment
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
         View rootView = (ViewGroup) inflater.inflate(R.layout.fragment_create_event, container, false);
@@ -73,6 +77,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
     /**
      * Sets information for creating event.
+     *
      * @param savedInstanceState saved state of fragment.
      */
     @Override
@@ -92,11 +97,14 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
         txtEventType = (EditText) createEventView.findViewById(R.id.txtEventType);
         txtEventGoal = (EditText) createEventView.findViewById(R.id.txtEventGoal);
         txtEventDescription = (EditText) createEventView.findViewById(R.id.txtEventDescription);
+        txtEventTime = (EditText) createEventView.findViewById(R.id.txtEventTime);
+        txtAddress = (EditText) createEventView.findViewById(R.id.txtAddress);
         imageView = (ImageView) createEventView.findViewById(R.id.nav_profilePicture);
     }
 
     /**
      * On click listener for creating an event.
+     *
      * @param v current create event view
      */
     @Override
@@ -109,15 +117,18 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                 String strEventGoal = txtEventGoal.getText().toString();
                 String strEventDescription = txtEventDescription.getText().toString();
                 String strEventType = txtEventType.getText().toString();
+                String strEventTime = txtEventTime.getText().toString();
+                String strAddress = txtAddress.getText().toString();
                 if (strEventTitle.isEmpty() || strEventMember.isEmpty() ||
                         strEventDate.isEmpty() || strEventGoal.isEmpty() ||
-                        strEventDescription.isEmpty() || strEventType.isEmpty()) {
+                        strEventDescription.isEmpty() || strEventType.isEmpty() ||
+                        strEventTime.isEmpty() || strAddress.isEmpty()) {
                     Log.e(TAG, "Event Creation Error: ");
                     Toast.makeText(ctx, "field contains empty value, Event not created", Toast.LENGTH_LONG).show();
                     hideDialog();
                 } else {
                     createEvent(strEventTitle, strEventMember, strEventDate, strEventGoal,
-                            strEventDescription, strEventType);
+                            strEventDescription, strEventType, strEventTime, strAddress);
                 }
             }
             case R.id.imageButton: {
@@ -128,6 +139,7 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
     /**
      * Converts a bitmap image as string.
+     *
      * @param bitmap image for event
      * @return string of event picture
      */
@@ -144,17 +156,21 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
     }
 
     /**
-     *  Creates an event from provided variables.
-     * @param eventTitle event title
-     * @param eventMember event member
-     * @param eventDate event date
-     * @param eventGoal event goal $
+     * Creates an event from provided variables.
+     *
+     * @param eventTitle       event title
+     * @param eventMember      event member
+     * @param eventDate        event date
+     * @param eventGoal        event goal $
      * @param eventDescription event description
-     * @param eventType event type
+     * @param eventType        event type
+     * @param eventTime        event time
+     * @param address        event address
      */
     private void createEvent(final String eventTitle, final String eventMember,
                              final String eventDate, final String eventGoal,
-                             final String eventDescription, final String eventType) {
+                             final String eventDescription, final String eventType,
+                             final String eventTime, final String address) {
 
         String cancel_event_tag = "register";
         progressDialog.setMessage("Creating Event...");
@@ -210,6 +226,8 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
                 params.put("description", eventDescription);
                 params.put("type", eventType);
                 params.put("image", imageToString(bitmap));
+                params.put("eventTime", eventTime);
+                params.put("address", address);
                 return params;
             }
         };
@@ -227,9 +245,10 @@ public class CreateEventFragment extends Fragment implements View.OnClickListene
 
     /**
      * Listener for activity result progress.
+     *
      * @param requestCode request code
-     * @param resultCode result code
-     * @param data data for request
+     * @param resultCode  result code
+     * @param data        data for request
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

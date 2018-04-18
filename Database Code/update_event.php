@@ -33,7 +33,7 @@ class update_event {
     }
 
     public function storeEvent($title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imageURL, $eventTime, $address) {
-        $stmt = $this->conn->prepare("INSERT INTO events(title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imageURL, $eventTime, $address) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO events(title, associatedMember, eventDate, fundGoal, currentFunds, description, type, imageURL, eventTime, address) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssssssss", $title, $associatedMember, $eventDate, $fundGoal, $currentFunds, $description, $type, $imageURL, $eventTime, $address);
         $result = $stmt->execute();
         $stmt->close();
