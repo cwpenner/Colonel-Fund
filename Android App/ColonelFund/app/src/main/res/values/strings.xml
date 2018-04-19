@@ -21,9 +21,9 @@
     <string name="address">Address:</string>
     <string name="addressHint">7171 E Sonoran Arroyo Mall\nPeralta Hall 230\nMesa AZ 85212</string>
     <string name="address1Label">Address 1:</string>
-    <string name="address1Hint">7171 E Sonoran Arroyo Mall</string>
+    <string name="address1Hint">Street Number</string>
     <string name="address2Label">Address 2:</string>
-    <string name="address2Hint">Peralta Hall 230</string>
+    <string name="address2Hint">(Optional) Unit, Suite</string>
     <string name="cityLabel">City:</string>
     <string name="cityHint">Mesa</string>
     <string name="stateLabel">State:</string>
