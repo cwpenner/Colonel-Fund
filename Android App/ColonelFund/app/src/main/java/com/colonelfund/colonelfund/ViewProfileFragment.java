@@ -64,7 +64,7 @@ public class ViewProfileFragment extends Fragment implements ImageDownloader.Ima
         profilePicImage = profileActivityView.findViewById(R.id.profilePicImageView);
 
         ImageDownloader imageDownloader = new ImageDownloader(this);
-        if (!User.currentUser.getProfilePicURL().equals("")) {
+        if (User.currentUser.getProfilePicURL() != null && !User.currentUser.getProfilePicURL().equals("")) {
             imageDownloader.execute(User.currentUser.getProfilePicURL());
         }
     }
