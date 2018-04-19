@@ -19,7 +19,7 @@ public class Event implements Serializable {
     private String type;
     private String imageURL;
     private String eventTime;
-    private Address address;
+    private String address;
 
     /**
      * Event object constructor.
@@ -74,7 +74,7 @@ public class Event implements Serializable {
                  String type,
                  String imageURL,
                  String eventTime,
-                 Address address) {
+                 String address) {
         super();
         this.title = title;
         this.associatedMember = associatedMember;
@@ -237,7 +237,7 @@ public class Event implements Serializable {
      *
      * @return address of event location
      */
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
@@ -245,7 +245,7 @@ public class Event implements Serializable {
      *
      * @param address of event location to set
      */
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -265,7 +265,7 @@ public class Event implements Serializable {
         jsonObj.put("type", type);
         jsonObj.put("imageURL", imageURL);
         jsonObj.put("eventTime", eventTime);
-        jsonObj.put("address",address.toJson());
+        jsonObj.put("address",address);
         return jsonObj;
     }
 
@@ -284,11 +284,7 @@ public class Event implements Serializable {
         this.description = jsonObject.getString("description");
         this.type = jsonObject.getString("type");
         this.imageURL = jsonObject.getString("imageURL");
-        //TODO: uncomment once database is updated with eventTime and address
-//        this.eventTime = jsonObject.getString("eventTime");
-//        this.address = new Address(jsonObject.getJSONObject("address"));
-        //TODO: delete below once database is updated with eventTime and address
-        this.eventTime = "";
-        this.address = new Address();
+        this.eventTime = jsonObject.getString("eventTime");
+        this.address = jsonObject.getString("address");
     }
 }

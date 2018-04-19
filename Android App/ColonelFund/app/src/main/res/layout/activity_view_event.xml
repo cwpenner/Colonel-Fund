@@ -123,7 +123,7 @@
                 app:layout_constraintTop_toTopOf="@+id/txtAddress"
                 android:layout_marginStart="16dp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/txtAddress"
                 style="?android:attr/textViewStyle"
                 android:layout_width="0dp"
@@ -133,14 +133,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
                 android:autoLink="map"
-                android:background="@null"
-                android:clickable="false"
-                android:focusable="false"
-                android:inputType="textPostalAddress"
-                android:singleLine="false"
-                android:text="@string/address1Hint"
-                android:textColor="@null"
-                android:textSize="14sp"
+                android:text="@string/addressHint"
                 app:layout_constraintBottom_toTopOf="@+id/txtEventType"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txtEventCurrentFunds"

@@ -56,7 +56,7 @@ public class ViewEventActivity extends AppCompatActivity implements ImageDownloa
         text = (TextView) findViewById(R.id.txtEventTime);
         text.setText(selectedEvent.getEventTime());
         text = (TextView) findViewById(R.id.txtAddress);
-        text.setText(selectedEvent.getAddress().toString());
+        text.setText(selectedEvent.getAddress());
         text = (TextView) findViewById(R.id.txtEventType);
         text.setText(selectedEvent.getType());
         text = (TextView) findViewById(R.id.txtEventMember);

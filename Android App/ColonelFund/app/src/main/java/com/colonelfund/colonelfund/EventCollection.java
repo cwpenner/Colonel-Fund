@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -76,11 +78,8 @@ public class EventCollection {
                                 jObj.getString("description"),
                                 jObj.getString("type"),
                                 jObj.getString("imageURL"),
-                                //TODO: uncomment once database is updated with eventTime and address
-//                                jObj.getString("eventTime"),
-//                                new Address(jObj.getJSONObject("address")));
-                                //TODO: delete below line once database is updated with eventTime and address
-                                "", new Address());
+                                jObj.getString("eventTime"),
+                                jObj.getString("address"));
 
                         outputObj.put(jObj.getString("title"), aEvent.toJson());
                     }
@@ -175,7 +174,7 @@ public class EventCollection {
     }
 
     /**
-     * A method to add a new video to the library. True is returned when the request is successful.
+     * A method to add a new event to the library. True is returned when the request is successful.
      *
      * @param aEvent an event.
      * @return boolean
@@ -201,13 +200,13 @@ public class EventCollection {
             eventMap.remove(aEvent);
             return true;
         } else {
-            System.out.println("Title does not exist.");
+            System.out.println("Event does not exist.");
             return false;
         }
     }
 
     /**
-     * Returns the video's description with title aTitle.
+     * Returns the event's description..
      *
      * @param aEvent string of an event.
      * @return an event object.
@@ -216,21 +215,9 @@ public class EventCollection {
         if (eventMap.containsKey(aEvent)) {
             return eventMap.get(aEvent);
         } else {
-            System.out.println("Title does not exist.");
+            System.out.println("Event does not exist.");
             return null;
         }
-    }
-
-    /**
-     * Returns an array of strings, which are all of the titles in the library.
-     *
-     * @return array of titles.
-     */
-    public String[] getTitles() {
-        if (eventMap.size() > 0)
-            return eventMap.keySet().toArray(new String[eventMap.size()]);
-        else
-            return null;
     }
 
     /**
@@ -279,7 +266,22 @@ public class EventCollection {
      * @return collection of all events.
      */
     public Collection<Event> getEventsList() {
-        return eventMap.values();
+        ArrayList<Event> eventCollection = new ArrayList<>();
+        if (eventMap.size() > 0) {
+            Iterator it = eventMap.values().iterator();
+            while (it.hasNext()) {
+                eventCollection.add((Event) it.next());;
+            }
+            Collections.sort(eventCollection, new Comparator<Event>() {
+                public int compare(Event obj1, Event obj2) {
+                    return obj1.getEventDate().compareToIgnoreCase(obj2.getEventDate());
+                }
+            });
+            return eventCollection;
+        } else {
+            System.out.println("No Events");
+            return null;
+        }
     }
 
     /**
@@ -301,6 +303,11 @@ public class EventCollection {
             models.add(new EventListModel(temp.getTitle(), temp.getType(), temp.getAssociatedMember(),
                     temp.getAssociatedEmail(), temp.getEventDate(), goalProgress, temp.getDescription()));
         }
+        Collections.sort(models, new Comparator<EventListModel>() {
+            public int compare(EventListModel obj1, EventListModel obj2) {
+                return obj1.getEventDate().compareToIgnoreCase(obj2.getEventDate());
+            }
+        });
         return models;
     }
 
@@ -326,6 +333,11 @@ public class EventCollection {
                     temp.getAssociatedEmail(), temp.getEventDate(), goalProgress, temp.getDescription()));
             i++;
         }
+        Collections.sort(models, new Comparator<EventListModel>() {
+            public int compare(EventListModel obj1, EventListModel obj2) {
+                return obj1.getEventDate().compareToIgnoreCase(obj2.getEventDate());
+            }
+        });
         return models;
     }
 }

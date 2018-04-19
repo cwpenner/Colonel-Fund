@@ -1,93 +1,62 @@
 {
-  "JohnLennon": {
-    "userID": "JohnLennon",
-    "firstName": "John",
-    "lastName": "Lennon",
-    "emailAddress": "JohnLennon@email.com",
-    "phoneNumber": "111-111-1111"
-  },
-  "AdamLevine": {
-    "userID": "AdamLevine",
-    "firstName": "Adam",
-    "lastName": "Levine",
-    "emailAddress": "AdamLevine@email.com",
-    "phoneNumber": "234-567-8901"
-  },
-  "TrevorHurst": {
-    "userID": "TrevorHurst",
-    "firstName": "Trevor",
-    "lastName": "Hurst",
-    "emailAddress": "TrevorHurst@email.com",
-    "phoneNumber": "123-456-7890"
-  },
-  "PhilCollins": {
-    "userID": "PhilCollins",
-    "firstName": "Phil",
-    "lastName": "Collins",
-    "emailAddress": "PhilCollins@email.com",
-    "phoneNumber": "777-777-7777"
-  },
-  "DaveGrohl": {
-    "userID": "DaveGrohl",
-    "firstName": "Dave",
-    "lastName": "Grohl",
-    "emailAddress": "DaveGrohl@email.com",
-    "phoneNumber": "567-890-1234"
-  },
-  "DonHenley": {
-    "userID": "DonHenley",
-    "firstName": "Don",
-    "lastName": "Henley",
-    "emailAddress": "DonHenley@email.com",
-    "phoneNumber": "888-888-8888"
-  },
-  "CourtneyLove": {
-    "userID": "CourtneyLove",
-    "firstName": "Courtney",
-    "lastName": "Love",
-    "emailAddress": "CourtneyLove@email.com",
-    "phoneNumber": "222-222-2222"
-  },
-  "JohnSmith": {
-    "userID": "JohnSmith",
-    "firstName": "John",
-    "lastName": "Smith",
-    "emailAddress": "JohnSmith@email.com",
-    "phoneNumber": "555-555-5555"
-  },
-  "LiamGallagher": {
-    "userID": "LiamGallagher",
-    "firstName": "Liam",
-    "lastName": "Gallagher",
-    "emailAddress": "LiamGallagher@email.com",
-    "phoneNumber": "444-444-4444"
-  },
-  "ChadKroeger": {
-    "userID": "ChadKroeger",
-    "firstName": "Chad",
-    "lastName": "Kroeger",
-    "emailAddress": "ChadKroeger@email.com",
-    "phoneNumber": "456-789-0123"
-  },
-  "PaulMcCartney": {
-    "userID": "PaulMcCartney",
-    "firstName": "Paul",
-    "lastName": "McCartney",
-    "emailAddress": "PaulMcCartney@email.com",
-    "phoneNumber": "333-333-3333"
-  },
-  "AxlRose": {
-    "userID": "AxlRose",
-    "firstName": "Axl",
-    "lastName": "Rose",
-    "emailAddress": "AxlRose@email.com",
-    "phoneNumber": "345-678-9012"
-  },
-  "JimmyPaige": {
-    "userID": "JimmyPaige",
-    "firstName": "Jimmy",
-    "lastName": "Paige",
-    "emailAddress": "JimmyPaige@email.com",
-    "phoneNumber": "666-666-6666"
-  }
+    "9351": {
+        "userID": "9351",
+        "firstName": "Richard",
+        "lastName": "Melcher",
+        "emailAddress": "richmelchr@gmail.com",
+        "phoneNumber": "480-244-6484",
+        "username": "",
+        "profilePicURL": "",
+        "facebookID": "",
+        "googleID": "",
+        "firebaseID": ""
+    },
+    "01": {
+        "userID": "01",
+        "firstName": "admin",
+        "lastName": "admin",
+        "emailAddress": "admin@colonelfund.com",
+        "phoneNumber": "480-244-6484",
+        "username": "",
+        "profilePicURL": "",
+        "facebookID": "",
+        "googleID": "",
+        "firebaseID": ""
+    },
+    "666": {
+        "userID": "666",
+        "firstName": "Chris",
+        "lastName": "Penner",
+        "emailAddress": "chris.penner@colonelfund.com",
+        "phoneNumber": "928-832-2912",
+        "username": "",
+        "profilePicURL": "",
+        "facebookID": "",
+        "googleID": "",
+        "firebaseID": ""
+    },
+    "1532": {
+        "userID": "1532",
+        "firstName": "Thomas",
+        "lastName": "Melcher",
+        "emailAddress": "thomas.melcher@wesll.com",
+        "phoneNumber": "602-132-9921",
+        "username": "",
+        "profilePicURL": "",
+        "facebookID": "",
+        "googleID": "",
+        "firebaseID": ""
+    },
+    "76194": {
+        "userID": "76194",
+        "firstName": "Darya",
+        "lastName": "Scheiffele",
+        "emailAddress": "dchachul@colonelfund.com",
+        "phoneNumber": "480-291-4851",
+        "username": "",
+        "profilePicURL": "",
+        "facebookID": "",
+        "googleID": "",
+        "firebaseID": ""
+    }
 }

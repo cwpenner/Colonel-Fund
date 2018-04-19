@@ -126,7 +126,11 @@ public class Address implements Serializable {
     }
 
     public String toString() {
-        return addressLine1 + "\n" + addressLine2 + "\n" + city + " " + state + " " + zipCode;
+        if (!addressLine2.equals("")) {
+            return addressLine1 + "\n" + addressLine2 + "\n" + city + " " + state + " " + zipCode;
+        } else {
+            return addressLine1 + "\n" + city + " " + state + " " + zipCode;
+        }
     }
 
     /**

@@ -27,7 +27,7 @@ class MyProfileViewController: UIViewController {
         super.viewDidLoad()
         
         nameLabel.text = member.getFormattedFullName()
-        usernameLabel.text = member.getUserName()
+        usernameLabel.text = member.getUsername()
         emailTextView.text = member.getEmailAddress()
         print(member.getEmailAddress())
         phoneTextView.text = member.getPhoneNumber()
@@ -82,7 +82,6 @@ class MyProfileViewController: UIViewController {
         if let accessToken = FBSDKAccessToken.current(){
             LoginManager().logOut()
         }
-        //TODO: If statement to check if Google token exists
         GIDSignIn.sharedInstance().signOut()
         performSegue(withIdentifier: "ShowLogin", sender: self)
     }

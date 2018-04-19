@@ -1,72 +1,54 @@
 {
-  "John's Chemo Fund": {
-    "eventDate": "2018-03-20",
-    "description": "Help me pay my medical bills!",
-    "title": "John's Chemo Fund",
-    "fundGoal": 5000,
-    "currentFunds": 1075.63,
-    "associatedMember": "JohnSmith",
-    "associatedEmail": "",
-    "type": "Medical"
+  "OTTERS": {
+    "title": "OTTERS",
+    "associatedMember": "01",
+    "eventDate": "2018-04-19",
+    "fundGoal": "2.75",
+    "currentFunds": "0",
+    "description": "Come see the otters! So many otters...",
+    "type": "Party",
+    "imageURL": "https:\/\/wesll.com\/colonelfund\/events_images\/01-3612.jpeg",
+    "eventTime": "7:08 PM",
+    "address": "123 Otter Lane\nOtter Park\nScottsdale AZ 85260",
+    "associatedEmail": "admin@colonelfund.com"
   },
-  "Alzheimer's Research Fund": {
-    "eventDate": "2018-01-18",
-    "description": "Help out researchers.",
-    "title": "Alzheimer's Research Fund",
-    "fundGoal": 7550,
-    "currentFunds": 750.63,
-    "associatedMember": "LiamGallagher",
-    "associatedEmail": "",
-    "type": "Medical"
+  "Alpha Team BBQ": {
+    "title": "Alpha Team BBQ",
+    "associatedMember": "01",
+    "eventDate": "2018-05-04",
+    "fundGoal": "200",
+    "currentFunds": "0",
+    "description": "Come enjoy some food to celebrate our last victory!",
+    "type": "BBQ",
+    "imageURL": "https:\/\/wesll.com\/colonelfund\/events_images\/01-7387.jpeg",
+    "eventTime": "12:30 PM",
+    "address": "21 Forest Lawn Dr\nTempe AZ 85610",
+    "associatedEmail": "admin@colonelfund.com"
   },
-  "Paul's MS Donations": {
-    "eventDate": "2018-05-14",
-    "description": "Help me fund my MS bills.",
-    "title": "Paul's MS Donations",
-    "fundGoal": 8367.53,
-    "currentFunds": 7505.63,
-    "associatedMember": "PaulMcCartney",
-    "associatedEmail": "",
-    "type": "Medical"
+  "BIRTHDAY": {
+    "title": "BIRTHDAY",
+    "associatedMember": "01",
+    "eventDate": "2018-04-18",
+    "fundGoal": "0.25",
+    "currentFunds": "0",
+    "description": "It's my birthday! Come party!",
+    "type": "Medical",
+    "imageURL": "https:\/\/wesll.com\/colonelfund\/events_images\/01-9674.jpeg",
+    "eventTime": "7:59 PM",
+    "address": "123 Happy Lane\nMesa AZ 85212",
+    "associatedEmail": "admin@colonelfund.com"
   },
-  "Independence Day BBQ": {
-    "eventDate": "2018-07-04",
-    "description": "Fun BBQ for 388 Dark Knights!",
-    "title": "Independence Day BBQ",
-    "fundGoal": 1000,
-    "currentFunds": 75.63,
-    "associatedMember": "JohnSmith",
-    "associatedEmail": "",
-    "type": "BBQ"
-  },
-  "Mrs. Cobain's Widow Help": {
-    "eventDate": "2018-02-05",
-    "description": "Help out a Widow.",
-    "title": "Mrs. Cobain's Widow Help",
-    "fundGoal": 3500,
-    "currentFunds": 2735.63,
-    "associatedMember": "CourtneyLove",
-    "associatedEmail": "",
-    "type": "Unknown"
-  },
-  "Liam's house fire help": {
-    "eventDate": "2018-05-20",
-    "description": "Help an unfortunate friend out.",
-    "title": "Liam's house fire help",
-    "fundGoal": 7500,
-    "currentFunds": 2735.63,
-    "associatedMember": "LiamGallagher",
-    "associatedEmail": "",
-    "type": "Emergency"
-  },
-  "Mrs. Cobain's birthday": {
-    "eventDate": "2018-05-20",
-    "description": "Support a widows birthday party.",
-    "title": "Mrs. Cobain's birthday",
-    "fundGoal": 1500,
-    "currentFunds": 25.01,
-    "associatedMember": "CourtneyLove",
-    "associatedEmail": "",
-    "type": "Party"
+  "MORE OTTERS": {
+    "title": "MORE OTTERS",
+    "associatedMember": "01",
+    "eventDate": "2018-04-20",
+    "fundGoal": "0.75",
+    "currentFunds": "0",
+    "description": "Get there quick! There\u2019s so many!",
+    "type": "Emergency",
+    "imageURL": "https:\/\/wesll.com\/colonelfund\/events_images\/01-5881.jpeg",
+    "eventTime": "8:02 PM",
+    "address": "123 Fake Street\nMesa AZ 85212",
+    "associatedEmail": "admin@colonelfund.com"
   }
 }

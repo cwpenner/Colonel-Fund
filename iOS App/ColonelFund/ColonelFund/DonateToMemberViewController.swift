@@ -24,7 +24,7 @@ class DonateToMemberViewController: BraintreeViewController {
     
     override func viewDidLoad() {
         nameLabel.text = donateMember.getFormattedFullName()
-        usernameLabel.text = donateMember.getUserName()
+        usernameLabel.text = donateMember.getUsername()
         
         BraintreeViewController(donationTextField: memberDonationTextField, donateButton: memberDonateButton, paymentDescriptionLabel: memberPaymentDescriptionLabel, selectPaymentButton: memberSelectPaymentButton, paymentIconView: memberPaymentImageView, donationType: donateMember)
 

@@ -53,7 +53,7 @@ class ViewMemberViewController: UIViewController, UITableViewDelegate, UITableVi
         associatedEventList = member.getAssociatedEvents()
         
         nameLabel.text = member.getFormattedFullName()
-        usernameLabel.text = member.getUserName()
+        usernameLabel.text = member.getUsername()
         emailTextView.text = member.getEmailAddress()
         phoneTextView.text = member.getPhoneNumber()
         
