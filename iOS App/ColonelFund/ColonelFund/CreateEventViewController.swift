@@ -138,6 +138,7 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
 //        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 //        request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = event.toFormEncoded().data(using: .utf8)
+        print("Request: \(event.toFormEncoded())")
         request.httpMethod = "POST"
 
         
@@ -289,7 +290,6 @@ class CreateEventViewController: UIViewController, UITextViewDelegate, UITextFie
             createEventDateTextField.text!.isEmpty ||
             createEventTimeTextField.text!.isEmpty ||
             createEventAddressLine1TextField.text!.isEmpty ||
-            createEventAddressLine2TextField.text!.isEmpty ||
             createEventCityTextField.text!.isEmpty ||
             createEventStateTextField.text!.isEmpty ||
             createEventZipCodeTextField.text!.isEmpty ||

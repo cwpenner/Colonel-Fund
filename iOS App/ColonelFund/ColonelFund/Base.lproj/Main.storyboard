@@ -844,7 +844,7 @@ Have a great day!</string>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Medical" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="s10-KR-OYr">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="BBQ" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="s10-KR-OYr">
                                                 <rect key="frame" x="134" y="657" width="260" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1003,7 +1003,7 @@ Have a great day!</string>
                         <outlet property="createEventTypeTextField" destination="s10-KR-OYr" id="KD6-pV-10C"/>
                         <outlet property="createEventZipCodeTextField" destination="VhM-v8-ksE" id="zvq-DX-vXn"/>
                         <outlet property="scrollView" destination="IsM-AY-hoa" id="2gS-v0-xhr"/>
-                        <segue destination="ofc-TU-SiQ" kind="show" identifier="ShowMainScreen" id="oMc-Lp-5zb"/>
+                        <segue destination="ofc-TU-SiQ" kind="presentation" identifier="ShowMainScreen" id="oMc-Lp-5zb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3S-7x-2d5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1258,7 +1258,7 @@ Mesa AZ 85212</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pv8-9V-lvi">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GOZ-gh-KCD" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="475"/>
@@ -1270,7 +1270,7 @@ Mesa AZ 85212</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jm-wX-6hZ">
-                                                <rect key="frame" x="20" y="71.666666666666671" width="94" height="21"/>
+                                                <rect key="frame" x="20" y="71.666666666666657" width="94" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1288,13 +1288,13 @@ Mesa AZ 85212</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Funds:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eqq-8o-Q3P">
-                                                <rect key="frame" x="20" y="194.66666666666666" width="123" height="21"/>
+                                                <rect key="frame" x="20" y="194.66666666666669" width="123" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="2018-07-04" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TY-TW-wwc">
-                                                <rect key="frame" x="163" y="72.333333333333329" width="231" height="20.333333333333329"/>
+                                                <rect key="frame" x="163" y="72.333333333333343" width="231" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1312,7 +1312,7 @@ Mesa AZ 85212</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="$75.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2oZ-1h-dBT">
-                                                <rect key="frame" x="163" y="195.33333333333334" width="231" height="20.333333333333343"/>
+                                                <rect key="frame" x="163" y="195.33333333333331" width="231" height="20.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -2260,8 +2260,7 @@ Mesa AZ 85212</string>
         <image name="profile" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3MX-oF-id3"/>
-        <segue reference="T7e-Nm-CR1"/>
+        <segue reference="oMc-Lp-5zb"/>
         <segue reference="d4R-8W-x6f"/>
         <segue reference="UZe-sw-oe2"/>
         <segue reference="rTK-FB-sxL"/>

@@ -303,6 +303,11 @@ public class EventCollection {
             models.add(new EventListModel(temp.getTitle(), temp.getType(), temp.getAssociatedMember(),
                     temp.getAssociatedEmail(), temp.getEventDate(), goalProgress, temp.getDescription()));
         }
+        Collections.sort(models, new Comparator<EventListModel>() {
+            public int compare(EventListModel obj1, EventListModel obj2) {
+                return obj1.getEventDate().compareToIgnoreCase(obj2.getEventDate());
+            }
+        });
         return models;
     }
 
@@ -328,6 +333,11 @@ public class EventCollection {
                     temp.getAssociatedEmail(), temp.getEventDate(), goalProgress, temp.getDescription()));
             i++;
         }
+        Collections.sort(models, new Comparator<EventListModel>() {
+            public int compare(EventListModel obj1, EventListModel obj2) {
+                return obj1.getEventDate().compareToIgnoreCase(obj2.getEventDate());
+            }
+        });
         return models;
     }
 }

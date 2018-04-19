@@ -41,7 +41,11 @@ class Address: Codable {
     }
     
     func toString() -> String {
-        return "\(addressLine1)\n\(addressLine2)\n\(city) \(state) \(zipCode)"
+        if addressLine2 != "" {
+            return "\(addressLine1)\n\(addressLine2)\n\(city) \(state) \(zipCode)"
+        } else {
+            return "\(addressLine1)\n\(city) \(state) \(zipCode)"
+        }
     }
     
     func encode(to encoder: Encoder) throws {

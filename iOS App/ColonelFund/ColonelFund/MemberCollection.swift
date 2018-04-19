@@ -104,7 +104,7 @@ class MemberCollection: NSObject, URLSessionDelegate {
         for (_, value) in memberMap {
             memberArray.append(value)
         }
-        memberArray = memberArray.sorted(by: {$0.getLastName() < $1.getLastName()})
+        memberArray = memberArray.sorted(by: {$0.getLastName().lowercased() < $1.getLastName().lowercased()})
         print("memberArray count: \(memberArray.count)")
         return memberArray
     }
