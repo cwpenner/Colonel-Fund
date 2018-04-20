@@ -200,7 +200,8 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
         filteredEvents = EventCollection.sharedInstance.eventArray.filter({(event : Event) -> Bool in
             let doesEventTypeMatch = (scope == "All") || (event.getEventType() == scope)
             let title = event.getTitle().lowercased().contains(searchText.lowercased())
-            let member = event.getAssociatedMember().lowercased().contains(searchText.lowercased())
+            let userID = event.getAssociatedMember().lowercased().contains(searchText.lowercased())
+            let member = MemberCollection.sharedInstance.getMember(userID: event.getAssociatedMember())!.getFormattedFullName().lowercased().contains(searchText.lowercased())
             let description = event.getEventDescription().lowercased().contains(searchText.lowercased())
             let type = event.getEventType().lowercased().contains(searchText.lowercased())
             let date = event.getEventDate().lowercased().contains(searchText.lowercased())
@@ -208,7 +209,7 @@ class EventListTableViewController: UITableViewController, EventCollectionProtoc
             if searchBarIsEmpty() {
                 return doesEventTypeMatch
             } else {
-                return doesEventTypeMatch && (title || member || description || type || date)
+                return doesEventTypeMatch && (title || userID || member || description || type || date)
             }
         })
         eventListTableView.reloadData()

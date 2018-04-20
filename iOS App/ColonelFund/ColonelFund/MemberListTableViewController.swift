@@ -40,7 +40,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         //Search Controller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Events"
+        searchController.searchBar.placeholder = "Search Members"
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
@@ -121,7 +121,7 @@ class MemberListTableViewController: UITableViewController, MemberCollectionProt
         do {
             let imageData = try Data(contentsOf: imageURL!)
             imageObj.image = UIImage(data: imageData)
-            imageObj.layer.cornerRadius = 50.0
+            imageObj.layer.cornerRadius = 21.0
             imageObj.layer.masksToBounds = true
         } catch {
             print("Error processing profile pic: \(error.localizedDescription)")
