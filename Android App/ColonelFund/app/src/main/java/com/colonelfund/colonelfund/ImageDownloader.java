@@ -71,8 +71,9 @@ public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
             stream = getHttpConnection(url);
             bitmap = BitmapFactory.decodeStream(stream, null, bmOptions);
             stream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.print(e);
+            return null;
         }
         return bitmap;
     }
