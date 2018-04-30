@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements ImageDownloader.I
                         } else if (id == R.id.nav_logout) {
                             AccessToken token = AccessToken.getCurrentAccessToken();
                             FirebaseAuth.getInstance().signOut();
+                            if (Auth.GoogleSignInApi.getSignInResultFromIntent(getIntent()) != null)
                             Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                                     new ResultCallback<Status>() {
                                         @Override
